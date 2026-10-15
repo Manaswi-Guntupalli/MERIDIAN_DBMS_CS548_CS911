@@ -12,7 +12,7 @@ Date: 15 October 2026. Host: Windows, Node 22.21.0. Native Docker and PostgreSQL
 | Database verification | 14/14 assertions passed; fixture transaction rolled back |
 | Real MiniLM embeddings | Passed: 384 dimensions; absence-policy similarity 0.557567 vs unrelated canteen text 0.100991 for an absence query |
 | HTTP end-to-end smoke via Next.js at localhost:5173 | Passed: rewrite, principal/teacher login, real vector create/search/update/delete, revision trigger, teacher write denial, all six SQL query catalogue entries, metadata; temporary knowledge item removed |
-| Native Docker clean install / Prisma migrate deploy | Not executed locally: Docker/PostgreSQL absent; CI workflow added for native pgvector PostgreSQL |
+| Native Docker clean install / Prisma migrate deploy | Passed in GitHub Actions against pgvector/pgvector:pg16; clean npm ci, production build, full test suite, database assertions and embedding verification all succeeded in [run 38696541448](https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911/actions/runs/38696541448) |
 | Browser visual interaction / new screenshots | Not executed: browser automation exposed no available browsers. Existing screenshot catalogue retained and labelled as prior product screenshots |
 | Python face/intelligence runtime and physical Flutter device | Not rerun in this session; existing services and API contracts retained |
 | Production dependency audit | No high/critical findings; four moderate findings in legacy react-router / ExcelJS uuid dependency chains remain. Major upgrades were not automatically applied to preserved workflows |
@@ -52,13 +52,13 @@ npm run db:verify
 
 With the seeded application running, `node scripts/smoke-dbms.mjs` performs real vector/API checks using disposable demo credentials and removes its temporary library entry. Run this only against the local demonstration environment. `npx tsx scripts/verify-embeddings.ts` from server/ verifies the semantic model independently.
 
-The GitHub Actions workflow uses a native pgvector/pgvector:pg16 service to run the clean schema setup, full test suite, database assertions, production build and real embedding check. A configured workflow is not a claimed green CI result; inspect the actual workflow run.
+The GitHub Actions workflow uses a native pgvector/pgvector:pg16 service to run the clean schema setup, full test suite, database assertions, production build and real embedding check. [The first native CI run completed successfully](https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911/actions/runs/38696541448) for implementation commit `42f2ffc5d1e70f2d02b84b23b8c78d3fdaa6c402`.
 
 ## Isolated QA runtime
 
 `npm run test:postgres` starts a local PGlite verification server with the SQL schema and extension already provisioned. Use TEST_DATABASE_URL ending in `_test`, containing `connection_limit=1&pgbouncer=true`, and TEST_SCHEMA_READY=1 to tell the suite that this isolated schema is externally provisioned. Restart this single-process test runtime between large verification runs. The regular Docker setup does not use these settings or skip migrations.
 
-PGlite's socket multiplexing differs from a native server. It cannot validate true multi-connection row-lock contention, network failure recovery or deployment migration-engine compatibility. Verify those with the native Docker configuration before production use.
+PGlite's socket multiplexing differs from a native server. Native CI verified the migration engine and application/database tests separately. True multi-connection row-lock contention, deployment network-failure recovery and production load remain outside these checks.
 
 ## Remaining evaluation actions
 
