@@ -11,7 +11,8 @@ from __future__ import annotations
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from .config import DB_PATH, ENGINE_VERSION
+from .config import ENGINE_VERSION
+from .db import connect
 from .inference.engine import run
 
 app = FastAPI(title="Meridian Intelligence Engine", version=ENGINE_VERSION)
@@ -25,7 +26,12 @@ class DashboardRequest(BaseModel):
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "engine": "meridian-intelligence", "version": ENGINE_VERSION, "db": str(DB_PATH), "dbExists": DB_PATH.exists()}
+    try:
+        with connect() as conn:
+            conn.execute("SELECT 1")
+    except Exception:
+        raise HTTPException(status_code=503, detail="PostgreSQL connection unavailable")
+    return {"status": "ok", "engine": "meridian-intelligence", "version": ENGINE_VERSION, "database": "postgresql", "dbConnected": True}
 
 
 @app.post("/intelligence/dashboard")

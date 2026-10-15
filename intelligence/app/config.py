@@ -8,10 +8,11 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # The dev database lives next to the Prisma schema. Override with MERIDIAN_DB.
-_DEFAULT_DB = Path(__file__).resolve().parents[2] / "server" / "prisma" / "meridian.db"
-DB_PATH = Path(os.environ.get("MERIDIAN_DB", str(_DEFAULT_DB)))
+load_dotenv(Path(__file__).resolve().parents[2] / "server" / ".env")
+DATABASE_URL = os.environ.get("INTELLIGENCE_DATABASE_URL") or os.environ.get("DATABASE_URL", "")
 
 # Staffing is deliberately NOT a health category: uncovered classes and
 # overloaded teachers already surface as insights/recommendations, and

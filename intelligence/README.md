@@ -7,7 +7,7 @@ recommendation it returns is computed, reproducible, and carries a trace back
 to the query window, features and model that produced it.
 
 ```
-React dashboard → Node/Express (auth + orchestration) → FastAPI engine → SQLite (read-only)
+Next.js dashboard → Node/Express (auth + orchestration) → FastAPI engine → PostgreSQL (read-only transaction)
 ```
 
 React never calls this service directly, and Node never computes intelligence.
@@ -21,9 +21,11 @@ python -m uvicorn app.main:app --port 8010
 # or from the repo root:  npm run intelligence
 ```
 
-The engine reads the dev database at `../server/prisma/meridian.db`
-(override with `MERIDIAN_DB`). It opens SQLite in read-only mode — it can
-never write.
+The engine loads DATABASE_URL from `../server/.env` unless already provided in
+the environment. INTELLIGENCE_DATABASE_URL optionally supplies a separate
+read-only PostgreSQL account. Queries run in a repeatable-read, read-only
+transaction, use PostgreSQL quoted identifiers, and filter every dataset by
+schoolId. Prisma-only URL options are removed before connecting with psycopg.
 
 ## API
 

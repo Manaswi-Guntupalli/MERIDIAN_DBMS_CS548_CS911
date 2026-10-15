@@ -85,6 +85,8 @@ flowchart TD
 
 Next.js App Router serves the web application. The existing React Router screens are retained inside a client boundary following the supported SPA migration strategy; they are not rewritten as server components. Express remains the appropriate backend allowed by the requirements. HTTP API rewrites preserve /api paths. Socket.IO uses polling through Next.js, with optional direct WebSocket origin configuration. Flutter and Python integrations retain existing contracts.
 
+The Python intelligence loader also uses PostgreSQL through psycopg, with quoted identifiers, parameterized school filters and a repeatable-read, read-only transaction. It loads server/.env by default and supports a separate INTELLIGENCE_DATABASE_URL account. Its health endpoint verifies the connection without exposing credentials.
+
 ## Screenshots and testing
 
 Existing application screenshots are in [the screenshot catalogue](../screenshots/README.md). They document the original product and must not be presented as new verification of migrated screens. See [testing evidence](TESTING.md) for executed checks and limits; follow [demo instructions](DEMO.md) to capture the new Knowledge Library and Database Lab during evaluation.
