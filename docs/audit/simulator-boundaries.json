@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "name": "Fresh one-student proxy simulation",
+      "httpStatus": 200,
+      "state": "PRESENT"
+    },
+    {
+      "name": "Cross-school expired simulator request",
+      "httpStatus": 200,
+      "beforeStatus": "ACTIVE",
+      "afterStatus": "EXPIRED",
+      "expiryMovedEarlier": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "SIMULATOR-SMALL-CLASS",
+      "severity": "MEDIUM",
+      "title": "Fresh proxy simulation marks present when the class has fewer than five students",
+      "evidence": {
+        "name": "Fresh one-student proxy simulation",
+        "httpStatus": 200,
+        "state": "PRESENT"
+      }
+    },
+    {
+      "id": "SIMULATOR-CROSS-SCHOOL",
+      "severity": "HIGH",
+      "title": "Expired-session simulator modifies a session belonging to another school",
+      "evidence": {
+        "name": "Cross-school expired simulator request",
+        "httpStatus": 200,
+        "beforeStatus": "ACTIVE",
+        "afterStatus": "EXPIRED",
+        "expiryMovedEarlier": true
+      }
+    }
+  ]
+}

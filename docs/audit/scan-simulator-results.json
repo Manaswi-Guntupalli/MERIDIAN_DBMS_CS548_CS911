@@ -1,0 +1,58 @@
+{
+  "checks": [
+    {
+      "name": "POST /api/presence/simulate/session",
+      "httpStatus": 201
+    },
+    {
+      "name": "POST /api/presence/simulate/no-face",
+      "httpStatus": 200,
+      "state": "ABSENT"
+    },
+    {
+      "name": "POST /api/presence/simulate/unknown-face",
+      "httpStatus": 200,
+      "state": "ABSENT"
+    },
+    {
+      "name": "POST /api/presence/simulate/correct-face",
+      "httpStatus": 200,
+      "state": "PRESENT"
+    },
+    {
+      "name": "POST /api/presence/simulate/qr-only",
+      "httpStatus": 200,
+      "state": "PRESENT"
+    },
+    {
+      "name": "POST /api/presence/simulate/qr-face",
+      "httpStatus": 200,
+      "state": "PRESENT"
+    },
+    {
+      "name": "POST /api/presence/simulate/proxy",
+      "httpStatus": 200,
+      "state": "PRESENT"
+    },
+    {
+      "name": "POST /api/presence/simulate/camera-offline",
+      "httpStatus": 200,
+      "state": "REJECTED"
+    },
+    {
+      "name": "POST /api/presence/simulate/close",
+      "httpStatus": 200
+    },
+    {
+      "name": "Upload scanned JPEG",
+      "httpStatus": 202
+    },
+    {
+      "name": "Scanned JPEG extraction",
+      "documentStatus": "REVIEW",
+      "fieldsRead": 7,
+      "rawTextLength": 524,
+      "error": null
+    }
+  ]
+}

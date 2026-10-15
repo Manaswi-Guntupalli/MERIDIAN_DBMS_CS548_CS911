@@ -1,0 +1,181 @@
+{
+  "checks": [
+    {
+      "name": "POST /api/knowledge",
+      "status": "PASS",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "name": "GET /api/knowledge/search?q=what%20if%20my%20child%20misses%20school",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "PUT /api/knowledge/e1c2d3e5-045f-4c38-bc32-1c97e46dfc06",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "GET /api/knowledge",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "DELETE /api/knowledge/e1c2d3e5-045f-4c38-bc32-1c97e46dfc06",
+      "status": "PASS",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "name": "DELETE /api/knowledge/e1c2d3e5-045f-4c38-bc32-1c97e46dfc06",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/knowledge/import/document/cmv9bedon000z4v2arq9yve08",
+      "status": "PASS",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "name": "DELETE /api/knowledge/4764a51b-2303-4d39-b166-b03aa2c676cd",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/notices/draft",
+      "status": "UNAVAILABLE_CONFIGURATION",
+      "expected": 200,
+      "actual": 503,
+      "error": "Unable to generate draft. Please try again.",
+      "auditNote": "OpenAI is unconfigured in this audit environment; manual notice delivery works."
+    },
+    {
+      "name": "POST /api/notices/send",
+      "status": "PASS",
+      "expected": 201,
+      "actual": 201,
+      "auditNote": "201 is the correct successful creation status; initial audit expectation of 200 was corrected."
+    },
+    {
+      "name": "GET /api/notifications",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "PATCH /api/notifications/cmv9bedvf00134v2a6ln55xlb/read",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "PATCH /api/notifications/read-all",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/notices/send",
+      "status": "PASS",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "name": "POST /api/copilot/ask",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/copilot/ask",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/copilot/ask",
+      "status": "PASS",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "name": "POST /api/users/cmv9becr0000a4v2anmh0lkyr/reset-password",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/auth/login",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "GET /api/students",
+      "status": "PASS",
+      "expected": 428,
+      "actual": 428
+    },
+    {
+      "name": "POST /api/auth/change-password",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/users/cmv9becr0000a4v2anmh0lkyr/deactivate",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/users/cmv9becr0000a4v2anmh0lkyr/activate",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/users/cmv9becr0000a4v2anmh0lkyr/unlock",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/users/cmv9becr0000a4v2anmh0lkyr/logout-all",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "name": "POST /api/documents/upload (digital PDF)",
+      "expected": 202,
+      "actual": 202,
+      "status": "PASS"
+    },
+    {
+      "name": "Asynchronous digital PDF extraction",
+      "status": "PASS",
+      "documentStatus": "REVIEW",
+      "error": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "KNOWLEDGE-PROVENANCE",
+      "severity": "MEDIUM",
+      "title": "Editing an imported or sourced entry clears its sourceId",
+      "evidence": {
+        "before": "audit-source-document",
+        "after": null,
+        "revision": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "checks": [
+    {
+      "name": "Invalid attendance date",
+      "httpStatus": 200,
+      "persistedDate": "not-a-date"
+    },
+    {
+      "name": "Duplicate admission",
+      "httpStatus": 201,
+      "count": 2
+    },
+    {
+      "name": "Seeded document assets",
+      "file": "admission-aditi.jpg",
+      "status": "REVIEW",
+      "preview": 200,
+      "original": 200
+    },
+    {
+      "name": "Seeded document assets",
+      "file": "admission-rohan.jpg",
+      "status": "VERIFIED",
+      "preview": 200,
+      "original": 200
+    },
+    {
+      "name": "Undo attendance preserves prior LEAVE",
+      "statusAfterUndo": null
+    },
+    {
+      "name": "Parent cannot receive other child private updates",
+      "privateAddressReceived": true
+    },
+    {
+      "name": "Revoked account websocket authentication",
+      "httpStatus": 401,
+      "socketConnected": true
+    },
+    {
+      "name": "Complete",
+      "findings": 5
+    }
+  ],
+  "findings": [
+    {
+      "id": "DATE-VALIDATION",
+      "severity": "MEDIUM",
+      "title": "Attendance accepts and persists an invalid date string",
+      "evidence": {
+        "httpStatus": 200,
+        "persistedDate": "not-a-date"
+      }
+    },
+    {
+      "id": "DUPLICATE-ADMISSION",
+      "severity": "MEDIUM",
+      "title": "Duplicate admission numbers are accepted in the same school",
+      "evidence": {
+        "httpStatus": 201,
+        "uniqueConstraintMissing": true
+      }
+    },
+    {
+      "id": "UNDO-ATTENDANCE",
+      "severity": "HIGH",
+      "title": "Undoing session attendance loses an existing prior LEAVE record",
+      "evidence": {
+        "before": "LEAVE",
+        "after": null
+      }
+    },
+    {
+      "id": "SOCKET-PRIVACY",
+      "severity": "HIGH",
+      "title": "School-wide realtime broadcast exposes another student private record to a parent",
+      "evidence": {
+        "event": "event:new/STUDENT_UPDATED",
+        "privateAddressReceived": true,
+        "HTTPStudentEndpointForParent": 403
+      }
+    },
+    {
+      "id": "SOCKET-REVOCATION",
+      "severity": "HIGH",
+      "title": "Deactivated/revoked JWT is rejected by HTTP but accepted by Socket.IO",
+      "evidence": {
+        "httpStatus": 401,
+        "socketConnected": true
+      }
+    }
+  ]
+}

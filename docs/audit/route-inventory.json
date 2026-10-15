@@ -1,0 +1,878 @@
+[
+  {
+    "method": "POST",
+    "path": "/api/actions/execute",
+    "source": "server/src/routes/actions.routes.ts",
+    "line": 40
+  },
+  {
+    "method": "GET",
+    "path": "/api/attendance/class/:classId",
+    "source": "server/src/routes/attendance.routes.ts",
+    "line": 19
+  },
+  {
+    "method": "POST",
+    "path": "/api/attendance/mark",
+    "source": "server/src/routes/attendance.routes.ts",
+    "line": 61
+  },
+  {
+    "method": "POST",
+    "path": "/api/attendance/bulk",
+    "source": "server/src/routes/attendance.routes.ts",
+    "line": 122
+  },
+  {
+    "method": "GET",
+    "path": "/api/attendance/trend",
+    "source": "server/src/routes/attendance.routes.ts",
+    "line": 157
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/login",
+    "source": "server/src/routes/auth.routes.ts",
+    "line": 42
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/change-password",
+    "source": "server/src/routes/auth.routes.ts",
+    "line": 105
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/logout",
+    "source": "server/src/routes/auth.routes.ts",
+    "line": 146
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/logout-all",
+    "source": "server/src/routes/auth.routes.ts",
+    "line": 155
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/impersonate/:userId",
+    "source": "server/src/routes/auth.routes.ts",
+    "line": 181
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/register",
+    "source": "server/src/routes/auth.routes.ts",
+    "line": 239
+  },
+  {
+    "method": "GET",
+    "path": "/api/auth/me",
+    "source": "server/src/routes/auth.routes.ts",
+    "line": 291
+  },
+  {
+    "method": "GET",
+    "path": "/api/classes",
+    "source": "server/src/routes/classes.routes.ts",
+    "line": 11
+  },
+  {
+    "method": "GET",
+    "path": "/api/classes/:id",
+    "source": "server/src/routes/classes.routes.ts",
+    "line": 37
+  },
+  {
+    "method": "POST",
+    "path": "/api/copilot/ask",
+    "source": "server/src/routes/copilot.routes.ts",
+    "line": 17
+  },
+  {
+    "method": "GET",
+    "path": "/api/copilot/suggestions",
+    "source": "server/src/routes/copilot.routes.ts",
+    "line": 41
+  },
+  {
+    "method": "GET",
+    "path": "/api/dashboard/teacher",
+    "source": "server/src/routes/dashboard.routes.ts",
+    "line": 58
+  },
+  {
+    "method": "GET",
+    "path": "/api/dashboard/me",
+    "source": "server/src/routes/dashboard.routes.ts",
+    "line": 98
+  },
+  {
+    "method": "GET",
+    "path": "/api/dashboard/stats",
+    "source": "server/src/routes/dashboard.routes.ts",
+    "line": 173
+  },
+  {
+    "method": "GET",
+    "path": "/api/dashboard/intelligence",
+    "source": "server/src/routes/dashboard.routes.ts",
+    "line": 255
+  },
+  {
+    "method": "GET",
+    "path": "/api/database/queries",
+    "source": "server/src/routes/database.routes.ts",
+    "line": 16
+  },
+  {
+    "method": "GET",
+    "path": "/api/database/queries/:id",
+    "source": "server/src/routes/database.routes.ts",
+    "line": 17
+  },
+  {
+    "method": "GET",
+    "path": "/api/database/features",
+    "source": "server/src/routes/database.routes.ts",
+    "line": 22
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 218
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents/stats",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 249
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents/commit-policy",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 293
+  },
+  {
+    "method": "PUT",
+    "path": "/api/documents/commit-policy",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 315
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents/templates",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 333
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents/:id",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 337
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents/:id/page/:index",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 373
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents/:id/original",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 389
+  },
+  {
+    "method": "GET",
+    "path": "/api/documents/:id/history",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 410
+  },
+  {
+    "method": "POST",
+    "path": "/api/documents/upload",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 435
+  },
+  {
+    "method": "POST",
+    "path": "/api/documents/:id/reprocess",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 496
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/documents/field/:fieldId",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 536
+  },
+  {
+    "method": "POST",
+    "path": "/api/documents/:id/commit",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 606
+  },
+  {
+    "method": "POST",
+    "path": "/api/documents/export",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 636
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/documents/:id",
+    "source": "server/src/routes/documents.routes.ts",
+    "line": 687
+  },
+  {
+    "method": "GET",
+    "path": "/api/emergency/active",
+    "source": "server/src/routes/emergency.routes.ts",
+    "line": 23
+  },
+  {
+    "method": "POST",
+    "path": "/api/emergency/trigger",
+    "source": "server/src/routes/emergency.routes.ts",
+    "line": 59
+  },
+  {
+    "method": "POST",
+    "path": "/api/emergency/resolve/:id",
+    "source": "server/src/routes/emergency.routes.ts",
+    "line": 75
+  },
+  {
+    "method": "POST",
+    "path": "/api/emergency/:id/acknowledge",
+    "source": "server/src/routes/emergency.routes.ts",
+    "line": 86
+  },
+  {
+    "method": "GET",
+    "path": "/api/emergency/:id/state",
+    "source": "server/src/routes/emergency.routes.ts",
+    "line": 105
+  },
+  {
+    "method": "GET",
+    "path": "/api/emergency/incidents",
+    "source": "server/src/routes/emergency.routes.ts",
+    "line": 114
+  },
+  {
+    "method": "POST",
+    "path": "/api/face/enroll",
+    "source": "server/src/routes/face.routes.ts",
+    "line": 27
+  },
+  {
+    "method": "GET",
+    "path": "/api/face/enrolled",
+    "source": "server/src/routes/face.routes.ts",
+    "line": 80
+  },
+  {
+    "method": "GET",
+    "path": "/api/face/status",
+    "source": "server/src/routes/face.routes.ts",
+    "line": 96
+  },
+  {
+    "method": "GET",
+    "path": "/api/face/unknown",
+    "source": "server/src/routes/face.routes.ts",
+    "line": 125
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/face/:subjectType/:subjectId",
+    "source": "server/src/routes/face.routes.ts",
+    "line": 133
+  },
+  {
+    "method": "GET",
+    "path": "/api/fees",
+    "source": "server/src/routes/fees.routes.ts",
+    "line": 16
+  },
+  {
+    "method": "POST",
+    "path": "/api/fees/pay",
+    "source": "server/src/routes/fees.routes.ts",
+    "line": 72
+  },
+  {
+    "method": "POST",
+    "path": "/api/fees/remind",
+    "source": "server/src/routes/fees.routes.ts",
+    "line": 107
+  },
+  {
+    "method": "GET",
+    "path": "/api/knowledge",
+    "source": "server/src/routes/knowledge.routes.ts",
+    "line": 12
+  },
+  {
+    "method": "GET",
+    "path": "/api/knowledge/search",
+    "source": "server/src/routes/knowledge.routes.ts",
+    "line": 16
+  },
+  {
+    "method": "POST",
+    "path": "/api/knowledge",
+    "source": "server/src/routes/knowledge.routes.ts",
+    "line": 22
+  },
+  {
+    "method": "PUT",
+    "path": "/api/knowledge/:id",
+    "source": "server/src/routes/knowledge.routes.ts",
+    "line": 23
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/knowledge/:id",
+    "source": "server/src/routes/knowledge.routes.ts",
+    "line": 26
+  },
+  {
+    "method": "POST",
+    "path": "/api/knowledge/import/:kind/:id",
+    "source": "server/src/routes/knowledge.routes.ts",
+    "line": 30
+  },
+  {
+    "method": "GET",
+    "path": "/api/notices/audiences",
+    "source": "server/src/routes/notices.routes.ts",
+    "line": 60
+  },
+  {
+    "method": "POST",
+    "path": "/api/notices/draft",
+    "source": "server/src/routes/notices.routes.ts",
+    "line": 82
+  },
+  {
+    "method": "POST",
+    "path": "/api/notices/send",
+    "source": "server/src/routes/notices.routes.ts",
+    "line": 132
+  },
+  {
+    "method": "GET",
+    "path": "/api/notifications",
+    "source": "server/src/routes/notifications.routes.ts",
+    "line": 18
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/notifications/:id/read",
+    "source": "server/src/routes/notifications.routes.ts",
+    "line": 37
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/notifications/read-all",
+    "source": "server/src/routes/notifications.routes.ts",
+    "line": 59
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/today",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 13
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/occupancy",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 14
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/trend/daily",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 15
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/trend/weekly",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 16
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/trend/monthly",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 17
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/late-students",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 18
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/frequent-absences",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 19
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/peak-entry-time",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 20
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/analytics/method-breakdown",
+    "source": "server/src/routes/presence/analytics.routes.ts",
+    "line": 21
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/events",
+    "source": "server/src/routes/presence/feed.routes.ts",
+    "line": 12
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/history/:studentId",
+    "source": "server/src/routes/presence/feed.routes.ts",
+    "line": 40
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/session/start",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 72
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/session/:id/close",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 96
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/session/active",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 106
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/session/:id",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 121
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/session",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 130
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/session/:id/summary",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 147
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/session/:id/report.pdf",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 156
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/session/:id/report.xlsx",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 169
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/session/:id/face",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 184
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/session/:id/qr",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 198
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/session/:id/manual",
+    "source": "server/src/routes/presence/session.routes.ts",
+    "line": 224
+  },
+  {
+    "method": "GET",
+    "path": "/api/presence/settings",
+    "source": "server/src/routes/presence/settings.routes.ts",
+    "line": 13
+  },
+  {
+    "method": "PUT",
+    "path": "/api/presence/settings",
+    "source": "server/src/routes/presence/settings.routes.ts",
+    "line": 26
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/session",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 60
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/correct-face",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 75
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/unknown-face",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 83
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/no-face",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 89
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/qr-only",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 94
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/qr-face",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 103
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/proxy",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 113
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/expired",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 125
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/camera-offline",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 140
+  },
+  {
+    "method": "POST",
+    "path": "/api/presence/simulate/close",
+    "source": "server/src/routes/presence/simulate.routes.ts",
+    "line": 145
+  },
+  {
+    "method": "GET",
+    "path": "/api/reports/summary",
+    "source": "server/src/routes/reports.routes.ts",
+    "line": 15
+  },
+  {
+    "method": "GET",
+    "path": "/api/school/hours",
+    "source": "server/src/routes/school.routes.ts",
+    "line": 13
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff",
+    "source": "server/src/routes/staff.routes.ts",
+    "line": 15
+  },
+  {
+    "method": "POST",
+    "path": "/api/staff/absence",
+    "source": "server/src/routes/staff.routes.ts",
+    "line": 44
+  },
+  {
+    "method": "POST",
+    "path": "/api/staff/absence/cascade",
+    "source": "server/src/routes/staff.routes.ts",
+    "line": 95
+  },
+  {
+    "method": "POST",
+    "path": "/api/staff/absence/undo",
+    "source": "server/src/routes/staff.routes.ts",
+    "line": 110
+  },
+  {
+    "method": "GET",
+    "path": "/api/students",
+    "source": "server/src/routes/students.routes.ts",
+    "line": 16
+  },
+  {
+    "method": "GET",
+    "path": "/api/students/:id",
+    "source": "server/src/routes/students.routes.ts",
+    "line": 34
+  },
+  {
+    "method": "POST",
+    "path": "/api/students",
+    "source": "server/src/routes/students.routes.ts",
+    "line": 60
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/students/:id",
+    "source": "server/src/routes/students.routes.ts",
+    "line": 84
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/students/:id",
+    "source": "server/src/routes/students.routes.ts",
+    "line": 106
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 119
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/overview",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 129
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/settings",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 172
+  },
+  {
+    "method": "PUT",
+    "path": "/api/timetable/settings",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 194
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/curriculum",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 234
+  },
+  {
+    "method": "PUT",
+    "path": "/api/timetable/curriculum/:classId",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 278
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/constraints",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 304
+  },
+  {
+    "method": "PUT",
+    "path": "/api/timetable/constraints/:teacherId",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 340
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/validate",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 366
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/generate",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 377
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/draft",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 400
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/timetable/draft",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 410
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/timetable/draft/slots/:id",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 426
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/draft/slots/:id/options",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 444
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/draft/slots/:id/lock",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 489
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/draft/approve",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 500
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/draft/publish",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 509
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/versions",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 519
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/versions/compare",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 532
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/versions/:id",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 542
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/versions/:id/rollback",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 552
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/substitute/plan",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 563
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/substitute/apply",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 590
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable/substitutions",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 601
+  },
+  {
+    "method": "POST",
+    "path": "/api/timetable/room-closure",
+    "source": "server/src/routes/timetable.routes.ts",
+    "line": 630
+  },
+  {
+    "method": "GET",
+    "path": "/api/trust/events",
+    "source": "server/src/routes/trust.routes.ts",
+    "line": 14
+  },
+  {
+    "method": "POST",
+    "path": "/api/trust/events/:id/undo",
+    "source": "server/src/routes/trust.routes.ts",
+    "line": 27
+  },
+  {
+    "method": "GET",
+    "path": "/api/trust/activity-replay",
+    "source": "server/src/routes/trust.routes.ts",
+    "line": 48
+  },
+  {
+    "method": "GET",
+    "path": "/api/trust/ai-logs",
+    "source": "server/src/routes/trust.routes.ts",
+    "line": 95
+  },
+  {
+    "method": "GET",
+    "path": "/api/twin",
+    "source": "server/src/routes/twin.routes.ts",
+    "line": 13
+  },
+  {
+    "method": "GET",
+    "path": "/api/users",
+    "source": "server/src/routes/users.routes.ts",
+    "line": 52
+  },
+  {
+    "method": "POST",
+    "path": "/api/users/:id/reset-password",
+    "source": "server/src/routes/users.routes.ts",
+    "line": 98
+  },
+  {
+    "method": "POST",
+    "path": "/api/users/:id/deactivate",
+    "source": "server/src/routes/users.routes.ts",
+    "line": 129
+  },
+  {
+    "method": "POST",
+    "path": "/api/users/:id/activate",
+    "source": "server/src/routes/users.routes.ts",
+    "line": 156
+  },
+  {
+    "method": "POST",
+    "path": "/api/users/:id/unlock",
+    "source": "server/src/routes/users.routes.ts",
+    "line": 175
+  },
+  {
+    "method": "POST",
+    "path": "/api/users/:id/logout-all",
+    "source": "server/src/routes/users.routes.ts",
+    "line": 192
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/users/:id/role",
+    "source": "server/src/routes/users.routes.ts",
+    "line": 214
+  }
+]

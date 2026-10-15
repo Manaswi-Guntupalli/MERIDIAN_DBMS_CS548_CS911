@@ -1,0 +1,656 @@
+{
+  "executedAt": "2026-10-15T08:22:34.612Z",
+  "database": "isolated PostgreSQL/pgvector on port 55433",
+  "routesInventoried": 146,
+  "checks": 106,
+  "counts": {
+    "FAIL": 2,
+    "NOT_EXERCISED": 2,
+    "PASS": 100,
+    "RESOLVED_AUDIT_CONFIGURATION": 2
+  },
+  "results": [
+    {
+      "name": "POST /api/presence/session/start",
+      "status": "PASS",
+      "httpStatus": 201
+    },
+    {
+      "name": "GET /api/students",
+      "status": "PASS",
+      "httpStatus": 401
+    },
+    {
+      "name": "GET /api/attendance/class/cmv999ghc002mmx0pbt91cid2",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/attendance/trend",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/auth/me",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/classes",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/classes/cmv999ghc002mmx0pbt91cid2",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/copilot/suggestions",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/dashboard/teacher",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/dashboard/me",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/dashboard/stats",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/dashboard/intelligence",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries/class-balances",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/features",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/documents",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/documents/stats",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/documents/commit-policy",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/documents/templates",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/documents/cmv999mru04m9mx0pgwm5wbor",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/documents/cmv999mru04m9mx0pgwm5wbor/page/0",
+      "status": "RESOLVED_AUDIT_CONFIGURATION",
+      "httpStatus": 404,
+      "expected": [
+        200
+      ],
+      "error": "Page preview not found",
+      "firstRunStatus": "FAIL",
+      "retestHttpStatus": 200,
+      "resolution": "Audit seeder and reader used different JWT-derived encryption keys. Retested with matching server/.env configuration; see additional-results.json. Not a product defect."
+    },
+    {
+      "name": "GET /api/documents/cmv999mru04m9mx0pgwm5wbor/original",
+      "status": "RESOLVED_AUDIT_CONFIGURATION",
+      "httpStatus": 404,
+      "expected": [
+        200
+      ],
+      "error": "Original file not found",
+      "firstRunStatus": "FAIL",
+      "retestHttpStatus": 200,
+      "resolution": "Audit seeder and reader used different JWT-derived encryption keys. Retested with matching server/.env configuration; see additional-results.json. Not a product defect."
+    },
+    {
+      "name": "GET /api/documents/cmv999mru04m9mx0pgwm5wbor/history",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/emergency/active",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/emergency/:id/state",
+      "status": "NOT_EXERCISED",
+      "reason": "Covered by emergency suite; no active incident in seeded audit school"
+    },
+    {
+      "name": "GET /api/emergency/incidents",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/face/enrolled",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/face/status",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/face/unknown",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/fees",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/knowledge",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/knowledge/search?q=school%20absence",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/notices/audiences",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/notifications",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/today",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/occupancy",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/trend/daily",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/trend/weekly",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/trend/monthly",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/late-students",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/frequent-absences",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/peak-entry-time",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/analytics/method-breakdown",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/events",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/history/cmv999giz004bmx0p031iusjw",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/session/active",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/session/cmv99tgxz000vnxhzy04kcu7p",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/session",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/session/cmv99tgxz000vnxhzy04kcu7p/summary",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/session/cmv99tgxz000vnxhzy04kcu7p/report.pdf",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/session/cmv99tgxz000vnxhzy04kcu7p/report.xlsx",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/settings",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/reports/summary",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/school/hours",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/staff",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/students",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/students/cmv999giz004bmx0p031iusjw",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/overview",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/settings",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/curriculum",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/constraints",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/draft",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/draft/slots/:id/options",
+      "status": "NOT_EXERCISED",
+      "reason": "Covered by timetable workflow tests; no draft slot yet"
+    },
+    {
+      "name": "GET /api/timetable/versions",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/versions/compare?a=cmv999pfp04qrmx0pyysjy203&b=cmv999pfp04qrmx0pyysjy203",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/versions/cmv999pfp04qrmx0pyysjy203",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/timetable/substitutions",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/trust/events",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/trust/activity-replay",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/trust/ai-logs",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/twin",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/users",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/students/cmv999giz004bmx0p031iusjw",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/classes/cmv999ghc002mmx0pbt91cid2",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/presence/session/active",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/presence/session/cmv99tgxz000vnxhzy04kcu7p/manual",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/fees",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/fees?status=OVERDUE",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "DELETE /api/students/cmv99tjze001hnxhzvxd2iztg",
+      "status": "FAIL",
+      "httpStatus": 500,
+      "expected": [
+        200,
+        409
+      ],
+      "error": "\nInvalid `prisma.student.delete()` invocation in\nD:\\DBMS MINI PROJECT\\MERIDIAN\\server\\src\\routes\\students.routes.ts:115:26\n\n  112 if (!existing) throw notFound('Student not found');\n  113 await prisma.attendance.deleteMany({ where: { studentId: existing.id } });\n  114 await prisma.studentParent.deleteMany({ where: { studentId: existing.id } });\n\u2192 115 await prisma.student.delete(\nError in connector: Error querying the database: unexpected message from server"
+    },
+    {
+      "name": "POST /api/students",
+      "status": "PASS",
+      "httpStatus": 201
+    },
+    {
+      "name": "PATCH /api/students/cmv99tk1g001nnxhzbw3juulw",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "DELETE /api/students/cmv99tk1g001nnxhzbw3juulw",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/students",
+      "status": "PASS",
+      "httpStatus": 400
+    },
+    {
+      "name": "POST /api/students",
+      "status": "PASS",
+      "httpStatus": 403
+    },
+    {
+      "name": "POST /api/students",
+      "status": "FAIL",
+      "httpStatus": 201,
+      "expected": [
+        400,
+        409
+      ]
+    },
+    {
+      "name": "POST /api/attendance/mark",
+      "status": "PASS",
+      "httpStatus": 400
+    },
+    {
+      "name": "POST /api/auth/login",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/auth/me",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/auth/logout-all",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/auth/me",
+      "status": "PASS",
+      "httpStatus": 401
+    },
+    {
+      "name": "POST /api/auth/login",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/auth/change-password",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/auth/me",
+      "status": "PASS",
+      "httpStatus": 401
+    },
+    {
+      "name": "POST /api/documents/export",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/documents/export",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/documents/export",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/fees/pay",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "POST /api/fees/pay",
+      "status": "PASS",
+      "httpStatus": 400
+    },
+    {
+      "name": "GET /api/database/queries",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries/fee-summary",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries/class-balances",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries/above-average",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries/unpaid-students",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries/attendance-cte",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "name": "GET /api/database/queries/weekly-recursive",
+      "status": "PASS",
+      "httpStatus": 200
+    }
+  ],
+  "findings": [
+    {
+      "id": "SECURITY-STUDENT",
+      "severity": "HIGH",
+      "title": "Staff-readable response contains account-security fields",
+      "evidence": {
+        "path": "/api/students/cmv999giz004bmx0p031iusjw",
+        "exposedFieldPaths": [
+          "student.parents.0.parent.user.password",
+          "student.parents.0.parent.user.tokenVersion",
+          "student.parents.0.parent.user.failedLogins",
+          "student.parents.0.parent.user.lastLoginIp"
+        ],
+        "values": "Intentionally omitted"
+      }
+    },
+    {
+      "id": "SECURITY-CLASS",
+      "severity": "HIGH",
+      "title": "Staff-readable response contains account-security fields",
+      "evidence": {
+        "path": "/api/classes/cmv999ghc002mmx0pbt91cid2",
+        "exposedFieldPaths": [
+          "class.classTeacher.user.password",
+          "class.classTeacher.user.tokenVersion",
+          "class.classTeacher.user.failedLogins",
+          "class.classTeacher.user.lastLoginIp"
+        ],
+        "values": "Intentionally omitted"
+      }
+    },
+    {
+      "id": "SESSION-ROSTER",
+      "severity": "HIGH",
+      "title": "Parent can read another class live attendance roster",
+      "evidence": {
+        "route": "/api/presence/session/active",
+        "studentCount": 1,
+        "qrTokenHidden": true
+      }
+    },
+    {
+      "id": "TEACHER-SCOPE",
+      "severity": "HIGH",
+      "title": "Teacher can manually mark a class they do not lead",
+      "evidence": {
+        "route": "POST /api/presence/session/:id/manual",
+        "status": 200,
+        "state": "PRESENT"
+      }
+    },
+    {
+      "id": "FEE-FILTER",
+      "severity": "MEDIUM",
+      "title": "Overdue filter omits a genuinely overdue pending fee",
+      "evidence": {
+        "allListFlagsOverdue": true,
+        "overdueTabContainsFee": false
+      }
+    },
+    {
+      "id": "DELETE-PARTIAL",
+      "severity": "HIGH",
+      "title": "Deleting a student with fees fails after deleting attendance",
+      "evidence": {
+        "status": 500,
+        "studentStillExists": true,
+        "attendanceRowsAfter": 0
+      }
+    },
+    {
+      "id": "DB-VALIDATION",
+      "severity": "MEDIUM",
+      "title": "Student database accepts negative roll number",
+      "evidence": {
+        "rollNo": -5,
+        "apiRejectsNegative": true
+      }
+    },
+    {
+      "id": "DB-CROSS-SCHOOL",
+      "severity": "HIGH",
+      "title": "Class foreign key accepts a teacher belonging to another school",
+      "evidence": {
+        "reference": "Class.classTeacherId",
+        "schoolScopedCompositeForeignKeyMissing": true
+      }
+    }
+  ]
+}

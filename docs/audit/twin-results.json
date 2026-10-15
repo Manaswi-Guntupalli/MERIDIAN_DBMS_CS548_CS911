@@ -1,0 +1,10 @@
+{
+  "scenario": "Sunday, 18 October 2026 at 10:00 IST",
+  "httpStatus": 200,
+  "returnedDay": "Mon",
+  "returnedPeriod": 3,
+  "roomsReportedOccupied": 8,
+  "powerValues": [
+    "normal"
+  ]
+}

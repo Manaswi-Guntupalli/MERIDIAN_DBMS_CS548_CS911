@@ -1,5 +1,7 @@
 # Meridian
 
+Latest verification: [complete feature and rubric audit](docs/audit/COMPLETE_AUDIT.md). It records 17 reproduced defect categories, working features, test/build results, and remaining guideline gaps. A passing build/test suite does not mean the project is fully verified.
+
 **DBMS Level 3 edition:** Next.js + Express + PostgreSQL with pgvector. See the [50-mark rubric mapping](docs/dbms/RUBRIC.md), [report](docs/dbms/REPORT.md), [ER diagram and dictionary](docs/dbms/SCHEMA.md), [demo guide](docs/dbms/DEMO.md), and [testing evidence](docs/dbms/TESTING.md).
 
 The original Meridian features and Flutter companion are retained. New **Knowledge Library** and **Database Lab** pages demonstrate semantic retrieval, vector CRUD, SQL functions/triggers/CTEs/views/indexes and database-enforced administrator/teacher access.

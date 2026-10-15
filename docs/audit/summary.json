@@ -1,0 +1,38 @@
+{
+  "auditDate": "2026-10-15",
+  "auditedCommit": "5e20489",
+  "applicationCodeChanged": false,
+  "routesInventoried": 146,
+  "routeMethods": {
+    "GET": 71,
+    "POST": 58,
+    "PUT": 6,
+    "PATCH": 6,
+    "DELETE": 5
+  },
+  "automatedTests": {
+    "server": 118,
+    "intelligence": 181,
+    "flutter": 36,
+    "total": 335,
+    "failed": 0
+  },
+  "builds": {
+    "serverAndNextJs": "PASS",
+    "androidDebugApk": "PASS",
+    "flutterAnalyze": "PASS"
+  },
+  "databaseAssertions": {
+    "passed": 14,
+    "runtime": "Isolated PGlite PostgreSQL + pgvector on port 55433"
+  },
+  "reproducedDefectCategories": 17,
+  "severity": {
+    "high": 9,
+    "medium": 8
+  },
+  "additionalSourceOrDocumentationGaps": 2,
+  "browserUiAutomation": "Unavailable: no connected browser and native Computer Use pipe unavailable",
+  "physicalMobileDevice": "Unavailable: no Android/iOS device connected",
+  "rubricConclusion": "PARTIAL: technical features are substantially present; authorization, integrity, ER completeness, contribution evidence and fresh screenshots remain incomplete."
+}

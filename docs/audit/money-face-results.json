@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "name": "Fractional fee payment",
+      "amount": 0.1,
+      "httpStatus": 200,
+      "paid": 0.1
+    },
+    {
+      "name": "Fractional fee payment",
+      "amount": 0.2,
+      "httpStatus": 400,
+      "error": "Amount exceeds outstanding balance"
+    },
+    {
+      "name": "Real face service blank frame",
+      "httpStatus": 200,
+      "ok": true,
+      "found": false
+    }
+  ],
+  "findings": [
+    {
+      "id": "FRACTIONAL-PAYMENT",
+      "severity": "MEDIUM",
+      "title": "Floating-point fee arithmetic rejects the exact decimal remaining balance",
+      "evidence": {
+        "fee": 0.3,
+        "firstPayment": 0.1,
+        "secondPayment": 0.2,
+        "status": 400,
+        "error": "Amount exceeds outstanding balance"
+      }
+    }
+  ]
+}
