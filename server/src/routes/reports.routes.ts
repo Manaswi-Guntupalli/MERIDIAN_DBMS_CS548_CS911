@@ -1,0 +1,123 @@
+import { Router } from 'express';
+import { prisma } from '../lib/prisma.js';
+import { asyncHandler } from '../lib/errors.js';
+import { authenticate, authorize } from '../middleware/auth.js';
+import { chatText } from '../lib/openai.js';
+import { getDashboardIntelligence } from '../services/intelligence.js';
+import { logAI } from '../services/trustLedger.js';
+import { STAFF_ADMIN } from '../utils/constants.js';
+
+const router = Router();
+router.use(authenticate);
+router.use(authorize(...STAFF_ADMIN));
+
+// One-click AI report: assembles real figures, adds a narrative + recommendations.
+router.get(
+  '/summary',
+  asyncHandler(async (req, res) => {
+    const schoolId = req.user!.schoolId;
+    const t = new Date().toISOString().slice(0, 10);
+    const [students, teachers, classes, todayAtt, fees, docs] = await Promise.all([
+      prisma.student.count({ where: { schoolId } }),
+      prisma.teacher.findMany({ where: { schoolId }, include: { user: true } }),
+      prisma.class.count({ where: { schoolId } }),
+      prisma.attendance.findMany({ where: { schoolId, date: t } }),
+      prisma.fee.findMany({ where: { schoolId } }),
+      prisma.document.count({ where: { schoolId } }),
+    ]);
+    const present = todayAtt.filter((a) => a.status === 'PRESENT' || a.status === 'LATE').length;
+    // Null, not 0, when nobody has been marked yet: an unmeasured rate is not
+    // a 0% rate, and reporting it as one made the summary state the school had
+    // "a concerning attendance rate of 0%" before roll-call had even started.
+    const attendanceRate = todayAtt.length
+      ? Math.round((present / todayAtt.length) * 100)
+      : null;
+    const outstanding = fees.reduce((a, f) => a + (f.amount - f.paid), 0);
+    const collected = fees.reduce((a, f) => a + f.paid, 0);
+    const overloaded = teachers.filter((tt) => tt.weeklyHours >= tt.maxHours - 1).map((tt) => tt.user.name);
+
+    // Forecast highlights come from the Python engine — intervals, models, and
+    // an explicit offline state instead of locally invented numbers.
+    const intel = await getDashboardIntelligence(schoolId);
+    const preds: { label: string; note: string }[] = [];
+    if (intel.engine === 'online' && intel.payload) {
+      const f = (intel.payload as any).forecasts ?? {};
+      const fmtPct = (v: number) => `${Math.round(v * 100)}%`;
+      if (f.attendanceTomorrow?.available)
+        preds.push({
+          label: `Attendance tomorrow ≈ ${fmtPct(f.attendanceTomorrow.prediction)}${f.attendanceTomorrow.interval80 ? ` (80% interval ${fmtPct(f.attendanceTomorrow.interval80[0])}–${fmtPct(f.attendanceTomorrow.interval80[1])})` : ''}`,
+          note: f.attendanceTomorrow.model ?? 'engine forecast',
+        });
+      if (f.substituteDemand?.available)
+        preds.push({ label: `Substitute demand ≈ ${f.substituteDemand.prediction}/day`, note: f.substituteDemand.model ?? 'engine forecast' });
+      if (f.feeCollections?.available)
+        preds.push({ label: `Expected fee recovery ≈ ₹${Math.round(f.feeCollections.prediction).toLocaleString('en-IN')}`, note: f.feeCollections.model ?? 'engine forecast' });
+    }
+
+    const metrics = {
+      students,
+      teachers: teachers.length,
+      classes,
+      attendanceRate,
+      attendanceMarkedToday: todayAtt.length,
+      collected: Math.round(collected),
+      outstanding: Math.round(outstanding),
+      documents: docs,
+      overloaded,
+    };
+
+    // Narrative — OpenAI if available, else a deterministic template.
+    let narrative = await chatText(
+      // The currency has to be stated: given bare numbers the model rendered
+      // this Indian school's fees as US dollars.
+      'You are a school operations analyst. Write a crisp 3-4 sentence executive summary from the JSON metrics. ' +
+        'No markdown headers. All money figures are Indian rupees — always write them with ₹ and Indian digit grouping (e.g. ₹3,52,925), never $. ' +
+        'If attendanceRate is null, roll-call has not been taken yet today — say attendance is not yet marked, never report it as 0%.',
+      JSON.stringify(metrics),
+    );
+    if (!narrative) {
+      narrative =
+        `The school currently serves ${students} students across ${classes} classes with ${teachers.length} staff. ` +
+        (attendanceRate === null
+          ? "Today's roll-call has not been taken yet, so no attendance rate is available. "
+          : `Today's attendance stands at ${attendanceRate}%. `) +
+        `Fee collection has reached ₹${Math.round(collected).toLocaleString('en-IN')} with ₹${Math.round(outstanding).toLocaleString('en-IN')} outstanding. ` +
+        (overloaded.length
+          ? `${overloaded.length} staff member(s) are near their weekly hour cap and should be monitored.`
+          : `Staff workload is balanced within weekly caps.`);
+    }
+
+    const recommendations = [
+      outstanding > 0 ? `Draft fee reminders for outstanding ₹${Math.round(outstanding).toLocaleString('en-IN')}.` : 'Fee collection is on track.',
+      overloaded.length ? `Rebalance load for: ${overloaded.join(', ')}.` : 'Teacher workload is balanced.',
+      attendanceRate === null
+        ? 'Take today’s roll-call — no attendance has been marked yet.'
+        : attendanceRate < 90
+          ? 'Investigate attendance dip using Foresight drivers.'
+          : 'Attendance is healthy.',
+    ];
+
+    await logAI({
+      schoolId,
+      engine: 'COPILOT',
+      action: 'Generated operations report',
+      reason: 'Assembled from live metrics + intelligence-engine forecasts',
+      confidence: 0.85,
+      output: { metrics },
+      actorId: req.user!.sub,
+      reversible: false,
+    });
+
+    res.json({
+      generatedAt: new Date().toISOString(),
+      title: 'Operations Summary',
+      metrics,
+      predictions: preds,
+      engineOnline: intel.engine === 'online',
+      narrative,
+      recommendations,
+    });
+  }),
+);
+
+export default router;

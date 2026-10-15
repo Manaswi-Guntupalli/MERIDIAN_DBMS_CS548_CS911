@@ -1,0 +1,856 @@
+// Meridian — trust-first school operating system.
+// Provider is SQLite for zero-setup local dev; swap to "postgresql" for prod
+// (see docker-compose.yml). Schema stays portable: no native enums / scalar
+// lists — we use String constants + String so it runs identically on both.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────  TENANT  ─────────────────────────────
+model School {
+  id        String   @id @default(cuid())
+  name      String
+  code      String   @unique
+  address   String?
+  phone     String?
+  logoUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users         User[]
+  teachers      Teacher[]
+  students      Student[]
+  parents       Parent[]
+  classes       Class[]
+  subjects      Subject[]
+  buildings     Building[]
+  attendance    Attendance[]
+  documents     Document[]
+  timetables    Timetable[]
+  academicConfig AcademicConfig?
+  fees          Fee[]
+  notifications Notification[]
+  events        Event[]
+  auditLogs     AuditLog[]
+  aiLogs        AILog[]
+  predictions   Prediction[]
+  emergencies   EmergencyIncident[]
+  settings      Setting[]
+  attendanceSessions AttendanceSession[]
+  attendanceEvents   AttendanceEvent[]
+  faceEnrollments    FaceEnrollment[]
+}
+
+// ─────────────────────────────  AUTH  ──────────────────────────────
+// role ∈ SUPER_ADMIN | ADMIN | PRINCIPAL | TEACHER | STUDENT | PARENT
+model User {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  email     String   @unique
+  password  String
+  name      String
+  role      String
+  phone     String?
+  avatarUrl String?
+  active    Boolean  @default(true)
+  // ── Account security ──
+  // Temp-credential flow: accounts provisioned by Lumen/admins start with a
+  // temporary password and must set their own before anything else works.
+  mustChangePassword Boolean @default(false)
+  // Bumping this invalidates every outstanding JWT for the user — the
+  // mechanism behind "log out all devices", deactivation and password resets.
+  tokenVersion Int @default(0)
+  // Brute-force lockout state.
+  failedLogins Int       @default(0)
+  lockedUntil  DateTime?
+  lastLoginIp  String?
+  lastLogin DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teacher   Teacher?
+  student   Student?
+  parent    Parent?
+
+  notifications Notification[]
+  auditLogs     AuditLog[]
+  aiLogs        AILog[]
+}
+
+model Teacher {
+  id            String   @id @default(cuid())
+  schoolId      String
+  school        School   @relation(fields: [schoolId], references: [id])
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id])
+  employeeId    String
+  department    String
+  qualification String?
+  maxHours      Int      @default(24)      // weekly cap (Kairos hard constraint)
+  weeklyHours   Int      @default(0)       // current assigned load
+  subjectsString  String?                      // qualified subject codes
+  // ── Kairos scheduling constraints (all hard unless noted) ──
+  maxDailyPeriods Int    @default(6)       // most periods allowed in one day
+  maxConsecutive  Int    @default(3)       // longest back-to-back run allowed
+  partTime        Boolean @default(false)  // shown in planner; caps still rule
+  unavailableString   String?              // JSON [{day,period}] — never schedule
+  preferredFreeString String?              // JSON [{day,period}] — soft preference
+  faceEnrolled  Boolean  @default(false)
+  faceCount     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  classesLed  Class[]         @relation("ClassTeacher")
+  slots       TimetableSlot[]
+  substitutes Substitution[]  @relation("SubTeacher")
+  absences    StaffAbsence[]
+  attendanceSessions AttendanceSession[]
+}
+
+model Student {
+  id          String   @id @default(cuid())
+  schoolId    String
+  school      School   @relation(fields: [schoolId], references: [id])
+  userId      String?  @unique
+  user        User?    @relation(fields: [userId], references: [id])
+  admissionNo String
+  rollNo      Int
+  name        String
+  gender      String?
+  dob         DateTime?
+  bloodGroup  String?
+  photoUrl    String?
+  // Contact block — first-class columns so an admission commit loses nothing.
+  // These are exactly what the front office looks up in an emergency, so they
+  // belong on the record, not buried in a document's extraction JSON.
+  email            String?
+  phone            String?
+  address          String?
+  pincode          String?
+  guardianName     String?
+  fatherName       String?
+  motherName       String?
+  emergencyContact String?
+  classId     String?
+  class       Class?   @relation(fields: [classId], references: [id])
+  active      Boolean  @default(true)    // false = withdrawn/transferred — Presence rejects scans
+  faceEnrolled Boolean @default(false)   // has enrolled face embeddings
+  faceCount    Int     @default(0)       // number of stored embeddings
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  attendance       Attendance[]
+  fees             Fee[]
+  parents          StudentParent[]
+  attendanceEvents        AttendanceEvent[]
+  attendanceVerifications AttendanceVerification[]
+}
+
+model Parent {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  relation  String   @default("Guardian")
+  createdAt DateTime @default(now())
+
+  children StudentParent[]
+}
+
+model StudentParent {
+  id        String  @id @default(cuid())
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+  parentId  String
+  parent    Parent  @relation(fields: [parentId], references: [id])
+
+  @@unique([studentId, parentId])
+}
+
+// ─────────────────────────  ACADEMIC STRUCTURE  ─────────────────────
+model Class {
+  id             String   @id @default(cuid())
+  schoolId       String
+  school         School   @relation(fields: [schoolId], references: [id])
+  grade          Int
+  section        String
+  name           String                       // e.g. "9B"
+  roomId         String?
+  room           Room?    @relation(fields: [roomId], references: [id])
+  classTeacherId String?
+  classTeacher   Teacher? @relation("ClassTeacher", fields: [classTeacherId], references: [id])
+  createdAt      DateTime @default(now())
+
+  students   Student[]
+  attendance Attendance[]
+  slots      TimetableSlot[]
+  subjectPlans ClassSubjectPlan[]
+  attendanceSessions AttendanceSession[]
+
+  @@unique([schoolId, grade, section])
+}
+
+model Subject {
+  id         String  @id @default(cuid())
+  schoolId   String
+  school     School  @relation(fields: [schoolId], references: [id])
+  code       String
+  name       String
+  color      String  @default("#0E7C6B")
+  weeklyLoad Int     @default(5)
+  requiresLab Boolean @default(false)
+  cognitiveLoad Int   @default(3)            // 1..5, used by Kairos soft spread
+
+  slots TimetableSlot[]
+  classPlans ClassSubjectPlan[]
+  attendanceSessions AttendanceSession[]
+
+  @@unique([schoolId, code])
+}
+
+// ───────────────────────────  DIGITAL TWIN  ─────────────────────────
+model Building {
+  id       String @id @default(cuid())
+  schoolId String
+  school   School @relation(fields: [schoolId], references: [id])
+  name     String
+  floors   Int    @default(2)
+  x        Float  @default(0)                 // map layout
+  y        Float  @default(0)
+
+  rooms Room[]
+}
+
+// type ∈ CLASSROOM | LAB | OFFICE | HALL | LIBRARY
+model Room {
+  id          String  @id @default(cuid())
+  buildingId  String
+  building    Building @relation(fields: [buildingId], references: [id])
+  name        String
+  type        String  @default("CLASSROOM")
+  capacity    Int     @default(40)
+  floor       Int     @default(0)
+  hasProjector Boolean @default(false)
+  unavailableString String?                 // JSON [{day,period}] — maintenance etc.
+
+  classes Class[]
+  slots   TimetableSlot[]
+}
+
+// ──────────────────────────────  ATTENDANCE  ────────────────────────
+// status ∈ PRESENT | ABSENT | LATE | LEAVE ; source ∈ MANUAL | RFID | CV
+model Attendance {
+  id         String   @id @default(cuid())
+  schoolId   String
+  school     School   @relation(fields: [schoolId], references: [id])
+  studentId  String
+  student    Student  @relation(fields: [studentId], references: [id])
+  classId    String
+  class      Class    @relation(fields: [classId], references: [id])
+  date       String                            // YYYY-MM-DD
+  status     String   @default("PRESENT")
+  source     String   @default("MANUAL")
+  confidence Float?                             // for CV
+  markedById String?
+  timestamp  DateTime @default(now())
+
+  @@unique([studentId, date])
+  @@index([schoolId, date])
+}
+
+// ─────────────────────  PRESENCE · ATTENDANCE SESSIONS  ─────────────
+// A teacher opens attendance for a class period. Face recognition is the
+// PRIMARY identity method; the session QR is the verification / fallback.
+// No attendance can be marked outside an ACTIVE, unexpired session — this is
+// the anti-replay boundary. status ∈ ACTIVE | CLOSED | EXPIRED
+model AttendanceSession {
+  id          String    @id @default(cuid())
+  schoolId    String
+  school      School    @relation(fields: [schoolId], references: [id])
+  classId     String
+  class       Class     @relation(fields: [classId], references: [id])
+  teacherId   String
+  teacher     Teacher   @relation(fields: [teacherId], references: [id])
+  subjectId   String?
+  subject     Subject?  @relation(fields: [subjectId], references: [id])
+  date        String                              // YYYY-MM-DD (local)
+  status      String    @default("ACTIVE")
+  startTime   DateTime  @default(now())
+  expiryTime  DateTime                            // auto-expires after this instant
+  closedAt    DateTime?
+  // Cryptographically random per-session token. The session QR encodes only
+  // { sessionId, token } and dies with the session, so a photographed QR
+  // can never be replayed against a later session.
+  sessionToken String   @unique
+  createdBy    String?                            // teacher userId (for audit)
+
+  verifications AttendanceVerification[]
+  events        AttendanceEvent[]
+
+  @@index([schoolId, status])
+  @@index([classId, date])
+}
+
+// One row per (session, student): the attendance STATE MACHINE.
+//   PENDING → FACE_VERIFIED → PRESENT              (face is sufficient)
+//   PENDING → QR_VERIFIED  → FACE_VERIFIED → PRESENT
+//   QR_VERIFIED at expiry → UNVERIFIED_QR          (QR alone is NOT present)
+//   QR says A but face matches B → PROXY_ATTEMPT   (no attendance, alert)
+// state ∈ PENDING | QR_VERIFIED | FACE_VERIFIED | PRESENT | PROXY_ATTEMPT | UNVERIFIED_QR | ABSENT
+model AttendanceVerification {
+  id          String   @id @default(cuid())
+  sessionId   String
+  session     AttendanceSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id])
+  state       String   @default("PENDING")
+  qrVerifiedAt    DateTime?
+  faceVerifiedAt  DateTime?
+  faceConfidence  Float?                           // cosine similarity of the winning 1:1 verify
+  faceDistance    Float?                           // 1 - similarity, the raw distance
+  threshold       Float?                           // the pass bar actually applied
+  markedPresentAt DateTime?
+  // Anti-proxy provenance: who the QR claimed vs who the face actually matched.
+  proxyClaimedStudentId String?
+  proxyMatchedName      String?
+  reason      String?
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+
+  @@unique([sessionId, studentId])
+  @@index([sessionId, state])
+}
+
+// The append-only raw attendance log — every identity resolution (face, QR,
+// manual) and every notable outcome writes exactly this shape via
+// presence/engine.ts. `Attendance` (daily) stays the materialized view every
+// other engine reads, untouched.
+// source ∈ FACE | QR | MANUAL
+// direction ∈ ENTRY | EXIT | REENTRY | UNKNOWN
+// verificationStatus ∈ VERIFIED | LATE | DUPLICATE | PROXY | UNVERIFIED_QR | REJECTED
+model AttendanceEvent {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  studentId String?
+  student   Student? @relation(fields: [studentId], references: [id])
+  sessionId String?
+  session   AttendanceSession? @relation(fields: [sessionId], references: [id])
+  verificationId String?
+  source    String
+  timestamp DateTime @default(now())
+  direction String   @default("ENTRY")
+  verificationStatus String @default("VERIFIED")
+  faceConfidence Float?
+  faceDistance   Float?
+  late        Boolean @default(false)
+  lateMinutes Int?
+  createdBy   String?                              // userId, when staff-originated
+  notes       String?
+
+  @@index([schoolId, timestamp])
+  @@index([studentId, timestamp])
+  @@index([sessionId])
+}
+
+// ──────────────────────────  LUMEN (DOCUMENTS)  ─────────────────────
+// status ∈ PROCESSING | REVIEW | VERIFIED | REJECTED
+model Document {
+  id          String   @id @default(cuid())
+  schoolId    String
+  school      School   @relation(fields: [schoolId], references: [id])
+  // Detected by the classifier — see services/lumen/templates.ts for the registry.
+  type        String
+  typeConfidence Float @default(0)
+  fileName    String
+  mimeType    String   @default("application/pdf")
+  sizeBytes   Int      @default(0)
+  pageCount   Int      @default(1)
+  // QUEUED | PROCESSING | REVIEW | VERIFIED | COMMITTED | FAILED
+  status      String   @default("QUEUED")
+  overallConfidence Float @default(0)
+  processingMs Int     @default(0)
+  // JSON: per-stage timings + decisions, so a human can audit *how* we read it.
+  pipelineString String?
+  rawText     String?
+  errorMessage String?
+  batchId     String?
+  correctionCount Int  @default(0)
+  committedAt DateTime?
+  committedKind String?                        // STUDENT | TEACHER
+  committedRefId String?
+  uploadedById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  fields    ExtractedField[]
+  pages     DocumentPage[]
+  insights  DocumentInsight[]
+  activity  DocumentActivity[]
+
+  @@index([schoolId, status])
+  @@index([batchId])
+}
+
+// The document's own life story: who uploaded it, how it was processed, every
+// correction a human made, and where it ended up. This is what the Processing
+// History timeline renders — a per-document audit trail, append-only.
+model DocumentActivity {
+  id         String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  // UPLOADED | PROCESSED | FAILED | REPROCESSED | FIELD_CORRECTED |
+  // FIELD_CONFIRMED | VERIFIED | COMMITTED
+  kind       String
+  actorId    String?
+  actorName  String?
+  detailString String?                          // JSON: kind-specific facts
+  createdAt  DateTime @default(now())
+
+  @@index([documentId, createdAt])
+}
+
+// One row per physical page: how we read it, and the words we found (provenance).
+model DocumentPage {
+  id         String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  index      Int
+  width      Int
+  height     Int
+  source     String                            // TEXT_LAYER | OCR
+  rotation   Int      @default(0)              // 0 | 90 | 180 | 270 applied
+  skewDeg    Float    @default(0)              // deskew angle applied
+  ocrConfidence Float @default(0)
+  quality    String?                           // JSON: blur/contrast/resolution metrics
+  wordsString String?                          // JSON word boxes — the audit trail
+
+  @@unique([documentId, index])
+}
+
+// Post-processing findings: duplicates, contradictions, missing mandatory fields.
+model DocumentInsight {
+  id         String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  kind       String                            // DUPLICATE | INCONSISTENCY | MISSING | CORRECTION | QUALITY
+  severity   String   @default("WARNING")      // INFO | WARNING | CRITICAL
+  message    String
+  detailString String?
+  createdAt  DateTime @default(now())
+}
+
+model ExtractedField {
+  id         String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  key        String                            // ERP field name
+  label      String
+  value      String                            // final value (normalised + corrected)
+  rawValue   String?                           // exactly what the engine read, before repair
+  confidence Float                             // composite score — see lumen/confidence.ts
+  ocrConfidence Float @default(0)              // engine-reported character confidence
+  page       Int      @default(0)
+  // pixel-level provenance — the crop the value was read from (normalised 0..1)
+  cropX      Float
+  cropY      Float
+  cropW      Float
+  cropH      Float
+  status     String   @default("AUTO")          // AUTO | REVIEW | CONFIRMED | MISSING
+  source     String   @default("OCR")           // TEXT_LAYER | OCR | REGEX | AI | DERIVED
+  valid      Boolean  @default(true)
+  validationMessage String?
+  corrected  Boolean  @default(false)           // normaliser or AI repaired the raw read
+  // TEMPLATE property: this document type normally carries this field.
+  // Whether the ERP requires it before commit is a separate, school-configured
+  // policy (Setting: lumen.commitPolicy.*) — never this flag.
+  // @map keeps the original column name — code renamed, zero data migration.
+  expected   Boolean  @default(false) @map("required")
+
+  @@index([documentId, status])
+}
+
+// ──────────────────────────  KAIROS (TIMETABLE)  ────────────────────
+// The school's operating calendar — working days, timings, breaks, blocked
+// cells (assembly), holidays and exam weeks. One row per school; the solver
+// derives its grid from this, falling back to sane defaults when absent.
+model AcademicConfig {
+  id             String  @id @default(cuid())
+  schoolId       String  @unique
+  school         School  @relation(fields: [schoolId], references: [id])
+  academicYear   String  @default("2026-27")
+  termsString    String?                        // JSON [{name,start,end}]
+  workingDays    Int     @default(5)            // Mon..Mon+n-1
+  dayStart       String  @default("08:00")
+  periodMinutes  Int     @default(45)
+  periodsPerDay  Int     @default(8)
+  breaksString   String?                        // JSON [{after,name,minutes}]
+  blockedString  String?                        // JSON [{day,period,reason}] — assembly etc.
+  holidaysString String?                        // JSON ["YYYY-MM-DD"]
+  examWeeksString String?                       // JSON [{name,start,end}]
+  updatedAt      DateTime @default(now()) @updatedAt
+}
+
+// Curriculum: which subjects a class actually studies, and how often.
+// This is what drives generation — Kairos never assumes every subject
+// belongs to every class.
+model ClassSubjectPlan {
+  id            String  @id @default(cuid())
+  classId       String
+  class         Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
+  subjectId     String
+  subject       Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  weeklyPeriods Int     @default(4)
+  requiresLab   Boolean @default(false)
+  elective      Boolean @default(false)
+
+  @@unique([classId, subjectId])
+}
+
+// status ∈ DRAFT | APPROVED | PUBLISHED | ARCHIVED. Exactly one row per
+// school is (active=true, status=PUBLISHED) — everything downstream
+// (dashboards, twin, attendance) reads that one. Publishing is transactional:
+// the old version is archived and the new one activated atomically, so the
+// school is never left without a live timetable.
+model Timetable {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  name      String
+  status    String   @default("DRAFT")
+  version   Int      @default(0)               // assigned at publish time
+  active    Boolean  @default(false)
+  solveMs   Int      @default(0)
+  score     Float    @default(0)
+  healthString String?                         // JSON {breakdown,warnings,recommendations,unplaced}
+  generatedByName String?
+  approvedByName  String?
+  approvedAt      DateTime?
+  publishedByName String?
+  publishedAt     DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  slots TimetableSlot[]
+
+  @@index([schoolId, status])
+}
+
+model TimetableSlot {
+  id          String   @id @default(cuid())
+  timetableId String
+  timetable   Timetable @relation(fields: [timetableId], references: [id], onDelete: Cascade)
+  day         Int                                // 0=Mon .. workingDays-1
+  period      Int                                // 0-indexed
+  classId     String
+  class       Class    @relation(fields: [classId], references: [id])
+  subjectId   String
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+  teacherId   String
+  teacher     Teacher  @relation(fields: [teacherId], references: [id])
+  roomId      String?
+  room        Room?    @relation(fields: [roomId], references: [id])
+  locked      Boolean  @default(false)           // survives regeneration
+  explainString String?                          // JSON SlotExplanation — the "Why?"
+
+  // Hard guarantees at the database level: within one timetable a class,
+  // a teacher and a room can each occupy a day-period cell only once.
+  @@unique([timetableId, classId, day, period])
+  @@unique([timetableId, teacherId, day, period])
+  @@unique([timetableId, roomId, day, period])
+  @@index([timetableId, day, period])
+}
+
+model StaffAbsence {
+  id        String   @id @default(cuid())
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  date      String
+  reason    String?
+  createdAt DateTime @default(now())
+
+  substitutions Substitution[]
+
+  @@unique([teacherId, date])
+}
+
+model Substitution {
+  id          String   @id @default(cuid())
+  absenceId   String
+  absence     StaffAbsence @relation(fields: [absenceId], references: [id])
+  subTeacherId String
+  subTeacher  Teacher  @relation("SubTeacher", fields: [subTeacherId], references: [id])
+  day         Int
+  period      Int
+  classId     String?                            // snapshot of the covered slot
+  subjectId   String?
+  reasonString String?                           // JSON string[] — why this teacher
+  confidence  Float    @default(0)
+  accepted    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+// ──────────────────────────  FEES / PAYMENTS  ──────────────────────
+// status ∈ PENDING | PARTIAL | PAID | OVERDUE
+model Fee {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  title     String
+  amount    Float
+  paid      Float    @default(0)
+  dueDate   String
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+
+  payments Payment[]
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  feeId     String
+  fee       Fee      @relation(fields: [feeId], references: [id])
+  amount    Float
+  method    String   @default("CASH")
+  reference String?
+  paidAt    DateTime @default(now())
+}
+
+// ─────────────────────  FORESIGHT (PREDICTIONS)  ───────────────────
+// kind ∈ ABSENCE | SUBSTITUTE_DEMAND | FEE_RISK | ATTENDANCE_TREND
+model Prediction {
+  id         String   @id @default(cuid())
+  schoolId   String
+  school     School   @relation(fields: [schoolId], references: [id])
+  kind       String
+  targetDate String
+  label      String
+  value      Float
+  confidence Float
+  driversString String?                             // SHAP-style top drivers
+  createdAt  DateTime @default(now())
+}
+
+// ───────────────────  TRUST CORE: EVENTS / AUDIT / AI  ──────────────
+// The append-only event store — single source of truth for Time Machine.
+model Event {
+  id          String   @id @default(cuid())
+  schoolId    String
+  school      School   @relation(fields: [schoolId], references: [id])
+  type        String                            // e.g. ATTENDANCE_MARKED
+  aggregate   String                            // entity kind
+  aggregateId String
+  payloadString String
+  actorId     String?
+  actorName   String?
+  reversible  Boolean  @default(true)
+  reverted    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([schoolId, createdAt])
+}
+
+// Trust Ledger — every AI action: who, what, why, confidence, reversible.
+model AILog {
+  id         String   @id @default(cuid())
+  schoolId   String
+  school     School   @relation(fields: [schoolId], references: [id])
+  engine     String                            // LUMEN | KAIROS | FORESIGHT | COPILOT | PRESENCE
+  action     String
+  reason     String?
+  confidence Float?
+  inputString  String?
+  outputString String?
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  reversible Boolean  @default(true)
+  createdAt  DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  actorId   String?
+  actor     User?    @relation(fields: [actorId], references: [id])
+  action    String
+  entity    String
+  entityId  String?
+  metaString  String?
+  createdAt DateTime @default(now())
+
+  @@index([schoolId, createdAt])
+}
+
+// ────────────────────────────  NOTIFICATIONS  ──────────────────────
+// severity ∈ INFO | SUCCESS | WARNING | CRITICAL
+model Notification {
+  id        String   @id @default(cuid())
+  schoolId  String
+  school    School   @relation(fields: [schoolId], references: [id])
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  title     String
+  body      String
+  severity  String   @default("INFO")
+  category  String   @default("GENERAL")
+  actionString String?                              // suggested fix / deep link
+  createdAt DateTime @default(now())
+
+  reads NotificationRead[]
+}
+
+// Read-state is a fact about the READER, not the message. A school-wide
+// announcement is one Notification row shared by hundreds of people; a
+// boolean on that row meant the first person to open it marked it read for
+// everyone else (observed: principal's "mark all read" blanked every
+// teacher's, parent's and student's inbox). Receipts make it per-user.
+model NotificationRead {
+  id             String       @id @default(cuid())
+  notificationId String
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  userId         String
+  readAt         DateTime     @default(now())
+
+  @@unique([notificationId, userId])
+  @@index([userId])
+}
+
+// ──────────────────────────  EMERGENCY MODE  ────────────────────────
+// kind ∈ FIRE | EARTHQUAKE | MEDICAL | LOCKDOWN
+model EmergencyIncident {
+  id          String   @id @default(cuid())
+  schoolId    String
+  school      School   @relation(fields: [schoolId], references: [id])
+  kind        String                             // FIRE | EARTHQUAKE | MEDICAL | LOCKDOWN
+  severity    String   @default("CRITICAL")
+  status      String   @default("ACTIVE")        // ACTIVE | RESOLVED
+  triggeredBy String?                            // actor display name
+  triggeredById String?
+  note        String?
+  createdAt   DateTime @default(now())
+  resolvedAt  DateTime?
+  resolvedBy  String?
+  resolvedById String?
+
+  acks   EmergencyAck[]
+  events EmergencyEvent[]
+
+  @@index([schoolId, status])
+}
+
+// A teacher's class-status report or a parent's acknowledgement for one
+// incident. One row per (incident, user) — re-submitting updates in place, so
+// dashboard counts never double-count. Class status is DERIVED from these,
+// never fabricated.
+model EmergencyAck {
+  id         String   @id @default(cuid())
+  incidentId String
+  incident   EmergencyIncident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  userId     String
+  userName   String
+  role       String                              // TEACHER | PARENT
+  classId    String?                             // teacher's class, when applicable
+  className  String?
+  status     String                              // SAFE | NEED_ASSISTANCE | ACKNOWLEDGED | NEED_INFO
+  note       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([incidentId, userId])
+  @@index([incidentId, role])
+}
+
+// Append-only incident timeline. Every coordinated action writes one row; rows
+// are never updated or deleted, so the timeline is an immutable audit trail.
+model EmergencyEvent {
+  id         String   @id @default(cuid())
+  incidentId String
+  incident   EmergencyIncident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  type       String                              // ACTIVATED | NOTIFIED | BANNER | ATTENDANCE_LOCKED | TIMETABLE_PAUSED | TEACHER_ACK | PARENT_ACK | RESOLVED
+  message    String
+  actorName  String?
+  createdAt  DateTime @default(now())
+
+  @@index([incidentId, createdAt])
+}
+
+model Setting {
+  id       String @id @default(cuid())
+  schoolId String
+  school   School @relation(fields: [schoolId], references: [id])
+  key      String
+  valueString String
+
+  @@unique([schoolId, key])
+}
+
+// ─────────────────────  PRESENCE · FACE RECOGNITION  ────────────────
+// Consent-first enrollment. Biometric processing needs explicit, timestamped
+// consent (DPDP Act / GDPR-style principles), and the model version the
+// templates were captured with — so a model upgrade can never silently
+// compare vectors from incompatible spaces. subjectType ∈ STUDENT | TEACHER
+model FaceEnrollment {
+  id          String   @id @default(cuid())
+  schoolId    String
+  school      School   @relation(fields: [schoolId], references: [id])
+  subjectType String
+  subjectId   String
+  name        String
+  model       String                          // e.g. "insightface-buffalo_l"
+  consentAt   DateTime @default(now())
+  consentBy   String?                          // staff userId who captured consent
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  embeddings  FaceEmbedding[]
+
+  @@unique([subjectType, subjectId])
+  @@index([schoolId, subjectType])
+}
+
+// A neural face embedding. We store ONLY the vector — never a raw image — so
+// a row can't be reverse-engineered into a child's face. `model` + `dim` make
+// the vector space explicit; matching refuses to compare across models.
+model FaceEmbedding {
+  id           String   @id @default(cuid())
+  schoolId     String
+  enrollmentId String?
+  enrollment   FaceEnrollment? @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  subjectType  String
+  subjectId    String                          // student.id or teacher.id
+  name         String                          // cached for fast display
+  vectorString String                          // JSON array of `dim` floats
+  model        String   @default("insightface-buffalo_l")
+  dim          Int      @default(512)
+  label        String   @default("front")       // capture pose
+  quality      Float    @default(0)
+  createdAt    DateTime @default(now())
+
+  @@index([schoolId, subjectType])
+  @@index([subjectId])
+}
+
+// Log of unknown / spoof detections at the kiosk (admin can review/register).
+// kind ∈ UNKNOWN | SPOOF
+model FaceEvent {
+  id         String   @id @default(cuid())
+  schoolId   String
+  kind       String
+  confidence Float    @default(0)
+  cameraId   String   @default("kiosk-1")
+  note       String?
+  createdAt  DateTime @default(now())
+
+  @@index([schoolId, createdAt])
+}

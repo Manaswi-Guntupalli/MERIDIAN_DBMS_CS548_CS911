@@ -1,0 +1,48 @@
+import { Router } from 'express';
+import auth from './auth.routes.js';
+import users from './users.routes.js';
+import dashboard from './dashboard.routes.js';
+import students from './students.routes.js';
+import staff from './staff.routes.js';
+import classes from './classes.routes.js';
+import attendance from './attendance.routes.js';
+import timetable from './timetable.routes.js';
+import fees from './fees.routes.js';
+import documents from './documents.routes.js';
+import notifications from './notifications.routes.js';
+import twin from './twin.routes.js';
+import emergency from './emergency.routes.js';
+import copilot from './copilot.routes.js';
+import trust from './trust.routes.js';
+import reports from './reports.routes.js';
+import face from './face.routes.js';
+import presence from './presence/index.js';
+import school from './school.routes.js';
+import actions from './actions.routes.js';
+import notices from './notices.routes.js';
+
+const api = Router();
+
+api.use('/auth', auth);
+api.use('/users', users);
+api.use('/dashboard', dashboard);
+api.use('/students', students);
+api.use('/staff', staff);
+api.use('/classes', classes);
+api.use('/attendance', attendance);
+api.use('/timetable', timetable);
+api.use('/fees', fees);
+api.use('/documents', documents);
+api.use('/notifications', notifications);
+api.use('/twin', twin);
+api.use('/emergency', emergency);
+api.use('/copilot', copilot);
+api.use('/trust', trust);
+api.use('/reports', reports);
+api.use('/face', face);
+api.use('/presence', presence);
+api.use('/school', school);
+api.use('/actions', actions);
+api.use('/notices', notices);
+
+export default api;

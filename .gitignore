@@ -1,0 +1,24 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.log
+server/prisma/*.db
+server/prisma/*.db-journal
+server/uploads/
+# Runtime-generated document storage (originals + rendered page images). These
+# are tied to document IDs in the local DB — never commit them; a fresh seed
+# regenerates its own.
+server/storage/
+.DS_Store
+coverage/
+.vite/
+
+# Python intelligence engine
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+intelligence/models/*.joblib
+
