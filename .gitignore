@@ -1,3 +1,7 @@
+.next/
+*.tsbuildinfo
+.backups/
+tmp/
 node_modules/
 dist/
 build/

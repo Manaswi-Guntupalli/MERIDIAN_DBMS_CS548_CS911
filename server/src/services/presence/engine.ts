@@ -41,7 +41,7 @@ async function finalizePresent(
   face: FaceEvidence | null,
   actorId?: string,
 ): Promise<{ result: MarkResult; deferred: Deferred }> {
-  const settings = await getPresenceSettings(session.schoolId);
+  const settings = await getPresenceSettings(session.schoolId, tx);
   const threshold = minutesOfDay(settings.schoolStartTime) + settings.lateGraceMinutes;
   const nowMinutes = now.getHours() * 60 + now.getMinutes();
   const late = nowMinutes > threshold;

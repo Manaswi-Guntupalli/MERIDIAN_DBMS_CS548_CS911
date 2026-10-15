@@ -37,6 +37,8 @@ const ADMIN: Role[] = ['SUPER_ADMIN', 'ADMIN', 'PRINCIPAL'];
 const SUPER: Role[] = ['SUPER_ADMIN'];
 
 export const NAV: NavItem[] = [
+  { to: '/knowledge', label: 'Knowledge Library', icon: FileScan, roles: STAFF, group: 'Engines' },
+  { to: '/database', label: 'Database Lab', icon: FileBarChart, roles: ADMIN, group: 'System' },
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, roles: ALL, group: 'Overview' },
   { to: '/twin', label: 'Digital Twin', icon: Map, roles: STAFF, group: 'Overview' },
   { to: '/copilot', label: 'Copilot', icon: Bot, roles: ADMIN, group: 'Overview' },
@@ -64,6 +66,8 @@ export const NAV: NavItem[] = [
 
 // Central source of truth for per-route access (used by the router guard).
 export const ROUTE_ROLES: Record<string, Role[]> = {
+  '/knowledge': STAFF,
+  '/database': ADMIN,
   '/': ALL,
   '/twin': STAFF,
   '/copilot': ADMIN,

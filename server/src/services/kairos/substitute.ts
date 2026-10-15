@@ -127,6 +127,7 @@ export async function applySubstitutes(
   picks: { period: number; classId: string; subjectId: string; subTeacherId: string; reasons?: string[]; confidence?: number }[],
   actorId?: string,
 ) {
+  const { cfg } = await loadConfig(schoolId);
   const result = await prisma.$transaction(async (tx) => {
     const absence = await tx.staffAbsence.upsert({
       where: { teacherId_date: { teacherId, date } },
@@ -135,7 +136,6 @@ export async function applySubstitutes(
     });
     // Re-planning a day replaces the previous plan rather than stacking on it.
     await tx.substitution.deleteMany({ where: { absenceId: absence.id } });
-    const { cfg } = await loadConfig(schoolId);
     const day = dayIndexFor(date, cfg.workingDays) ?? 0;
     for (const p of picks) {
       await tx.substitution.create({

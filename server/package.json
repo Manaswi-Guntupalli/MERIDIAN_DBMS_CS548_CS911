@@ -3,27 +3,30 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate",
-    "db:setup": "prisma db push && prisma generate",
-    "db:reset": "prisma db push --force-reset && prisma generate",
+    "db:push": "echo Use npm run db:setup to apply versioned migrations",
+    "db:setup": "prisma migrate deploy && prisma generate && tsx scripts/install-database.ts",
+    "db:reset": "echo Reset disabled: preserve school records. Use a separate test database.",
     "seed": "tsx prisma/seed.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "kairos:audit": "tsx scripts/audit-kairos.ts",
     "lumen:fixtures": "tsx scripts/generate-fixtures.ts",
-    "lumen:bench": "tsx scripts/benchmark-lumen.ts"
+    "lumen:bench": "tsx scripts/benchmark-lumen.ts",
+    "db:advanced": "tsx scripts/install-database.ts",
+    "db:verify": "tsx scripts/verify-database.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.3.1",
     "@napi-rs/canvas": "^1.0.2",
     "@prisma/client": "^5.22.0",
     "bcryptjs": "^2.4.3",

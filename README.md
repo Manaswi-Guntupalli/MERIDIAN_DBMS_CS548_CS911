@@ -1,5 +1,9 @@
 # Meridian
 
+**DBMS Level 3 edition:** Next.js + Express + PostgreSQL with pgvector. See the [50-mark rubric mapping](docs/dbms/RUBRIC.md), [report](docs/dbms/REPORT.md), [ER diagram and dictionary](docs/dbms/SCHEMA.md), [demo guide](docs/dbms/DEMO.md), and [testing evidence](docs/dbms/TESTING.md).
+
+The original Meridian features and Flutter companion are retained. New **Knowledge Library** and **Database Lab** pages demonstrate semantic retrieval, vector CRUD, SQL functions/triggers/CTEs/views/indexes and database-enforced administrator/teacher access.
+
 > **Every school decision, explained.**
 
 Meridian is a trust-first operating system for schools. It gives school leaders one calm place to run the day: understand what needs attention, automate routine work, verify attendance, communicate clearly, and trace every meaningful action back to its source.
@@ -145,7 +149,7 @@ Meridian does not treat trust as a compliance page. It is built into the interac
 
 ```text
                             ┌─────────────────────────────────────┐
-                            │           React + Vite web           │
+                            │           Next.js web           │
                             │      principal, staff & admin UI     │
                             └──────────────────┬──────────────────┘
                                                │
@@ -155,7 +159,7 @@ Meridian does not treat trust as a compliance page. It is built into the interac
                      └───────────────┬────────────────────┬──────────────┘
                                      │                    │
                     ┌────────────────▼───────┐  ┌─────────▼──────────────┐
-                    │ Prisma + SQLite/Postgres│  │ Flutter student app     │
+                    │ PostgreSQL + pgvector│  │ Flutter student app     │
                     │ school record + events  │  │ QR attendance scanning  │
                     └─────────────────────────┘  └────────────────────────┘
                                      │
@@ -172,17 +176,47 @@ Meridian does not treat trust as a compliance page. It is built into the interac
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 22+ recommended (minimum 20.9)
 - Python 3.10+
 - npm
+- Docker Desktop with Compose, or PostgreSQL 16+ with pgvector installed
 
 ### Setup
 
 ```bash
-git clone <your-repository-url>
-cd MERIDIAN
-npm run setup
+git clone https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911.git
+cd MERIDIAN_DBMS_CS548_CS911
+npm install
 ```
+
+Copy `.env.example` to `.env` and `server/.env.example` to `server/.env`. Set matching PostgreSQL username/password values and a strong JWT_SECRET; keep secrets out of Git. Then:
+
+```bash
+docker compose up -d --wait
+npm run db:setup
+npm run seed
+```
+
+`seed` resets the selected demo database; use a disposable demonstration database. Existing SQLite files are untouched; private operational data is not transferred automatically. Compose uses a new volume separate from the original PostgreSQL volume.
+
+Install optional Python engines before starting them:
+
+```bash
+npm run intelligence:install
+npm run faceservice:install
+```
+
+The Knowledge Library uses a local 384-dimensional MiniLM embedding model. First use downloads it from Hugging Face; no OpenAI key is required. Use focused policy/document paragraphs because the model has a bounded token window.
+
+```bash
+npm run build
+npm --prefix server run test
+npm run db:verify
+```
+
+Tests require TEST_DATABASE_URL pointing to a separate database ending in `_test`. Compose creates `meridian_test` on first initialization; create it manually if reusing an initialized volume. Tests do not reset the development database.
+
+For direct WebSockets or phone access, copy `client/.env.example` to `client/.env.local` and set NEXT_PUBLIC_SOCKET_ORIGIN to the API's LAN address. Set CLIENT_ORIGIN in server/.env to the Next.js origin. Configure API_ORIGIN in client/.env.local for a remote backend. HTTP requests and Socket.IO polling use Next.js rewrites.
 
 ### Start the full local experience
 
@@ -232,7 +266,7 @@ For attendance testing, see [the Presence simulator guide](docs/presence-attenda
 
 ```text
 MERIDIAN/
-├── client/            # React + TypeScript + Vite principal/staff interface
+├── client/            # Next.js + TypeScript principal/staff interface
 ├── server/            # Express API, Prisma schema, workflows, Socket.IO
 ├── intelligence/      # FastAPI intelligence service: OCR, forecasting, Copilot logic
 ├── faceservice/       # FastAPI face embedding and verification service

@@ -21,7 +21,11 @@ import school from './school.routes.js';
 import actions from './actions.routes.js';
 import notices from './notices.routes.js';
 
+import knowledge from './knowledge.routes.js';
+import database from './database.routes.js';
 const api = Router();
+api.use('/knowledge', knowledge);
+api.use('/database', database);
 
 api.use('/auth', auth);
 api.use('/users', users);

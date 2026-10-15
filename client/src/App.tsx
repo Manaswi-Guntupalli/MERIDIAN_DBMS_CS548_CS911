@@ -5,40 +5,42 @@ import { LoadingScreen } from '@/components/ui';
 import AppLayout from '@/components/layout/AppLayout';
 import type { Role } from '@/types';
 
-const Login = lazy(() => import('@/pages/Login'));
-const ScanAttendance = lazy(() => import('@/pages/ScanAttendance'));
-const Dashboard = lazy(() => import('@/pages/Dashboard'));
-const Students = lazy(() => import('@/pages/Students'));
-const StudentDetail = lazy(() => import('@/pages/StudentDetail'));
-const Staff = lazy(() => import('@/pages/Staff'));
-const Classes = lazy(() => import('@/pages/Classes'));
-const Attendance = lazy(() => import('@/pages/Attendance'));
-const Fees = lazy(() => import('@/pages/Fees'));
-const Lumen = lazy(() => import('@/pages/Lumen'));
-const Kairos = lazy(() => import('@/pages/Kairos'));
-const Foresight = lazy(() => import('@/pages/Foresight'));
-const PresenceLayout = lazy(() => import('@/pages/presence/PresenceLayout'));
-const PresenceSessions = lazy(() => import('@/pages/presence/Sessions'));
-const AttendanceSessionLive = lazy(() => import('@/pages/presence/AttendanceSessionLive'));
-const AttendanceSummary = lazy(() => import('@/pages/presence/AttendanceSummary'));
-const PresenceActivity = lazy(() => import('@/pages/presence/Activity'));
-const PresenceAnalytics = lazy(() => import('@/pages/presence/Analytics'));
-const PresenceSimulator = lazy(() => import('@/pages/presence/Simulator'));
+const Knowledge = lazy(() => import('@/views/Knowledge'));
+const DatabaseLab = lazy(() => import('@/views/DatabaseLab'));
+const Login = lazy(() => import('@/views/Login'));
+const ScanAttendance = lazy(() => import('@/views/ScanAttendance'));
+const Dashboard = lazy(() => import('@/views/Dashboard'));
+const Students = lazy(() => import('@/views/Students'));
+const StudentDetail = lazy(() => import('@/views/StudentDetail'));
+const Staff = lazy(() => import('@/views/Staff'));
+const Classes = lazy(() => import('@/views/Classes'));
+const Attendance = lazy(() => import('@/views/Attendance'));
+const Fees = lazy(() => import('@/views/Fees'));
+const Lumen = lazy(() => import('@/views/Lumen'));
+const Kairos = lazy(() => import('@/views/Kairos'));
+const Foresight = lazy(() => import('@/views/Foresight'));
+const PresenceLayout = lazy(() => import('@/views/presence/PresenceLayout'));
+const PresenceSessions = lazy(() => import('@/views/presence/Sessions'));
+const AttendanceSessionLive = lazy(() => import('@/views/presence/AttendanceSessionLive'));
+const AttendanceSummary = lazy(() => import('@/views/presence/AttendanceSummary'));
+const PresenceActivity = lazy(() => import('@/views/presence/Activity'));
+const PresenceAnalytics = lazy(() => import('@/views/presence/Analytics'));
+const PresenceSimulator = lazy(() => import('@/views/presence/Simulator'));
 // Face recognition is the camera half of Presence — mounted as Presence tabs.
-const PresenceKiosk = lazy(() => import('@/pages/FaceRecognition').then((m) => ({ default: m.LiveKiosk })));
-const PresenceEnrollment = lazy(() => import('@/pages/FaceRecognition').then((m) => ({ default: m.Enrollment })));
-const PresenceInsights = lazy(() => import('@/pages/FaceRecognition').then((m) => ({ default: m.Insights })));
-const Twin = lazy(() => import('@/pages/Twin'));
-const Trust = lazy(() => import('@/pages/Trust'));
-const Reports = lazy(() => import('@/pages/Reports'));
-const Emergency = lazy(() => import('@/pages/Emergency'));
-const Copilot = lazy(() => import('@/pages/Copilot'));
-const AiNotice = lazy(() => import('@/pages/AiNotice'));
-const Notifications = lazy(() => import('@/pages/Notifications'));
-const Settings = lazy(() => import('@/pages/Settings'));
-const Forbidden = lazy(() => import('@/pages/Forbidden'));
-const Users = lazy(() => import('@/pages/Users'));
-const ChangePassword = lazy(() => import('@/pages/ChangePassword'));
+const PresenceKiosk = lazy(() => import('@/views/FaceRecognition').then((m) => ({ default: m.LiveKiosk })));
+const PresenceEnrollment = lazy(() => import('@/views/FaceRecognition').then((m) => ({ default: m.Enrollment })));
+const PresenceInsights = lazy(() => import('@/views/FaceRecognition').then((m) => ({ default: m.Insights })));
+const Twin = lazy(() => import('@/views/Twin'));
+const Trust = lazy(() => import('@/views/Trust'));
+const Reports = lazy(() => import('@/views/Reports'));
+const Emergency = lazy(() => import('@/views/Emergency'));
+const Copilot = lazy(() => import('@/views/Copilot'));
+const AiNotice = lazy(() => import('@/views/AiNotice'));
+const Notifications = lazy(() => import('@/views/Notifications'));
+const Settings = lazy(() => import('@/views/Settings'));
+const Forbidden = lazy(() => import('@/views/Forbidden'));
+const Users = lazy(() => import('@/views/Users'));
+const ChangePassword = lazy(() => import('@/views/ChangePassword'));
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -97,6 +99,8 @@ export default function App() {
           }
         >
           <Route path="/" element={<Dashboard />} />
+          <Route path="/knowledge" element={g(STAFF, <Knowledge />)} />
+          <Route path="/database" element={g(ADMIN, <DatabaseLab />)} />
           <Route path="/students" element={g(STAFF, <Students />)} />
           <Route path="/students/:id" element={g(STAFF, <StudentDetail />)} />
           <Route path="/staff" element={g(ADMIN, <Staff />)} />

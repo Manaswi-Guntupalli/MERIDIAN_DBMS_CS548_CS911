@@ -1,4 +1,5 @@
 import { prisma } from '../../lib/prisma.js';
+import type { Prisma } from '@prisma/client';
 
 // Presence configuration, stored on the existing per-school Setting table
 // under a `presence.*` namespace — no dedicated config table needed.
@@ -20,8 +21,8 @@ const KEYS: Record<keyof PresenceSettings, string> = {
   sessionDurationMinutes: 'presence.sessionDurationMinutes',
 };
 
-export async function getPresenceSettings(schoolId: string): Promise<PresenceSettings> {
-  const rows = await prisma.setting.findMany({ where: { schoolId, key: { in: Object.values(KEYS) } } });
+export async function getPresenceSettings(schoolId: string, tx?: Prisma.TransactionClient): Promise<PresenceSettings> {
+  const rows = await (tx ?? prisma).setting.findMany({ where: { schoolId, key: { in: Object.values(KEYS) } } });
   const byKey = new Map(rows.map((r) => [r.key, r.valueString]));
   return {
     schoolStartTime: byKey.get(KEYS.schoolStartTime) ?? PRESENCE_SETTING_DEFAULTS.schoolStartTime,

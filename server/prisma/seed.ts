@@ -42,6 +42,8 @@ const phoneNo = (i: number) => `+91 98${String(220000000 + i * 7919 % 79999999).
 
 async function main() {
   console.log('🌱 Seeding Meridian…');
+  // Explicit demo reset also clears vector rows before deleting their creators.
+  await prisma.$executeRawUnsafe('DELETE FROM "KnowledgeItem"');
   // Clean slate
   await prisma.$transaction([
     prisma.attendanceEvent.deleteMany(),

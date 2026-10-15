@@ -6,7 +6,7 @@ import { hashPassword, signToken } from '../src/lib/auth.js';
  * Every test builds its own School-scoped fixture with a random suffix.
  * Since virtually every query in this codebase is schoolId-scoped, distinct
  * fixtures never interfere with each other even though they share one
- * SQLite file — no truncate-between-tests machinery needed.
+ * PostgreSQL test database — no truncate-between-tests machinery needed.
  */
 export async function createFixture() {
   const suffix = crypto.randomBytes(4).toString('hex');

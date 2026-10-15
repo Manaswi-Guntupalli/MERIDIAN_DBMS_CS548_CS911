@@ -1,14 +1,13 @@
 // Meridian — trust-first school operating system.
-// Provider is SQLite for zero-setup local dev; swap to "postgresql" for prod
-// (see docker-compose.yml). Schema stays portable: no native enums / scalar
-// lists — we use String constants + String so it runs identically on both.
+// PostgreSQL is the relational system of record. Database-native constraints,
+// functions, triggers, views and pgvector are installed by db:setup.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

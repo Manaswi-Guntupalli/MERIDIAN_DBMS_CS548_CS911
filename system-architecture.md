@@ -1,5 +1,7 @@
 # Meridian — System Architecture
 
+> Historical base-project architecture. The current DBMS edition uses Next.js and PostgreSQL + pgvector; see [the DBMS architecture and implementation report](docs/dbms/REPORT.md).
+
 **Scope:** the complete technical design — process topology, data flow, engine internals, the trust model, security, and the reasoning behind each decision.
 
 > Companion to [`README.md`](README.md) (*what it does*) and [`techstack.md`](techstack.md) (*what it's built with*). This document is *why it's built this way*.

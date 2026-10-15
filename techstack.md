@@ -1,5 +1,7 @@
 # Meridian — Tech Stack
 
+> Historical base-project inventory. For the current Next.js/PostgreSQL/pgvector edition, see [the DBMS report](docs/dbms/REPORT.md) and [setup instructions](README.md).
+
 The complete, current technology stack for Meridian, the trust-first school
 operating system — plus the planned **Flutter (Riverpod) mobile apps** for
 Principal, Teacher, Student, and Parent. This reflects the codebase as it

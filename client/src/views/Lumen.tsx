@@ -10,7 +10,7 @@ import { api, apiError } from '@/lib/api';
 import { connectSocket } from '@/lib/socket';
 import { useUI } from '@/store/ui';
 import PageHeader from '@/components/PageHeader';
-import { CredentialLine } from '@/pages/Users';
+import { CredentialLine } from '@/views/Users';
 import { Badge, EmptyState, LoadingScreen, Meter, Spinner, StatTile } from '@/components/ui';
 import { cn, confColor } from '@/lib/utils';
 import type { DocActivity, DocDetail, DocInsight, DocSummary, ExtractedField, LumenStats } from '@/types';

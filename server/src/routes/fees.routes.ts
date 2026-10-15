@@ -7,6 +7,7 @@ import { validateBody } from '../utils/validate.js';
 import { recordEvent } from '../services/eventStore.js';
 import { notify } from '../services/notifications.js';
 import { STAFF_ADMIN } from '../utils/constants.js';
+import { randomUUID } from 'node:crypto';
 
 const router = Router();
 router.use(authenticate);
@@ -79,22 +80,22 @@ router.post(
     if (!fee) throw notFound('Fee not found');
     if (body.amount > fee.amount - fee.paid) throw badRequest('Amount exceeds outstanding balance');
 
-    const payment = await prisma.payment.create({
-      data: { feeId: fee.id, amount: body.amount, method: body.method ?? 'CASH', reference: body.reference },
+    const paymentId = randomUUID();
+    const {payment,paid,status,event} = await prisma.$transaction(async tx=>{
+      const [result] = await tx.$queryRaw<{paymentId:string;paid:number;status:string}[]>`
+        SELECT * FROM record_fee_payment(${fee.id},${schoolId},${body.amount}::double precision,
+          ${body.method ?? 'CASH'},${body.reference ?? null},${paymentId})`;
+      const payment=await tx.payment.findUniqueOrThrow({where:{id:paymentId}});
+      const event=await recordEvent({schoolId,type:'FEE_PAYMENT_RECORDED',aggregate:'Fee',aggregateId:fee.id,
+        payload:{feeId:fee.id,paymentId:payment.id,amount:body.amount},actorId:req.user!.sub,actorName:req.user!.name},tx);
+      return {payment,...result,event};
+    }).catch(error=>{
+      if(String(error?.meta?.message ?? '').includes('amount exceeds outstanding balance')) {
+        throw badRequest('Amount exceeds outstanding balance');
+      }
+      throw error;
     });
-    const paid = fee.paid + body.amount;
-    const status = paid >= fee.amount ? 'PAID' : 'PARTIAL';
-    await prisma.fee.update({ where: { id: fee.id }, data: { paid, status } });
-
-    await recordEvent({
-      schoolId,
-      type: 'FEE_PAYMENT_RECORDED',
-      aggregate: 'Fee',
-      aggregateId: fee.id,
-      payload: { feeId: fee.id, paymentId: payment.id, amount: body.amount },
-      actorId: req.user!.sub,
-      actorName: req.user!.name,
-    });
+    event.emit();
     res.json({ payment, status, paid });
   }),
 );

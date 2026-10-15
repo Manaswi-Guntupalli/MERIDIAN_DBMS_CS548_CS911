@@ -1,9 +1,6 @@
-import path from 'node:path';
-
-// Shared by globalSetup (separate process) and vitest.config.ts (test.env) —
-// both need to agree on the exact same file. SQLite resolves a relative
-// `file:` URL relative to the schema's location, so we use an absolute,
-// forward-slash path to sidestep that ambiguity entirely (including on
-// Windows, where backslashes in a `file:` URL are misparsed).
-const dbFile = path.resolve(process.cwd(), 'prisma/test.db').replace(/\\/g, '/');
-export const TEST_DATABASE_URL = `file:${dbFile}`;
+import 'dotenv/config';
+export const TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || '';
+if (!TEST_DATABASE_URL) throw new Error('Set TEST_DATABASE_URL to a dedicated PostgreSQL database ending in _test');
+const dbName = new URL(TEST_DATABASE_URL).pathname.slice(1);
+if (!dbName.endsWith('_test')) throw new Error('Refusing tests: database name must end in _test');
+if (TEST_DATABASE_URL === process.env.DATABASE_URL) throw new Error('Test and development databases must differ');

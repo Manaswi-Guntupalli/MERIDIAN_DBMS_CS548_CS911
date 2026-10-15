@@ -14,10 +14,8 @@ export default defineConfig({
       NODE_ENV: 'test',
       JWT_SECRET: 'test-secret-not-for-production-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
     },
-    // The engine writes real transactions against a shared SQLite file —
-    // running files in parallel workers risks SQLITE_BUSY. Each test builds
-    // its own schoolId-scoped fixture, so sequential is enough for isolation
-    // without needing per-test truncation.
+    // Each test uses a distinct school fixture in a dedicated PostgreSQL
+    // test database. Sequential files also permit the isolated PGlite QA runtime.
     fileParallelism: false,
     testTimeout: 30_000,
     hookTimeout: 30_000,

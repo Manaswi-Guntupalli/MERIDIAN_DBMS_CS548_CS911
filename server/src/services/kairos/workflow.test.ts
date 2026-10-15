@@ -189,6 +189,9 @@ describe('Kairos workflow — draft → approve → publish → rollback', () =>
         },
       }),
     ).rejects.toThrow(); // P2002 unique violation
+    // Return an error-recovering connection to a clean state before the next
+    // test, including when running through the isolated PostgreSQL QA socket.
+    await prisma.$disconnect();
   });
 
   it('discarding a draft never touches the live timetable', async () => {

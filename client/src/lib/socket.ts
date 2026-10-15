@@ -8,7 +8,7 @@ export function connectSocket(): Socket | null {
   const token = localStorage.getItem(TOKEN_KEY);
   if (!token) return null;
   if (socket) return socket;
-  socket = io('/', { transports: ['websocket', 'polling'], auth: { token } });
+  socket = io(process.env.NEXT_PUBLIC_SOCKET_ORIGIN || '/', { transports: ['websocket', 'polling'], auth: { token } });
   return socket;
 }
 

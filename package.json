@@ -10,7 +10,7 @@
   "scripts": {
     "postinstall": "node scripts/ensure-env.mjs",
     "setup": "npm run install:all && npm run db:setup && npm run seed",
-    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "install:all": "npm install",
     "db:setup": "npm --prefix server run db:setup",
     "seed": "npm --prefix server run seed",
     "dev": "concurrently -n server,client -c blue,magenta \"npm:dev:server\" \"npm:dev:client\"",
@@ -23,12 +23,17 @@
     "faceservice": "cd faceservice && python -m uvicorn app:api --port 8020",
     "faceservice:install": "cd faceservice && python -m pip install -r requirements.txt",
     "build": "npm --prefix server run build && npm --prefix client run build",
-    "start": "npm --prefix server run start"
+    "start": "concurrently -n api,web \"npm --prefix server run start\" \"npm --prefix client run start\"",
+    "test:postgres": "node scripts/test-postgres.mjs",
+    "db:verify": "npm --prefix server run db:verify"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "@electric-sql/pglite-pgvector": "^0.0.11",
+    "@electric-sql/pglite-socket": "^0.2.13",
     "concurrently": "^9.1.0"
   }
 }
