@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 import { prisma } from '../lib/prisma.js';
 import { asyncHandler, badRequest, notFound } from '../lib/errors.js';
@@ -21,12 +22,12 @@ router.get(
     // A fee is overdue when it is past its due date and not fully paid —
     // derived live, independent of the stored (frozen-at-creation) status.
     const now = Date.now();
-    const isOverdue = (f: { paid: number; amount: number; dueDate: string }) =>
-      f.paid < f.amount && new Date(f.dueDate).getTime() < now;
+    const isOverdue = (f: { paid: Prisma.Decimal; amount: Prisma.Decimal; dueDate: string }) =>
+      f.paid.lessThan(f.amount) && new Date(f.dueDate).getTime() < now;
 
     const [fees, allFees] = await Promise.all([
       prisma.fee.findMany({
-        where: { schoolId, ...(status ? { status } : {}) },
+        where: { schoolId },
         include: { student: { include: { class: true } }, payments: true },
         orderBy: { dueDate: 'asc' },
       }),
@@ -38,19 +39,19 @@ router.get(
       }),
     ]);
     const summary = {
-      total: allFees.reduce((a, f) => a + f.amount, 0),
-      collected: allFees.reduce((a, f) => a + f.paid, 0),
-      outstanding: allFees.reduce((a, f) => a + (f.amount - f.paid), 0),
+      total: allFees.reduce((a, f) => a + f.amount.toNumber(), 0),
+      collected: allFees.reduce((a, f) => a + f.paid.toNumber(), 0),
+      outstanding: allFees.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0),
       // "Accounts due" = distinct students with a past-due, not-fully-paid fee.
       overdue: new Set(allFees.filter(isOverdue).map((f) => f.studentId)).size,
     };
     res.json({
-      fees: fees.map((f) => ({
+      fees: fees.filter(f => !status || (status === 'OVERDUE' ? isOverdue(f) : !isOverdue(f) && f.status === status)).map((f) => ({
         id: f.id,
         title: f.title,
         amount: f.amount,
         paid: f.paid,
-        due: f.amount - f.paid,
+        due: f.amount.minus(f.paid).toNumber(),
         dueDate: f.dueDate,
         status: f.status,
         overdue: isOverdue(f),
@@ -65,7 +66,7 @@ router.get(
 
 const paySchema = z.object({
   feeId: z.string(),
-  amount: z.number().positive(),
+  amount: z.number().positive().max(9999999999.99).refine(n=>new Prisma.Decimal(n).decimalPlaces() <= 2, 'Use at most two decimal places'),
   method: z.string().optional(),
   reference: z.string().optional(),
 });
@@ -78,12 +79,12 @@ router.post(
     const body = req.body as z.infer<typeof paySchema>;
     const fee = await prisma.fee.findFirst({ where: { id: body.feeId, schoolId } });
     if (!fee) throw notFound('Fee not found');
-    if (body.amount > fee.amount - fee.paid) throw badRequest('Amount exceeds outstanding balance');
+    if (fee.amount.minus(fee.paid).lessThan(body.amount)) throw badRequest('Amount exceeds outstanding balance');
 
     const paymentId = randomUUID();
     const {payment,paid,status,event} = await prisma.$transaction(async tx=>{
       const [result] = await tx.$queryRaw<{paymentId:string;paid:number;status:string}[]>`
-        SELECT * FROM record_fee_payment(${fee.id},${schoolId},${body.amount}::double precision,
+        SELECT * FROM record_fee_payment(${fee.id},${schoolId},${body.amount}::numeric,
           ${body.method ?? 'CASH'},${body.reference ?? null},${paymentId})`;
       const payment=await tx.payment.findUniqueOrThrow({where:{id:paymentId}});
       const event=await recordEvent({schoolId,type:'FEE_PAYMENT_RECORDED',aggregate:'Fee',aggregateId:fee.id,
@@ -116,11 +117,11 @@ router.post(
     });
     // Same overdue rule as the list endpoint above — the stored status would
     // also pull in fees that are simply not due yet.
-    const overdue = all.filter((f) => f.paid < f.amount && new Date(f.dueDate).getTime() < now);
+    const overdue = all.filter((f) => f.paid.lessThan(f.amount) && new Date(f.dueDate).getTime() < now);
 
     let recipients = 0;
     for (const f of overdue.slice(0, 25)) {
-      const due = Math.round(f.amount - f.paid).toLocaleString('en-IN');
+      const due = Math.round(f.amount.minus(f.paid).toNumber()).toLocaleString('en-IN');
       const targets = new Set<string>();
       if (f.student.userId) targets.add(f.student.userId);
       for (const link of f.student.parents) targets.add(link.parent.userId);

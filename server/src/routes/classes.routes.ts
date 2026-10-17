@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { publicUserSelect } from '../lib/public-user.js';
 import { prisma } from '../lib/prisma.js';
 import { asyncHandler, notFound } from '../lib/errors.js';
 import { authenticate, authorize } from '../middleware/auth.js';
@@ -15,7 +16,7 @@ router.get(
       where: { schoolId: req.user!.schoolId },
       include: {
         room: true,
-        classTeacher: { include: { user: true } },
+        classTeacher: { include: { user: { select: publicUserSelect } } },
         _count: { select: { students: true } },
       },
       orderBy: [{ grade: 'asc' }, { section: 'asc' }],
@@ -41,7 +42,7 @@ router.get(
       where: { id: req.params.id, schoolId: req.user!.schoolId },
       include: {
         room: true,
-        classTeacher: { include: { user: true } },
+        classTeacher: { include: { user: { select: publicUserSelect } } },
         students: { orderBy: { rollNo: 'asc' } },
       },
     });

@@ -343,8 +343,8 @@ erDiagram
     String schoolId FK
     String studentId FK
     String title
-    Float amount
-    Float paid
+    Decimal amount
+    Decimal paid
     String dueDate
     String status
     DateTime createdAt
@@ -352,7 +352,7 @@ erDiagram
   Payment {
     String id PK
     String feeId FK
-    Float amount
+    Decimal amount
     String method
     String reference
     DateTime paidAt
@@ -420,6 +420,16 @@ erDiagram
     String notificationId FK
     String userId
     DateTime readAt
+  }
+  PushDevice {
+    String id PK
+    String schoolId FK
+    String userId FK
+    String token UK
+    String platform
+    Int tokenVersion
+    DateTime updatedAt
+    DateTime createdAt
   }
   EmergencyIncident {
     String id PK
@@ -554,6 +564,8 @@ erDiagram
   School ||--o{ Notification : "schoolId"
   User |o--o{ Notification : "userId"
   Notification ||--o{ NotificationRead : "notificationId"
+  School ||--o{ PushDevice : "schoolId"
+  User ||--o{ PushDevice : "userId"
   School ||--o{ EmergencyIncident : "schoolId"
   EmergencyIncident ||--o{ EmergencyAck : "incidentId"
   EmergencyIncident ||--o{ EmergencyEvent : "incidentId"
@@ -575,6 +587,15 @@ erDiagram
     integer revision
     timestamptz createdAt
     timestamptz updatedAt
+  }
+  KnowledgeRevision {
+    bigint id PK
+    text itemId
+    text schoolId
+    text operation
+    text actorId
+    integer revision
+    timestamptz changedAt
   }
 ```
 
@@ -667,6 +688,9 @@ The full ER diagram above includes every Prisma model. Optional foreign keys per
 | faceCount | Int | required @default(0) |
 | createdAt | DateTime | required @default(now()) |
 | updatedAt | DateTime | required @updatedAt |
+
+Constraint: `@@unique([schoolId, admissionNo])`
+
 
 ## Parent
 
@@ -1070,8 +1094,8 @@ Constraint: `@@unique([teacherId, date])`
 | schoolId | String | required FOREIGN KEY;  |
 | studentId | String | required FOREIGN KEY;  |
 | title | String | required  |
-| amount | Float | required  |
-| paid | Float | required @default(0) |
+| amount | Decimal | required @db.Decimal(12, 2) |
+| paid | Decimal | required @default(0) @db.Decimal(12, 2) |
 | dueDate | String | required  |
 | status | String | required @default("PENDING") |
 | createdAt | DateTime | required @default(now()) |
@@ -1082,7 +1106,7 @@ Constraint: `@@unique([teacherId, date])`
 | --- | --- | --- |
 | id | String | required @id @default(cuid()) |
 | feeId | String | required FOREIGN KEY;  |
-| amount | Float | required  |
+| amount | Decimal | required @db.Decimal(12, 2) |
 | method | String | required @default("CASH") |
 | reference | String? | nullable  |
 | paidAt | DateTime | required @default(now()) |
@@ -1179,6 +1203,22 @@ Constraint: `@@unique([notificationId, userId])`
 
 
 Constraint: `@@index([userId])`
+
+
+## PushDevice
+
+| Column | Type | Nullability / keys / defaults |
+| --- | --- | --- |
+| id | String | required @id @default(cuid()) |
+| schoolId | String | required FOREIGN KEY;  |
+| userId | String | required FOREIGN KEY;  |
+| token | String | required @unique |
+| platform | String | required  |
+| tokenVersion | Int | required  |
+| updatedAt | DateTime | required @updatedAt |
+| createdAt | DateTime | required @default(now()) |
+
+Constraint: `@@index([schoolId, userId])`
 
 
 ## EmergencyIncident

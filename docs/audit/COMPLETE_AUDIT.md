@@ -1,5 +1,7 @@
 # Meridian complete project audit
 
+> Historical audit: repairs and subsequent verification are documented in [REMEDIATION.md](REMEDIATION.md). The findings below describe the implementation audited on 15 October, rather than the current repaired code.
+
 **Audit date: 15 October 2026. Audited implementation: `5e20489`.**
 
 **Conclusion: the project is functional in many areas, but it is not working perfectly and cannot currently be described as fully compliant with every guideline.** This audit reproduced **17 defect categories: nine high-priority authorization/data-integrity issues and eight medium-priority functional issues**. Two additional gaps were confirmed by source/documentation review. No application behavior was changed to hide or fix these findings.

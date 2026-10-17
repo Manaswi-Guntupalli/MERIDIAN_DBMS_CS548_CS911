@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-17T16:04:02.538Z",
+  "checks": [
+    {
+      "name": "API",
+      "status": "PASS",
+      "service": "meridian"
+    },
+    {
+      "name": "Intelligence",
+      "status": "PASS",
+      "service": "ok"
+    },
+    {
+      "name": "Face",
+      "status": "PASS",
+      "service": "meridian-face"
+    },
+    {
+      "name": "Next API proxy",
+      "status": "PASS",
+      "service": "meridian"
+    },
+    {
+      "name": "/dashboard/stats",
+      "status": "PASS"
+    },
+    {
+      "name": "/dashboard/intelligence",
+      "status": "PASS"
+    },
+    {
+      "name": "/fees",
+      "status": "PASS"
+    },
+    {
+      "name": "/presence/analytics/today",
+      "status": "PASS"
+    },
+    {
+      "name": "/twin",
+      "status": "PASS"
+    },
+    {
+      "name": "/school/hours",
+      "status": "PASS"
+    },
+    {
+      "name": "/database/queries/fee-summary",
+      "status": "PASS"
+    },
+    {
+      "name": "/database/queries/class-balances",
+      "status": "PASS"
+    },
+    {
+      "name": "/database/queries/above-average",
+      "status": "PASS"
+    },
+    {
+      "name": "/database/queries/unpaid-students",
+      "status": "PASS"
+    },
+    {
+      "name": "/database/queries/attendance-cte",
+      "status": "PASS"
+    },
+    {
+      "name": "/database/queries/weekly-recursive",
+      "status": "PASS"
+    }
+  ]
+}

@@ -63,7 +63,7 @@ export async function loadConfig(schoolId: string): Promise<{ cfg: AcademicConfi
 /** Expand a config into the concrete grid the solver + UI both consume. */
 export function buildGrid(cfg: AcademicConfigShape): GridShape {
   const [h, m] = cfg.dayStart.split(':').map(Number);
-  let cursor = (h || 8) * 60 + (m || 0);
+  let cursor = (Number.isFinite(h) ? h : 8) * 60 + (m || 0);
   const periodTimes: { start: string; end: string }[] = [];
   for (let p = 0; p < cfg.periodsPerDay; p++) {
     const start = cursor;

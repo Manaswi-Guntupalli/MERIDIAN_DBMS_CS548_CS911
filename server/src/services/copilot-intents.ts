@@ -242,16 +242,16 @@ export const INTENTS: IntentDef[] = [
       // creation) counted fees that are merely unpaid-but-not-yet-due as
       // overdue, so this answer contradicted the Fees page.
       const now = Date.now();
-      const open = rows.filter((f) => f.paid < f.amount);
+      const open = rows.filter((f) => f.paid.lessThan(f.amount));
       const pastDue = open.filter((f) => new Date(f.dueDate).getTime() < now);
       const accounts = pastDue
-        .map((f) => ({ student: f.student.name, studentId: f.studentId, due: Math.round(f.amount - f.paid), title: f.title, dueDate: f.dueDate, status: f.status }))
+        .map((f) => ({ student: f.student.name, studentId: f.studentId, due: Math.round(f.amount.minus(f.paid).toNumber()), title: f.title, dueDate: f.dueDate, status: f.status }))
         .filter((a) => a.due > threshold)
         .sort((a, b) => b.due - a.due);
       const total = accounts.reduce((a, r) => a + r.due, 0);
       const students = new Set(accounts.map((a) => a.studentId)).size;
       const notYetDue = open.length - pastDue.length;
-      const notYetDueAmount = open.reduce((a, f) => a + (f.amount - f.paid), 0) - pastDue.reduce((a, f) => a + (f.amount - f.paid), 0);
+      const notYetDueAmount = open.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0) - pastDue.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0);
       return {
         facts: {
           thresholdRupees: threshold,
@@ -281,13 +281,13 @@ export const INTENTS: IntentDef[] = [
     keywords: ['total outstanding', 'total fees', 'how much outstanding', 'total due', 'total unpaid'],
     resolve: async ({ schoolId }) => {
       const rows = await prisma.fee.findMany({ where: { schoolId }, select: { amount: true, paid: true, status: true, studentId: true } });
-      const outstanding = rows.reduce((a, f) => a + (f.amount - f.paid), 0);
-      const billed = rows.reduce((a, f) => a + f.amount, 0);
-      const collected = rows.reduce((a, f) => a + f.paid, 0);
+      const outstanding = rows.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0);
+      const billed = rows.reduce((a, f) => a + f.amount.toNumber(), 0);
+      const collected = rows.reduce((a, f) => a + f.paid.toNumber(), 0);
       // An account is a student, not a fee row — a student with three unpaid
       // fees is one account. Derived from the amounts, since the stored status
       // is frozen at creation.
-      const openCount = new Set(rows.filter((f) => f.paid < f.amount).map((f) => f.studentId)).size;
+      const openCount = new Set(rows.filter((f) => f.paid.lessThan(f.amount)).map((f) => f.studentId)).size;
       return {
         facts: { outstanding: Math.round(outstanding), billed: Math.round(billed), collected: Math.round(collected), collectionRatePct: billed ? Math.round((collected / billed) * 100) : 100, openAccounts: openCount },
         fallbackText: `${inr(outstanding)} outstanding across ${openCount} open account(s) — ${billed ? Math.round((collected / billed) * 100) : 100}% of billed fees collected.`,
@@ -306,7 +306,7 @@ export const INTENTS: IntentDef[] = [
       const month = (typeof params.month === 'string' && params.month) || rows.map((f) => f.dueDate.slice(0, 7)).sort().pop() || '';
       const unpaid = rows
         .filter((f) => f.dueDate.startsWith(month) && f.status !== 'PAID')
-        .map((f) => ({ student: f.student.name, due: Math.round(f.amount - f.paid), dueDate: f.dueDate, status: f.status }))
+        .map((f) => ({ student: f.student.name, due: Math.round(f.amount.minus(f.paid).toNumber()), dueDate: f.dueDate, status: f.status }))
         .sort((a, b) => b.due - a.due);
       return {
         facts: { month, count: unpaid.length, totalDue: unpaid.reduce((a, r) => a + r.due, 0), accounts: unpaid.slice(0, 40) },
@@ -592,7 +592,7 @@ export const INTENTS: IntentDef[] = [
         prisma.fee.findMany({ where: { schoolId, status: { in: ['PENDING', 'PARTIAL', 'OVERDUE'] } }, select: { studentId: true, amount: true, paid: true } }),
       ]);
       const dueByStudent = new Map<string, number>();
-      for (const f of fees) dueByStudent.set(f.studentId, (dueByStudent.get(f.studentId) ?? 0) + (f.amount - f.paid));
+      for (const f of fees) dueByStudent.set(f.studentId, (dueByStudent.get(f.studentId) ?? 0) + (f.amount.minus(f.paid).toNumber()));
       const risk = rated
         .filter((s) => s.rate !== null)
         .map((s) => ({ id: s.id, name: s.name, className: s.className, attendancePct: s.rate, feesDue: Math.round(dueByStudent.get(s.id) ?? 0) }))
@@ -773,7 +773,7 @@ export const INTENTS: IntentDef[] = [
         prisma.fee.findMany({ where: { schoolId }, select: { amount: true, paid: true, status: true } }),
         engine(schoolId),
       ]);
-      const outstanding = Math.round(fees.reduce((a, f) => a + (f.amount - f.paid), 0));
+      const outstanding = Math.round(fees.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0));
       const openAccounts = fees.filter((f) => f.status !== 'PAID').length;
       return {
         facts: {

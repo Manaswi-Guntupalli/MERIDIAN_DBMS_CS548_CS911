@@ -1,5 +1,13 @@
 # Executed verification and limits
 
+## Latest repair verification — 17 October 2026
+
+**147 server + 181 intelligence + 36 Flutter tests passed (364 total)**. Direct database verification passed 29 assertions with rollback-only fixtures. The final headless-browser run passed 40 checks, including authenticated realtime through Next.js, vector CRUD, manual notice drafting, student withdrawal/reactivation/deletion and fee recording. All 16 live service/query checks passed. Production builds, Flutter analysis and the Android debug APK passed.
+
+See [repair-results.json](../audit/repair-results.json), [browser results](../audit/browser-results.json), [fresh screenshots](../audit/screenshots/), [full remediation record and limits](../audit/REMEDIATION.md), and [provider activation](../NOTIFICATIONS.md). Current dependency evidence reports two moderate production findings and five high/four moderate findings when build tools are included. Actual camera/QR/background-push device testing and provider credentials remain pending. Native PostgreSQL CI status is recorded in the repair evidence.
+
+## Earlier migration verification (historical)
+
 Date: 15 October 2026. Host: Windows, Node 22.21.0. Native Docker and PostgreSQL were not installed. Local database checks used PGlite (PostgreSQL compiled to WebAssembly) with its actual pgvector extension, exposed to Prisma through pglite-socket on 127.0.0.1:55432. This is an isolated QA runtime, not the project's deployment database and not a substitute for native PostgreSQL concurrency/load testing.
 
 | Check | Actual result |

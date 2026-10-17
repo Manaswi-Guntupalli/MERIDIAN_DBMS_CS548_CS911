@@ -108,13 +108,13 @@ async function feeReminders(schoolId: string, actor: { id: string; name: string 
     where: { schoolId },
     include: { student: { include: { parents: { include: { parent: { select: { userId: true } } } }, user: { select: { id: true } } } } },
   });
-  const overdue = fees.filter((f) => f.paid < f.amount && new Date(f.dueDate).getTime() < now);
+  const overdue = fees.filter((f) => f.paid.lessThan(f.amount) && new Date(f.dueDate).getTime() < now);
   if (!overdue.length) return { ok: true, kind: 'fee-reminders', done: 0, summary: 'No overdue fee accounts — nothing to remind.', detail: [] };
 
   // Group by student; one message per family covering all their overdue items.
   const byStudent = new Map<string, { name: string; due: number; titles: string[]; userIds: Set<string> }>();
   for (const f of overdue) {
-    const due = f.amount - f.paid;
+    const due = f.amount.minus(f.paid).toNumber();
     if (due <= 0) continue;
     const e = byStudent.get(f.studentId) ?? { name: f.student.name, due: 0, titles: [], userIds: new Set<string>() };
     e.due += due;
@@ -198,7 +198,7 @@ async function atRiskOutreach(schoolId: string, studentIds: string[] | undefined
         rate.set(a.studentId, e);
       }
       const due = new Map<string, number>();
-      for (const f of fees) due.set(f.studentId, (due.get(f.studentId) ?? 0) + (f.amount - f.paid));
+      for (const f of fees) due.set(f.studentId, (due.get(f.studentId) ?? 0) + (f.amount.minus(f.paid).toNumber()));
       targets = students
         .map((s) => {
           const r = rate.get(s.id);

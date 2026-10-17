@@ -34,7 +34,7 @@ import { prisma } from '../../lib/prisma.js';
 import { env } from '../../config/env.js';
 import { badRequest } from '../../lib/errors.js';
 
-const ROOT = path.resolve(process.cwd(), 'storage', 'documents');
+const ROOT = process.env.LUMEN_STORAGE_DIR ? path.resolve(process.env.LUMEN_STORAGE_DIR) : path.resolve(process.cwd(), 'storage', 'documents');
 
 // ─────────────────────────  encryption at rest  ─────────────────────────
 
@@ -198,19 +198,24 @@ export async function runRetentionSweep(): Promise<{ removedDocs: number; remove
     select: { id: true },
   });
   for (const doc of stale) {
-    await prisma.document.delete({ where: { id: doc.id } }).catch(() => {});
+    await prisma.document.delete({ where: { id: doc.id } });
     await purgeDocument(doc.id);
   }
 
   let removedOrphans = 0;
   try {
-    const dirs = await fs.readdir(ROOT);
+    // An absent row can mean a different database/restore is attached. Do not
+    // destroy its files automatically. Operators can explicitly enable cleanup
+    // on a dedicated storage root after verifying database/storage ownership.
+    const dirs = process.env.LUMEN_PURGE_ORPHANS === 'true' ? await fs.readdir(ROOT) : [];
     if (dirs.length) {
       const known = new Set(
         (await prisma.document.findMany({ select: { id: true } })).map((d) => d.id),
       );
       for (const dir of dirs) {
         if (!known.has(dir) && /^[A-Za-z0-9_-]{1,64}$/.test(dir)) {
+          const stat = await fs.stat(path.join(ROOT,dir));
+          if (!stat.isDirectory() || stat.mtime >= cutoff) continue;
           await fs.rm(path.join(ROOT, dir), { recursive: true, force: true });
           removedOrphans++;
         }

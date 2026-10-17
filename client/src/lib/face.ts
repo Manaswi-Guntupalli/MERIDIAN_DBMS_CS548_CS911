@@ -1,8 +1,8 @@
 import * as faceapi from '@vladmandic/face-api';
 
 // On-device face pipeline (TensorFlow.js). Detector + 68-pt landmarks +
-// 128-D recognition embeddings, all in the browser. No image ever leaves
-// the device — only the vector does. Models are served from /public/models.
+// browser-only landmarks for pose/blink guidance. Identity matching uses 512-D
+// InsightFace on the server from transient captured images; no photos persist.
 
 let loadPromise: Promise<void> | null = null;
 

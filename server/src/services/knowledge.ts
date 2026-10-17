@@ -31,12 +31,12 @@ export function knowledgeContext<T>(actor: Actor, fn: (tx: Prisma.TransactionCli
     return fn(tx);
   });
 }
-export interface KnowledgeInput { title:string; content:string; category:string; sourceId?:string }
+export interface KnowledgeInput { title:string; content:string; category:string; sourceId?:string | null }
 export async function saveKnowledge(actor:Actor, input:KnowledgeInput, id?:string) {
   const vector = await embed(input.title+'\n'+input.content);
   const key = id || randomUUID();
   return knowledgeContext(actor, async tx => {
-    if(id) return tx.$queryRaw<any[]>`UPDATE "KnowledgeItem" SET "title"=${input.title},"content"=${input.content},"category"=${input.category},"embedding"=${vector}::vector,"sourceId"=${input.sourceId ?? null} WHERE "id"=${id} RETURNING "id","title","category","revision"`;
+    if(id) return tx.$queryRaw<any[]>`UPDATE "KnowledgeItem" SET "title"=${input.title},"content"=${input.content},"category"=${input.category},"embedding"=${vector}::vector,"sourceId"=CASE WHEN ${input.sourceId !== undefined} THEN ${input.sourceId ?? null} ELSE "sourceId" END WHERE "id"=${id} RETURNING "id","title","category","revision"`;
     return tx.$queryRaw<any[]>`INSERT INTO "KnowledgeItem"("id","schoolId","title","content","category","sourceId","createdBy","embedding") VALUES(${key},${actor.schoolId},${input.title},${input.content},${input.category},${input.sourceId ?? null},${actor.sub},${vector}::vector) RETURNING "id","title","category","revision"`;
   });
 }

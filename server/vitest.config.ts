@@ -12,6 +12,7 @@ export default defineConfig({
     env: {
       DATABASE_URL: TEST_DATABASE_URL,
       NODE_ENV: 'test',
+      TWILIO_ACCOUNT_SID: '', TWILIO_AUTH_TOKEN: '', SENDGRID_API_KEY: '', FIREBASE_SERVICE_ACCOUNT_PATH: '',
       JWT_SECRET: 'test-secret-not-for-production-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
     },
     // Each test uses a distinct school fixture in a dedicated PostgreSQL

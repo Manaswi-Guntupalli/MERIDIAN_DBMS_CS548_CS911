@@ -280,8 +280,12 @@ class _AiNoticeScreenState extends ConsumerState<AiNoticeScreen> {
             'Draft with AI',
             icon: Icons.auto_awesome,
             busy: _drafting,
-            onPressed: _canDraft(p) && !_drafting ? _generate : null,
+            onPressed: _canDraft(p) && !_drafting && p.aiDraftingEnabled ? _generate : null,
           ),
+          const SizedBox(height: 8),
+          MButton('Use my wording', icon: Icons.edit_note,
+            onPressed: _canDraft(p) && !_drafting ? () => setState(() { _draft.text = _context.text.trim(); _aiDraft = null; }) : null),
+          if (!p.aiDraftingEnabled) const Text('AI drafting is not configured. Use your wording to review and send.'),
         ],
       ),
     );
@@ -298,14 +302,14 @@ class _AiNoticeScreenState extends ConsumerState<AiNoticeScreen> {
         children: [
           MSectionTitle(
             overline: 'Review',
-            title: 'AI Draft',
+            title: 'Notice draft',
             action: edited ? const MBadge('edited by you', severity: 'INFO') : null,
           ),
           if (!hasDraft)
             const MEmptyState(
               icon: Icons.auto_awesome_outlined,
               title: 'No draft yet',
-              hint: 'Fill in the recipients and context, then use Draft with AI.',
+              hint: 'Fill in recipients and context, then use your wording or draft with AI.',
             )
           else ...[
             TextField(

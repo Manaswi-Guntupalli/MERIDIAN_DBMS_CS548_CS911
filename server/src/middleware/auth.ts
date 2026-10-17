@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { prisma } from '../lib/prisma.js';
-import { verifyToken, type JwtPayload } from '../lib/auth.js';
+import { type JwtPayload } from '../lib/auth.js';
+import { liveSession } from '../lib/live-session.js';
 import { AppError, forbidden, unauthorized } from '../lib/errors.js';
 
 // Augment Express Request with the authenticated user.
@@ -33,29 +33,14 @@ export function authenticate(req: Request, _res: Response, next: NextFunction): 
   const token = header?.startsWith('Bearer ') ? header.slice(7) : undefined;
   if (!token) return next(unauthorized('Missing bearer token'));
 
-  let payload: JwtPayload;
-  try {
-    payload = verifyToken(token);
-  } catch {
-    return next(unauthorized('Invalid or expired token'));
-  }
-
-  void prisma.user
-    .findUnique({
-      where: { id: payload.sub },
-      select: { active: true, tokenVersion: true, role: true, mustChangePassword: true, name: true },
-    })
-    .then((user) => {
-      if (!user || !user.active) return next(unauthorized('This account has been deactivated.'));
-      if (user.tokenVersion !== (payload.tv ?? 0)) {
-        return next(unauthorized('Your session was signed out. Please log in again.'));
-      }
-      if (user.mustChangePassword && !isPasswordChangeExempt(req)) {
+  void liveSession(token)
+    .then(({user, mustChangePassword}) => {
+      if (mustChangePassword && !isPasswordChangeExempt(req)) {
         // 428 Precondition Required — the client reads this status and routes
         // to the forced password-change screen.
         return next(new AppError(428, 'You must set a new password before continuing.'));
       }
-      req.user = { ...payload, role: user.role, name: user.name };
+      req.user = user;
       next();
     })
     .catch(next);

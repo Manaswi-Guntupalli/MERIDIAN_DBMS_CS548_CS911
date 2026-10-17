@@ -2,29 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// System notifications for Meridian.
-///
-/// WHAT WORKS TODAY: alerts arriving over the realtime socket are shown as real
-/// Android/iOS notifications while the app is running. That is the whole path
-/// the backend currently supports.
-///
-/// WHAT DOES NOT, AND WHY: there is no FCM delivery. The server has no push
-/// provider and no device-token endpoint — `sendPush` in
-/// `server/src/services/presence/channels.ts` deliberately logs a structured
-/// "would send" entry to the Trust Ledger instead. So a token has nowhere to be
-/// registered and nothing would ever be sent to it. Rather than add
-/// firebase_messaging (which also fails the Android build without a
-/// `google-services.json`), this file provides the same kind of typed seam the
-/// backend uses: [PushRegistrar]. Implementing it is the only client change
-/// needed once the server side exists.
-///
-/// TO ACTIVATE FCM LATER:
-///   1. server — add a device-token table + `POST /notifications/device`, and
-///      implement `sendPush` against FCM.
-///   2. app — add `firebase_core` + `firebase_messaging`, drop in
-///      `google-services.json` / `GoogleService-Info.plist`.
-///   3. app — implement [PushRegistrar] to read the FCM token and POST it, then
-///      pass it to [PushService.attachRegistrar]. Nothing else here changes.
+/// Local notification display plus the configured remote push registrar.
+/// Firebase is enabled explicitly at build time; missing configuration leaves
+/// socket-delivered in-app/local notifications available.
 class PushService {
   PushService();
 
@@ -38,6 +18,7 @@ class PushService {
 
   bool _ready = false;
   int _id = 0;
+  final Map<String, DateTime> _recent = {};
   PushRegistrar? _registrar;
 
   /// Prepares the channel and asks for permission. Safe to call more than once.
@@ -77,6 +58,11 @@ class PushService {
     bool critical = false,
   }) async {
     if (!_ready) return;
+    final now = DateTime.now();
+    _recent.removeWhere((_, time) => now.difference(time).inSeconds > 10);
+    final key = '$title\n$body';
+    if (_recent.containsKey(key)) return; // Socket + FCM can arrive together.
+    _recent[key] = now;
     final details = NotificationDetails(
       android: AndroidNotificationDetails(
         _channelId,
@@ -94,8 +80,11 @@ class PushService {
     await _plugin.show(_id++, title, body, details);
   }
 
-  /// Registers the FCM seam. No-op until a [PushRegistrar] exists.
+  /// Attach the authenticated device registrar.
   Future<void> attachRegistrar(PushRegistrar registrar) async {
+    if (_registrar != null) {
+      try { await _registrar?.unregister(); } catch (_) { /* best effort detach */ }
+    }
     _registrar = registrar;
     await _registrar?.register();
   }
@@ -104,7 +93,9 @@ class PushService {
   /// notifications.
   Future<void> clear() async {
     await _plugin.cancelAll();
-    await _registrar?.unregister();
+    try { await _registrar?.unregister(); } catch (_) { /* local sign-out always proceeds */ }
+    _registrar = null;
+    _recent.clear();
   }
 }
 

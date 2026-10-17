@@ -17,10 +17,15 @@ server/uploads/
 server/storage/
 .DS_Store
 coverage/
+secrets/
+*service-account*.json
+google-services.json
+GoogleService-Info.plist
 .vite/
 
 # Python intelligence engine
 __pycache__/
+.pytest_cache/
 *.py[cod]
 .venv/
 venv/

@@ -34,7 +34,7 @@ export default function Students() {
       <PageHeader
         overline="Pulse · ERP"
         title="Students"
-        subtitle="One event-sourced roster. Every change is an immutable event you can rewind."
+        subtitle="Manage admissions, student details and withdrawals with a recorded audit history."
         actions={canEdit && <button onClick={() => setShowAdd(true)} className="btn-primary"><Plus className="h-4 w-4" /> Add student</button>}
       />
 

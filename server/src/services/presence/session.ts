@@ -5,6 +5,7 @@ import { badRequest, notFound } from '../../lib/errors.js';
 import { recordEvent } from '../eventStore.js';
 import { auditLog } from '../trustLedger.js';
 import { emitToSchool } from '../../lib/socket.js';
+import { assertSessionActor } from './authz.js';
 import { getPresenceSettings } from './settings.js';
 import type { SessionQrPayload } from './types.js';
 
@@ -41,6 +42,8 @@ export async function expireIfDue(sessionId: string): Promise<'EXPIRED' | 'ACTIV
 
 /** Load an ACTIVE session, expiring it first if its window has passed. */
 export async function loadActiveSession(schoolId: string, sessionId: string) {
+  const scoped = await prisma.attendanceSession.findFirst({where:{id:sessionId,schoolId}});
+  if (!scoped) throw notFound('Attendance session not found');
   await expireIfDue(sessionId);
   const s = await prisma.attendanceSession.findFirst({ where: { id: sessionId, schoolId } });
   if (!s) throw notFound('Attendance session not found');
@@ -121,6 +124,7 @@ export async function startSession(input: StartSessionInput) {
 
 /** Manually close a session early. Same UNVERIFIED_QR sweep as expiry. */
 export async function closeSession(schoolId: string, sessionId: string, actor?: { id?: string; name?: string }) {
+  await assertSessionActor(schoolId, sessionId, actor?.id);
   const s = await prisma.attendanceSession.findFirst({ where: { id: sessionId, schoolId } });
   if (!s) throw notFound('Attendance session not found');
   if (s.status !== 'ACTIVE') return s;

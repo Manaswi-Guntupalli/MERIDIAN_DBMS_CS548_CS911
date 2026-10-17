@@ -107,7 +107,7 @@ const reversers: Record<string, Reverser> = {
     if (p.previousStatus) {
       await tx.attendance.update({
         where: { id: p.attendanceId },
-        data: { status: p.previousStatus, source: p.previousSource ?? 'MANUAL' },
+        data: { status: p.previousStatus, source: p.previousSource ?? 'MANUAL', confidence: p.previousConfidence ?? null, markedById: p.previousMarkedById ?? null },
       });
     } else if (p.attendanceId) {
       await tx.attendance.delete({ where: { id: p.attendanceId } }).catch(() => {});
@@ -116,7 +116,7 @@ const reversers: Record<string, Reverser> = {
     // be re-marked in the same session after an accidental undo.
     if (p.verificationId) {
       await tx.attendanceVerification
-        .update({ where: { id: p.verificationId }, data: { state: 'PENDING', markedPresentAt: null, reason: 'Attendance undone' } })
+        .update({ where: { id: p.verificationId }, data: { state: 'PENDING', markedPresentAt: null, qrVerifiedAt: null, faceVerifiedAt: null, faceConfidence: null, faceDistance: null, threshold: null, reason: 'Attendance undone' } })
         .catch(() => {});
     }
   },
@@ -125,10 +125,10 @@ const reversers: Record<string, Reverser> = {
     if (p.feeId && typeof p.amount === 'number') {
       const fee = await tx.fee.findUnique({ where: { id: p.feeId } });
       if (fee) {
-        const paid = Math.max(0, fee.paid - p.amount);
+        const paid = Math.max(0, fee.paid.minus(p.amount).toNumber());
         await tx.fee.update({
           where: { id: fee.id },
-          data: { paid, status: paid <= 0 ? 'PENDING' : paid >= fee.amount ? 'PAID' : 'PARTIAL' },
+          data: { paid, status: paid <= 0 ? 'PENDING' : fee.amount.lessThanOrEqualTo(paid) ? 'PAID' : 'PARTIAL' },
         });
       }
     }

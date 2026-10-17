@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-17T16:11:02.611Z",
+  "results": [
+    {
+      "name": "Browser login: principal",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /students",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /staff",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /classes",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /attendance",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /fees",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /lumen",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /kairos",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /notices",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /foresight",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /presence",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /presence/kiosk",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /presence/enrollment",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /presence/activity",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /presence/analytics",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /presence/insights",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /presence/simulator",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /twin",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /trust",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /reports",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /emergency",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /copilot",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /notifications",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /users",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /knowledge",
+      "status": "PASS"
+    },
+    {
+      "name": "Principal page /database",
+      "status": "PASS"
+    },
+    {
+      "name": "Manual notice drafting works without OpenAI",
+      "status": "PASS"
+    },
+    {
+      "name": "Authenticated realtime connects through Next.js",
+      "status": "PASS"
+    },
+    {
+      "name": "Student edit and withdrawal persist",
+      "status": "PASS"
+    },
+    {
+      "name": "Student reactivation and safe delete",
+      "status": "PASS"
+    },
+    {
+      "name": "Knowledge browser create/search/edit/delete",
+      "status": "PASS"
+    },
+    {
+      "name": "Database Lab browser query",
+      "status": "PASS"
+    },
+    {
+      "name": "Fee payment via browser",
+      "status": "PASS"
+    },
+    {
+      "name": "Browser login: teacher",
+      "status": "PASS"
+    },
+    {
+      "name": "Teacher fee page denied",
+      "status": "PASS"
+    },
+    {
+      "name": "Browser login: parent",
+      "status": "PASS"
+    },
+    {
+      "name": "parent mobile dashboard",
+      "status": "PASS"
+    },
+    {
+      "name": "Browser login: student",
+      "status": "PASS"
+    },
+    {
+      "name": "student mobile dashboard",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

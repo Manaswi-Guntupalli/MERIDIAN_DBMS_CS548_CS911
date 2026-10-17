@@ -19,7 +19,7 @@ describe('Atomic fee payment API',()=>{
   it('rejects overpayment without a partial payment or audit mutation',async()=>{
     const r=await request(app).post('/api/fees/pay').set('Authorization','Bearer '+f.admin.token).send({feeId,amount:80});
     expect(r.status).toBe(400);
-    expect((await prisma.fee.findUniqueOrThrow({where:{id:feeId}})).paid).toBe(40);
+    expect((await prisma.fee.findUniqueOrThrow({where:{id:feeId}})).paid.toNumber()).toBe(40);
     expect(await prisma.payment.count({where:{feeId}})).toBe(1);
     expect(await prisma.event.count({where:{aggregateId:feeId,type:'FEE_PAYMENT_RECORDED'}})).toBe(1);
   });

@@ -15,6 +15,7 @@
 //    so every audit row written during the session names the real actor.
 
 import { Router } from 'express';
+import { revokeSockets } from '../lib/socket.js';
 import { z } from 'zod';
 import { prisma } from '../lib/prisma.js';
 import { comparePassword, hashPassword, signToken, type JwtPayload } from '../lib/auth.js';
@@ -123,6 +124,7 @@ router.post(
       data: { password: await hashPassword(newPassword), mustChangePassword: false, tokenVersion: { increment: 1 } },
       include: { school: true },
     });
+    revokeSockets(updated.id);
 
     await recordEvent({
       schoolId: user.schoolId,
@@ -162,6 +164,7 @@ router.post(
       where: { id: req.user!.sub },
       data: { tokenVersion: { increment: 1 } },
     });
+    revokeSockets(req.user!.sub);
     await recordEvent({
       schoolId: user.schoolId,
       type: 'SESSIONS_REVOKED',

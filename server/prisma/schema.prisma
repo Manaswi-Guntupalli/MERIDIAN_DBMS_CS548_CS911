@@ -44,6 +44,7 @@ model School {
   attendanceSessions AttendanceSession[]
   attendanceEvents   AttendanceEvent[]
   faceEnrollments    FaceEnrollment[]
+  pushDevices        PushDevice[]
 }
 
 // ─────────────────────────────  AUTH  ──────────────────────────────
@@ -81,6 +82,7 @@ model User {
   notifications Notification[]
   auditLogs     AuditLog[]
   aiLogs        AILog[]
+  pushDevices   PushDevice[]
 }
 
 model Teacher {
@@ -144,6 +146,8 @@ model Student {
   faceCount    Int     @default(0)       // number of stored embeddings
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@unique([schoolId, admissionNo])
 
   attendance       Attendance[]
   fees             Fee[]
@@ -606,8 +610,8 @@ model Fee {
   studentId String
   student   Student  @relation(fields: [studentId], references: [id])
   title     String
-  amount    Float
-  paid      Float    @default(0)
+  amount    Decimal @db.Decimal(12, 2)
+  paid      Decimal @default(0) @db.Decimal(12, 2)
   dueDate   String
   status    String   @default("PENDING")
   createdAt DateTime @default(now())
@@ -619,7 +623,7 @@ model Payment {
   id        String   @id @default(cuid())
   feeId     String
   fee       Fee      @relation(fields: [feeId], references: [id])
-  amount    Float
+  amount    Decimal @db.Decimal(12, 2)
   method    String   @default("CASH")
   reference String?
   paidAt    DateTime @default(now())
@@ -723,6 +727,22 @@ model NotificationRead {
 
   @@unique([notificationId, userId])
   @@index([userId])
+}
+
+// A registration belongs to exactly one current portal session on a shared device.
+model PushDevice {
+  id           String   @id @default(cuid())
+  schoolId     String
+  school       School   @relation(fields: [schoolId], references: [id])
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token        String   @unique
+  platform     String
+  tokenVersion Int
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+
+  @@index([schoolId, userId])
 }
 
 // ──────────────────────────  EMERGENCY MODE  ────────────────────────

@@ -14,7 +14,7 @@ export default function Twin() {
   const [sel, setSel] = useState<TwinRoom | null>(null);
   const { data, isLoading } = useQuery({
     queryKey: ['twin'],
-    queryFn: async () => (await api.get('/twin')).data as { day: string; period: number; emergency: string | null; buildings: TwinBuilding[] },
+    queryFn: async () => (await api.get('/twin')).data as { day: string; period: number | null; calendarState: string; emergency: string | null; buildings: TwinBuilding[] },
     refetchInterval: 6000,
   });
 
@@ -32,8 +32,8 @@ export default function Twin() {
       <PageHeader
         overline="Live Operations"
         title="School Digital Twin"
-        subtitle="A live, animated map of the campus — occupancy, teacher presence, attendance and power, updating in real time."
-        actions={<div className="flex gap-2"><Badge severity="INFO">{data?.day} · Period {data?.period}</Badge><Badge severity="SUCCESS"><span className="h-1.5 w-1.5 animate-pulseGlow rounded-full bg-mint-400" /> Live</Badge></div>}
+        subtitle="A live, animated map of the campus — scheduled occupancy, staff absence status and recorded attendance, updating in real time."
+        actions={<div className="flex gap-2"><Badge severity="INFO">{data?.day} · {data?.period ? `Period ${data.period}` : data?.calendarState}</Badge><Badge severity="SUCCESS"><span className="h-1.5 w-1.5 animate-pulseGlow rounded-full bg-mint-400" /> Live</Badge></div>}
       />
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -103,7 +103,7 @@ export default function Twin() {
                   <Row icon={<BookOpen className="h-4 w-4" />} label="Subject" value={sel.subject ?? '—'} />
                   <Row icon={<User className="h-4 w-4" />} label="Teacher" value={sel.teacher ?? '—'} ok={sel.teacherPresent} />
                   <Row icon={<Users className="h-4 w-4" />} label="Attendance" value={sel.attendancePct !== null ? `${sel.attendancePct}%` : '—'} />
-                  <Row icon={<Zap className="h-4 w-4" />} label="Power" value="Normal" ok />
+                  <Row icon={<Zap className="h-4 w-4" />} label="Power" value="Not monitored" />
                 </div>
               </Card>
             </motion.div>

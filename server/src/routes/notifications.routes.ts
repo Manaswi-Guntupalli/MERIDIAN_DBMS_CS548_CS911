@@ -3,9 +3,30 @@ import { prisma } from '../lib/prisma.js';
 import { asyncHandler, notFound } from '../lib/errors.js';
 import { authenticate } from '../middleware/auth.js';
 import { serializeNotification } from '../services/notifications.js';
+import { z } from 'zod';
+import { channelStatus } from '../services/presence/channels.js';
+import { authorize } from '../middleware/auth.js';
+import { STAFF_ADMIN } from '../utils/constants.js';
 
 const router = Router();
 router.use(authenticate);
+
+router.get('/channels',authorize(...STAFF_ADMIN),(_req,res)=>res.json(channelStatus()));
+const deviceSchema=z.object({token:z.string().min(20).max(4096),platform:z.enum(['ANDROID','IOS','WEB'])});
+router.post('/device',asyncHandler(async(req,res)=>{
+  const body=deviceSchema.parse(req.body); const user=req.user!;
+  await prisma.$transaction(async tx=>{
+    // A shared phone's registration moves to its newly signed-in owner.
+    await tx.pushDevice.deleteMany({where:{token:body.token}});
+    await tx.pushDevice.create({data:{schoolId:user.schoolId,userId:user.sub,tokenVersion:user.tv,token:body.token,platform:body.platform}});
+  });
+  res.status(201).json({registered:true,deliveryConfigured:channelStatus().push.configured});
+}));
+router.delete('/device',asyncHandler(async(req,res)=>{
+  const {token}=deviceSchema.pick({token:true}).parse(req.body);
+  await prisma.pushDevice.deleteMany({where:{token,userId:req.user!.sub,schoolId:req.user!.schoolId}});
+  res.json({ok:true});
+}));
 
 /** The notifications this user is allowed to see: their school's broadcasts
  *  plus their own personal ones. Every endpoint filters through this — a

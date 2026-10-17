@@ -44,8 +44,11 @@ class AuthController extends AsyncNotifier<AppUser?> {
   /// backend's message.
   Future<void> changePassword(String current, String next) async {
     final result = await _repo.changePassword(current, next);
+    ref.read(realtimeServiceProvider).stop();
+    await ref.read(pushServiceProvider).clear();
     await _tokens.writeToken(result.token);
     state = AsyncData(result.user);
+    await ref.read(realtimeServiceProvider).start();
   }
 
   Future<void> logout() async {

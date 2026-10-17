@@ -16,6 +16,8 @@ import '../../features/students/data/students_repository.dart';
 import '../../features/teacher/data/teacher_repository.dart';
 import '../../features/timetable/data/timetable_repository.dart';
 import '../notifications/push_service.dart';
+import '../notifications/firebase_registrar.dart';
+import '../network/dio_client.dart';
 import '../storage/token_storage.dart';
 import 'socket_client.dart';
 
@@ -71,7 +73,7 @@ class RealtimeService {
     // emergency reaches a phone that is face-down on a desk.
     final push = _ref.read(pushServiceProvider);
     await push.init();
-    await push.attachRegistrar(const UnconfiguredPushRegistrar());
+    await push.attachRegistrar(FirebasePushRegistrar(_ref.read(dioProvider), push));
     await _pushSubscription?.cancel();
     _pushSubscription = _alerts.stream.listen((a) => push.show(
           title: a.title,

@@ -9,7 +9,7 @@ import { startSession, closeSession, loadActiveSession, qrPayload, expireIfDue }
 import { buildSessionSummary, renderSessionPdf, renderSessionExcel, reportFileName } from '../../services/presence/report.js';
 import { markFace, markQr, markManual } from '../../services/presence/engine.js';
 import { embedImage } from '../../services/face.js';
-import { assertOwnClass } from '../../services/presence/authz.js';
+import { assertOwnClass, assertSessionActor } from '../../services/presence/authz.js';
 
 const router = Router();
 router.use(authenticate);
@@ -17,14 +17,14 @@ router.use(authenticate);
 const isStaff = (role: string) => (STAFF as readonly string[]).includes(role);
 
 /** Full session view: the class, its timer, and the live verification grid. */
-async function sessionView(schoolId: string, sessionId: string, includeToken: boolean) {
+async function sessionView(schoolId: string, sessionId: string, includeToken: boolean, studentIds?: string[]) {
   const s = await prisma.attendanceSession.findFirst({
     where: { id: sessionId, schoolId },
     include: {
       class: { select: { id: true, name: true } },
       subject: { select: { code: true, name: true } },
       teacher: { include: { user: { select: { name: true } } } },
-      verifications: { include: { student: { select: { id: true, name: true, rollNo: true } } }, orderBy: { student: { rollNo: 'asc' } } },
+      verifications: { ...(studentIds ? {where:{studentId:{in:studentIds}}} : {}), include: { student: { select: { id: true, name: true, rollNo: true } } }, orderBy: { student: { rollNo: 'asc' } } },
     },
   });
   if (!s) throw notFound('Attendance session not found');
@@ -107,14 +107,20 @@ router.get(
   '/active',
   asyncHandler(async (req, res) => {
     const { classId } = req.query as { classId?: string };
+    const user = req.user!;
+    const owned = !isStaff(user.role) ? await prisma.student.findMany({where:{schoolId:user.schoolId,active:true,
+      ...(user.role === 'STUDENT' ? {userId:user.sub} : {parents:{some:{parent:{userId:user.sub}}}})},select:{id:true,classId:true}}) : undefined;
+    const teacher = user.role === 'TEACHER' ? await prisma.teacher.findUnique({where:{userId:user.sub}}) : null;
     const session = await prisma.attendanceSession.findFirst({
-      where: { schoolId: req.user!.schoolId, status: 'ACTIVE', ...(classId ? { classId } : {}) },
+      where: { schoolId: user.schoolId, status: 'ACTIVE', ...(classId ? { classId } : {}),
+        ...(owned ? {class:{id:{in:owned.flatMap(s=>s.classId ? [s.classId] : [])}}} : {}),
+        ...(user.role === 'TEACHER' ? {class:{classTeacherId:teacher?.id ?? '__none__'}} : {}) },
       orderBy: { startTime: 'desc' },
     });
     if (!session) return res.json({ session: null });
     if ((await expireIfDue(session.id)) !== 'ACTIVE') return res.json({ session: null });
     // Students see the session but never the token (they scan the projected QR).
-    res.json({ session: await sessionView(req.user!.schoolId, session.id, isStaff(req.user!.role)) });
+    res.json({ session: await sessionView(user.schoolId, session.id, isStaff(user.role), owned?.map(s=>s.id)) });
   }),
 );
 
@@ -122,6 +128,7 @@ router.get(
   '/:id',
   asyncHandler(async (req, res) => {
     if (!isStaff(req.user!.role)) throw badRequest('Only staff may view the live session grid.');
+    await assertSessionActor(req.user!.schoolId, req.params.id, req.user!.sub);
     await expireIfDue(req.params.id);
     res.json(await sessionView(req.user!.schoolId, req.params.id, true));
   }),
@@ -132,7 +139,7 @@ router.get(
   authorize(...STAFF),
   asyncHandler(async (req, res) => {
     const sessions = await prisma.attendanceSession.findMany({
-      where: { schoolId: req.user!.schoolId },
+      where: { schoolId: req.user!.schoolId, ...(req.user!.role === 'TEACHER' ? {class:{classTeacher:{userId:req.user!.sub}}} : {}) },
       include: { class: { select: { name: true } }, _count: { select: { verifications: true } } },
       orderBy: { startTime: 'desc' },
       take: 30,
@@ -148,6 +155,7 @@ router.get(
   '/:id/summary',
   authorize(...STAFF),
   asyncHandler(async (req, res) => {
+    await assertSessionActor(req.user!.schoolId, req.params.id, req.user!.sub);
     await expireIfDue(req.params.id); // finalise states if the window has passed
     res.json(await buildSessionSummary(req.user!.schoolId, req.params.id));
   }),
@@ -157,6 +165,7 @@ router.get(
   '/:id/report.pdf',
   authorize(...STAFF),
   asyncHandler(async (req, res) => {
+    await assertSessionActor(req.user!.schoolId, req.params.id, req.user!.sub);
     await expireIfDue(req.params.id);
     const summary = await buildSessionSummary(req.user!.schoolId, req.params.id);
     const pdf = await renderSessionPdf(summary);
@@ -170,6 +179,7 @@ router.get(
   '/:id/report.xlsx',
   authorize(...STAFF),
   asyncHandler(async (req, res) => {
+    await assertSessionActor(req.user!.schoolId, req.params.id, req.user!.sub);
     await expireIfDue(req.params.id);
     const summary = await buildSessionSummary(req.user!.schoolId, req.params.id);
     const xlsx = await renderSessionExcel(summary);
@@ -186,6 +196,7 @@ router.post(
   authorize(...STAFF),
   validateBody(faceSchema),
   asyncHandler(async (req, res) => {
+    await assertSessionActor(req.user!.schoolId, req.params.id, req.user!.sub);
     const embedded = await embedFromImage((req.body as z.infer<typeof faceSchema>).image);
     if (!embedded.found) return res.json({ state: 'ABSENT', reason: 'No face detected in the frame.' });
     const result = await markFace({ schoolId: req.user!.schoolId, sessionId: req.params.id, embedding: embedded.embedding!, detScore: embedded.detScore, actorId: req.user!.sub });
@@ -197,6 +208,7 @@ router.post(
 const qrSchema = z.object({ token: z.string(), image: z.string().min(32).optional(), studentId: z.string().optional() });
 router.post(
   '/:id/qr',
+  authorize(...STAFF, 'STUDENT'),
   validateBody(qrSchema),
   asyncHandler(async (req, res) => {
     const body = req.body as z.infer<typeof qrSchema>;

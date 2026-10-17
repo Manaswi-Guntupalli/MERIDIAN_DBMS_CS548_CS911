@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import { splitSql } from './sql-statements.js';
 const db = new PrismaClient();
 try {
-  const sql = readFileSync(new URL('../../database/advanced.sql', import.meta.url), 'utf8');
+  const sql = ['advanced.sql','integrity.sql'].map(file=>readFileSync(new URL('../../database/'+file, import.meta.url), 'utf8')).join('\n');
   await db.$transaction(async tx => {
     for (const statement of splitSql(sql)) await tx.$executeRawUnsafe(statement);
   }, {timeout: 60000});

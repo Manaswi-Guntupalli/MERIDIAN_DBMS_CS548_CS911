@@ -17,6 +17,15 @@ import { enrollFace, EMBED_DIM } from '../../services/face.js';
 const router = Router();
 router.use(authenticate);
 router.use(authorize(...STAFF_ADMIN));
+router.use((_req, _res, next) => process.env.NODE_ENV === 'production' && process.env.ENABLE_ATTENDANCE_SIMULATOR !== 'true' ? next(badRequest('Attendance simulator is disabled in production.')) : next());
+// Scope every scenario BEFORE any database read, expiration or biometric mutation.
+router.use(asyncHandler(async (req, _res, next) => {
+  if (req.body?.sessionId) {
+    const session = await prisma.attendanceSession.findFirst({where:{id:req.body.sessionId,schoolId:req.user!.schoolId}});
+    if (!session) throw badRequest('Session not found in your school');
+  }
+  next();
+}));
 
 /** A deterministic-ish synthetic unit vector seeded from a subject id. */
 function seededUnitVector(seed: string, dim = EMBED_DIM): number[] {
@@ -114,8 +123,9 @@ router.post('/proxy', validateBody(scenarioSchema), asyncHandler(async (req, res
   const schoolId = req.user!.schoolId;
   const session = await prisma.attendanceSession.findFirst({ where: { id: req.body.sessionId, schoolId } });
   if (!session) throw badRequest('Session not found');
-  const claim = await rosterStudent(req.body.sessionId, 3);
-  const impostor = await rosterStudent(req.body.sessionId, 4);
+  const roster = await prisma.attendanceVerification.findMany({where:{sessionId:session.id},include:{student:true},orderBy:{student:{rollNo:'asc'}},take:2});
+  if (roster.length < 2) throw badRequest('Proxy scenario requires at least two distinct students.');
+  const [claim, impostor] = roster.map(row=>row.student);
   await ensureDemoFace(schoolId, claim.id); // the claimed student must be enrolled to verify against
   const impostorFace = await ensureDemoFace(schoolId, impostor.id);
   res.json(await markQr({ schoolId, sessionId: session.id, token: session.sessionToken, studentId: claim.id, embedding: recapture(impostorFace), actorId: req.user!.sub }));
@@ -124,7 +134,7 @@ router.post('/proxy', validateBody(scenarioSchema), asyncHandler(async (req, res
 // 7 · Expired session → marking is refused (anti-replay boundary)
 router.post('/expired', validateBody(scenarioSchema), asyncHandler(async (req, res) => {
   const schoolId = req.user!.schoolId;
-  await prisma.attendanceSession.update({ where: { id: req.body.sessionId }, data: { expiryTime: new Date(Date.now() - 1000) } });
+  await prisma.attendanceSession.updateMany({ where: { id: req.body.sessionId, schoolId }, data: { expiryTime: new Date(Date.now() - 1000) } });
   await expireIfDue(req.body.sessionId);
   const student = await rosterStudent(req.body.sessionId, 0);
   try {

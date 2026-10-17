@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { AppError } from '../lib/errors.js';
 import { ZodError } from 'zod';
+import { Prisma } from '@prisma/client';
 
 export function errorHandler(
   err: unknown,
@@ -8,6 +9,10 @@ export function errorHandler(
   res: Response,
   _next: NextFunction,
 ): void {
+  if (err instanceof Prisma.PrismaClientKnownRequestError && ['P2002','P2003'].includes(err.code)) {
+    res.status(409).json({error: err.code === 'P2002' ? 'A record with these unique details already exists.' : 'This record is referenced by existing records; withdraw it instead of deleting.'});
+    return;
+  }
   if (err instanceof ZodError) {
     res.status(400).json({
       error: 'Validation failed',

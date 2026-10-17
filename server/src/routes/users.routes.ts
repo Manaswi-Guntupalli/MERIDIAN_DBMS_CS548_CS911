@@ -12,6 +12,7 @@
 // these checks are.
 
 import { Router } from 'express';
+import { revokeSockets } from '../lib/socket.js';
 import { z } from 'zod';
 import { prisma } from '../lib/prisma.js';
 import { asyncHandler, badRequest, forbidden, notFound } from '../lib/errors.js';
@@ -110,6 +111,7 @@ router.post(
         lockedUntil: null,
       },
     });
+    revokeSockets(target.id);
     await recordEvent({
       schoolId: target.schoolId,
       type: 'PASSWORD_RESET',
@@ -139,6 +141,7 @@ router.post(
       // not their next login.
       data: { active: false, tokenVersion: { increment: 1 } },
     });
+    revokeSockets(target.id);
     await recordEvent({
       schoolId: target.schoolId,
       type: 'ACCOUNT_DEACTIVATED',
@@ -158,6 +161,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const target = await manageable(req, req.params.id);
     await prisma.user.update({ where: { id: target.id }, data: { active: true, failedLogins: 0, lockedUntil: null } });
+    revokeSockets(target.id);
     await recordEvent({
       schoolId: target.schoolId,
       type: 'ACCOUNT_ACTIVATED',
@@ -177,6 +181,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const target = await manageable(req, req.params.id);
     await prisma.user.update({ where: { id: target.id }, data: { failedLogins: 0, lockedUntil: null } });
+    revokeSockets(target.id);
     await auditLog({
       schoolId: target.schoolId,
       actorId: req.user!.sub,
@@ -194,6 +199,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const target = await manageable(req, req.params.id);
     await prisma.user.update({ where: { id: target.id }, data: { tokenVersion: { increment: 1 } } });
+    revokeSockets(target.id);
     await recordEvent({
       schoolId: target.schoolId,
       type: 'SESSIONS_REVOKED',
@@ -222,6 +228,7 @@ router.patch(
     // through a generic dropdown.
     const before = target.role;
     await prisma.user.update({ where: { id: target.id }, data: { role, tokenVersion: { increment: 1 } } });
+    revokeSockets(target.id);
     await recordEvent({
       schoolId: target.schoolId,
       type: 'ROLE_CHANGED',

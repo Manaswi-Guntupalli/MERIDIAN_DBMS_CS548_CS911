@@ -8,7 +8,7 @@ import { prisma } from '../lib/prisma.js';
 const router=Router();
 const admins=['SUPER_ADMIN','ADMIN','PRINCIPAL'];
 router.use(authenticate,authorize(...admins,'TEACHER'));
-const input=z.object({title:z.string().trim().min(1).max(180),content:z.string().trim().min(20).max(12000),category:z.enum(['POLICY','NOTICE','DOCUMENT']),sourceId:z.string().optional()});
+const input=z.object({title:z.string().trim().min(1).max(180),content:z.string().trim().min(20).max(12000),category:z.enum(['POLICY','NOTICE','DOCUMENT']),sourceId:z.string().nullable().optional()});
 router.get('/',asyncHandler(async(req,res)=>{
   const items=await knowledgeContext(req.user!,tx=>tx.$queryRaw`SELECT "id","title","content","category","sourceId","model","revision","updatedAt" FROM "KnowledgeItem" ORDER BY "updatedAt" DESC LIMIT 100`);
   res.json({items,model:EMBEDDING_MODEL,dimensions:384,metric:'cosine'});

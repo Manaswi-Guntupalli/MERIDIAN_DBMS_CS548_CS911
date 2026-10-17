@@ -16,19 +16,46 @@ try {
     const fee=await tx.fee.create({data:{schoolId:school.id,studentId:student.id,title:'Verification',amount:100,dueDate:'2026-10-01'}});
     // Catch intentional errors in a PostgreSQL subtransaction. This also works
     // through restricted PostgreSQL protocol implementations used in local QA.
-    await tx.$executeRawUnsafe(`CREATE FUNCTION pg_temp.reject_sql(command text) RETURNS boolean LANGUAGE plpgsql AS $$ BEGIN BEGIN EXECUTE command; EXCEPTION WHEN OTHERS THEN RETURN true; END; RETURN false; END $$`);
-    const reject=async(name:string,sql:string)=>{
-      const rows=await tx.$queryRaw<{rejected:boolean}[]>`SELECT pg_temp.reject_sql(${sql}) AS rejected`;
-      ok(name,rows[0].rejected);
+    await tx.$executeRawUnsafe(`CREATE FUNCTION pg_temp.reject_sql(command text) RETURNS text LANGUAGE plpgsql AS $$ BEGIN BEGIN EXECUTE command; EXCEPTION WHEN OTHERS THEN RETURN SQLSTATE; END; RETURN NULL; END $$`);
+    const reject=async(name:string,sql:string,expected='P0001')=>{
+      const rows=await tx.$queryRaw<{rejected:string}[]>`SELECT pg_temp.reject_sql(${sql}) AS rejected`;
+      ok(name,rows[0].rejected===expected);
     };
-    await reject('CHECK rejects negative fee',`UPDATE "Fee" SET "amount"=-1 WHERE "id"='${fee.id}'`);
+    await reject('CHECK rejects negative fee',`UPDATE "Fee" SET "amount"=-1 WHERE "id"='${fee.id}'`,'23514');
+    await reject('F13 database rejects nonpositive roll',`UPDATE "Student" SET "rollNo"=-5 WHERE "id"='${student.id}'`,'23514');
+    const peer=await tx.student.create({data:{schoolId:school.id,admissionNo:randomUUID(),rollNo:2,name:'Second student'}});
+    await reject('F12 database rejects duplicate school admission',`UPDATE "Student" SET "admissionNo"='${student.admissionNo}' WHERE "id"='${peer.id}'`,'23505');
+    const teacherProfile=await tx.teacher.create({data:{schoolId:school.id,userId:teacher.id,employeeId:randomUUID(),department:'Test'}});
+    const foreignUser=await tx.user.create({data:{schoolId:other.id,email:randomUUID()+'@test.invalid',password:'unused',name:'Other school teacher',role:'TEACHER'}});
+    const foreignTeacher=await tx.teacher.create({data:{schoolId:other.id,userId:foreignUser.id,employeeId:randomUUID(),department:'Test'}});
+    const cls=await tx.class.create({data:{schoolId:school.id,name:'Test class',grade:6,section:'A',classTeacherId:teacherProfile.id}});
+    const building=await tx.building.create({data:{schoolId:other.id,name:'Foreign building'}});
+    const room=await tx.room.create({data:{buildingId:building.id,name:'Foreign room'}});
+    await reject('F09 class rejects foreign teacher',`UPDATE "Class" SET "classTeacherId"='${foreignTeacher.id}' WHERE id='${cls.id}'`,'23514');
+    await reject('F09 class rejects foreign room',`UPDATE "Class" SET "roomId"='${room.id}' WHERE id='${cls.id}'`,'23514');
+    await reject('F09 student rejects foreign login',`UPDATE "Student" SET "userId"='${foreignUser.id}' WHERE id='${student.id}'`,'23514');
+    await reject('F09 teacher rejects foreign login',`UPDATE "Teacher" SET "userId"='${foreignUser.id}' WHERE id='${teacherProfile.id}'`,'23514');
+    const foreignParent=await tx.parent.create({data:{schoolId:other.id,userId:foreignUser.id}});
+    await reject('F09 guardian link rejects foreign school',`INSERT INTO "StudentParent"(id,"studentId","parentId") VALUES ('${randomUUID()}','${student.id}','${foreignParent.id}')`,'23514');
+    const attendance=await tx.attendance.create({data:{schoolId:school.id,studentId:student.id,classId:cls.id,date:'2026-10-01'}});
+    for(const date of ['not-a-date','2026-02-30','0000-01-01']) await reject('F14 database rejects '+date,`UPDATE "Attendance" SET date='${date}' WHERE id='${attendance.id}'`,'23514');
+    await reject('F14 fee rejects impossible due date',`UPDATE "Fee" SET "dueDate"='2026-02-30' WHERE id='${fee.id}'`,'23514');
+    await reject('F09 tenant cannot be reassigned',`UPDATE "Class" SET "schoolId"='${other.id}' WHERE id='${cls.id}'`,'23514');
+    const foreignClass=await tx.class.create({data:{schoolId:other.id,name:'Other class',grade:6,section:'A',classTeacherId:foreignTeacher.id}});
+    const session=await tx.attendanceSession.create({data:{schoolId:school.id,classId:cls.id,teacherId:teacherProfile.id,date:'2026-10-01',expiryTime:new Date(),sessionToken:randomUUID()}});
+    await reject('F09 session rejects foreign class',`UPDATE "AttendanceSession" SET "classId"='${foreignClass.id}' WHERE id='${session.id}'`,'23514');
+    const foreignStudent=await tx.student.create({data:{schoolId:other.id,name:'Other student',admissionNo:randomUUID(),rollNo:1}});
+    await reject('F09 verification rejects foreign student',`INSERT INTO "AttendanceVerification"(id,"sessionId","studentId","updatedAt") VALUES ('${randomUUID()}','${session.id}','${foreignStudent.id}',now())`,'23514');
+    const timetable=await tx.timetable.create({data:{schoolId:school.id,name:'Test timetable'}});
+    const subject=await tx.subject.create({data:{schoolId:school.id,name:'Test subject',code:'TEST'}});
+    await reject('F09 timetable slot rejects foreign teacher',`INSERT INTO "TimetableSlot"(id,"timetableId",day,period,"classId","subjectId","teacherId") VALUES ('${randomUUID()}','${timetable.id}',0,0,'${cls.id}','${subject.id}','${foreignTeacher.id}')`,'23514');
     await reject('Trigger rejects cross-school student',`INSERT INTO "Fee"("id","schoolId","studentId","title","amount","dueDate") VALUES('${randomUUID()}','${other.id}','${student.id}','Invalid',10,'2026-10-01')`);
-    const pay=await tx.$queryRaw<any[]>`SELECT * FROM record_fee_payment(${fee.id},${school.id},${40}::double precision,'CASH',NULL,${randomUUID()})`;
-    ok('Stored function records payment and balance',pay[0].paid===40 && pay[0].status==='PARTIAL');
-    await reject('Stored function rejects overpayment',`SELECT * FROM record_fee_payment('${fee.id}','${school.id}',80::double precision,'CASH',NULL,'${randomUUID()}')`);
+    const pay=await tx.$queryRaw<any[]>`SELECT * FROM record_fee_payment(${fee.id},${school.id},${40}::numeric,'CASH',NULL,${randomUUID()})`;
+    ok('Stored function records payment and balance',Number(pay[0].paid)===40 && pay[0].status==='PARTIAL');
+    await reject('Stored function rejects overpayment',`SELECT * FROM record_fee_payment('${fee.id}','${school.id}',80::numeric,'CASH',NULL,'${randomUUID()}')`);
     ok('Failed payment rolls back cleanly',(await tx.payment.count({where:{feeId:fee.id}}))===1);
     const summary=await tx.$queryRaw<any[]>`SELECT * FROM school_fee_summary WHERE "schoolId"=${school.id}`;
-    ok('Aggregate view reads live balance',summary[0].outstanding===60);
+    ok('Aggregate view reads live balance',Number(summary[0].outstanding)===60);
     const vector='['+[1,...Array(383).fill(0)].join(',')+']';
     const key=randomUUID();
     await tx.$executeRaw`SELECT set_config('meridian.user_id',${admin.id},true)`;
@@ -45,7 +72,7 @@ try {
     ok('Teacher role can read vector entries',rows.length===1);
     const changed=await tx.$executeRaw`UPDATE "KnowledgeItem" SET "title"='Unauthorized change' WHERE "id"=${key}`;
     ok('Database RLS denies teacher update',changed===0);
-    await reject('Database RLS denies teacher insert',`INSERT INTO "KnowledgeItem"("id","schoolId","title","content","category","createdBy","embedding") VALUES('${randomUUID()}','${school.id}','Denied','This insert should be rejected by database policy.','POLICY','${teacher.id}','${vector}'::vector)`);
+    await reject('Database RLS denies teacher insert',`INSERT INTO "KnowledgeItem"("id","schoolId","title","content","category","createdBy","embedding") VALUES('${randomUUID()}','${school.id}','Denied','This insert should be rejected by database policy.','POLICY','${teacher.id}','${vector}'::vector)`,'42501');
     await tx.$executeRaw`SELECT set_config('meridian.school_id',${other.id},true)`;
     rows=await tx.$queryRaw<any[]>`SELECT "id" FROM "KnowledgeItem"`;
     ok('Database RLS denies wrong-school access',rows.length===0);

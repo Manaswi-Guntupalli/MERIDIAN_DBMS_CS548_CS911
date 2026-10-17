@@ -1,57 +1,69 @@
-import { Server as IOServer } from 'socket.io';
+import { Server as IOServer, type Socket } from 'socket.io';
 import type { Server as HttpServer } from 'http';
 import { env } from '../config/env.js';
-import { verifyToken } from './auth.js';
+import { liveSession } from './live-session.js';
+import { STAFF_ADMIN } from '../utils/constants.js';
 
 let io: IOServer | null = null;
 
+async function validate(socket: Socket) {
+  const session = await liveSession(socket.data.token);
+  if (session.mustChangePassword) throw new Error('Password change required');
+  socket.data.user = session.user;
+  return session.user;
+}
+
 export function initSocket(httpServer: HttpServer): IOServer {
-  io = new IOServer(httpServer, {
-    cors: { origin: env.clientOrigin, credentials: true },
+  // Next.js normalizes the proxy URL to /socket.io without a final slash.
+  // Accept both forms so browser polling works through the same-origin rewrite.
+  const server = new IOServer(httpServer, { addTrailingSlash: false, cors: { origin: env.clientOrigin, credentials: true } });
+  io = server;
+  server.use((socket, next) => {
+    socket.data.token = socket.handshake.auth?.token ?? socket.handshake.headers.authorization?.replace(/^Bearer /, '');
+    void validate(socket).then(() => next()).catch(() => next(new Error('Unauthorized: invalid or revoked session')));
   });
-
-  /**
-   * Every socket must present a valid JWT. The school room is derived from the
-   * verified token — clients can no longer ask to join an arbitrary school and
-   * eavesdrop on another tenant's attendance, emergencies or AI ledger.
-   */
-  io.use((socket, next) => {
-    const token =
-      (socket.handshake.auth?.token as string | undefined) ??
-      (socket.handshake.headers.authorization?.startsWith('Bearer ')
-        ? socket.handshake.headers.authorization.slice(7)
-        : undefined);
-    if (!token) return next(new Error('Unauthorized: missing token'));
-    try {
-      const payload = verifyToken(token);
-      socket.data.user = payload;
-      next();
-    } catch {
-      next(new Error('Unauthorized: invalid token'));
-    }
+  server.on('connection', socket => {
+    socket.join(`school:${socket.data.user.schoolId}`);
+    socket.join(`user:${socket.data.user.sub}`);
+    socket.use((_packet, next) => { void validate(socket).then(() => next()).catch(() => socket.disconnect(true)); });
   });
-
-  io.on('connection', (socket) => {
-    const user = socket.data.user as { schoolId: string; sub: string } | undefined;
-    if (!user) return socket.disconnect(true);
-    // Server-side room assignment only.
-    socket.join(`school:${user.schoolId}`);
-    socket.join(`user:${user.sub}`);
-  });
-
-  return io;
+  // Covers changes made outside account-management routes as well as token expiry.
+  const timer = setInterval(() => {
+    for (const socket of server.sockets.sockets.values()) void validate(socket).catch(() => socket.disconnect(true));
+  }, 15_000);
+  timer.unref();
+  server.on('close', () => clearInterval(timer));
+  httpServer.on('close', () => clearInterval(timer));
+  return server;
 }
 
-// Broadcast a realtime event to everyone in a school.
+export function revokeSockets(userId: string): void { io?.in(`user:${userId}`).disconnectSockets(true); }
+
+/** Revalidate before delivery. Private audit content is never a school broadcast. */
 export function emitToSchool(schoolId: string, event: string, payload: unknown): void {
-  io?.to(`school:${schoolId}`).emit(event, payload);
+  if (!io) return;
+  for (const socket of io.sockets.sockets.values()) {
+    if (socket.data.user?.schoolId !== schoolId) continue;
+    void validate(socket).then(user => {
+      if (user.schoolId !== schoolId) return;
+      const admin = (STAFF_ADMIN as readonly string[]).includes(user.role);
+      if (event === 'event:new') { socket.emit(event, {}); return; } // cache invalidation only
+      if (event === 'ai:log' || event.startsWith('lumen:') || event === 'timetable:draft') {
+        if (admin) socket.emit(event, payload);
+        return;
+      }
+      if (event.startsWith('attendance:')) { socket.emit(event, admin ? payload : {}); return; }
+      if (event === 'kairos:cascade' && !admin && user.role !== 'TEACHER') return;
+      socket.emit(event, payload);
+    }).catch(() => socket.disconnect(true));
+  }
 }
 
-// Broadcast to a single user (e.g. a parent's own notification).
 export function emitToUser(userId: string, event: string, payload: unknown): void {
-  io?.to(`user:${userId}`).emit(event, payload);
+  if (!io) return;
+  for (const socket of io.sockets.sockets.values()) {
+    if (socket.data.user?.sub !== userId) continue;
+    void validate(socket).then(() => socket.emit(event, payload)).catch(() => socket.disconnect(true));
+  }
 }
-
-export function getIO(): IOServer | null {
-  return io;
-}
+export function getIO(): IOServer | null { return io; }

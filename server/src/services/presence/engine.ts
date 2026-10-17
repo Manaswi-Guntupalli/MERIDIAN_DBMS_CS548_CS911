@@ -4,10 +4,11 @@ import { badRequest } from '../../lib/errors.js';
 import { recordEvent } from '../eventStore.js';
 import { logAI } from '../trustLedger.js';
 import { notify } from '../notifications.js';
-import { sendSms, sendEmail, sendPush } from './channels.js';
+import { sendSms, sendEmail } from './channels.js';
 import { emitToSchool } from '../../lib/socket.js';
 import { getPresenceSettings, minutesOfDay } from './settings.js';
 import { matchFace, verifyFaceAgainst, MATCH_THRESHOLD } from '../face.js';
+import { assertSessionActor } from './authz.js';
 import { loadActiveSession } from './session.js';
 import type { FaceEvidence, MarkResult, VerificationState } from './types.js';
 
@@ -33,7 +34,7 @@ interface Deferred {
 
 async function finalizePresent(
   tx: Tx,
-  session: { id: string; schoolId: string },
+  session: { id: string; schoolId: string; classId: string },
   verificationId: string,
   student: { id: string; name: string; rollNo: number; classId: string | null },
   source: 'FACE' | 'QR' | 'MANUAL',
@@ -41,6 +42,8 @@ async function finalizePresent(
   face: FaceEvidence | null,
   actorId?: string,
 ): Promise<{ result: MarkResult; deferred: Deferred }> {
+  const current = await tx.student.findFirst({where:{id:student.id,schoolId:session.schoolId,active:true,classId:session.classId},select:{id:true}});
+  if (!current) throw badRequest('This student is no longer active in the session class.');
   const settings = await getPresenceSettings(session.schoolId, tx);
   const threshold = minutesOfDay(settings.schoolStartTime) + settings.lateGraceMinutes;
   const nowMinutes = now.getHours() * 60 + now.getMinutes();
@@ -80,10 +83,11 @@ async function finalizePresent(
 
   // Materialised daily view — the row every other engine reads.
   const date = dateStr(now);
+  const previous = await tx.attendance.findUnique({where:{studentId_date:{studentId:student.id,date}}});
   const attendance = await tx.attendance.upsert({
     where: { studentId_date: { studentId: student.id, date } },
     create: { schoolId: session.schoolId, studentId: student.id, classId: student.classId!, date, status: late ? 'LATE' : 'PRESENT', source, confidence: face?.confidence, markedById: actorId },
-    update: { status: late ? 'LATE' : 'PRESENT', source, confidence: face?.confidence },
+    update: { status: late ? 'LATE' : 'PRESENT', source, confidence: face?.confidence ?? null, markedById: actorId },
   });
 
   // Reversible: undoing this restores the prior daily status AND resets the
@@ -94,7 +98,7 @@ async function finalizePresent(
       type: 'ATTENDANCE_MARKED',
       aggregate: 'Attendance',
       aggregateId: attendance.id,
-      payload: { attendanceId: attendance.id, verificationId, eventId: event.id, studentId: student.id, studentName: student.name, source, status, previousStatus: null },
+      payload: { attendanceId: attendance.id, verificationId, eventId: event.id, studentId: student.id, studentName: student.name, source, status, previousStatus: previous?.status ?? null, previousSource: previous?.source ?? null, previousConfidence: previous?.confidence ?? null, previousMarkedById: previous?.markedById ?? null },
       actorId,
       reversible: true,
     },
@@ -189,6 +193,7 @@ export interface FaceMarkInput {
  */
 export async function markFace(input: FaceMarkInput): Promise<MarkResult> {
   if (!Array.isArray(input.embedding) || !input.embedding.length) throw badRequest('markFace requires a face embedding');
+  await assertSessionActor(input.schoolId, input.sessionId, input.actorId, 'MARK');
   const session = await loadActiveSession(input.schoolId, input.sessionId);
   if (session.status !== 'ACTIVE') throw badRequest('This attendance session is no longer active.');
 
@@ -237,6 +242,7 @@ export interface QrMarkInput {
  *                                     UNVERIFIED_QR — QR alone is never present)
  */
 export async function markQr(input: QrMarkInput): Promise<MarkResult> {
+  await assertSessionActor(input.schoolId, input.sessionId, input.actorId, 'QR', input.studentId);
   const session = await loadActiveSession(input.schoolId, input.sessionId);
   if (session.status !== 'ACTIVE') throw badRequest('This attendance session is no longer active.');
   if (session.sessionToken !== input.token) throw badRequest('Invalid or replayed QR token.');
@@ -299,6 +305,7 @@ export interface ManualMarkInput {
 
 /** Staff override — a teacher marks a student present by hand (audited). */
 export async function markManual(input: ManualMarkInput): Promise<MarkResult> {
+  await assertSessionActor(input.schoolId, input.sessionId, input.actorId, 'MARK');
   const session = await loadActiveSession(input.schoolId, input.sessionId);
   if (session.status !== 'ACTIVE') throw badRequest('This attendance session is no longer active.');
   const outcome = await prisma.$transaction(async (tx) => {
@@ -325,7 +332,6 @@ async function notifyParents(schoolId: string, student: { id: string; name: stri
     const contact = link.parent.user;
     if (contact.phone) await sendSms({ schoolId, to: contact.phone, title: `${student.name} is present`, body });
     if (contact.email) await sendEmail({ schoolId, to: contact.email, title: `${student.name} is present`, body });
-    await sendPush({ schoolId, to: contact.id, title: `${student.name} is present`, body });
   }
 }
 

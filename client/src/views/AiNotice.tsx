@@ -44,6 +44,7 @@ export default function AiNotice() {
     queryFn: async () => (await api.get('/notices/audiences')).data as {
       audiences: AudienceOption[];
       tones: string[];
+      aiDraftingEnabled?: boolean;
     },
   });
 
@@ -227,18 +228,20 @@ export default function AiNotice() {
 
           <button
             onClick={() => generate.mutate()}
-            disabled={!canDraft || generate.isPending}
+            disabled={!canDraft || generate.isPending || audiences.data?.aiDraftingEnabled === false}
             className="btn-primary mt-4"
           >
             {generate.isPending ? <Spinner /> : <Sparkles className="h-4 w-4" />} Draft with AI
           </button>
+          <button onClick={()=>{setDraft(context.trim());setAiDraft(null);}} disabled={!canDraft || generate.isPending} className="btn-ghost mt-4 ml-2">Use my wording</button>
+          {audiences.data?.aiDraftingEnabled === false && <p className="mt-2 text-xs text-slate-500">AI drafting is not configured. Use your wording to review and send a notice.</p>}
         </Card>
 
         {/* ── Review ── */}
         <Card>
           <div className="mb-4 flex items-center gap-2">
             <Megaphone className="h-4 w-4 text-brand-400" />
-            <h2 className="font-bold text-slate-900">AI Draft</h2>
+            <h2 className="font-bold text-slate-900">Notice draft</h2>
             {aiDraft && draft.trim() !== aiDraft.trim() && <Badge severity="INFO">edited by you</Badge>}
           </div>
 
@@ -246,7 +249,7 @@ export default function AiNotice() {
             <EmptyState
               icon={<Sparkles className="h-7 w-7" />}
               title="No draft yet"
-              hint="Fill in the recipients and context, then use Draft with AI."
+              hint="Fill in recipients and context, then use your wording or draft with AI."
             />
           ) : (
             <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
@@ -267,7 +270,7 @@ export default function AiNotice() {
                 </button>
                 <button
                   onClick={() => generate.mutate()}
-                  disabled={generate.isPending || !canDraft}
+                  disabled={generate.isPending || !canDraft || audiences.data?.aiDraftingEnabled === false}
                   className="btn-ghost"
                 >
                   <RotateCcw className="h-4 w-4" /> Regenerate

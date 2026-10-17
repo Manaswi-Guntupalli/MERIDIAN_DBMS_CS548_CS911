@@ -2,7 +2,9 @@ import { Router } from 'express';
 import { prisma } from '../lib/prisma.js';
 import { asyncHandler } from '../lib/errors.js';
 import { authenticate, authorize } from '../middleware/auth.js';
-import { DAYS, STAFF } from '../utils/constants.js';
+import { loadConfig } from '../services/kairos/input.js';
+import { currentSchoolPeriod } from '../services/school-calendar.js';
+import { STAFF } from '../utils/constants.js';
 
 const router = Router();
 router.use(authenticate);
@@ -15,11 +17,9 @@ router.get(
   asyncHandler(async (req, res) => {
     const schoolId = req.user!.schoolId;
     const now = new Date();
-    const date = now.toISOString().slice(0, 10);
-    const jsDay = now.getDay(); // 0=Sun..6=Sat
-    const day = jsDay === 0 || jsDay === 6 ? 0 : jsDay - 1; // map to Mon=0..Fri=4
-    // Derive current period from the hour (school day ~ 8am, 45-min periods).
-    const period = Math.max(0, Math.min(7, Math.floor((now.getHours() - 8))));
+    const {cfg} = await loadConfig(schoolId);
+    const clock = currentSchoolPeriod(cfg, now);
+    const {date, day, period} = clock;
 
     const [buildings, activeTT, absences, activeEmergency] = await Promise.all([
       prisma.building.findMany({ where: { schoolId }, include: { rooms: { include: { classes: true } } } }),
@@ -29,7 +29,7 @@ router.get(
     ]);
     const absentTeacherIds = new Set(absences.map((a) => a.teacherId));
 
-    const slots = activeTT
+    const slots = activeTT && period !== null
       ? await prisma.timetableSlot.findMany({
           where: { timetableId: activeTT.id, day, period },
           include: { class: true, subject: true, teacher: { include: { user: true } }, room: true },
@@ -69,14 +69,16 @@ router.get(
           teacherPresent,
           occupied: !!slot,
           attendancePct,
-          power: 'normal',
+          power: 'unmonitored',
         };
       }),
     }));
 
     res.json({
-      day: DAYS[day],
-      period: period + 1,
+      day: clock.dayLabel,
+      period: period === null ? null : period + 1,
+      calendarState: clock.state,
+      timezone: clock.timezone,
       emergency: activeEmergency ? activeEmergency.kind : null,
       buildings: buildingsOut,
     });

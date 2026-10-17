@@ -103,9 +103,10 @@ class AudienceOption {
 
 /// What this account may send, as the server reports it.
 class NoticePermissions {
-  const NoticePermissions({required this.audiences, required this.tones});
+  const NoticePermissions({required this.audiences, required this.tones, this.aiDraftingEnabled = true});
   final List<AudienceOption> audiences;
   final List<String> tones;
+  final bool aiDraftingEnabled;
 
   bool get isEmpty => audiences.isEmpty;
 
@@ -116,6 +117,7 @@ class NoticePermissions {
             .whereType<AudienceOption>()
             .toList(),
         tones: ((j['tones'] as List?) ?? const []).map((t) => t.toString()).toList(),
+        aiDraftingEnabled: j['aiDraftingEnabled'] as bool? ?? true,
       );
 }
 

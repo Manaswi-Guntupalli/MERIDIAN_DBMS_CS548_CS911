@@ -1,4 +1,5 @@
 import express from 'express';
+import { Prisma } from '@prisma/client';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -11,6 +12,12 @@ import { errorHandler } from './middleware/error.js';
 
 export function createApp() {
   const app = express();
+  // Preserve the numeric HTTP contract for web, Flutter and exports while
+  // retaining Decimal values throughout database/business calculations.
+  app.set('json replacer', function(this: Record<string,unknown>, key: string, value: unknown) {
+    const original = this[key];
+    return original instanceof Prisma.Decimal ? original.toNumber() : value;
+  });
 
   app.use(helmet({ crossOriginResourcePolicy: false }));
   app.use(cors({ origin: env.clientOrigin, credentials: true }));

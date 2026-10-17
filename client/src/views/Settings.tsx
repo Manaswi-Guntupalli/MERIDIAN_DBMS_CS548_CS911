@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useQuery } from '@tanstack/react-query';
+import { api } from '@/lib/api';
 import { Check, Minus, ShieldCheck, Server, Database, Cpu } from 'lucide-react';
 import { useAuth } from '@/store/auth';
 import PageHeader from '@/components/PageHeader';
@@ -28,6 +30,7 @@ const CAPS: { area: string; allow: boolean[] }[] = [
 
 export default function Settings() {
   const user = useAuth((s) => s.user)!;
+  const channels=useQuery({queryKey:['notification-channels'],queryFn:async()=>(await api.get('/notifications/channels')).data as Record<string,{provider:string;configured:boolean}>});
   return (
     <div>
       <PageHeader overline="System · Super Admin" title="System Settings" subtitle="Platform-level configuration and the enforced role-based access model. Only Super Admins can see this page." />
@@ -38,6 +41,11 @@ export default function Settings() {
         <Card className="flex items-start gap-3"><span className="grid h-9 w-9 place-items-center rounded-lg bg-ink-800 text-mint-400"><Cpu className="h-4 w-4" /></span><div><div className="text-sm font-semibold text-slate-900">AI engines</div><div className="text-xs text-slate-500">Lumen · Kairos · Foresight · Copilot · Presence</div></div></Card>
       </div>
 
+      <Card className="mb-6">
+        <h2 className="mb-2 font-bold">Notification delivery</h2>
+        <p className="mb-3 text-sm text-slate-500">In-app notifications are active. External channels require provider credentials; configured means credentials were supplied, and does not confirm final delivery.</p>
+        {channels.isLoading ? <p>Checking configuration…</p> : channels.isError ? <p role="alert">Unable to load provider status.</p> : Object.entries(channels.data??{}).map(([channel,state])=><div key={channel} className="flex justify-between py-2 text-sm"><span>{channel.toUpperCase()} · {state.provider}</span><Badge severity={state.configured?'SUCCESS':'WARNING'}>{state.configured?'Configured':'Disabled — credentials missing'}</Badge></div>)}
+      </Card>
       <Card className="!p-0">
         <div className="flex items-center gap-2 border-b border-line px-5 py-4">
           <ShieldCheck className="h-4 w-4 text-brand-400" />

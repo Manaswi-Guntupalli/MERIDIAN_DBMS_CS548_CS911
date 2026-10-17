@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Phone, Droplet, IdCard, CalendarCheck, ScanFace, CheckCircle2, Nfc } from 'lucide-react';
-import { api } from '@/lib/api';
+import { api, apiError } from '@/lib/api';
+import StudentEditor from '@/components/StudentEditor';
 import { useAuth } from '@/store/auth';
 import PageHeader from '@/components/PageHeader';
 import { Card, Badge, LoadingScreen, Meter } from '@/components/ui';
@@ -15,6 +16,7 @@ export default function StudentDetail() {
   const user = useAuth((st) => st.user)!;
   const canEnroll = ['SUPER_ADMIN', 'ADMIN', 'PRINCIPAL'].includes(user.role);
   const [enroll, setEnroll] = useState(false);
+  const [editing, setEditing] = useState(false);
   const { data, isLoading } = useQuery({
     queryKey: ['student', id],
     queryFn: async () => (await api.get(`/students/${id}`)).data.student,
@@ -30,7 +32,7 @@ export default function StudentDetail() {
   return (
     <div>
       <Link to="/students" className="mb-4 inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900"><ArrowLeft className="h-4 w-4" /> Back to students</Link>
-      <PageHeader overline={s.class?.name ?? 'Unassigned'} title={s.name} subtitle={`Admission ${s.admissionNo} · Roll ${s.rollNo}`} />
+      <PageHeader overline={s.class?.name ?? 'Unassigned'} title={s.name} subtitle={`Admission ${s.admissionNo} · Roll ${s.rollNo} · ${s.active ? 'Active' : 'Withdrawn'}`} actions={canEnroll && <button className="btn-ghost" onClick={()=>setEditing(true)}>Edit / withdraw</button>} />
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-1">
@@ -56,7 +58,7 @@ export default function StudentDetail() {
               <div className="flex items-center gap-2 text-sm font-semibold text-slate-900"><ScanFace className="h-4 w-4 text-brand-400" /> Face profile</div>
               {s.faceEnrolled ? <Badge severity="SUCCESS"><CheckCircle2 className="h-3 w-3" /> {s.faceCount} embeddings</Badge> : <Badge>Not enrolled</Badge>}
             </div>
-            <p className="mt-2 text-xs text-slate-500">On-device 128-D embeddings for face attendance. No image is ever stored.</p>
+            <p className="mt-2 text-xs text-slate-500">512-D InsightFace templates for attendance. Captured images are processed transiently; only vectors are stored.</p>
             {canEnroll && (
               <button onClick={() => setEnroll(true)} className={`${s.faceEnrolled ? 'btn-ghost' : 'btn-primary'} mt-3 w-full !py-2 text-xs`}>
                 <ScanFace className="h-3.5 w-3.5" /> {s.faceEnrolled ? 'Re-enroll face' : 'Enroll face'}
@@ -108,6 +110,7 @@ export default function StudentDetail() {
         </div>
       </div>
 
+      {editing && <StudentEditor student={s} onClose={()=>setEditing(false)} onSaved={()=>{qc.invalidateQueries({queryKey:['student',id]});qc.invalidateQueries({queryKey:['students']});}} />}
       {enroll && (
         <FaceEnroll
           subjectType="STUDENT"

@@ -1,6 +1,6 @@
 # Meridian
 
-Latest verification: [complete feature and rubric audit](docs/audit/COMPLETE_AUDIT.md). It records 17 reproduced defect categories, working features, test/build results, and remaining guideline gaps. A passing build/test suite does not mean the project is fully verified.
+Latest verification: [audit repairs and verification](docs/audit/REMEDIATION.md), with the [original audit](docs/audit/COMPLETE_AUDIT.md) retained as historical evidence. The repair record explains the 17 corrected defects, tests, browser checks, provider setup, and remaining data/device/evaluation limits.
 
 **DBMS Level 3 edition:** Next.js + Express + PostgreSQL with pgvector. See the [50-mark rubric mapping](docs/dbms/RUBRIC.md), [report](docs/dbms/REPORT.md), [ER diagram and dictionary](docs/dbms/SCHEMA.md), [demo guide](docs/dbms/DEMO.md), and [testing evidence](docs/dbms/TESTING.md).
 

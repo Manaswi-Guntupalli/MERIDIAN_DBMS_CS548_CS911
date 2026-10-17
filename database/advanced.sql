@@ -114,15 +114,16 @@ SELECT "schoolId", count(*)::integer AS accounts, sum("amount") AS billed,
 FROM "Fee" GROUP BY "schoolId";
 
 -- Serializable business operation: FOR UPDATE serializes payers of the same fee.
-CREATE OR REPLACE FUNCTION record_fee_payment(p_fee text, p_school text, p_amount double precision,
+DROP FUNCTION IF EXISTS record_fee_payment(text,text,double precision,text,text,text);
+CREATE OR REPLACE FUNCTION record_fee_payment(p_fee text, p_school text, p_amount numeric,
   p_method text, p_reference text, p_id text)
-RETURNS TABLE("paymentId" text, "paid" double precision, "status" text)
+RETURNS TABLE("paymentId" text, "paid" numeric, "status" text)
 LANGUAGE plpgsql AS $$
-DECLARE f "Fee"%ROWTYPE; new_paid double precision; new_status text;
+DECLARE f "Fee"%ROWTYPE; new_paid numeric(12,2); new_status text;
 BEGIN
   SELECT * INTO f FROM "Fee" WHERE "id"=p_fee AND "schoolId"=p_school FOR UPDATE;
   IF NOT FOUND THEN RAISE EXCEPTION 'Fee not found'; END IF;
-  IF p_amount IS NULL OR p_amount <= 0 OR p_amount > f."amount" - f."paid" THEN
+  IF p_amount IS NULL OR p_amount <= 0 OR p_amount <> round(p_amount,2) OR p_amount > f."amount" - f."paid" THEN
     RAISE EXCEPTION 'Invalid payment or amount exceeds outstanding balance';
   END IF;
   new_paid := f."paid" + p_amount;
@@ -132,7 +133,7 @@ BEGIN
   UPDATE "Fee" SET "paid"=new_paid,"status"=new_status WHERE "id"=p_fee;
   RETURN QUERY SELECT p_id,new_paid,new_status;
 END $$;
-REVOKE ALL ON FUNCTION record_fee_payment(text,text,double precision,text,text,text) FROM PUBLIC;
+REVOKE ALL ON FUNCTION record_fee_payment(text,text,numeric,text,text,text) FROM PUBLIC;
 
 -- School consistency across foreign keys (a valid ID from another school is invalid).
 CREATE OR REPLACE FUNCTION enforce_school_reference() RETURNS trigger

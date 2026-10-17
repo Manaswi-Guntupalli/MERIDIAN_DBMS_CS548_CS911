@@ -5,10 +5,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export function useWebcam() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const requestRef = useRef(0);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const start = useCallback(async () => {
+    const request = ++requestRef.current;
+    streamRef.current?.getTracks().forEach(track => track.stop());
     // Browsers deliberately refuse getUserMedia on ordinary HTTP origins.
     // `localhost` is the one development exception, which is why the kiosk
     // works at http://localhost:5173 but a phone/LAN URL such as
@@ -24,6 +27,7 @@ export function useWebcam() {
     setError(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 640, height: 480 }, audio: false });
+      if (request !== requestRef.current) { stream.getTracks().forEach(track=>track.stop()); return; }
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -31,6 +35,7 @@ export function useWebcam() {
         setReady(true);
       }
     } catch (e) {
+      if (request !== requestRef.current) return;
       const name = (e as Error).name;
       const message =
         name === 'NotAllowedError' || name === 'SecurityError'
@@ -45,6 +50,7 @@ export function useWebcam() {
   }, []);
 
   const stop = useCallback(() => {
+    requestRef.current++;
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
     setReady(false);

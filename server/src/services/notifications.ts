@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma.js';
 import { toJson, fromJson } from '../lib/json.js';
 import { emitToSchool, emitToUser } from '../lib/socket.js';
+import { sendPush } from './presence/channels.js';
 
 export interface NotificationInput {
   schoolId: string;
@@ -29,6 +30,9 @@ export async function notify(input: NotificationInput) {
   // every connected user. Only truly school-wide notices (no userId) fan out.
   if (input.userId) emitToUser(input.userId, 'notification:new', serializeNotification(n));
   else emitToSchool(input.schoolId, 'notification:new', serializeNotification(n));
+  // An external provider failure must not roll back the already delivered in-app notice.
+  try { await sendPush({schoolId:input.schoolId,to:input.userId??'*',title:input.title,body:input.body,notificationId:n.id,critical:input.severity==='CRITICAL'}); }
+  catch { console.error('Push dispatch failed; in-app notification is preserved.'); }
   return n;
 }
 

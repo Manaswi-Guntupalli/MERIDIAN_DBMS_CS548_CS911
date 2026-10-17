@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { z } from 'zod';
+import { calendarDate } from '../utils/calendar-date.js';
 import { prisma } from '../lib/prisma.js';
 import { asyncHandler, badRequest, notFound } from '../lib/errors.js';
 import { authenticate, authorize } from '../middleware/auth.js';
@@ -20,7 +21,7 @@ router.get(
   '/class/:classId',
   asyncHandler(async (req, res) => {
     const schoolId = req.user!.schoolId;
-    const date = (req.query.date as string) || todayStr();
+    const date = calendarDate.parse((req.query.date as string) || todayStr());
     const students = await prisma.student.findMany({
       where: { schoolId, classId: req.params.classId },
       orderBy: { rollNo: 'asc' },
@@ -48,7 +49,7 @@ const markSchema = z.object({
   studentId: z.string(),
   classId: z.string(),
   status: z.enum(ATTENDANCE_STATUS as unknown as [string, ...string[]]),
-  date: z.string().optional(),
+  date: calendarDate.optional(),
 });
 
 // This is a thin wrapper over Presence: a live PRESENT/LATE mark for today
@@ -76,13 +77,13 @@ router.post(
     // Attendance table (no live face/QR session involved), recorded as a
     // reversible ATTENDANCE_MARKED event. A live PRESENT/LATE mark also writes
     // an AttendanceEvent so it shows in the Presence feed alongside face/QR marks.
-    const existing = await prisma.attendance.findUnique({ where: { studentId_date: { studentId: body.studentId, date } } });
     // recordEvent defers the socket broadcast when it runs inside a
     // transaction, handing back an emit() to fire once the write has actually
     // committed. Dropping it (as this handler used to) meant marking a student
     // updated the database but told nobody — no live refresh on the principal's
     // dashboard, and no update on the parent's phone.
     const { record, broadcast } = await prisma.$transaction(async (tx) => {
+      const existing = await tx.attendance.findUnique({ where: { studentId_date: { studentId: body.studentId, date } } });
       const r = await tx.attendance.upsert({
         where: { studentId_date: { studentId: body.studentId, date } },
         create: { schoolId, studentId: body.studentId, classId: body.classId, date, status: body.status, source: 'MANUAL', markedById: req.user!.sub },
@@ -99,7 +100,7 @@ router.post(
           type: 'ATTENDANCE_MARKED',
           aggregate: 'Attendance',
           aggregateId: r.id,
-          payload: { attendanceId: r.id, studentId: body.studentId, status: body.status, previousStatus: existing?.status ?? null, previousSource: existing?.source ?? null, source: 'MANUAL' },
+          payload: { attendanceId: r.id, studentId: body.studentId, status: body.status, previousStatus: existing?.status ?? null, previousSource: existing?.source ?? null, previousConfidence: existing?.confidence ?? null, previousMarkedById: existing?.markedById ?? null, source: 'MANUAL' },
           actorId: req.user!.sub,
           actorName: req.user!.name,
         },
@@ -117,7 +118,7 @@ router.post(
 const bulkSchema = z.object({
   classId: z.string(),
   status: z.enum(ATTENDANCE_STATUS as unknown as [string, ...string[]]),
-  date: z.string().optional(),
+  date: calendarDate.optional(),
 });
 router.post(
   '/bulk',
@@ -132,15 +133,16 @@ router.post(
     await assertOwnClass(req.user!, owned.classTeacherId);
 
     const students = await prisma.student.findMany({ where: { schoolId, classId, active: true } });
+    const recorded = await prisma.$transaction(async tx => {
     for (const s of students) {
-      await prisma.attendance.upsert({
+      await tx.attendance.upsert({
         where: { studentId_date: { studentId: s.id, date } },
         create: { schoolId, studentId: s.id, classId, date, status, source: 'MANUAL', markedById: req.user!.sub },
         update: { status, source: 'MANUAL' },
       });
     }
 
-    await recordEvent({
+    return recordEvent({
       schoolId,
       type: 'ATTENDANCE_BULK',
       aggregate: 'Class',
@@ -148,7 +150,9 @@ router.post(
       payload: { classId, status, count: students.length, className: owned.name },
       actorId: req.user!.sub,
       actorName: req.user!.name,
+    }, tx);
     });
+    recorded.emit();
     res.json({ marked: students.length, className: owned.name, status });
   }),
 );

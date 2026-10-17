@@ -32,8 +32,8 @@ router.get(
     const attendanceRate = todayAtt.length
       ? Math.round((present / todayAtt.length) * 100)
       : null;
-    const outstanding = fees.reduce((a, f) => a + (f.amount - f.paid), 0);
-    const collected = fees.reduce((a, f) => a + f.paid, 0);
+    const outstanding = fees.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0);
+    const collected = fees.reduce((a, f) => a + f.paid.toNumber(), 0);
     const overloaded = teachers.filter((tt) => tt.weeklyHours >= tt.maxHours - 1).map((tt) => tt.user.name);
 
     // Forecast highlights come from the Python engine — intervals, models, and

@@ -16,6 +16,7 @@ import {
 } from '../services/notices/audience.js';
 import { NOTICE_TONES, draftNotice } from '../services/notices/draft.js';
 import type { Role } from '../utils/constants.js';
+import { env } from '../config/env.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AI Notice — AI assists, the human decides.
@@ -61,7 +62,7 @@ router.get(
   '/audiences',
   asyncHandler(async (req, res) => {
     const audiences = await audiencesFor(senderOf(req));
-    res.json({ audiences, tones: NOTICE_TONES });
+    res.json({ audiences, tones: NOTICE_TONES, aiDraftingEnabled: env.aiEnabled });
   }),
 );
 

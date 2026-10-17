@@ -140,7 +140,7 @@ router.get(
         ]);
         const present = attendance.filter((a) => a.status === 'PRESENT' || a.status === 'LATE').length;
         const rate = attendance.length ? Math.round((present / attendance.length) * 100) : 0;
-        const dues = fees.reduce((a, f) => a + (f.amount - f.paid), 0);
+        const dues = fees.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0);
         const todayRec = attendance.find((a) => a.date === today());
         return {
           id: s.id,
@@ -153,7 +153,7 @@ router.get(
           todayStatus: todayRec?.status ?? 'UNMARKED',
           attendanceHistory: attendance.map((a) => ({ date: a.date, status: a.status })),
           outstanding: Math.round(dues),
-          fees: fees.map((f) => ({ id: f.id, title: f.title, due: f.amount - f.paid, amount: f.amount, status: f.status, dueDate: f.dueDate })),
+          fees: fees.map((f) => ({ id: f.id, title: f.title, due: f.amount.minus(f.paid).toNumber(), amount: f.amount, status: f.status, dueDate: f.dueDate })),
           timetableToday: slots.map((sl) => ({
             period: sl.period,
             subject: sl.subject.name,
@@ -195,7 +195,7 @@ router.get(
 
     const present = repAtt.filter((a) => a.status === 'PRESENT' || a.status === 'LATE').length;
     const attendanceRate = repAtt.length ? Math.round((present / repAtt.length) * 100) : 0;
-    const outstanding = fees.reduce((a, f) => a + (f.amount - f.paid), 0);
+    const outstanding = fees.reduce((a, f) => a + (f.amount.minus(f.paid).toNumber()), 0);
     // "Overdue accounts" = distinct students with a fee past its due date and
     // not fully paid. Derived live: the stored `status` is a snapshot frozen at
     // creation — it labels partially-paid past-due fees PARTIAL (not OVERDUE)
@@ -204,7 +204,7 @@ router.get(
     const nowMs = Date.now();
     const overdueCount = new Set(
       fees
-        .filter((f) => f.paid < f.amount && new Date(f.dueDate).getTime() < nowMs)
+        .filter((f) => f.paid.lessThan(f.amount) && new Date(f.dueDate).getTime() < nowMs)
         .map((f) => f.studentId),
     ).size;
 
@@ -214,8 +214,8 @@ router.get(
     // different categories. The dashboard rendered whichever arrived first, so
     // the headline number visibly changed a second after the page opened.
     // One metric, one owner: the engine at GET /dashboard/intelligence.
-    const billed = fees.reduce((a, f) => a + f.amount, 0);
-    const collected = fees.reduce((a, f) => a + f.paid, 0);
+    const billed = fees.reduce((a, f) => a + f.amount.toNumber(), 0);
+    const collected = fees.reduce((a, f) => a + f.paid.toNumber(), 0);
     const feeCollectionRate = billed ? Math.round((collected / billed) * 100) : 100;
 
     // Cover only counts once a substitution is accepted — a declined or

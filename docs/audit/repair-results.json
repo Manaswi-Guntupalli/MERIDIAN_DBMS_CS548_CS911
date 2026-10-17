@@ -1,0 +1,159 @@
+{
+  "verificationDate": "2026-10-17",
+  "auditFindingsRepaired": [
+    "F01",
+    "F02",
+    "F03",
+    "F04",
+    "F05",
+    "F06",
+    "F07",
+    "F08",
+    "F09",
+    "F10",
+    "F11",
+    "F12",
+    "F13",
+    "F14",
+    "F15",
+    "F16",
+    "F17",
+    "S01",
+    "S02"
+  ],
+  "tests": {
+    "server": {
+      "passed": 147,
+      "failed": 0
+    },
+    "intelligence": {
+      "passed": 181,
+      "failed": 0
+    },
+    "flutter": {
+      "passed": 36,
+      "failed": 0
+    }
+  },
+  "productionBuild": "passed",
+  "flutterAnalysis": "passed: no issues",
+  "androidDebugApk": "built successfully with Firebase dependencies",
+  "sqlVerification": {
+    "passed": 29,
+    "fixtures": "transaction rolled back",
+    "runtime": "isolated PostgreSQL/PGlite + pgvector"
+  },
+  "browser": {
+    "passed": 40,
+    "javascriptErrors": [],
+    "apiServerErrors": "none observed in final browser run",
+    "resultsFile": "browser-results.json"
+  },
+  "serviceChecks": {
+    "date": "2026-10-17T16:04:02.538Z",
+    "checks": [
+      {
+        "name": "API",
+        "status": "PASS",
+        "service": "meridian"
+      },
+      {
+        "name": "Intelligence",
+        "status": "PASS",
+        "service": "ok"
+      },
+      {
+        "name": "Face",
+        "status": "PASS",
+        "service": "meridian-face"
+      },
+      {
+        "name": "Next API proxy",
+        "status": "PASS",
+        "service": "meridian"
+      },
+      {
+        "name": "/dashboard/stats",
+        "status": "PASS"
+      },
+      {
+        "name": "/dashboard/intelligence",
+        "status": "PASS"
+      },
+      {
+        "name": "/fees",
+        "status": "PASS"
+      },
+      {
+        "name": "/presence/analytics/today",
+        "status": "PASS"
+      },
+      {
+        "name": "/twin",
+        "status": "PASS"
+      },
+      {
+        "name": "/school/hours",
+        "status": "PASS"
+      },
+      {
+        "name": "/database/queries/fee-summary",
+        "status": "PASS"
+      },
+      {
+        "name": "/database/queries/class-balances",
+        "status": "PASS"
+      },
+      {
+        "name": "/database/queries/above-average",
+        "status": "PASS"
+      },
+      {
+        "name": "/database/queries/unpaid-students",
+        "status": "PASS"
+      },
+      {
+        "name": "/database/queries/attendance-cte",
+        "status": "PASS"
+      },
+      {
+        "name": "/database/queries/weekly-recursive",
+        "status": "PASS"
+      }
+    ]
+  },
+  "dependencies": {
+    "all": {
+      "info": 0,
+      "low": 0,
+      "moderate": 4,
+      "high": 5,
+      "critical": 0,
+      "total": 9
+    },
+    "production": {
+      "info": 0,
+      "low": 0,
+      "moderate": 2,
+      "high": 0,
+      "critical": 0,
+      "total": 2
+    },
+    "details": "repair-dependencies.json"
+  },
+  "nativePostgresCI": {
+    "status": "pending push"
+  },
+  "liveDemo": {
+    "web": "http://localhost:5173",
+    "api": "http://localhost:4000",
+    "intelligence": "http://localhost:8010",
+    "face": "http://localhost:8020",
+    "databasePort": 55435,
+    "storage": "tmp/repaired-demo/documents",
+    "oldDataRecovery": "not recovered; originals and database copy preserved; two orphan folders removed by old retention before isolation"
+  },
+  "externalDelivery": "provider adapters mocked; no real messages sent; credentials/device verification pending",
+  "physicalDevices": "not connected/tested",
+  "teamEvidence": "pending real team contribution details"
+}
