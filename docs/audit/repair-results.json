@@ -142,7 +142,16 @@
     "details": "repair-dependencies.json"
   },
   "nativePostgresCI": {
-    "status": "pending push"
+    "status": "passed",
+    "headSha": "6e0223ebd9567ca51aec7fb4996e3e562474ea43",
+    "runId": 39048777354,
+    "url": "https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911/actions/runs/39048777354",
+    "serverTestFilesPassed": 20,
+    "serverTestsPassed": 147,
+    "databaseChecksPassed": 29,
+    "productionBuild": "passed",
+    "realEmbeddingVerification": "passed: 384 dimensions; absence similarity 0.557567 versus unrelated text 0.100991",
+    "initialAttempt": "39048543189 failed during optional CUDA dependency download; corrected to bundled CPU installation"
   },
   "liveDemo": {
     "web": "http://localhost:5173",

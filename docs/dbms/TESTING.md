@@ -6,6 +6,8 @@
 
 See [repair-results.json](../audit/repair-results.json), [browser results](../audit/browser-results.json), [fresh screenshots](../audit/screenshots/), [full remediation record and limits](../audit/REMEDIATION.md), and [provider activation](../NOTIFICATIONS.md). Current dependency evidence reports two moderate production findings and five high/four moderate findings when build tools are included. Actual camera/QR/background-push device testing and provider credentials remain pending. Native PostgreSQL CI status is recorded in the repair evidence.
 
+Native PostgreSQL 16/pgvector verification [passed in run 39048777354](https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911/actions/runs/39048777354), including clean install, build, all 147 server tests, 29 SQL assertions and real embeddings. Tested application source: commit `6e0223e`.
+
 ## Earlier migration verification (historical)
 
 Date: 15 October 2026. Host: Windows, Node 22.21.0. Native Docker and PostgreSQL were not installed. Local database checks used PGlite (PostgreSQL compiled to WebAssembly) with its actual pgvector extension, exposed to Prisma through pglite-socket on 127.0.0.1:55432. This is an isolated QA runtime, not the project's deployment database and not a substitute for native PostgreSQL concurrency/load testing.

@@ -40,7 +40,7 @@ Repair verification: **17 October 2026**. The [original audit](COMPLETE_AUDIT.md
 
 **364 automated tests passed: 147 server, 181 Python intelligence, 36 Flutter.** Database verification passed 29 assertions; the browser passed 40 checks; 16 live health/query checks passed. Production build, Flutter analysis and Android APK passed. Final counts, browser results and current dependency status are captured in [repair-results.json](repair-results.json). Browser checks exercise real login, 26 principal routes, student mutation workflows, semantic CRUD, Database Lab, payments, role denial and parent/student mobile layouts. They do not replace physical camera/QR/background-push tests. [Fresh screenshots](screenshots/) use seeded synthetic school data only.
 
-Native PostgreSQL/pgvector CI is linked in the final verification evidence after its run. Local SQL checks use isolated PostgreSQL/PGlite with the real pgvector extension; they do not establish production load/failover safety.
+**Native PostgreSQL/pgvector CI passed** for source commit `6e0223e`: [run 39048777354](https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911/actions/runs/39048777354). Clean install, production build, all 147 server tests across 20 files, 29 database assertions and real 384-dimensional MiniLM inference passed. Local SQL checks additionally use isolated PostgreSQL/PGlite with the real pgvector extension; neither verification establishes production load/failover safety.
 
 The first repair CI attempt stopped at `npm ci` because the optional ONNX CUDA feed timed out. CI now explicitly uses the bundled CPU inference runtime (`ONNXRUNTIME_NODE_INSTALL=skip`); real MiniLM inference remains a required check. No tests are skipped to hide that installation failure.
 
