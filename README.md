@@ -6,6 +6,8 @@ Latest verification: [audit repairs and verification](docs/audit/REMEDIATION.md)
 
 The original Meridian features and Flutter companion are retained. New **Knowledge Library** and **Database Lab** pages demonstrate semantic retrieval, vector CRUD, SQL functions/triggers/CTEs/views/indexes and database-enforced administrator/teacher access.
 
+**SQL playground:** Database Lab now includes an editable, syntax-coloured SQL workspace with a private PGlite PostgreSQL/pgvector demo cluster per user, the full application schema, fictional seed data, DML/DDL and transaction examples, schema exploration, multiple result sets, query history, CSV export and reset. Editable SQL never uses the website database connection. See the [SQL Lab presentation guide and isolation details](docs/dbms/SQL_LAB.md).
+
 > **Every school decision, explained.**
 
 Meridian is a trust-first operating system for schools. It gives school leaders one calm place to run the day: understand what needs attention, automate routine work, verify attendance, communicate clearly, and trace every meaningful action back to its source.

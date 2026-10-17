@@ -2,6 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Reports must print as a flowing document, rather than the app's scroll viewport. */
+@media print {
+  @page { margin: 12mm; }
+
+  html:has(.reports-print-shell),
+  body:has(.reports-print-shell) {
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+  .reports-print-shell,
+  .reports-print-shell .app-workspace,
+  .reports-print-shell .app-page-frame,
+  .reports-print-shell main,
+  .reports-print-shell main > div {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .reports-print-shell > :not(.app-workspace),
+  .reports-print-shell .app-workspace > :not(.app-page-frame),
+  .reports-print-shell .app-page-frame > :not(main),
+  .operations-report .report-controls,
+  .operations-report .report-feedback {
+    display: none !important;
+  }
+  .reports-print-shell * {
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .operations-report { font-size: 10pt; overflow-wrap: anywhere; }
+  .operations-report header { display: block; margin-bottom: 5mm; }
+  .operations-report h1 { font-size: 26pt; line-height: 1.15; }
+  .operations-report h2 { font-size: 14pt; }
+  .operations-report header p { font-size: 10pt; }
+  .operations-report .report-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 3mm;
+    margin-bottom: 5mm;
+    break-inside: avoid;
+  }
+  .operations-report .report-metrics > div { padding: 3mm; }
+  .operations-report .report-metrics .stat-lg { font-size: 18pt; }
+  .operations-report .report-sections { display: block; }
+  .operations-report .report-sections > div {
+    padding: 4mm;
+    margin-bottom: 5mm;
+    overflow: visible;
+  }
+  .operations-report .report-summary-heading { flex-wrap: wrap; }
+  .operations-report h2 { break-after: avoid; }
+  .operations-report .report-forecasts { break-inside: avoid; }
+  .operations-report .report-item { break-inside: avoid; }
+  .operations-report p { orphans: 3; widows: 3; }
+}
+
 :root {
   color-scheme: light;
   /* Spacing rhythm + radii tokens (single source of truth) */

@@ -38,7 +38,7 @@ router.get(
 
     // Forecast highlights come from the Python engine — intervals, models, and
     // an explicit offline state instead of locally invented numbers.
-    const intel = await getDashboardIntelligence(schoolId);
+    const intel = await getDashboardIntelligence(schoolId, { fresh: true });
     const preds: { label: string; note: string }[] = [];
     if (intel.engine === 'online' && intel.payload) {
       const f = (intel.payload as any).forecasts ?? {};
@@ -75,6 +75,7 @@ router.get(
         'If attendanceRate is null, roll-call has not been taken yet today — say attendance is not yet marked, never report it as 0%.',
       JSON.stringify(metrics),
     );
+    const narrativeSource = narrative ? 'ai' : 'template';
     if (!narrative) {
       narrative =
         `The school currently serves ${students} students across ${classes} classes with ${teachers.length} staff. ` +
@@ -108,6 +109,7 @@ router.get(
       reversible: false,
     });
 
+    res.set('Cache-Control', 'no-store');
     res.json({
       generatedAt: new Date().toISOString(),
       title: 'Operations Summary',
@@ -115,6 +117,7 @@ router.get(
       predictions: preds,
       engineOnline: intel.engine === 'online',
       narrative,
+      narrativeSource,
       recommendations,
     });
   }),

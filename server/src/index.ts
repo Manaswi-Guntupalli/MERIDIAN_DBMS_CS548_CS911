@@ -4,6 +4,7 @@ import { env } from './config/env.js';
 import { initSocket } from './lib/socket.js';
 import { prisma } from './lib/prisma.js';
 import { runRetentionSweep } from './services/lumen/storage.js';
+import { closeSqlLabs } from './services/sqlLab.js';
 
 async function main() {
   const app = createApp();
@@ -35,6 +36,7 @@ async function main() {
   setInterval(() => void runRetentionSweep().catch(() => {}), 24 * 3600 * 1000).unref();
 
   const shutdown = async () => {
+    closeSqlLabs();
     await prisma.$disconnect();
     httpServer.close(() => process.exit(0));
   };

@@ -16,7 +16,7 @@ export default function AppLayout() {
   useRealtime();
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className={`flex h-screen overflow-hidden${location.pathname === '/reports' ? ' reports-print-shell' : ''}`}>
       {/* Desktop sidebar */}
       <div className="hidden lg:block">
         <Sidebar />
@@ -34,12 +34,12 @@ export default function AppLayout() {
         )}
       </AnimatePresence>
 
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="app-workspace flex flex-1 flex-col overflow-hidden">
         <Topbar onMenu={() => setMobileNav(true)} />
         <EmergencyBanner />
         {/* The ambient wash sits behind the scroll container, not inside it,
             so the blobs stay in place while the page scrolls. */}
-        <div className="relative flex-1 overflow-hidden">
+        <div className="app-page-frame relative flex-1 overflow-hidden">
           <AmbientBackground />
           <main className="no-scrollbar relative z-10 h-full overflow-y-auto px-5 py-8 lg:px-9 lg:py-10">
             {/* Page transition: a short, restrained fade-rise. */}

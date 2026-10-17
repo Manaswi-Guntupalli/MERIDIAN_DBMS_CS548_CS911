@@ -1,5 +1,11 @@
 # Executed verification and limits
 
+## SQL playground and report follow-ups — 17 October 2026
+
+The SQL playground passed 13 dedicated backend tests and 14 browser checks, with 12 related authorization/knowledge regression tests also passing. These cover every query-shelf example, user isolation, preservation of website records, real schema and vector queries, transaction rollback, reset, errors, output limits, slow-query termination, CSV, history, keyboard selection, desktop/mobile layouts and the existing live-evidence tab. See [SQL Lab](SQL_LAB.md) for implementation, commands and deployment details.
+
+Report regeneration passed three API tests and nine browser checks. Print export passed A4 portrait, Letter portrait, A4 landscape and a four-page stress report, with all narrative, recommendation and forecast text present inside page bounds and rendered pages visually checked. Both production builds passed. The commands are `node scripts/verify-report-regeneration.mjs`, `node scripts/verify-report-print.mjs`, and `node scripts/verify-sql-lab.mjs` (set `BROWSER_EXECUTABLE` for a local browser if required). These follow-up checks do not claim a new run of the entire intelligence, Flutter or native-PostgreSQL CI suites below.
+
 ## Latest repair verification — 17 October 2026
 
 **147 server + 181 intelligence + 36 Flutter tests passed (364 total)**. Direct database verification passed 29 assertions with rollback-only fixtures. The final headless-browser run passed 40 checks, including authenticated realtime through Next.js, vector CRUD, manual notice drafting, student withdrawal/reactivation/deletion and fee recording. All 16 live service/query checks passed. Production builds, Flutter analysis and the Android debug APK passed.

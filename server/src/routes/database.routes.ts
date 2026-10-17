@@ -2,9 +2,23 @@ import { Router } from 'express';
 import { prisma } from '../lib/prisma.js';
 import { authenticate, authorize } from '../middleware/auth.js';
 import { asyncHandler, badRequest } from '../lib/errors.js';
+import { sqlLab } from '../services/sqlLab.js';
+import rateLimit from 'express-rate-limit';
 const router=Router();
 router.use(authenticate,authorize('SUPER_ADMIN','ADMIN','PRINCIPAL'));
-// Fixed query catalogue. Never accept executable SQL from the browser.
+// Live website queries remain fixed. Editable SQL goes ONLY to disposable demo clusters.
+const labLimiter=rateLimit({windowMs:60_000,max:30,standardHeaders:true,legacyHeaders:false,
+  message:{error:'Please wait a moment before running more playground queries.'}});
+router.use('/lab',labLimiter);
+router.get('/lab/schema',asyncHandler(async(req,res)=>{
+  res.set('Cache-Control','no-store').json(await sqlLab(`${req.user!.schoolId}:${req.user!.sub}`,'schema'));
+}));
+router.post('/lab/execute',asyncHandler(async(req,res)=>{
+  res.set('Cache-Control','no-store').json(await sqlLab(`${req.user!.schoolId}:${req.user!.sub}`,'execute',req.body?.sql));
+}));
+router.post('/lab/reset',asyncHandler(async(req,res)=>{
+  res.set('Cache-Control','no-store').json(await sqlLab(`${req.user!.schoolId}:${req.user!.sub}`,'reset'));
+}));
 const queries:Record<string,{label:string;sql:string}>={
   'fee-summary':{label:'View + GROUP BY + aggregates',sql:'SELECT * FROM school_fee_summary WHERE "schoolId"=$1'},
   'class-balances':{label:'JOIN + GROUP BY + HAVING + ORDER BY',sql:`SELECT c."name", count(DISTINCT s."id")::integer AS students, sum(f."amount"-f."paid") AS outstanding FROM "Class" c JOIN "Student" s ON s."classId"=c."id" AND s."schoolId"=c."schoolId" JOIN "Fee" f ON f."studentId"=s."id" AND f."schoolId"=s."schoolId" WHERE c."schoolId"=$1 GROUP BY c."id",c."name" HAVING sum(f."amount"-f."paid")>0 ORDER BY outstanding DESC`},
