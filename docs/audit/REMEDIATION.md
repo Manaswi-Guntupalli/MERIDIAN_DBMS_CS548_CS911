@@ -42,6 +42,8 @@ Repair verification: **17 October 2026**. The [original audit](COMPLETE_AUDIT.md
 
 Native PostgreSQL/pgvector CI is linked in the final verification evidence after its run. Local SQL checks use isolated PostgreSQL/PGlite with the real pgvector extension; they do not establish production load/failover safety.
 
+The first repair CI attempt stopped at `npm ci` because the optional ONNX CUDA feed timed out. CI now explicitly uses the bundled CPU inference runtime (`ONNXRUNTIME_NODE_INSTALL=skip`); real MiniLM inference remains a required check. No tests are skipped to hide that installation failure.
+
 ## Limits and remaining activation/evaluation work
 
 1. **Credentials and devices:** Twilio/SendGrid/Firebase delivery needs your actual provider configuration. No external delivery was attempted. OpenAI generation is unconfigured; manual notices and data-grounded Copilot remain usable. Camera matching, replay resistance, physical QR, iOS provisioning and closed-app push must be checked on intended devices.
