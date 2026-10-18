@@ -24,6 +24,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Meridian uses your camera to scan attendance QR codes and capture face verification images.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Meridian requests microphone access only if a camera capture mode requires audio.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Connect to your school's Meridian server on the local network.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

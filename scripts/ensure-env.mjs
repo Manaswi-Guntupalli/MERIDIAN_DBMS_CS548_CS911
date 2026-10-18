@@ -1,6 +1,7 @@
 // Foolproof first run: create server/.env from server/.env.example when it's
-// missing, so a fresh clone never dies on `prisma db push` with
-// "Environment variable not found: DATABASE_URL". Runs via the root
+// missing, so Prisma commands can resolve DATABASE_URL after installation.
+// Prefer configure-local.mjs BEFORE npm ci for generated local credentials.
+// Runs via the root
 // postinstall — idempotent, never overwrites an existing .env, and never
 // fails an install (a copy problem must not block `npm install`).
 import { existsSync, copyFileSync } from 'node:fs';

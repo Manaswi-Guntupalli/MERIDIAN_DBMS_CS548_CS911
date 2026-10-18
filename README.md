@@ -1,290 +1,312 @@
 # Meridian
 
-Latest verification: [audit repairs and verification](docs/audit/REMEDIATION.md), with the [original audit](docs/audit/COMPLETE_AUDIT.md) retained as historical evidence. The repair record explains the 17 corrected defects, tests, browser checks, provider setup, and remaining data/device/evaluation limits.
+A school operations platform with a Next.js website, Express API, PostgreSQL + pgvector, Python analytics and face services, and a Flutter mobile companion. Web and mobile use the **same API and school database**.
 
-**DBMS Level 3 edition:** Next.js + Express + PostgreSQL with pgvector. See the [50-mark rubric mapping](docs/dbms/RUBRIC.md), [report](docs/dbms/REPORT.md), [ER diagram and dictionary](docs/dbms/SCHEMA.md), [demo guide](docs/dbms/DEMO.md), and [testing evidence](docs/dbms/TESTING.md).
+Project by Manaswi Guntupalli.
 
-The original Meridian features and Flutter companion are retained. New **Knowledge Library** and **Database Lab** pages demonstrate semantic retrieval, vector CRUD, SQL functions/triggers/CTEs/views/indexes and database-enforced administrator/teacher access.
+![Meridian dashboard](docs/screenshots/meridian/dashboard-command-center.png)
 
-**SQL playground:** Database Lab now includes an editable, syntax-coloured SQL workspace with a private PGlite PostgreSQL/pgvector demo cluster per user, the full application schema, fictional seed data, DML/DDL and transaction examples, schema exploration, multiple result sets, query history, CSV export and reset. Editable SQL never uses the website database connection. See the [SQL Lab presentation guide and isolation details](docs/dbms/SQL_LAB.md).
+**Start here:** [website setup](#run-the-website-from-a-fresh-clone) · [Flutter setup](#run-the-flutter-app) · [troubleshooting](#troubleshooting) · [verification](#run-checks-and-tests).
 
-> **Every school decision, explained.**
+## What is implemented
 
-Meridian is a trust-first operating system for schools. It gives school leaders one calm place to run the day: understand what needs attention, automate routine work, verify attendance, communicate clearly, and trace every meaningful action back to its source.
-
-Built by **Manaswi Guntupalli** with a simple conviction: school software should make decisions easier to trust—not harder to question.
-
-![Meridian Operations Command Center](docs/screenshots/meridian/dashboard-command-center.png)
-
-## Watch Meridian in action
-
-| Full platform walkthrough | Flutter companion walkthrough |
+| Area | Current implementation |
 | --- | --- |
-| **[▶ Watch `MERIDIAN_FINAL_DEMO`](https://drive.google.com/file/d/1XiFDfz1RLQ4IhYxchJI3ik3Bu4OIdWdm/view?usp=sharing)**<br>Explore the principal web experience: operations, intelligence, attendance, communication, and Trust Core. | **[▶ Watch `MERIDIAN_APP_FINAL_DEMO`](https://drive.google.com/file/d/1n_vcO8DhqhWMGlWz1RQwOzrBMm2tdJof/view?usp=sharing)**<br>See the mobile experience for principals, students, and families—including QR attendance. |
+| Pulse | Role-based students, staff, classes, attendance and fees workflows. |
+| Lumen | PDF text extraction or local Tesseract OCR, template-based fields, review, evidence highlights, exports and supported student/teacher commits. OCR runs in **Node**, not the Python analytics service. Bad scans need human correction. |
+| Kairos | Timetable generation, review, publication, versions and substitute planning. |
+| Foresight | Python statistical forecasts, anomaly detection and explainable recommendations. |
+| Presence | Session-based attendance, server-side face embeddings and QR workflows. Camera/device checks require compatible hardware and permissions. |
+| Copilot and reports | Live-data summaries, reviewed actions, report regeneration and print/PDF export. Optional OpenAI generation; data-based fallbacks are labelled. |
+| Knowledge Library | PostgreSQL/pgvector CRUD, 384-dimensional MiniLM embeddings, similarity search, revision triggers and database role policies. |
+| SQL Lab | Editable SQL, schema explorer, results, examples, history, CSV and reset. Each administrator gets a **separate disposable PGlite PostgreSQL/pgvector cluster with fictional data**. Editable SQL never uses the school database connection. |
+| Trust Core | Event/audit history and selected reversible actions. Time Machine is not a full database backup/restore system. |
+| Flutter | Principal, teacher, student and parent experiences using the same backend, with role-scoped data, QR/camera capture and realtime notifications. It is a mobile companion, not a complete copy of every web screen. |
 
-## What makes Meridian different
+### Services and ports
 
-Most school products are systems of record. Meridian is a system of **understanding and action**.
-
-| See the signal | Take the right action | Keep the proof |
+| Component | Stack | Local address |
 | --- | --- | --- |
-| The command center turns attendance, fees, staffing, timetable, and documents into a ranked operational picture. | AI suggestions are actionable, but people remain in control. High-impact changes are reviewed before they are applied. | Every important result carries confidence, provenance, and an auditable history—so “the system said so” is never the final answer. |
+| Website | Next.js 16, React, TypeScript | `http://localhost:5173` |
+| Authenticated API | Express, Prisma, Socket.IO | `http://localhost:4000/api` |
+| School database | PostgreSQL 16 + pgvector | `localhost:5432` |
+| Analytics engine | FastAPI, NumPy/pandas, SciPy, scikit-learn | `http://localhost:8010` |
+| Face engine | FastAPI, InsightFace, ONNX Runtime CPU | `http://localhost:8020` |
+| SQL playground | PGlite child processes inside the API deployment | No extra port or database credentials |
 
-## A school day, in Meridian
+The website proxies `/api` and Socket.IO polling to Express. Express calls the Python services; Flutter connects directly to Express. **pgvector is a PostgreSQL extension**, not a separate database server.
 
-1. **See what matters now.** The Operations Command Center computes school health and highlights the next best action.
-2. **Resolve operational friction.** Cover an absent teacher, process a form, or publish a timetable without losing the why behind the decision.
-3. **Verify, do not merely record.** Presence combines face verification with a short-lived QR fallback and flags suspected proxy attempts.
-4. **Communicate and recover confidently.** Draft notices, coordinate emergencies, replay changes, and inspect the AI Trust Ledger.
+## Run the website from a fresh clone
 
-## Product tour
+The primary instructions below use **Windows PowerShell**. macOS/Linux differences are included where commands differ. Run commands from the repository root unless another directory is explicitly shown.
 
-### The Operations Command Center
+### 1. Install prerequisites
 
-The dashboard is the school’s daily briefing: a transparent health score, cross-functional signals, and a ranked list of things that need attention. It is designed to answer one question quickly: **what should I do next?**
+- **Git**, **Node.js 22 LTS** and npm. `.nvmrc` specifies Node 22; recent verification used Node 22.21.0. Do not use Node 18.
+- **Docker Desktop** with Docker Compose v2 and Linux containers; start Docker Desktop before starting PostgreSQL. macOS/Linux can use Docker Engine + Compose instead.
+- **Python 3.11+** for the Python engines. Python 3.14 has been exercised locally. Install Python with its executable available in your terminal.
+- The face engine may need a native compiler when pip builds InsightFace: on Windows, install **Visual Studio Build Tools → Desktop development with C++**, including the Windows SDK. On Linux, install the distribution's C/C++ build tools and Python development headers if a wheel is unavailable.
+- Internet access for initial npm/pip packages and model downloads. Flutter/Android tooling is needed only for mobile; see below.
 
-![Meridian dashboard with school health, live metrics, and recommended actions](docs/screenshots/meridian/dashboard-command-center.png)
+Check these before cloning:
 
-### Lumen — documents that read themselves
-
-Drop in a school form and Lumen extracts structured fields, preserves confidence for every value, and shows the source crop behind the extraction. Low-confidence values stay in a human review loop instead of silently becoming records.
-
-| Document intake | Field-level proof |
-| --- | --- |
-| ![Lumen document processing queue](docs/screenshots/meridian/lumen-overview.png) | ![Lumen extracted admission form with confidence and proof](docs/screenshots/meridian/lumen-provenance.png) |
-
-### Kairos — timetables people can live with
-
-Kairos generates, reviews, publishes, and versions the school timetable. It treats a change as an operational decision: coverage, staff comfort, and balance are checked before a draft goes live. When a teacher is absent, Cascade proposes qualified substitutes only for the affected periods.
-
-| Live timetable | Explainable cover plan |
-| --- | --- |
-| ![Kairos timetable grid](docs/screenshots/meridian/kairos-timetable.png) | ![Cascade cover plan with qualified substitute recommendations](docs/screenshots/meridian/cascade-assignments.png) |
-
-| Version history |
-| --- |
-| ![Kairos timetable history showing live and archived versions](docs/screenshots/meridian/kairos-history.png) |
-
-### Foresight — see strain before it hits
-
-Foresight combines the school’s live signals into cautious forecasts and an at-risk queue. It shows intervals rather than pretending to know the future perfectly, and every risk is paired with a concrete next action.
-
-| Forecasts, not point promises | Prioritised student-risk queue |
-| --- | --- |
-| ![Foresight attendance, substitute, fee, and document-load forecasts](docs/screenshots/meridian/foresight-overview.png) | ![Foresight ranked at-risk students with message and flag actions](docs/screenshots/meridian/foresight-risk-list.png) |
-
-### Presence — attendance with integrity
-
-Presence turns attendance into a verifiable flow. A teacher opens a session; students use face verification or a session QR fallback; the live register makes the state visible as it changes. The system keeps only biometric embeddings—not face photographs—and blocks possible QR/face mismatches as proxy attempts.
-
-| Start a class session | Live QR and register |
-| --- | --- |
-| ![Presence attendance sessions](docs/screenshots/meridian/presence-sessions.png) | ![Presence QR attendance screen and live student register](docs/screenshots/meridian/presence-qr-roster.png) |
-
-![Presence insights showing enrollment coverage and a blocked proxy attempt](docs/screenshots/meridian/presence-insights.png)
-
-### Meridian Mobile — the school in every hand
-
-The Flutter companion brings the same operating model to the people who need it most. Principals can see school health, attendance, timetables, Copilot, notices, emergencies, and alerts from a phone. Students scan attendance QR codes; parents receive a focused view of each child’s attendance, timetable, fees, and notifications.
-
-Watch the complete mobile walkthrough: **[▶ `MERIDIAN_APP_FINAL_DEMO`](https://drive.google.com/file/d/1n_vcO8DhqhWMGlWz1RQwOzrBMm2tdJof/view?usp=sharing)**.
-
-#### Principal mobile companion
-
-| Sign in | School overview | Attendance | Timetable |
-| --- | --- | --- | --- |
-| ![Meridian mobile sign-in](docs/screenshots/flutterappss/image1.jpg) | ![Meridian mobile school overview](docs/screenshots/flutterappss/image2.jpg) | ![Meridian mobile attendance](docs/screenshots/flutterappss/image3.jpg) | ![Meridian mobile timetable](docs/screenshots/flutterappss/image4.jpg) |
-
-| Copilot | Emergency | AI Notice | Notifications |
-| --- | --- | --- | --- |
-| ![Meridian mobile Copilot answer](docs/screenshots/flutterappss/image5.jpg) | ![Meridian mobile emergency coordination](docs/screenshots/flutterappss/image6.jpg) | ![Meridian mobile AI Notice](docs/screenshots/flutterappss/image7.jpg) | ![Meridian mobile notifications](docs/screenshots/flutterappss/image8.jpg) |
-
-#### Student and family companion
-
-| Student home | QR attendance scan | Parent home | Attendance history |
-| --- | --- | --- | --- |
-| ![Meridian student home](docs/screenshots/flutterappss/image9.jpg) | ![Meridian student QR attendance scanner](docs/screenshots/flutterappss/image10.jpg) | ![Meridian parent home](docs/screenshots/flutterappss/image11.jpg) | ![Meridian family attendance history](docs/screenshots/flutterappss/image12.jpg) |
-
-| Fees | Family alerts |
-| --- | --- |
-| ![Meridian family fees](docs/screenshots/flutterappss/image13.jpg) | ![Meridian family notifications](docs/screenshots/flutterappss/image14.jpg) |
-
-### Copilot — grounded answers, human-approved actions
-
-Copilot is an operational assistant grounded in Meridian’s live event store. It answers questions such as “Which students are below 75% attendance?” with the supporting facts, a confidence signal, and relevant follow-up actions. It can propose actions, but it does not run them without confirmation.
-
-![Copilot answer grounded in live attendance data with one-click follow-up actions](docs/screenshots/meridian/copilot-grounded-answer.png)
-
-### Trust Core — communication, coordination, and memory
-
-Meridian keeps automation accountable across the product:
-
-| AI Notice | Notifications | Emergency coordination |
-| --- | --- | --- |
-| ![AI Notice drafting workflow](docs/screenshots/meridian/ai-notice.png) | ![Actionable school notifications](docs/screenshots/meridian/notifications.png) | ![Emergency coordination choices and accountability](docs/screenshots/meridian/emergency-coordination.png) |
-
-The **Time Machine** and **AI Trust Ledger** make the history visible: who changed what, when it happened, which engine acted, and how confident the system was. The result is software that can be reviewed, explained, and, where appropriate, reversed.
-
-![Meridian AI Trust Ledger](docs/screenshots/meridian/trust-ledger.png)
-
-## Six connected engines
-
-| Engine | What it does | Trust mechanism |
-| --- | --- | --- |
-| **Pulse** | Manages students, staff, classes, attendance, and fees. | A shared operational record for the school. |
-| **Lumen** | Extracts structured data from school documents. | Field confidence and visual provenance. |
-| **Kairos** | Generates and maintains timetables; handles cover. | Draft → review → publish workflow and version history. |
-| **Foresight** | Forecasts operational demand and surfaces risk. | Prediction intervals, evidence, and ranked actions. |
-| **Presence** | Runs face-assisted, QR-backed attendance. | Session-bound verification, proxy detection, embeddings only. |
-| **Copilot** | Answers operational questions and proposes next steps. | Live-data grounding, confidence, confirmation, and Trust Ledger entries. |
-
-## Trust is a product feature
-
-Meridian does not treat trust as a compliance page. It is built into the interaction model.
-
-- **Grounded intelligence:** Copilot uses operational data and shows the basis for its answer.
-- **Human-in-the-loop:** Document fields, timetable drafts, notices, and actions have review/confirm points.
-- **Confidence, not false certainty:** OCR and forecasts expose confidence and intervals.
-- **Auditable operations:** key actions are recorded in an event and audit history.
-- **Privacy-aware presence:** face photos are not retained after embedding; sensitive attendance flows are role-bound.
-- **Recoverable change:** timetable versions, timeline views, and explicit workflow states make it possible to inspect and correct changes.
-
-## Architecture
-
-```text
-                            ┌─────────────────────────────────────┐
-                            │           Next.js web           │
-                            │      principal, staff & admin UI     │
-                            └──────────────────┬──────────────────┘
-                                               │
-                     ┌─────────────────────────▼─────────────────────────┐
-                     │              Node.js + Express API                 │
-                     │  auth · business workflows · Socket.IO · auditing  │
-                     └───────────────┬────────────────────┬──────────────┘
-                                     │                    │
-                    ┌────────────────▼───────┐  ┌─────────▼──────────────┐
-                    │ PostgreSQL + pgvector│  │ Flutter student app     │
-                    │ school record + events  │  │ QR attendance scanning  │
-                    └─────────────────────────┘  └────────────────────────┘
-                                     │
-              ┌──────────────────────┴──────────────────────┐
-              │                                             │
-┌─────────────▼──────────────┐               ┌──────────────▼─────────────┐
-│ Intelligence service        │               │ Face service                │
-│ FastAPI · OCR · forecasts   │               │ FastAPI · embeddings        │
-│ risk modelling · Copilot    │               │ verification · proxy checks │
-└─────────────────────────────┘               └────────────────────────────┘
+```powershell
+git --version
+node --version
+npm --version
+python --version
+docker --version
+docker compose version
 ```
 
-## Run Meridian locally
+On macOS/Linux, use `python3` instead of `python` if that is your installed Python command.
 
-### Prerequisites
+### 2. Clone and configure BEFORE installing
 
-- Node.js 22+ recommended (minimum 20.9)
-- Python 3.10+
-- npm
-- Docker Desktop with Compose, or PostgreSQL 16+ with pgvector installed
-
-### Setup
-
-```bash
+```powershell
 git clone https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911.git
 cd MERIDIAN_DBMS_CS548_CS911
-npm install
+node scripts/configure-local.mjs
 ```
 
-Copy `.env.example` to `.env` and `server/.env.example` to `server/.env`. Set matching PostgreSQL username/password values and a strong JWT_SECRET; keep secrets out of Git. Then:
+The configuration command creates ignored `.env`, `server/.env`, and `client/.env.local` files **only when missing**. A fresh configuration gets matching Docker/API database credentials, a random JWT secret and a separate Lumen storage key. It does not print secrets or replace existing settings. No OpenAI, Twilio, SendGrid or Firebase account is required for the default local demo.
+
+Keep these files on this computer. Preserve `LUMEN_STORAGE_KEY` with document-storage backups: changing it makes encrypted documents unreadable. If you already have `.env` files or an existing Docker database volume, verify their credentials agree; rerunning this command is not a password reset.
+
+Install the locked Node dependencies. The CPU ONNX runtime is bundled; skip the optional GPU runtime download:
+
+```powershell
+$env:ONNXRUNTIME_NODE_INSTALL = 'skip'
+npm ci
+```
+
+macOS/Linux equivalent:
 
 ```bash
+ONNXRUNTIME_NODE_INSTALL=skip npm ci
+```
+
+### 3. Create the database and apply the schema
+
+```powershell
 docker compose up -d --wait
 npm run db:setup
+```
+
+Compose starts `pgvector/pgvector:pg16` with persistent volume `meridian_dbms_pgdata`. On the **first** database initialization it also creates `meridian_test`. `db:setup` applies versioned Prisma migrations, generates the Prisma client, and installs vector indexes, views, functions, constraints, triggers and role policies. Do not substitute `prisma db push`.
+
+**Only for a new disposable demo database**, populate sample records:
+
+```powershell
 npm run seed
 ```
 
-`seed` resets the selected demo database; use a disposable demonstration database. Existing SQLite files are untouched; private operational data is not transferred automatically. Compose uses a new volume separate from the original PostgreSQL volume.
+**`seed` deletes existing application records in the database selected by `server/.env`. Never rerun it to fix a connection error or on a database with records you want to keep.** The seed creates 132 fictional students, 11 teachers, six classes and demo accounts. Do not expose this seeded environment to the public internet.
 
-Install optional Python engines before starting them:
+After dependencies and Docker are ready, `npm run setup` is a configuration/schema shortcut only; it **does not seed or delete school records**. The initial seed remains a separate, explicit command.
 
-```bash
-npm run intelligence:install
-npm run faceservice:install
+### 4. Install each Python service in its own virtual environment
+
+Windows PowerShell, from the repository root:
+
+```powershell
+python -m venv intelligence/.venv
+./intelligence/.venv/Scripts/python.exe -m pip install --upgrade pip
+./intelligence/.venv/Scripts/python.exe -m pip install -r intelligence/requirements.txt
+
+python -m venv faceservice/.venv
+./faceservice/.venv/Scripts/python.exe -m pip install --upgrade pip
+./faceservice/.venv/Scripts/python.exe -m pip install -r faceservice/requirements.txt
 ```
 
-The Knowledge Library uses a local 384-dimensional MiniLM embedding model. First use downloads it from Hugging Face; no OpenAI key is required. Use focused policy/document paragraphs because the model has a bounded token window.
+macOS/Linux:
 
 ```bash
-npm run build
-npm --prefix server run test
-npm run db:verify
+python3 -m venv intelligence/.venv
+./intelligence/.venv/bin/python -m pip install --upgrade pip
+./intelligence/.venv/bin/python -m pip install -r intelligence/requirements.txt
+
+python3 -m venv faceservice/.venv
+./faceservice/.venv/bin/python -m pip install --upgrade pip
+./faceservice/.venv/bin/python -m pip install -r faceservice/requirements.txt
 ```
 
-Tests require TEST_DATABASE_URL pointing to a separate database ending in `_test`. Compose creates `meridian_test` on first initialization; create it manually if reusing an initialized volume. Tests do not reset the development database.
+No environment activation is necessary with these explicit interpreter paths. They avoid PowerShell activation-policy problems and accidentally installing packages into another Python installation.
 
-For direct WebSockets or phone access, copy `client/.env.example` to `client/.env.local` and set NEXT_PUBLIC_SOCKET_ORIGIN to the API's LAN address. Set CLIENT_ORIGIN in server/.env to the Next.js origin. Configure API_ORIGIN in client/.env.local for a remote backend. HTTP requests and Socket.IO polling use Next.js rewrites.
+### 5. Start three terminals and keep them running
 
-### Start the full local experience
+Open each terminal in `MERIDIAN_DBMS_CS548_CS911`.
 
-Use three terminals:
+**Terminal 1 — website and API:**
 
-```bash
-# Terminal 1 — web app and API
+```powershell
 npm run dev
 ```
 
-```bash
-# Terminal 2 — intelligence: OCR, forecasts, and Copilot support
-npm run intelligence
+**Terminal 2 — analytics, Windows:**
+
+```powershell
+./intelligence/.venv/Scripts/python.exe -m uvicorn app.main:app --app-dir intelligence --host 127.0.0.1 --port 8010
 ```
 
-```bash
-# Terminal 3 — face embeddings and verification
-npm run faceservice
+**Terminal 3 — face service, Windows:**
+
+```powershell
+./faceservice/.venv/Scripts/python.exe -m uvicorn app:api --app-dir faceservice --host 127.0.0.1 --port 8020
 ```
 
-Then open:
+On macOS/Linux use the same commands with `./intelligence/.venv/bin/python` and `./faceservice/.venv/bin/python` respectively.
 
-| Surface | Address |
+The face service's first startup downloads the `buffalo_l` model pack (about 281 MB). Wait for startup to complete. Knowledge Library's first embedding downloads MiniLM from Hugging Face; Lumen's first scanned-document read may download Tesseract's English language data. These cold starts can take longer than subsequent requests.
+
+The npm aliases `intelligence`, `faceservice`, and their `:install` variants use whichever `python` is on PATH. Prefer the explicit commands above when using separate virtual environments.
+
+### 6. Check services, open the site and sign in
+
+In a fourth terminal, from the repository root:
+
+```powershell
+npm run check:services
+```
+
+All four lines should report `OK`. This checks the website, API health, analytics database connectivity and loaded face model. It does not verify a phone camera or external message delivery.
+
+Open **http://localhost:5173**. Demo accounts all use password **`meridian123`**:
+
+| Role | Email |
 | --- | --- |
-| Web application | `http://localhost:5173` |
-| API health | `http://localhost:4000/api/health` |
-| Intelligence health | `http://localhost:8010/health` |
-| Face service health | `http://localhost:8020/health` |
+| Principal | `principal@meridian.school` |
+| Administrator | `admin@meridian.school` |
+| Super administrator | `super@meridian.school` |
+| Teacher | `teacher@meridian.school` |
+| Student | `student@meridian.school` |
+| Parent | `parent@meridian.school` |
 
-For the seeded demonstration environment, sign in with `principal@meridian.school` and password `meridian123`. The sign-in screen also exposes one-tap demo roles.
+Health endpoints: `/api/health` on port 4000, `/health` on 8010 and `/health` on 8020. Optional engines may be omitted for basic CRUD, but forecasts and face verification need their respective services. Missing engines are not a complete-feature setup.
 
-![Meridian sign-in and one-tap demo roles](docs/screenshots/meridian/sign-in.png)
+### Subsequent starts and stopping
 
-## Five-minute demo route
+On the next day, **do not reseed**. Start Docker Desktop, run `docker compose up -d --wait`, then start the same three terminals. Run `npm run db:setup` after pulling new migrations; rebuild/restart services after relevant configuration changes.
 
-For a compelling end-to-end walkthrough, do this:
+Stop each foreground terminal with Ctrl+C. `docker compose stop` stops PostgreSQL while keeping its data. `docker compose down` also preserves the named volume; **do not add `-v`** unless deliberately destroying the demo database.
 
-1. Start at the **Dashboard** and explain the health score and recommended-action queue.
-2. Open **Lumen** and show one low-confidence form field with its proof crop.
-3. Open **Kairos**, generate/review a cover plan, then show timetable history.
-4. Open **Presence**, start a class session, scan the QR with the Student app, and show the live register or Simulator result.
-5. Ask **Copilot** which students are below 75% attendance; open the **Trust Ledger** to close with accountability.
+To run the optimized web/API build locally, stop the dev web/API process first:
 
-For attendance testing, see [the Presence simulator guide](docs/presence-attendance-simulator.md).
+```powershell
+npm run build
+npm start
+```
 
-## Project structure
+Keep the two Python services running separately. This builds/runs the application; it is not a public deployment or TLS configuration.
+
+## Run the Flutter app
+
+The backend and PostgreSQL must already be running. **Flutter does not create a database or run the Node/Python services.** For face workflows, run the face service too.
+
+The full mobile instructions, Android emulator/USB/Wi-Fi commands, iOS setup, APK installation and troubleshooting are in **[flutter_app/README.md](flutter_app/README.md)**.
+
+Quick Android-emulator route, after installing Flutter + Android Studio and starting an emulator:
+
+```powershell
+cd flutter_app
+flutter --version
+flutter doctor -v
+flutter doctor --android-licenses
+flutter pub get
+flutter devices
+flutter run --debug -d DEVICE_ID --dart-define=MERIDIAN_API_BASE=http://10.0.2.2:4000
+```
+
+Replace `DEVICE_ID` with the ID printed by `flutter devices`, for example `emulator-5554`. Read and accept the SDK licenses yourself when prompted. The verified SDK was **Flutter 3.38.5 / Dart 3.10.4**; `pubspec.yaml` requires Dart `^3.10.4`. Use that Flutter version to reproduce the checked dependency set rather than upgrading SDKs/packages together.
+
+For a **USB-connected Android phone**, run `adb reverse tcp:4000 tcp:4000` and use `--dart-define=MERIDIAN_API_BASE=http://127.0.0.1:4000`. For a **Wi-Fi phone**, use the computer's LAN IP, such as `http://192.168.1.50:4000`, not `localhost` or `10.0.2.2`.
+
+The value is the Express origin: **port 4000, no `/api` suffix, no trailing slash**. It is compiled into the app; after changing it, stop and rerun/rebuild rather than hot reload. Sign in with the same seeded accounts as the website. Default builds do not need Firebase configuration.
+
+## Optional providers and networking
+
+- OpenAI is optional. Without `OPENAI_API_KEY`, Lumen uses local text/OCR processing, report summaries use templates, and AI notice drafting is disabled while manual notices remain available. Supplying a key sends the relevant prompt/document text to the provider and incurs usage charges.
+- SMS/email/remote push use **Twilio, SendGrid and Firebase**. They stay disabled until configured. See [provider activation](docs/NOTIFICATIONS.md); Socket.IO/in-app notifications do not prove closed-app push delivery.
+- For native Flutter, only the Express endpoint must be reachable by the phone. Keep PostgreSQL and Python engines local. Do not change `CLIENT_ORIGIN` to a phone IP: it is the **browser website's origin**, including its port.
+- `client/.env.local` uses `API_ORIGIN` for the server-side Next rewrite. Leave `NEXT_PUBLIC_SOCKET_ORIGIN` empty for same-origin polling, or set it to a directly reachable API origin. For a browser on another computer, update `CLIENT_ORIGIN` and any direct socket origin accordingly, then restart; `NEXT_PUBLIC_*` changes also require rebuilding a production build.
+- Browser camera capture requires localhost or a secure HTTPS context. Native Flutter camera access uses Android/iOS permissions and does not require exposing the Python face service.
+
+## Run checks and tests
+
+From the repository root, after Node installation and database setup:
+
+```powershell
+npm --prefix client run typecheck
+npm --prefix server run typecheck
+npm run build
+npm --prefix server run test
+```
+
+`server/.env` must contain a **separate** `TEST_DATABASE_URL` whose database name ends in `_test`. Test setup applies schema there and creates synthetic fixtures; it refuses the development database URL. Compose creates `meridian_test` only on first initialization. If your existing volume lacks it, create it without deleting the volume:
+
+```powershell
+docker compose exec db sh -c 'createdb -U "$POSTGRES_USER" meridian_test'
+```
+
+Database assertions run inside a rollback-only transaction against the database in `server/.env`. From the repository root:
+
+```powershell
+npm run db:verify
+```
+
+This installs no schema, so run `db:setup` first. It deliberately rolls back its temporary verification fixtures. See [testing evidence](docs/dbms/TESTING.md) for the exact scope and historical CI runs.
+
+Python tests, Windows:
+
+```powershell
+cd intelligence
+./.venv/Scripts/python.exe -m pytest
+cd ..
+```
+
+Flutter checks, from `flutter_app/`:
+
+```powershell
+flutter analyze
+flutter test
+flutter build apk --debug --dart-define=MERIDIAN_API_BASE=http://10.0.2.2:4000
+```
+
+Browser checks require the running services and a locally installed Playwright-compatible browser. Examples: `node scripts/verify-sql-lab.mjs`, `node scripts/verify-report-regeneration.mjs`, and `node scripts/verify-report-print.mjs`. Set `BROWSER_EXECUTABLE` to a browser executable if Playwright browsers are not installed. SQL Lab writes go only to its sandbox; report generation adds normal audit entries.
+
+## Troubleshooting
+
+| Symptom | What to check |
+| --- | --- |
+| `docker` unavailable / daemon not running | Install/start Docker Desktop; use Linux containers; reopen your terminal after installation. |
+| Port 5432 already used | Stop your other local PostgreSQL or deliberately change Compose's host port and both database URLs. Do not attach a different existing volume accidentally. |
+| PostgreSQL password authentication fails | Root `.env`, server URLs and the initialized volume must agree. Updating `.env` does not update a password stored in an existing PostgreSQL cluster. Do not delete the volume as a shortcut. |
+| `vector` extension unavailable | Use the Compose pgvector image. A plain PostgreSQL installation needs pgvector installed before `db:setup`. The migration account also needs permission to create the extension and database roles. |
+| API says database connection failed | Run `docker compose ps`, confirm health and credentials, then run `npm run db:setup`. Do not use `seed` as a connection repair. |
+| `ModuleNotFoundError` in Python | Install requirements using the exact virtual-environment interpreter used to start that service. |
+| InsightFace wheel/build failure | Install native build tools or use a Python version with compatible package wheels; rerun its venv's pip install. Check network access for the model download. |
+| Forecasts offline / face model unavailable | Start the appropriate Python terminal and check its `/health`; allow the initial model download to finish. |
+| Knowledge embeddings or first OCR read fails | Check model/language-data download access and logs. CPU ONNX installation does not require CUDA. |
+| `EADDRINUSE` on 4000/5173 | Stop the duplicate web/API instance. `npm run dev:stop` is an explicit force-stop helper that kills listeners on 4000/5173/5174; inspect them before using it. |
+| Phone cannot sign in | Test `http://PC_LAN_IP:4000/api/health` from the phone; check Wi-Fi, private-network firewall access and the compiled `MERIDIAN_API_BASE`. For USB use `adb reverse`. |
+| Android release APK cannot reach HTTP | Release transport policy requires HTTPS. Use a debug build for local HTTP or an HTTPS backend for release. |
+| Encrypted Lumen preview/original missing | Restore the original storage key and matching files/database backup. Reseeding or replacing JWT/storage keys does not recover old files. |
+
+## Documentation and demonstration
+
+- [SQL Lab presentation guide](docs/dbms/SQL_LAB.md), [rubric mapping](docs/dbms/RUBRIC.md), [schema/ER diagram](docs/dbms/SCHEMA.md), [DBMS report](docs/dbms/REPORT.md), [demo guide](docs/dbms/DEMO.md).
+- [Setup verification and platform limits](docs/SETUP_VERIFICATION.md), [testing evidence](docs/dbms/TESTING.md), [repair record and remaining limits](docs/audit/REMEDIATION.md), [historical audit](docs/audit/COMPLETE_AUDIT.md), [notification providers](docs/NOTIFICATIONS.md).
+- [Web walkthrough](https://drive.google.com/file/d/1XiFDfz1RLQ4IhYxchJI3ik3Bu4OIdWdm/view), [mobile walkthrough](https://drive.google.com/file/d/1n_vcO8DhqhWMGlWz1RQwOzrBMm2tdJof/view), [screenshot catalogue](docs/screenshots/README.md). Videos/screenshots can show older builds; the source and current verification records define present behaviour.
+
+## Repository layout
 
 ```text
-MERIDIAN/
-├── client/            # Next.js + TypeScript principal/staff interface
-├── server/            # Express API, Prisma schema, workflows, Socket.IO
-├── intelligence/      # FastAPI intelligence service: OCR, forecasting, Copilot logic
-├── faceservice/       # FastAPI face embedding and verification service
-├── flutter_app/       # Flutter student QR attendance application
-├── docs/              # product, demo, and implementation documentation
-└── scripts/           # local setup and development helpers
+client/          Next.js website
+server/          Express API, Prisma migrations, Lumen, SQL Lab worker
+database/        Advanced SQL, integrity constraints, Docker initialization
+intelligence/    Python analytics engine (not Lumen OCR)
+faceservice/     Python face embedding service
+flutter_app/     Flutter mobile companion
+scripts/         Local configuration and verification tools
+docs/            Design, evaluation, guides and audit evidence
 ```
-
-## Documentation
-
-- [Presence attendance simulator](docs/presence-attendance-simulator.md)
-- [Screenshot asset catalogue](docs/screenshots/README.md)
-- [API and implementation notes](docs/)
-
----
-
-**Meridian** is not school software that merely stores what happened. It is a school operating system that helps people decide what to do next—and makes the decision explainable.

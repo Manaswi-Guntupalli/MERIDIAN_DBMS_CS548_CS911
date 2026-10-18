@@ -8,8 +8,10 @@
     "client"
   ],
   "scripts": {
+    "configure:local": "node scripts/configure-local.mjs",
+    "check:services": "node scripts/check-services.mjs",
     "postinstall": "node scripts/ensure-env.mjs",
-    "setup": "npm run install:all && npm run db:setup && npm run seed",
+    "setup": "npm run configure:local && npm run db:setup",
     "install:all": "npm install",
     "db:setup": "npm --prefix server run db:setup",
     "seed": "npm --prefix server run seed",
