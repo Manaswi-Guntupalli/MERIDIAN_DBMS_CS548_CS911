@@ -27,7 +27,7 @@ android {
         applicationId = "com.meridian.meridian_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        // flutter_secure_storage / mobile_scanner / camera need API 23+.
+        // Respect the SDK's floor (API 24 in Flutter 3.38.5) and plugin minimums.
         minSdk = maxOf(flutter.minSdkVersion, 23)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

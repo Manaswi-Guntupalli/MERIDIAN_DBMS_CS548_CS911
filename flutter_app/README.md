@@ -7,7 +7,7 @@ Complete [website/backend setup](../README.md#run-the-website-from-a-fresh-clone
 ## 1. Install and check tools
 
 - Reproducible SDK: **Flutter 3.38.5 / Dart 3.10.4**. The project's Dart constraint is `^3.10.4`. Avoid changing dependencies with `pub upgrade` during initial setup; use the committed lockfile with `pub get`.
-- Android: Android Studio, SDK platform/build tools and Command-line Tools; a running emulator or USB-debug-enabled Android device. The project uses Android API 23+ and Java 17 bytecode; use Android Studio's compatible bundled JDK and check `flutter doctor -v` for the selected toolchain. Gradle downloads its pinned distribution automatically.
+- Android: Android Studio, **Android SDK Platform 36**, build tools and Command-line Tools; a running emulator or USB-debug-enabled Android device. With Flutter 3.38.5 the effective minimum is **Android 7.0 / API 24** (`maxOf(flutter.minSdkVersion, 23)`). The project uses Java 17 bytecode; use Android Studio's compatible bundled JDK and check `flutter doctor -v` for the selected toolchain. Gradle downloads its pinned distribution and may install the required NDK after licenses are accepted, so allow time and disk space for the first build.
 - iOS: **macOS and Xcode**, iOS simulator support and CocoaPods. Current Firebase dependencies require **iOS 15+**. Windows cannot build or run the iOS target.
 
 Official setup: [Flutter SDK](https://docs.flutter.dev/install), [Android](https://docs.flutter.dev/platform-integration/android/setup), [iOS](https://docs.flutter.dev/platform-integration/ios/setup).
