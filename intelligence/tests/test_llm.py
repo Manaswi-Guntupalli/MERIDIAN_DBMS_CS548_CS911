@@ -1,10 +1,21 @@
 import copy
 import io
 import json
+import time
+from threading import Event
 from unittest.mock import patch
 
 import pytest
 from app.llm import polish_reasons
+from app import llm
+
+
+@pytest.fixture(autouse=True)
+def clear_polish_cache():
+    if llm._pending:
+        llm._pending[1].result(timeout=3)
+    llm._pending = None
+    llm._cache.clear()
 
 
 def sample():
@@ -57,3 +68,34 @@ def test_provider_failure_preserves_original_data(monkeypatch):
     with patch("urllib.request.urlopen", side_effect=TimeoutError):
         assert not polish_reasons(items)
     assert items == before
+
+
+def test_slow_provider_never_blocks_dashboard_or_starts_duplicate_calls(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-fictional")
+    monkeypatch.setattr(llm, "_WAIT_SECONDS", .02)
+    release = Event()
+    def slow_reply(*args, **kwargs):
+        release.wait(timeout=2)
+        return reply(["Attendance stands at 90%."])
+    with patch("urllib.request.urlopen", side_effect=slow_reply) as send:
+        try:
+            items = sample()
+            start = time.monotonic()
+            assert not polish_reasons(items)
+            assert time.monotonic() - start < .5
+            assert items == sample()
+            assert not polish_reasons(items)
+            assert send.call_count == 1
+            # Different evidence is never given a stale reply or queued behind it.
+            different = sample()
+            different[0]["evidence"] = {"attendance": 75}
+            assert not polish_reasons(different)
+            assert send.call_count == 1
+            release.set()
+            llm._pending[1].result(timeout=1)
+            assert items == sample()  # background work cannot mutate returned data
+            assert polish_reasons(items)
+            assert items[0]["reason"] == "Attendance stands at 90%."
+            assert send.call_count == 1
+        finally:
+            release.set()

@@ -22,7 +22,7 @@ Restart the API and Python intelligence service using your usual run commands. S
 | Reports → Regenerate | Write the operations summary from current metrics | Labelled template summary |
 | Notice composer → Draft | Turn the supplied subject/context into a draft | AI draft unavailable; manual compose/send still works |
 | Lumen processing | Suggest repairs for low-confidence OCR text fields; suggestions are validated and checked against source text | Local text/OCR extraction and review |
-| Intelligence dashboard | Polish explanation sentences from computed evidence | Original deterministic explanations |
+| Intelligence dashboard | Polish explanation sentences from computed evidence; wait at most two seconds, reuse completed results for unchanged evidence | Original deterministic explanations; a slow request cannot hold up the dashboard |
 
 Relevant question text, school facts, notice context or document OCR excerpts are sent to OpenAI when those features run. API usage is billable. The API key itself stays on the server. Requests set `store: false`; this is not a claim of zero provider retention. Do not upload sensitive school records without the appropriate authorization.
 
@@ -46,6 +46,6 @@ node scripts/verify-openai-settings.mjs
 
 Set `BROWSER_EXECUTABLE` to your Edge/Chrome executable if Playwright's Chromium is not installed.
 
-Verified locally on 20 October 2026: server and Next.js production builds; 183 server tests against isolated PGlite PostgreSQL + pgvector; 191 Python tests; five configuration-script checks; six mocked browser scenarios. After the connection-check punctuation fix, the 23 focused server tests passed again. Live `gpt-4o-mini` connection, JSON/text generation and Python prose polish passed using fictional prompts only. No live school data was sent during these checks. A saved key is local configuration and will not be included in GitHub clones.
+Verified locally on 20 October 2026: server and Next.js production builds; 183 server tests against isolated PGlite PostgreSQL + pgvector; 192 Python tests (including slow-provider isolation); five configuration-script checks; six mocked browser scenarios. After the connection-check punctuation fix, the 23 focused server tests passed again. Live `gpt-4o-mini` connection, JSON/text generation and Python prose polish passed using fictional prompts only. No live school data was sent during these integration checks. A saved key is local configuration and will not be included in GitHub clones.
 
 Official references: [API authentication](https://developers.openai.com/api/reference/overview), [Chat Completions request options](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create).
