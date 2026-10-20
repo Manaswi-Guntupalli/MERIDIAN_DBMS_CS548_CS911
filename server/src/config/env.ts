@@ -26,8 +26,8 @@ export const env = {
   clientOrigin: process.env.CLIENT_ORIGIN ?? 'http://localhost:5173',
   jwtSecret: requiredSecret(),
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? '7d',
-  openaiKey: process.env.OPENAI_API_KEY ?? '',
-  openaiModel: process.env.OPENAI_MODEL ?? 'gpt-4o-mini',
+  openaiKey: (process.env.OPENAI_API_KEY ?? '').trim(),
+  openaiModel: process.env.OPENAI_MODEL?.trim() || 'gpt-4o-mini',
   get aiEnabled() {
     return this.openaiKey.trim().length > 0;
   },

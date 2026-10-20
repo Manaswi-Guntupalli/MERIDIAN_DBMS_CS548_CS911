@@ -20,6 +20,7 @@ import presence from './presence/index.js';
 import school from './school.routes.js';
 import actions from './actions.routes.js';
 import notices from './notices.routes.js';
+import ai from './ai.routes.js';
 
 import knowledge from './knowledge.routes.js';
 import database from './database.routes.js';
@@ -48,5 +49,6 @@ api.use('/presence', presence);
 api.use('/school', school);
 api.use('/actions', actions);
 api.use('/notices', notices);
+api.use('/ai', ai);
 
 export default api;

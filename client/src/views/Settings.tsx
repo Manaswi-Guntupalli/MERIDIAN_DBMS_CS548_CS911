@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/lib/api';
-import { Check, Minus, ShieldCheck, Server, Database, Cpu } from 'lucide-react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { api, apiError } from '@/lib/api';
+import { Check, Minus, ShieldCheck, Server, Database, Cpu, Loader2 } from 'lucide-react';
 import { useAuth } from '@/store/auth';
 import PageHeader from '@/components/PageHeader';
 import { Card, Badge } from '@/components/ui';
-import { cn } from '@/lib/utils';
+
+type AIStatus = { configured: boolean; model: string; timeoutMs: number };
+type AICheck = AIStatus & { ok: boolean; message: string; checkedAt: string };
 
 const ROLES = ['Super Admin', 'Admin', 'Principal', 'Teacher', 'Student', 'Parent'];
 
@@ -30,6 +32,10 @@ const CAPS: { area: string; allow: boolean[] }[] = [
 
 export default function Settings() {
   const user = useAuth((s) => s.user)!;
+  const ai = useQuery({ queryKey: ['ai-status'], queryFn: async () => (await api.get<AIStatus>('/ai/status')).data, retry: false });
+  const checkAI = useMutation({
+    mutationFn: async () => (await api.post<AICheck>('/ai/check', {}, { timeout: 20_000 })).data,
+  });
   const channels=useQuery({queryKey:['notification-channels'],queryFn:async()=>(await api.get('/notifications/channels')).data as Record<string,{provider:string;configured:boolean}>});
   return (
     <div>
@@ -41,6 +47,23 @@ export default function Settings() {
         <Card className="flex items-start gap-3"><span className="grid h-9 w-9 place-items-center rounded-lg bg-ink-800 text-mint-400"><Cpu className="h-4 w-4" /></span><div><div className="text-sm font-semibold text-slate-900">AI engines</div><div className="text-xs text-slate-500">Lumen · Kairos · Foresight · Copilot · Presence</div></div></Card>
       </div>
 
+      <Card className="mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-bold">OpenAI connection</h2>
+          <button className="btn-primary" onClick={() => checkAI.mutate()} disabled={checkAI.isPending || !ai.data?.configured} aria-busy={checkAI.isPending}>
+            {checkAI.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+            {checkAI.isPending ? 'Testing connection…' : 'Test connection'}
+          </button>
+        </div>
+        <p className="mt-2 text-sm text-slate-500">Copilot, reports, notice drafts, optional Lumen OCR repair and analytics explanations use the server key. Calculations and forecasts come from the database and analytics engine.</p>
+        {ai.isLoading ? <p className="mt-3 text-sm">Checking configuration…</p> : ai.isError ? <p className="mt-3 text-sm" role="alert">Unable to load OpenAI configuration.</p> : <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+          <span>Model: {ai.data?.model}</span>
+          <Badge severity={ai.data?.configured ? 'SUCCESS' : 'WARNING'}>{ai.data?.configured ? 'Key configured' : 'Disabled · server key missing'}</Badge>
+        </div>}
+        <p className="mt-3 text-xs text-slate-500">Test connection sends a small, billable test prompt without school data. Configure or rotate keys in server/.env, then restart the API and intelligence services. Never put a key in the browser or Flutter app.</p>
+        {checkAI.isError && <p className="mt-3 text-sm text-red-700" role="alert">{apiError(checkAI.error, 'Connection check failed. Please try again.')}</p>}
+        {!checkAI.isPending && !checkAI.isError && checkAI.data && <p className={`mt-3 text-sm ${checkAI.data.ok ? 'text-emerald-700' : 'text-red-700'}`} role={checkAI.data.ok ? 'status' : 'alert'}>{checkAI.data.message} Checked {new Date(checkAI.data.checkedAt).toLocaleTimeString()}.</p>}
+      </Card>
       <Card className="mb-6">
         <h2 className="mb-2 font-bold">Notification delivery</h2>
         <p className="mb-3 text-sm text-slate-500">In-app notifications are active. External channels require provider credentials; configured means credentials were supplied, and does not confirm final delivery.</p>

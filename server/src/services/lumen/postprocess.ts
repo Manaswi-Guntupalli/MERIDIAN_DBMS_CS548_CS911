@@ -116,13 +116,14 @@ export async function aiRefine(
   });
 
   const reply = await chatJSON<{ fields?: AiSuggestion[] }>(system, user, { temperature: 0 });
-  if (!reply?.fields?.length) return { fields, insights };
+  if (!Array.isArray(reply?.fields)) return { fields, insights };
 
-  const byKey = new Map(fields.map((f) => [f.key, f]));
+  const byKey = new Map(doubtful.map((f) => [f.key, f]));
   let applied = 0;
   let rejected = 0;
 
   for (const suggestion of reply.fields) {
+    if (!suggestion || typeof suggestion.key !== 'string' || typeof suggestion.value !== 'string') continue;
     const field = byKey.get(suggestion.key);
     if (!field) continue;
     const spec = template.fields.find((s) => s.key === suggestion.key);

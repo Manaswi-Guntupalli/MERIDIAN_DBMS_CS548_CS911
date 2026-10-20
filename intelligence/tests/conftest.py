@@ -15,6 +15,12 @@ from datetime import datetime, timedelta
 import pandas as pd
 import pytest
 
+
+@pytest.fixture(autouse=True)
+def no_live_openai(monkeypatch):
+    """A configured developer key must never turn a test into a billable call."""
+    monkeypatch.setenv("OPENAI_API_KEY", "")
+
 ANCHOR = "2026-03-20"  # a Friday
 
 

@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "configure:local": "node scripts/configure-local.mjs",
+    "configure:openai": "node scripts/configure-openai.mjs",
     "check:services": "node scripts/check-services.mjs",
     "postinstall": "node scripts/ensure-env.mjs",
     "setup": "npm run configure:local && npm run db:setup",

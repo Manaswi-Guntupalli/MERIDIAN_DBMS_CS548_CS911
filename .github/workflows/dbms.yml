@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: node --test scripts/configure-local.test.mjs
+      - run: node --test scripts/configure-local.test.mjs scripts/configure-openai.test.mjs
       - run: npm ci
       - run: npm --prefix server run db:generate
       - run: npm run build

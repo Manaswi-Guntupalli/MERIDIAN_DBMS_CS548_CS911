@@ -225,7 +225,7 @@ The value is the Express origin: **port 4000, no `/api` suffix, no trailing slas
 
 ## Optional providers and networking
 
-- OpenAI is optional. Without `OPENAI_API_KEY`, Lumen uses local text/OCR processing, report summaries use templates, and AI notice drafting is disabled while manual notices remain available. Supplying a key sends the relevant prompt/document text to the provider and incurs usage charges.
+- OpenAI is optional. Run `npm run configure:openai` to save a fresh key through a hidden terminal prompt, restart API/intelligence services, then use **Super Admin Settings → OpenAI connection → Test connection**. Without a working key, Lumen uses local text/OCR processing, report summaries use templates, and AI notice drafting is unavailable while manual notices remain available. Supplying a key sends relevant prompts/document text to the provider and incurs usage charges. See [OpenAI setup and feature verification](docs/OPENAI.md).
 - SMS/email/remote push use **Twilio, SendGrid and Firebase**. They stay disabled until configured. See [provider activation](docs/NOTIFICATIONS.md); Socket.IO/in-app notifications do not prove closed-app push delivery.
 - For native Flutter, only the Express endpoint must be reachable by the phone. Keep PostgreSQL and Python engines local. Do not change `CLIENT_ORIGIN` to a phone IP: it is the **browser website's origin**, including its port.
 - `client/.env.local` uses `API_ORIGIN` for the server-side Next rewrite. Leave `NEXT_PUBLIC_SOCKET_ORIGIN` empty for same-origin polling, or set it to a directly reachable API origin. For a browser on another computer, update `CLIENT_ORIGIN` and any direct socket origin accordingly, then restart; `NEXT_PUBLIC_*` changes also require rebuilding a production build.

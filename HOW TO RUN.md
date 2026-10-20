@@ -147,4 +147,6 @@ For a phone over Wi-Fi instead of USB, follow the [Wi-Fi instructions](flutter_a
 
 To stop, press **Ctrl+C** in the running terminals and run `docker compose stop`. Your database stays saved.
 
-OpenAI, SMS, email and Firebase push keys are optional; their external features need separate configuration. For errors, see [website troubleshooting](README.md#troubleshooting) or [Flutter troubleshooting](flutter_app/README.md#verification-and-troubleshooting).
+Optional OpenAI: run `npm run configure:openai`, paste a fresh key into the hidden terminal prompt, then restart the API and intelligence services. Super Admin can verify it under **Settings → OpenAI connection**. See [OpenAI setup](docs/OPENAI.md).
+
+SMS, email and Firebase push need separate provider credentials. For errors, see [website troubleshooting](README.md#troubleshooting) or [Flutter troubleshooting](flutter_app/README.md#verification-and-troubleshooting).

@@ -14,12 +14,15 @@ import urllib.request
 
 
 def polish_reasons(insights: list[dict]) -> bool:
-    key = os.environ.get("OPENAI_API_KEY")
-    if not key:
+    key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if not key or not insights:
         return False
     try:
         payload = {
-            "model": os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
+            "model": os.environ.get("OPENAI_MODEL", "").strip() or "gpt-4o-mini",
+            "store": False,
+            "max_completion_tokens": 1600,
+            "temperature": 0.2,
             "messages": [
                 {
                     "role": "system",
@@ -40,11 +43,15 @@ def polish_reasons(insights: list[dict]) -> bool:
         )
         with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
-        reasons = json.loads(data["choices"][0]["message"]["content"]).get("reasons", [])
-        if len(reasons) == len(insights):
+        choice = data["choices"][0]
+        if choice.get("finish_reason") != "stop" or choice["message"].get("refusal"):
+            return False
+        reasons = json.loads(choice["message"]["content"]).get("reasons", [])
+        if (isinstance(reasons, list) and len(reasons) == len(insights)
+                and all(isinstance(text, str) and 0 < len(text.strip()) <= 2000 for text in reasons)):
             for insight, text in zip(insights, reasons):
-                insight["reason"] = str(text)
-                insight["trace"]["llmPolished"] = True
+                insight["reason"] = text.strip()
+                insight.setdefault("trace", {})["llmPolished"] = True
             return True
     except Exception:
         pass  # deterministic text remains — the dashboard never depends on the LLM
