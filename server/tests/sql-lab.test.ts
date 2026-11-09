@@ -5,6 +5,8 @@ import { createFixture } from './helpers.js';
 import { closeSqlLabs, sqlLab } from '../src/services/sqlLab.js';
 import { prisma } from '../src/lib/prisma.js';
 import { SQL_EXAMPLES } from '../../client/src/lib/sql-examples.js';
+import { createNativePlayground } from '../src/services/nativeSqlLab.js';
+import pg from 'pg';
 
 const app = createApp();
 let fixture: Awaited<ReturnType<typeof createFixture>>;
@@ -29,6 +31,16 @@ describe('Isolated PostgreSQL SQL Lab', () => {
     for (const sql of ['', ' ', null, 1, 'x'.repeat(20001)]) {
       const response = await request(app).post('/api/database/lab/execute').set('Authorization', `Bearer ${fixture.admin.token}`).send({ sql });
       expect(response.status).toBe(400);
+    }
+  });
+  it('refuses to provision playgrounds on the school cluster even if misconfigured', async () => {
+    const configured = process.env.SQL_LAB_ADMIN_URL;
+    try {
+      process.env.SQL_LAB_ADMIN_URL = process.env.TEST_DATABASE_URL;
+      await expect(createNativePlayground()).rejects.toThrow('Wrong SQL Lab cluster');
+    } finally {
+      if (configured === undefined) delete process.env.SQL_LAB_ADMIN_URL;
+      else process.env.SQL_LAB_ADMIN_URL = configured;
     }
   });
   it('loads the actual application schema, foreign keys and pgvector extension', async () => {
@@ -84,8 +96,39 @@ describe('Isolated PostgreSQL SQL Lab', () => {
     expect(large.results[0].truncated).toBe(true);
     expect(Buffer.byteLength(JSON.stringify(large.results))).toBeLessThan(1_020_000);
   });
-  it('cannot access host secrets through the PostgreSQL virtual filesystem', async () => {
-    await expect(sqlLab(key, 'execute', "SELECT pg_read_file('/etc/passwd');")).rejects.toMatchObject({ status: 400 });
+  it('uses native PostgreSQL with an unprivileged login and no school records', async () => {
+    const result = await sqlLab(key, 'execute', `SELECT version(),current_database(); SELECT rolsuper,rolcreatedb,rolcreaterole FROM pg_roles WHERE rolname=current_user; SELECT count(*) FROM "User" WHERE email LIKE '%@meridian.school';`);
+    expect(result.results[0].rows[0][0]).toMatch(/^PostgreSQL /);
+    expect(result.results[0].rows[0][1]).toMatch(/^meridian_lab_[a-f0-9]{24}$/);
+    expect(result.results[1].rows).toEqual([[false,false,false]]);
+    expect(Number(result.results[2].rows[0][0])).toBe(0);
+  });
+  it('denies host files, server programs, role escalation and database creation', async () => {
+    for (const statement of ["SELECT pg_read_file('postgresql.conf');", "COPY (SELECT 1) TO PROGRAM 'echo forbidden';", 'CREATE ROLE forbidden_superuser SUPERUSER;', 'CREATE DATABASE forbidden_database;', 'SET ROLE meridian_lab_admin;']) {
+      await expect(sqlLab(key, 'execute', statement)).rejects.toMatchObject({ status: 400, details: { code: '42501' } });
+    }
+  });
+  it('rejects cross-playground and school-cluster connections and removes reset databases', async () => {
+    const first = await createNativePlayground();
+    const second = await createNativePlayground();
+    const own = new pg.Client({connectionString:first.url});
+    try {
+      await own.connect();
+      expect((await own.query('SELECT current_user')).rows[0].current_user).toBe(new URL(first.url).username);
+      await own.end();
+      const foreign = new URL(first.url); foreign.pathname = new URL(second.url).pathname;
+      const cross = new pg.Client({connectionString:foreign.toString()});
+      await expect(cross.connect()).rejects.toMatchObject({code:'28000'});
+      await cross.end();
+      const schoolAddress = new URL(process.env.TEST_DATABASE_URL!);
+      const school = new URL(first.url); school.hostname=schoolAddress.hostname; school.port=schoolAddress.port; school.pathname=schoolAddress.pathname;
+      const live = new pg.Client({connectionString:school.toString()});
+      await expect(live.connect()).rejects.toMatchObject({code:'28P01'});
+      await live.end();
+    } finally { await own.end(); await first.dispose(); await second.dispose(); }
+    const removed = new pg.Client({connectionString:first.url});
+    await expect(removed.connect()).rejects.toBeTruthy();
+    await removed.end();
   });
   it('resets schema changes and restores the seed', async () => {
     const result = await sqlLab(key, 'reset');

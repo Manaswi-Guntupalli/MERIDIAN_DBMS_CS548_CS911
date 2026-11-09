@@ -1,3 +1,6 @@
+import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+const require = createRequire(new URL('../server/package.json', import.meta.url));
 const checks = [
   ['Website', process.env.CHECK_WEB_ORIGIN || 'http://localhost:5173', false],
   ['API', `${process.env.CHECK_API_ORIGIN || 'http://localhost:4000'}/api/health`, true],
@@ -14,6 +17,20 @@ const results = await Promise.all(checks.map(async ([name, url, json]) => {
     return { name, url, ok: true };
   } catch (error) { return { name, url, ok: false, reason: error.message }; }
 }));
+try {
+  const config = require('dotenv').parse(readFileSync(new URL('../server/.env', import.meta.url)));
+  const connectionString = process.env.SQL_LAB_ADMIN_URL || config.SQL_LAB_ADMIN_URL;
+  if (!connectionString) throw new Error('SQL_LAB_ADMIN_URL is not configured');
+  const client = new (require('pg').Client)({ connectionString, connectionTimeoutMillis: 5000, query_timeout: 5000 });
+  try {
+    await client.connect();
+    const marker = await client.query('SHOW cluster_name');
+    const template = await client.query("SELECT 1 FROM pg_database WHERE datname='meridian_lab_template' AND NOT datallowconn");
+    if (marker.rows[0].cluster_name !== 'meridian-sql-lab' || template.rowCount !== 1) throw new Error('Dedicated SQL Lab template is not ready');
+    const address = new URL(connectionString);
+    results.push({ name: 'SQL Lab PostgreSQL', url: `${address.hostname}:${address.port || 5432}`, ok: true });
+  } finally { await client.end(); }
+} catch (error) { results.push({ name: 'SQL Lab PostgreSQL', url: 'dedicated cluster', ok: false, reason: error.message }); }
 for (const result of results) console.log(`${result.ok ? 'OK' : 'FAIL'} ${result.name}: ${result.url}${result.reason ? ` (${result.reason})` : ''}`);
 if (results.some(result => !result.ok)) {
   console.error('Start the missing services using README.md. These checks do not verify camera hardware, provider delivery or login credentials.');

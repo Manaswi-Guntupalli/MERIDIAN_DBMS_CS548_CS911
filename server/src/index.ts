@@ -36,7 +36,7 @@ async function main() {
   setInterval(() => void runRetentionSweep().catch(() => {}), 24 * 3600 * 1000).unref();
 
   const shutdown = async () => {
-    closeSqlLabs();
+    await closeSqlLabs();
     await prisma.$disconnect();
     httpServer.close(() => process.exit(0));
   };

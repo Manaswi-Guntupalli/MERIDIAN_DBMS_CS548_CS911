@@ -13,5 +13,6 @@
   },
   "search.exclude": {
     "**/node_modules": true
-  }
+  },
+  "python.terminal.useEnvFile": true
 }

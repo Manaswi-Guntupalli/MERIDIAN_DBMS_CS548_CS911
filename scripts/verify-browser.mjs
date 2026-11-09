@@ -78,7 +78,7 @@ try {
   await expect(page.getByRole('heading',{name:title+' updated',exact:true})).toBeVisible({timeout:90000});
   page.once('dialog',dialog=>dialog.accept());await page.locator('article').filter({has:page.getByRole('heading',{name:title+' updated',exact:true})}).getByRole('button',{name:'Delete',exact:true}).click();
   await expect(page.getByRole('heading',{name:title+' updated',exact:true})).toHaveCount(0);check('Knowledge browser create/search/edit/delete');
-  await page.goto(origin+'/database');await page.getByRole('button',{name:'Vector indexes and role policies'}).click();await expect(page.locator('main pre')).toContainText('vector');check('Database Lab browser query');
+  await page.goto(origin+'/database');await page.getByRole('tab',{name:'Live database evidence',exact:true}).click();await page.getByRole('button',{name:'Vector indexes and role policies'}).click();await expect(page.locator('main pre')).toContainText('vector');check('Database Lab browser query');
   await page.goto(origin+'/fees');await page.getByRole('button',{name:'overdue',exact:true}).click();await page.waitForTimeout(500);await page.getByRole('button',{name:'Record',exact:true}).first().click();
   await page.locator('.fixed input[type=number]').fill('0.10');await page.getByRole('button',{name:'Confirm',exact:true}).click();await expect(page.getByRole('heading',{name:'Record payment',exact:true})).toHaveCount(0);check('Fee payment via browser');
   // Tablet/mobile render and role guards.

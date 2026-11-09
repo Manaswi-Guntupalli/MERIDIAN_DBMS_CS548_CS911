@@ -2,7 +2,7 @@
 
 Open **Database Lab → SQL playground** as a principal or administrator.
 
-The editor executes SQL against a private **PGlite PostgreSQL** cluster with pgvector. PGlite is PostgreSQL compiled to WebAssembly, not a SQL mock or SQLite compatibility layer. The website's PostgreSQL connection is never used for editable queries. The existing **Live database evidence** tab continues to run a fixed catalogue of school-scoped, read-only queries against the website database.
+The editor executes SQL against a private **native PostgreSQL database with pgvector**. A dedicated PostgreSQL instance serves playgrounds; it contains no school records. The website's PostgreSQL connection is never used for editable queries. **Live database evidence** continues to run a fixed catalogue of school-scoped, read-only queries against the website database.
 
 ## What is copied?
 
@@ -22,18 +22,20 @@ Use **Ctrl+Enter** (macOS: **Cmd+Enter**) to run SQL. Select text first to execu
 
 ## Lifecycle and isolation
 
-- Each authenticated `(schoolId, userId)` gets its own in-memory cluster in a separate child process. Two tabs for the same user share a playground; different users do not.
-- Child processes receive no website database URL, JWT key, or provider credentials. PGlite's in-memory virtual filesystem contains the demo PostgreSQL cluster, not host files. No network-backed extensions or host filesystem mounts are configured.
-- SQL is not filtered to a `SELECT` allowlist: DML, DDL, functions, triggers, explicit transactions, and destructive schema experiments are supported within the disposable cluster. PGlite does not provide every native PostgreSQL server/OS administration capability.
+- Each authenticated `(schoolId, userId)` gets its own disposable database and restricted login on the dedicated native cluster. Two tabs for the same user share a playground; different users do not.
+- Child processes receive only their restricted playground URL, never the provisioning administrator URL, school database URL, JWT key, or provider credentials. PostgreSQL authentication restricts each playground login to its same-named database. Logins have no superuser, role-creation, database-creation, replication, or server-file/program privileges.
+- DML, DDL, functions, triggers, explicit transactions, and destructive schema experiments are supported within the disposable database. Server and operating-system administration require privileges playground logins do not have.
 - Explicit `BEGIN`/`COMMIT`/`ROLLBACK` can span runs. After an error inside a transaction, run `ROLLBACK;` before continuing. Reset also recovers the whole cluster.
-- Clusters expire after 15 idle minutes (checked every minute), and are discarded on reset, API restart, or query timeout. There is no promise of permanent lab data storage.
-- A query is stopped after eight seconds by terminating its child process. The next run provisions fresh demo data. Bootstrap has a separate 40-second limit. The API stays responsive while SQL executes.
+- Databases expire after 15 idle minutes (checked every minute), and are dropped with their restricted login on reset, graceful API shutdown, or query timeout. An abrupt machine/process crash may leave an orphan database; playgrounds are not permanent storage.
+- After eight seconds the API terminates the worker and forcibly drops that disposable database, terminating its backend query. The next run provisions fresh demo data. Worker startup has a separate 40-second limit. The API stays responsive while SQL executes.
 - At most four playgrounds can exist per API process. Additional users receive an explicit capacity message until an idle cluster expires. SQL Lab endpoints allow 30 requests/minute per client IP, in addition to the application's normal limit.
-- Inputs are limited to 20,000 characters. The display includes up to 12 result sets and 500 rows and 100 columns per result, with a one-megabyte cell-text budget and 4,000-character cell limit. PostgreSQL evaluates the submitted SQL before display truncation; use `LIMIT` for large queries. Workers have a 256 MB V8 heap limit, 4 MB SQL work memory and 32 MB temporary-file limit; these are not a total OS memory quota for WebAssembly. This is an authenticated teaching feature, not a public hostile-code execution service.
+- Inputs are limited to 20,000 characters. The display includes up to 12 result sets and 500 rows and 100 columns per result, with a one-megabyte cell-text budget and 4,000-character cell limit. Use `LIMIT` for large queries. Workers have a 256 MB V8 heap limit; restricted logins default to 4 MB work memory, a 32 MB temporary-file limit, and a 60-second idle-transaction timeout. These are not a total disk/memory quota. This is an authenticated teaching feature, not a public hostile-code execution service.
 
 ## Deployment
 
-Run `npm ci` and the normal application builds. Both PGlite packages are server runtime dependencies. Deploy `server/sql-lab/`, `server/prisma/migrations/`, and `database/` alongside `server/dist/`; the worker reads those versioned SQL files. No extra PostgreSQL service, database password, or external provider is required for the playground. The website remains on its existing PostgreSQL + pgvector database.
+Run `npm ci` and the normal application builds. Configure a **separate** pgvector-enabled PostgreSQL cluster with `cluster_name=meridian-sql-lab` and the authentication rules in `database/lab/pg_hba.conf`. Set `SQL_LAB_ADMIN_URL` to its administrator connection, then run `npm run sql-lab:setup`. The provisioner builds a fictional template from the versioned migrations, advanced SQL, integrity constraints, and `server/sql-lab/seed.sql`. It refuses a cluster with the wrong marker. Never point it at the school cluster.
+
+Docker Compose includes this separate service on port 5433. Fresh configuration generates an independent `SQL_LAB_POSTGRES_PASSWORD`; existing configurations must add that value and a matching `SQL_LAB_ADMIN_URL` without changing school credentials. On this computer, `python scripts/setup-native-sql-lab.py` provisions the project-local Windows cluster using `.local/postgresql16`; `npm run start:native` also starts it on subsequent runs. Deploy `server/sql-lab/` alongside `server/dist/`.
 
 ## Verification
 
@@ -41,6 +43,6 @@ Run `npm ci` and the normal application builds. Both PGlite packages are server 
 
 Browser verification: `node scripts/verify-sql-lab.mjs` (set `BROWSER_EXECUTABLE` if needed; optional `TEST_BASE_URL`, `TEST_EMAIL`, `TEST_PASSWORD`). It exercises the editor, selection shortcut, schema explorer, write examples, results, error recovery, CSV, history, reset, live evidence and mobile layout. All write operations in this check target the isolated playground.
 
-Verified on 17 October 2026: **13 SQL Lab backend tests**, **14 browser checks**, and **12 related authorization/knowledge regression tests** passed. The server and Next.js production builds passed. Desktop/mobile screenshots and browser results are generated under ignored `tmp/sql-lab/`. The existing React 18 deprecation and face-api webpack warnings remain unrelated to this feature.
+Native verification on 9 November 2026 passed **16 SQL Lab backend tests** and **15 browser checks**, including native-engine identity, restricted privileges, cross-database rejection, all examples, reset, timeout cleanup and school-record isolation. The full server regression suite and production builds also passed. Browser results and screenshots are generated under ignored `tmp/sql-lab/`. Existing React 18 deprecation and face-api webpack warnings remain unrelated to this feature.
 
-Engine reference: [PGlite: PostgreSQL compiled to WebAssembly](https://pglite.dev/docs/about).
+Isolation reference: [PostgreSQL client authentication](https://www.postgresql.org/docs/16/auth-pg-hba-conf.html).

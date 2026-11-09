@@ -60,6 +60,7 @@ export default function Notifications() {
             <motion.div key={n.id} {...fadeUp(i)}>
               <Card
                 role="button"
+                aria-label={`${n.title} — ${n.read ? 'Read' : 'Unread'}`}
                 tabIndex={0}
                 onClick={() => openDetail(n)}
                 onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(n); } }}
@@ -76,7 +77,8 @@ export default function Notifications() {
                   <div className="mt-1 flex items-center gap-2">
                     <span className="text-[0.65rem] text-slate-400">{timeAgo(n.createdAt)}</span>
                     {n.action && <Link to={n.action.to} onClick={(e) => e.stopPropagation()} className="text-[0.7rem] font-semibold text-brand-400 hover:underline">{n.action.label} →</Link>}
-                    <span className="ml-auto text-[0.7rem] font-semibold text-brand-400">Read →</span>
+                    <span className="ml-auto text-[0.7rem] text-slate-500">{n.read ? 'Read' : 'Unread'}</span>
+                    <span className="text-[0.7rem] font-semibold text-brand-400">Open →</span>
                   </div>
                 </div>
               </Card>

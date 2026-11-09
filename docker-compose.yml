@@ -16,5 +16,24 @@ services:
       interval: 5s
       timeout: 5s
       retries: 15
+  sql-lab:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: meridian_lab_admin
+      POSTGRES_PASSWORD: ${SQL_LAB_POSTGRES_PASSWORD:?Set SQL_LAB_POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: postgres
+    command: ["postgres", "-c", "cluster_name=meridian-sql-lab", "-c", "hba_file=/etc/postgresql/lab-pg_hba.conf"]
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - meridian_sql_lab_pgdata:/var/lib/postgresql/data
+      - ./database/lab/pg_hba.conf:/etc/postgresql/lab-pg_hba.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U meridian_lab_admin -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
 volumes:
   meridian_dbms_pgdata:
+  meridian_sql_lab_pgdata:

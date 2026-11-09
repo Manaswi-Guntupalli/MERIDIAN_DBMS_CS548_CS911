@@ -1,21 +1,8 @@
-// A disposable PostgreSQL cluster. No website database connection is loaded here.
-import { PGlite } from '@electric-sql/pglite';
-import { vector } from '@electric-sql/pglite-pgvector';
-import { readFileSync, readdirSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
-
-const root = fileURLToPath(new URL('../../', import.meta.url));
-const db = await PGlite.create({ extensions: { vector } });
-const migrations = path.join(root, 'server/prisma/migrations');
-for (const name of readdirSync(migrations).filter(name => /^\d/.test(name)).sort()) {
-  await db.exec(readFileSync(path.join(migrations, name, 'migration.sql'), 'utf8'));
-}
-for (const name of ['advanced.sql', 'integrity.sql']) {
-  await db.exec(readFileSync(path.join(root, 'database', name), 'utf8'));
-}
-await db.exec(readFileSync(new URL('./seed.sql', import.meta.url), 'utf8'));
-await db.exec("SET work_mem = '4MB'; SET temp_file_limit = '32MB';");
+// Only a restricted login for this disposable native database is loaded here.
+import pg from 'pg';
+const db = new pg.Client({ connectionString: process.env.SQL_LAB_DATABASE_URL, connectionTimeoutMillis: 5000 });
+await db.connect();
+db.on('error', () => process.exit(1));
 
 async function schema() {
   const columns = await db.query(`SELECT c.table_name AS table, c.column_name AS name,
@@ -41,7 +28,8 @@ process.on('message', async message => {
   try {
     const started = performance.now();
     // Explicit transactions are supported across runs. Reset replaces the entire cluster.
-    const raw = message.type === 'execute' ? await db.exec(message.sql, { rowMode: 'array' }) : [];
+    const response = message.type === 'execute' ? await db.query({ text: message.sql, rowMode: 'array' }) : [];
+    const raw = Array.isArray(response) ? response : [response];
     let remainingBytes = 1_000_000;
     const results = raw.slice(0, 12).map(result => {
       const rows = [];
@@ -63,7 +51,7 @@ process.on('message', async message => {
         }));
       }
       return { fields: result.fields.slice(0, 100), fieldsTruncated: result.fields.length > 100,
-        affectedRows: result.affectedRows, rowCount: result.rows.length,
+        affectedRows: result.rowCount ?? 0, rowCount: result.rows.length,
         truncated: result.rows.length > rows.length, rows };
     });
     // Schema inspection can fail while the user's explicit transaction is aborted.

@@ -22,7 +22,7 @@ export function configureLocal(root) {
   const existingServer = settings(path.join(root, 'server/.env'));
   let priorUrl;
   try { priorUrl = existingServer.DATABASE_URL ? new URL(existingServer.DATABASE_URL) : undefined; } catch { /* Existing files stay untouched. */ }
-  create('.env', `# Local Docker PostgreSQL credentials. Never commit this file.\nPOSTGRES_USER=${priorUrl ? decodeURIComponent(priorUrl.username) : 'meridian'}\nPOSTGRES_PASSWORD=${priorUrl ? decodeURIComponent(priorUrl.password) : randomBytes(20).toString('hex')}\nPOSTGRES_DB=${priorUrl?.pathname.slice(1) || 'meridian'}\n`);
+  create('.env', `# Local Docker PostgreSQL credentials. Never commit this file.\nPOSTGRES_USER=${priorUrl ? decodeURIComponent(priorUrl.username) : 'meridian'}\nPOSTGRES_PASSWORD=${priorUrl ? decodeURIComponent(priorUrl.password) : randomBytes(20).toString('hex')}\nPOSTGRES_DB=${priorUrl?.pathname.slice(1) || 'meridian'}\nSQL_LAB_POSTGRES_PASSWORD=${randomBytes(24).toString('hex')}\n`);
   const config = settings(path.join(root, '.env'));
   if (!existsSync(path.join(root, 'server/.env'))) {
     for (const key of ['POSTGRES_USER', 'POSTGRES_PASSWORD', 'POSTGRES_DB']) {
@@ -32,6 +32,7 @@ export function configureLocal(root) {
     const content = readFileSync(path.join(root, 'server/.env.example'), 'utf8')
       .replace(/^DATABASE_URL=.*$/m, `DATABASE_URL="${origin}/${encodeURIComponent(config.POSTGRES_DB)}?schema=public"`)
       .replace(/^TEST_DATABASE_URL=.*$/m, `TEST_DATABASE_URL="${origin}/meridian_test?schema=public"`)
+      .replace(/^SQL_LAB_ADMIN_URL=.*$/m, `SQL_LAB_ADMIN_URL=${config.SQL_LAB_POSTGRES_PASSWORD ? `postgresql://meridian_lab_admin:${encodeURIComponent(config.SQL_LAB_POSTGRES_PASSWORD)}@127.0.0.1:5433/postgres` : ''}`)
       .replace(/^JWT_SECRET=.*$/m, `JWT_SECRET=${randomBytes(32).toString('hex')}`)
       .replace(/^LUMEN_STORAGE_KEY=.*$/m, `LUMEN_STORAGE_KEY=${randomBytes(32).toString('hex')}`);
     create('server/.env', content);

@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { EnrollDialog } from '@/components/face/FaceEnroll';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ScanFace, Users, ShieldCheck, Eye, AlertTriangle, Loader2, Play, ShieldAlert } from 'lucide-react';
+import { ScanFace, Users, ShieldCheck, AlertTriangle, Loader2, Play, ShieldAlert } from 'lucide-react';
 import { api, apiError } from '@/lib/api';
 import { useAuth } from '@/store/auth';
 import { useUI } from '@/store/ui';
 import { useWebcam } from '@/hooks/useWebcam';
-import { loadFaceModels, detectAll, detectLandmarksOnly, eyeAspectRatio, BlinkDetector, captureFrameBase64 } from '@/lib/face';
+import { captureFrameBase64 } from '@/lib/camera';
 import { Card, Badge, StatTile, LoadingScreen, EmptyState, Meter, Spinner } from '@/components/ui';
 import { cn, initials, timeAgo } from '@/lib/utils';
 import { FACE } from '@/constants/theme';
@@ -25,19 +25,19 @@ export function LiveKiosk() {
   const qc = useQueryClient();
   const { pushToast } = useUI();
   const { videoRef, ready, error, start, stop } = useWebcam();
-  const [modelsReady, setModelsReady] = useState(false);
   const [running, setRunning] = useState(false);
-  const [live, setLive] = useState(false);
   const [faces, setFaces] = useState<{ box: { x: number; y: number; width: number; height: number } }[]>([]);
+  const [faceCount, setFaceCount] = useState(0);
   const [dims, setDims] = useState({ w: 640, h: 480 });
   const [log, setLog] = useState<LogEntry[]>([]);
   const [classId, setClassId] = useState('');
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [recognitionError, setRecognitionError] = useState('');
+  const [starting, setStarting] = useState(false);
 
   const runFlag = useRef(false);
-  const blinkRef = useRef(new BlinkDetector());
   const busyRef = useRef(false);
-  const lastMarkRef = useRef(0);
+  const announcedRef = useRef(new Set<string>());
 
   const classes = useQuery({ queryKey: ['classes'], queryFn: async () => (await api.get('/classes')).data.classes as { id: string; name: string }[] });
   useEffect(() => { if (!classId && classes.data?.length) setClassId(classes.data[0].id); }, [classes.data, classId]);
@@ -53,18 +53,22 @@ export function LiveKiosk() {
       const existing = (await api.get(`/presence/session/active?classId=${classId}`)).data.session as AttendanceSessionView | null;
       const s = existing ?? ((await api.post('/presence/session/start', { classId })).data as AttendanceSessionView);
       setSessionId(s.id);
-    } catch (e) { pushToast({ title: 'Could not open session', body: apiError(e), severity: 'CRITICAL' }); }
+      return s.id;
+    } catch (e) { pushToast({ title: 'Could not open session', body: apiError(e), severity: 'CRITICAL' }); return null; }
   };
 
   const boot = async () => {
-    if (!sessionId) await startSession();
-    await loadFaceModels();
-    setModelsReady(true);
-    await start();
-    setRunning(true);
-    runFlag.current = true;
+    setStarting(true); setRecognitionError('');
+    try {
+      if ((!sessionId || session.data?.status !== 'ACTIVE') && !(await startSession())) return;
+      if (!(await start())) return;
+      setRunning(true);
+      runFlag.current = true;
+    } catch (err) { setRecognitionError(apiError(err, 'Camera could not start. Please retry.')); }
+    finally { setStarting(false); }
   };
   useEffect(() => () => { runFlag.current = false; stop(); }, [stop]);
+  useEffect(() => { announcedRef.current.clear(); setLog([]); setFaces([]); setFaceCount(0); }, [sessionId]);
 
   // When the session ends (timer expiry or a manual close), stop the camera —
   // no attendance can be captured outside an active session anyway.
@@ -81,51 +85,54 @@ export function LiveKiosk() {
   // + marks. The browser never holds a face template.
   const submitFrame = async () => {
     if (!videoRef.current || !sessionId || busyRef.current) return;
-    if (!blinkRef.current.armed) return; // liveness gate
-    if (Date.now() - lastMarkRef.current < 3000) return;
     busyRef.current = true;
     try {
       const image = captureFrameBase64(videoRef.current);
+      if (!image) return;
       const result = (await api.post(`/presence/session/${sessionId}/face`, { image })).data as MarkResultView;
+      setRecognitionError('');
+      setFaceCount(result.capture?.faceCount ?? 0);
+      const capture = result.capture;
+      if (capture?.width && capture.height) setDims({ w: capture.width, h: capture.height });
+      const box = capture?.bbox;
+      setFaces(box ? [{ box: { x: box[0], y: box[1], width: box[2] - box[0], height: box[3] - box[1] } }] : []);
       if (result.state === 'PRESENT') {
-        lastMarkRef.current = Date.now();
+        if (announcedRef.current.has(result.studentId)) return;
+        announcedRef.current.add(result.studentId);
         setLog((l) => [{ name: result.studentName, state: 'PRESENT', confidence: result.face?.confidence ?? 0, at: new Date().toISOString() }, ...l].slice(0, 15));
-        pushToast({ title: `${result.studentName} ✓`, body: `Present · ${Math.round((result.face?.confidence ?? 0) * 100)}% match`, severity: 'SUCCESS' });
+        pushToast({ title: `${result.studentName} ✓`, body: result.face ? `Present · ${Math.round(result.face.confidence * 100)}% match` : 'Already present in this session', severity: 'SUCCESS' });
         qc.invalidateQueries({ queryKey: ['attendance-session', sessionId] });
       } else if (result.state === 'PROXY_ATTEMPT') {
-        lastMarkRef.current = Date.now();
+        if (announcedRef.current.has('proxy:' + result.studentId)) return;
+        announcedRef.current.add('proxy:' + result.studentId);
         setLog((l) => [{ name: result.studentName, state: 'PROXY_ATTEMPT', confidence: result.face?.confidence ?? 0, at: new Date().toISOString(), reason: result.reason }, ...l].slice(0, 15));
       }
       // ABSENT (no confident match / not on register) is quiet — expected while scanning.
-    } catch { /* transient / face service offline — handled by the offline note */ } finally {
+    } catch (err) { setRecognitionError(apiError(err, 'Face recognition could not finish. Please retry.')); } finally {
       busyRef.current = false;
     }
   };
 
   useEffect(() => {
-    if (!ready || !modelsReady) return;
-    let lastShot = 0;
+    if (!ready || !running) return;
+    let lastShot = -Infinity;
+    let cancelled = false;
+    let animationId = 0;
     const loop = async (t: number) => {
-      if (!runFlag.current || !videoRef.current) return;
+      if (cancelled || !runFlag.current || !videoRef.current) return;
       const video = videoRef.current;
       if (video.readyState >= 2) {
-        setDims({ w: video.videoWidth, h: video.videoHeight });
-        const lm = await detectLandmarksOnly(video);
-        if (lm) blinkRef.current.update(eyeAspectRatio(lm));
-        setLive(blinkRef.current.armed);
         if (t - lastShot > 700) {
           lastShot = t;
-          const det = await detectAll(video);
-          setFaces(det.map((d) => ({ box: d.box })));
-          if (det.length) void submitFrame();
+          void submitFrame();
         }
       }
-      if (runFlag.current) requestAnimationFrame(loop);
+      if (!cancelled && runFlag.current) animationId = requestAnimationFrame(loop);
     };
-    const id = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(id);
+    animationId = requestAnimationFrame(loop);
+    return () => { cancelled = true; cancelAnimationFrame(animationId); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ready, modelsReady, sessionId]);
+  }, [ready, running, sessionId]);
 
   const s = session.data;
 
@@ -134,13 +141,13 @@ export function LiveKiosk() {
       <div className="lg:col-span-2">
         <Card className="!p-3">
           <div className="mb-3 flex flex-wrap items-center gap-2 px-1">
-            <select value={classId} onChange={(e) => setClassId(e.target.value)} className="input !w-auto !py-1.5 text-xs" disabled={running}>
+            <select value={classId} onChange={(e) => { setClassId(e.target.value); setSessionId(null); }} className="input !w-auto !py-1.5 text-xs" disabled={running || starting}>
               {classes.data?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
             {s && <Badge severity={s.status === 'ACTIVE' ? 'SUCCESS' : 'INFO'}>{s.status === 'ACTIVE' ? `${s.counts.present}/${s.counts.total} present` : s.status}</Badge>}
             <span className="text-[0.7rem] text-slate-500">Face marks the student present the instant they’re recognised.</span>
           </div>
-          <div className="relative overflow-hidden rounded-xl bg-slate-900" style={{ aspectRatio: '4/3' }}>
+          <div className="relative overflow-hidden rounded-xl bg-slate-900" style={{ aspectRatio: `${dims.w}/${dims.h}` }}>
             <video ref={videoRef} className="absolute inset-0 h-full w-full object-cover" muted playsInline />
             {faces.map((f, i) => (
               <div key={i} className="absolute rounded-lg border-2 transition-all" style={{ left: `${(f.box.x / dims.w) * 100}%`, top: `${(f.box.y / dims.h) * 100}%`, width: `${(f.box.width / dims.w) * 100}%`, height: `${(f.box.height / dims.h) * 100}%`, borderColor: FACE.known, boxShadow: '0 2px 10px rgba(30,138,99,0.28)' }} />
@@ -152,17 +159,17 @@ export function LiveKiosk() {
             )}
             {!running && (
               <div className="absolute inset-0 grid place-items-center">
-                {error ? <div className="text-center text-sm text-rose-400"><AlertTriangle className="mx-auto mb-2 h-6 w-6" />{error}</div> : <button onClick={boot} className="btn-primary"><Play className="h-4 w-4" /> Start kiosk</button>}
+                <div className="px-5 text-center">{error && <p className="mb-3 text-sm text-rose-300">{error}</p>}<button onClick={boot} disabled={starting} className="btn-primary">{starting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />} {starting ? 'Starting camera…' : 'Start kiosk'}</button></div>
               </div>
             )}
-            {running && !modelsReady && <div className="absolute inset-0 grid place-items-center text-slate-500"><Loader2 className="h-6 w-6 animate-spin text-brand-400" /></div>}
             {running && (
               <div className="absolute bottom-3 left-3 flex items-center gap-2">
-                <span className="chip"><span className="live-dot" /> {faces.length} face{faces.length === 1 ? '' : 's'}</span>
-                <span className={cn('chip', live ? '!border-mint-400/40 !text-mint-400' : '!border-slate-500/30')}><Eye className="h-3 w-3" /> {live ? 'Liveness verified' : 'Blink to verify'}</span>
+                <span className="chip"><span className="live-dot" /> {faceCount} face{faceCount === 1 ? '' : 's'}</span>
+                <span className="chip"><ScanFace className="h-3 w-3" /> Automatic recognition</span>
               </div>
             )}
           </div>
+          {recognitionError && <p role="alert" className="mt-3 rounded-lg bg-rose-50 p-3 text-sm text-rose-700">{recognitionError}</p>}
           <div className="mt-3 flex items-center justify-between px-1 text-xs text-slate-500">
             <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-mint-400" /> Frames embedded server-side in memory · only vectors compared, never stored</span>
           </div>
@@ -174,7 +181,7 @@ export function LiveKiosk() {
         <div className="max-h-[28rem] space-y-2 overflow-y-auto p-3 no-scrollbar">
           <AnimatePresence initial={false}>
             {log.length === 0 ? (
-              <div className="py-16 text-center text-sm text-slate-500">Step in front of the camera and blink to mark attendance.</div>
+              <div className="py-16 text-center text-sm text-slate-500">Look at the camera. Enrolled students are marked present automatically when recognized.</div>
             ) : log.map((e, i) => (
               <motion.div key={e.at + i} layout initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className={cn('rounded-xl border p-3', e.state === 'PROXY_ATTEMPT' ? 'border-rose-400/40 bg-rose-400/[0.06]' : 'border-line bg-ink-800/60')}>
                 <div className="flex items-center gap-3">

@@ -27,8 +27,10 @@
     "faceservice:install": "cd faceservice && python -m pip install -r requirements.txt",
     "build": "npm --prefix server run build && npm --prefix client run build",
     "start": "concurrently -n api,web \"npm --prefix server run start\" \"npm --prefix client run start\"",
+    "start:native": "powershell -NoProfile -File scripts/start-native.ps1",
     "test:postgres": "node scripts/test-postgres.mjs",
-    "db:verify": "npm --prefix server run db:verify"
+    "db:verify": "npm --prefix server run db:verify",
+    "sql-lab:setup": "npm --prefix server run sql-lab:setup"
   },
   "engines": {
     "node": ">=20.9"

@@ -52,7 +52,7 @@ Three processes, each with one clear ownership boundary.
 │  TanStack Query ── server-state cache (the only server truth)        │
 │  Zustand ──────── UI/session state (auth, toasts, palette)           │
 │  Socket.io client ─ pushed events invalidate query caches            │
-│  face-api.js ──── on-device detection + blink liveness (UX only)     │
+│  Camera capture — images to Node; detection in Python                │
 │                                                                      │
 │  Owns: presentation, camera capture. Nothing authoritative.          │
 │  Never talks to Python.                                              │
@@ -324,7 +324,7 @@ Every notable outcome — present, proxy, unverified-QR — is written as its ow
 
 **The anti-proxy insight:** the QR supplies the *claim*; the live camera supplies the *proof*. This converts face recognition from a 1:N search across the whole school (slow, error-prone at scale, privacy-hostile) into a **1:1 verification** against one student's templates — collapsing both error rate and compute, because the system asks only "is this who the QR says?".
 
-**Where the pixels go.** The browser detects a face for UX (bounding box, blink liveness) but sends the *frame* to Node, which forwards it to a Python **face service** (`:8020`, InsightFace 512-D ArcFace). The image is embedded in memory and discarded; only the vector is stored. This is a deliberate security choice: a browser-computed descriptor is trivially forgeable, which would defeat the whole anti-proxy design. Node keeps all matching and DB access. Enrollment is consent-first (`FaceEnrollment` carries a timestamped consent record), and un-enrolling truly erases the templates (the GDPR/DPDP erasure path).
+**Where the pixels go.** The browser sends camera frames directly to Node, which forwards them to the Python **face service** (`:8020`, InsightFace 512-D ArcFace). The image is embedded in memory and discarded; only the vector is stored. This is a deliberate security choice: a browser-computed descriptor is trivially forgeable, which would defeat the whole anti-proxy design. Node keeps all matching and DB access. Enrollment is consent-first (`FaceEnrollment` carries a timestamped consent record), and un-enrolling truly erases the templates (the GDPR/DPDP erasure path).
 
 ### 5.4 Pulse — ERP & command centre
 

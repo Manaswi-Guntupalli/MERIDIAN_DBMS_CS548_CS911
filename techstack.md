@@ -56,7 +56,7 @@ Socket.io stream.
 - **Recharts 2** — analytics visualizations.
 - **Lucide React** — icon system.
 - **qrcode 1.5** — renders the attendance-session QR (encodes a `/scan` URL, never raw data).
-- **@vladmandic/face-api 1.7** — **browser-side face detection + 68-pt landmarks + blink/liveness only** (recognition is server-side; see §5).
+- **Camera capture** — browser video/canvas frames are sent to the API; detection and recognition run in the Python face engine.
 - **date-fns 4**, **React Hook Form 7** (+ `@hookform/resolvers`), **Zod 3** (shared validation).
 - Fonts (Google Fonts in `index.html`): **Fraunces**, **Plus Jakarta Sans**, **IBM Plex Mono**.
 
@@ -121,7 +121,7 @@ The redesigned attendance flow — **face is primary, QR is the fallback**, and
 everything converges on one state machine and one engine.
 
 - **Session model:** a teacher opens an `AttendanceSession` (crypto token, auto-expiring, default 5 min) from a projector-ready screen showing a large QR + live countdown + register.
-- **Face pipeline:** browser `face-api.js` does detection + blink liveness only → captures a frame → sends the **image** to Node → Node forwards to the Python face service → **512-D ArcFace embedding computed in memory and discarded** → cosine 1:N match in Node (threshold 0.42) → attendance engine marks `PRESENT`.
+- **Face pipeline:** browser captures a frame and sends its image to Node, which calls the Python detector/recognizer. The engine computes a 512-D ArcFace embedding in memory; Node matches enrolled templates with cosine similarity (threshold 0.42) and marks the matching student PRESENT. Frames are discarded; there is no blink or browser-detector gate.
 - **QR fallback (student phone):** the projected QR encodes `${origin}/scan?s=<sessionId>&t=<token>` (URL, token only — never student identity). The student opens `/scan`, logs in, taps **Mark My Attendance** → `POST /presence/session/:id/qr` with identity from the JWT → `QR_VERIFIED`. Face (or session expiry) resolves it to `PRESENT` / `UNVERIFIED_QR`.
 - **Anti-proxy:** a QR claiming student A while the face matches B → `PROXY_ATTEMPT` (no attendance, security alert, review-queue event).
 - **State machine:** PENDING → (FACE / QR / MANUAL) → PRESENT · QR_VERIFIED · UNVERIFIED_QR · PROXY_ATTEMPT · ABSENT.

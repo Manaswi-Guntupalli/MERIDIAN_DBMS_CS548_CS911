@@ -436,6 +436,7 @@ export interface MarkResultView {
   reason?: string;
   claimedName?: string;
   face?: { confidence: number; distance: number; threshold: number };
+  capture?: { bbox?: [number, number, number, number]; width?: number; height?: number; faceCount: number };
 }
 
 export interface AttendanceEventRow {

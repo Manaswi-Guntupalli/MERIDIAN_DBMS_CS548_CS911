@@ -15,7 +15,9 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401 && !location.pathname.startsWith('/login')) {
+    const currentToken = localStorage.getItem(TOKEN_KEY);
+    // An old account's in-flight request must not log the new account out.
+    if (err.response?.status === 401 && currentToken && err.config?.headers?.Authorization === `Bearer ${currentToken}` && !location.pathname.startsWith('/login')) {
       localStorage.removeItem(TOKEN_KEY);
       if (!location.pathname.startsWith('/login')) location.href = '/login';
     }

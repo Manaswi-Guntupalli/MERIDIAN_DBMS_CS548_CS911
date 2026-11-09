@@ -198,9 +198,10 @@ router.post(
   asyncHandler(async (req, res) => {
     await assertSessionActor(req.user!.schoolId, req.params.id, req.user!.sub);
     const embedded = await embedFromImage((req.body as z.infer<typeof faceSchema>).image);
-    if (!embedded.found) return res.json({ state: 'ABSENT', reason: 'No face detected in the frame.' });
+    const capture = { bbox: embedded.bbox, width: embedded.imageWidth, height: embedded.imageHeight, faceCount: embedded.faceCount ?? (embedded.found ? 1 : 0) };
+    if (!embedded.found) return res.json({ state: 'ABSENT', reason: 'No face detected in the frame.', capture });
     const result = await markFace({ schoolId: req.user!.schoolId, sessionId: req.params.id, embedding: embedded.embedding!, detScore: embedded.detScore, actorId: req.user!.sub });
-    res.json(result);
+    res.json({ ...result, capture });
   }),
 );
 
@@ -245,11 +246,7 @@ router.post(
 
 // ── helpers ──
 async function embedFromImage(image: string) {
-  try {
-    return await embedImage(image);
-  } catch (e) {
-    throw badRequest(`Face service is unreachable — start it with "npm run faceservice". (${e instanceof Error ? e.message : 'error'})`);
-  }
+  return embedImage(image);
 }
 
 // A session needs a teacherId; for an admin opening attendance we fall back to

@@ -6,6 +6,17 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     services:
+      postgreslab:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: meridian_lab_admin
+          POSTGRES_PASSWORD: ci-disposable-lab-password
+          POSTGRES_DB: postgres
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U meridian_lab_admin -d postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 15
       postgres:
         image: pgvector/pgvector:pg16
         env:
@@ -23,6 +34,7 @@ jobs:
       DATABASE_URL: postgresql://meridian:ci-disposable-password@localhost:5432/meridian_dev?schema=public
       TEST_DATABASE_URL: postgresql://meridian:ci-disposable-password@localhost:5432/meridian_test?schema=public
       JWT_SECRET: ci-disposable-secret-not-for-production-1234567890
+      SQL_LAB_ADMIN_URL: postgresql://meridian_lab_admin:ci-disposable-lab-password@127.0.0.1:5433/postgres
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,6 +44,16 @@ jobs:
       - run: node --test scripts/configure-local.test.mjs scripts/configure-openai.test.mjs
       - run: npm ci
       - run: npm --prefix server run db:generate
+      - name: Configure isolated SQL Lab cluster
+        run: |
+          docker exec ${{ job.services.postgreslab.id }} psql -U meridian_lab_admin -d postgres -c "ALTER SYSTEM SET cluster_name = 'meridian-sql-lab'"
+          docker cp database/lab/pg_hba.conf ${{ job.services.postgreslab.id }}:/var/lib/postgresql/data/pg_hba.conf
+          docker restart ${{ job.services.postgreslab.id }}
+          for i in $(seq 1 30); do
+            docker exec ${{ job.services.postgreslab.id }} pg_isready -U meridian_lab_admin -d postgres && break
+            sleep 1
+          done
+          npm run sql-lab:setup
       - run: npm run build
       - run: npm --prefix server run test
       - run: npm run db:verify

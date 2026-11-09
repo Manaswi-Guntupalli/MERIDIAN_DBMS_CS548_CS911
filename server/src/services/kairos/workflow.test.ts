@@ -207,6 +207,10 @@ describe('Kairos workflow — draft → approve → publish → rollback', () =>
 describe('Kairos substitute engine — emergency cover', () => {
   it('suggests only qualified teachers who are genuinely free', async () => {
     const date = nextMonday();
+    // Guarantee available cover. The generated timetable can legitimately put
+    // every other qualified teacher in class at the absent teacher's periods.
+    const reserveUser = await prisma.user.create({data:{schoolId,email:`wf-reserve-${schoolId}@test.local`,password:'not-a-login',name:'Reserve cover teacher',role:'TEACHER'}});
+    await prisma.teacher.create({data:{schoolId,userId:reserveUser.id,employeeId:'WF-RESERVE',department:'Test',subjectsString:toJson(['MATH','SCI','ENG']),maxHours:20}});
     const teachers = await prisma.teacher.findMany({ where: { schoolId }, include: { user: true } });
     const live = (await prisma.timetable.findFirst({ where: { schoolId, active: true } }))!;
     // Pick a teacher who actually teaches on Monday.

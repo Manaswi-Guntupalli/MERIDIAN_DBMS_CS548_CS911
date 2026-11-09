@@ -6,7 +6,7 @@ import { authenticate, authorize } from '../middleware/auth.js';
 import { validateBody } from '../utils/validate.js';
 import { recordEvent } from '../services/eventStore.js';
 import { logAI } from '../services/trustLedger.js';
-import { enrollFace, clearFace, embedImage, EMBED_MODEL } from '../services/face.js';
+import { enrollFace, clearFace, embedImage, checkEnrollmentFrames, EMBED_MODEL } from '../services/face.js';
 import { STAFF, STAFF_ADMIN } from '../utils/constants.js';
 
 const router = Router();
@@ -14,6 +14,13 @@ router.use(authenticate);
 router.use(authorize(...STAFF));
 
 const todayStr = () => new Date().toISOString().slice(0, 10);
+const frameSchema = z.string().min(32).max(4_000_000);
+
+router.post('/check', authorize(...STAFF_ADMIN), validateBody(z.object({ image: frameSchema })), asyncHandler(async (req, res) => {
+  const frame = await embedImage(req.body.image, true);
+  // Only capture guidance is returned. Templates remain server-side.
+  res.set('Cache-Control', 'no-store').json({ ready: !!frame.found && frame.qualityOk !== false, guidance: frame.guidance, faceCount: frame.faceCount, elapsedMs: frame.elapsedMs });
+}));
 
 // ── Enroll a student/teacher, consent-first ──
 // The browser sends IMAGES (2-3 captured frames); the server embeds them via
@@ -21,7 +28,7 @@ const todayStr = () => new Date().toISOString().slice(0, 10);
 const enrollSchema = z.object({
   subjectType: z.enum(['STUDENT', 'TEACHER']),
   subjectId: z.string(),
-  images: z.array(z.string().min(32)).min(1).max(6),
+  images: z.array(frameSchema).min(1).max(6),
   consent: z.literal(true, { errorMap: () => ({ message: 'Explicit consent is required to enroll a face.' }) }),
 });
 router.post(
@@ -41,15 +48,12 @@ router.post(
     // Embed each frame server-side; keep only frames that actually held a face.
     const embeddings: { vector: number[]; label: string; quality: number }[] = [];
     for (const image of body.images) {
-      let embedded;
-      try {
-        embedded = await embedImage(image);
-      } catch (e) {
-        throw badRequest(`Face service is unreachable — start it with "npm run faceservice". (${e instanceof Error ? e.message : 'error'})`);
-      }
+      const embedded = await embedImage(image, true);
+      if (!embedded.found || embedded.qualityOk === false) throw badRequest(embedded.guidance ?? 'No clear face was detected. Retake the frames in good light with your whole face visible.');
       if (embedded.found && embedded.embedding) embeddings.push({ vector: embedded.embedding, label: 'front', quality: embedded.detScore ?? 0 });
     }
     if (!embeddings.length) throw badRequest('No face was detected in any of the captured frames. Move into good light and try again.');
+    checkEnrollmentFrames(embeddings);
 
     const result = await enrollFace({ schoolId, subjectType: body.subjectType, subjectId: body.subjectId, name, embeddings, consentBy: req.user!.sub });
 

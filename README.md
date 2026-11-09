@@ -19,7 +19,7 @@ Project by Manaswi Guntupalli.
 | Presence | Session-based attendance, server-side face embeddings and QR workflows. Camera/device checks require compatible hardware and permissions. |
 | Copilot and reports | Live-data summaries, reviewed actions, report regeneration and print/PDF export. Optional OpenAI generation; data-based fallbacks are labelled. |
 | Knowledge Library | PostgreSQL/pgvector CRUD, 384-dimensional MiniLM embeddings, similarity search, revision triggers and database role policies. |
-| SQL Lab | Editable SQL, schema explorer, results, examples, history, CSV and reset. Each administrator gets a **separate disposable PGlite PostgreSQL/pgvector cluster with fictional data**. Editable SQL never uses the school database connection. |
+| SQL Lab | Editable SQL, schema explorer, results, examples, history, CSV and reset. Each administrator gets a **separate disposable native PostgreSQL database with pgvector and fictional data** on a dedicated cluster. Editable SQL never uses the school database connection. |
 | Trust Core | Event/audit history and selected reversible actions. Time Machine is not a full database backup/restore system. |
 | Flutter | Principal, teacher, student and parent experiences using the same backend, with role-scoped data, QR/camera capture and realtime notifications. It is a mobile companion, not a complete copy of every web screen. |
 
@@ -32,7 +32,7 @@ Project by Manaswi Guntupalli.
 | School database | PostgreSQL 16 + pgvector | `localhost:5432` |
 | Analytics engine | FastAPI, NumPy/pandas, SciPy, scikit-learn | `http://localhost:8010` |
 | Face engine | FastAPI, InsightFace, ONNX Runtime CPU | `http://localhost:8020` |
-| SQL playground | PGlite child processes inside the API deployment | No extra port or database credentials |
+| SQL playground | Dedicated native PostgreSQL 16 + pgvector, restricted per-user databases | `localhost:5433` |
 
 The website proxies `/api` and Socket.IO polling to Express. Express calls the Python services; Flutter connects directly to Express. **pgvector is a PostgreSQL extension**, not a separate database server.
 
@@ -91,6 +91,7 @@ ONNXRUNTIME_NODE_INSTALL=skip npm ci
 ```powershell
 docker compose up -d --wait
 npm run db:setup
+npm run sql-lab:setup
 ```
 
 Compose starts `pgvector/pgvector:pg16` with persistent volume `meridian_dbms_pgdata`. On the **first** database initialization it also creates `meridian_test`. `db:setup` applies versioned Prisma migrations, generates the Prisma client, and installs vector indexes, views, functions, constraints, triggers and role policies. Do not substitute `prisma db push`.
@@ -169,7 +170,7 @@ In a fourth terminal, from the repository root:
 npm run check:services
 ```
 
-All four lines should report `OK`. This checks the website, API health, analytics database connectivity and loaded face model. It does not verify a phone camera or external message delivery.
+All five lines should report `OK`. This checks the website, API health, analytics database connectivity, loaded face model, and dedicated native SQL Lab cluster/template. It does not verify a phone camera or external message delivery.
 
 Open **http://localhost:5173**. Demo accounts all use password **`meridian123`**:
 

@@ -2,6 +2,22 @@
 
 The selected providers are Twilio SMS, SendGrid email and Firebase Cloud Messaging. In-app notification storage and authenticated realtime delivery work independently of these providers. Missing credentials disable the external channel; Meridian never reports a disabled or rejected request as delivered.
 
+## In-app feed and read status
+
+A school-wide announcement is one shared `Notification` row. A personal notification has a recipient `userId` and is visible only to that user in that school. Realtime arrival events follow the same distinction: broadcasts go to the school room; personal notices go to the recipient's room.
+
+Opening a notice marks it read for the current account by inserting a `NotificationRead(notificationId, userId)` receipt. **Mark all read** inserts receipts only for that account's visible notices. It does not mark other people's copies read. PostgreSQL's unique key and duplicate-skipping inserts make repeated/concurrent requests idempotent. The feed currently lists the latest 50 visible notices, and its unread badge counts unread entries in that returned feed.
+
+The web query cache and mounted page state are isolated by school, account and role, and are discarded on account changes, including impersonation and exit. Account changes clear old toasts and reconnect authenticated realtime channels. Old requests cannot overwrite a newly signed-in identity or sign it out through an obsolete 401 response. Notification API responses are private and non-cacheable.
+
+Tabs in one browser profile share the login token. They now synchronize when another tab signs in or out, rather than showing one account's header while sending another account's token. Use a separate browser profile or private window for two simultaneous independent accounts.
+
+The 10 November 2026 regression reproduced a student's read state appearing in the principal's view while the database still had no principal receipt. The cause was a single user-independent React Query cache with a 15-second freshness window. The fix replaces the entire cache at the account boundary, covering private feed contents as well as read flags. Existing school notifications/read receipts are preserved.
+
+Verification: `server/tests/notification-isolation.test.ts` covers per-user receipts, private/school boundaries, cache headers and concurrent mark-all requests. From `server/`, run `npx tsx scripts/verify-notification-accounts.ts` with `BROWSER_EXECUTABLE` set to test rapid same-tab account switches, impersonation/exit, and cross-tab synchronization using a separate `TEST_DATABASE_URL`. Browser evidence is saved under `tmp/notification-verification/`.
+
+The deployed fix passed all 202 server tests (including seven notification isolation tests), seven browser regression checks, TypeScript checks and the production build. All five local service health checks passed. Existing tabs must refresh once to load the updated client.
+
 ## Server configuration
 
 Configure the ignored `server/.env` using the keys in `.env.example`:

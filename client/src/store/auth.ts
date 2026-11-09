@@ -17,6 +17,7 @@ interface AuthState {
   impersonate: (userId: string) => Promise<void>;
   exitImpersonation: () => Promise<void>;
   fetchMe: () => Promise<void>;
+  syncSession: () => Promise<void>;
 }
 
 export const useAuth = create<AuthState>((set, get) => ({
@@ -24,6 +25,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   loading: true,
   login: async (email, password, rememberMe) => {
     const { data } = await api.post('/auth/login', { email, password, rememberMe });
+    disconnectSocket();
     localStorage.setItem(TOKEN_KEY, data.token);
     sessionStorage.removeItem(ORIGINAL_TOKEN_KEY);
     set({ user: { ...data.user, mustChangePassword: data.mustChangePassword }, loading: false });
@@ -33,14 +35,14 @@ export const useAuth = create<AuthState>((set, get) => ({
     localStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(ORIGINAL_TOKEN_KEY);
     disconnectSocket(); // drop the authenticated realtime channel too
-    set({ user: null });
+    set({ user: null, loading: false });
   },
   logoutAll: async () => {
     await api.post('/auth/logout-all');
     localStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(ORIGINAL_TOKEN_KEY);
     disconnectSocket();
-    set({ user: null });
+    set({ user: null, loading: false });
   },
   changePassword: async (currentPassword, newPassword) => {
     const { data } = await api.post('/auth/change-password', { currentPassword, newPassword });
@@ -64,20 +66,33 @@ export const useAuth = create<AuthState>((set, get) => ({
       get().logout();
       return;
     }
+    set({ user: null, loading: true });
     localStorage.setItem(TOKEN_KEY, original);
     disconnectSocket();
+    await get().fetchMe();
+  },
+  syncSession: async () => {
+    // localStorage is shared across tabs. Hide the previous identity before
+    // any new-token requests can populate that account's screen or cache.
+    disconnectSocket();
+    sessionStorage.removeItem(ORIGINAL_TOKEN_KEY);
+    set({user:null,loading:true});
     await get().fetchMe();
   },
   fetchMe: async () => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (!token) {
+      disconnectSocket();
       set({ user: null, loading: false });
       return;
     }
     try {
       const { data } = await api.get('/auth/me');
+      if (localStorage.getItem(TOKEN_KEY) !== token) return;
       set({ user: { ...data.user, mustChangePassword: data.mustChangePassword }, loading: false });
     } catch {
+      if (localStorage.getItem(TOKEN_KEY) !== token) return;
+      disconnectSocket();
       localStorage.removeItem(TOKEN_KEY);
       set({ user: null, loading: false });
     }

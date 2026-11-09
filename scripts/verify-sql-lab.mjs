@@ -43,6 +43,12 @@ try {
   assert.equal(initial.results[0].rows.length, 8);
   await expect(results.getByRole('cell', { name: 'Aarav Shah', exact: true })).toBeVisible();
   pass('Starter SELECT displays all eight fictional students');
+  await expect(page.getByText('Meridian schema · fictional records · Native PostgreSQL + pgvector', { exact: true })).toBeVisible();
+  const native = await run('SELECT version() AS version, current_database() AS database;');
+  assert.match(native.results[0].rows[0][0], /^PostgreSQL /);
+  assert(!/emscripten|wasm/i.test(native.results[0].rows[0][0]));
+  assert.match(native.results[0].rows[0][1], /^meridian_lab_[a-f0-9]{24}$/);
+  pass('Visible editor executes on a dedicated native PostgreSQL database');
 
   const multiple = await run('SELECT 1 AS same, 2 AS same, NULL AS empty; SELECT 9 AS second;');
   assert.deepEqual(multiple.results[0].rows, [[1, 2, null]]);

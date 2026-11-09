@@ -25,6 +25,9 @@ test('fresh clone gets matching credentials and independent generated secrets', 
     const server = read(root, 'server/.env');
     assert(server.includes(`:${dockerPassword}@localhost:5432/meridian?schema=public`));
     assert(server.includes('/meridian_test?schema=public'));
+    const labPassword = read(root, '.env').match(/^SQL_LAB_POSTGRES_PASSWORD=(.*)$/m)[1];
+    assert.notEqual(labPassword, dockerPassword);
+    assert(server.includes(`SQL_LAB_ADMIN_URL=postgresql://meridian_lab_admin:${labPassword}@127.0.0.1:5433/postgres`));
     const jwt = server.match(/^JWT_SECRET=(.*)$/m)[1];
     const storage = server.match(/^LUMEN_STORAGE_KEY=(.*)$/m)[1];
     assert.equal(jwt.length, 64); assert.equal(storage.length, 64); assert.notEqual(jwt, storage);

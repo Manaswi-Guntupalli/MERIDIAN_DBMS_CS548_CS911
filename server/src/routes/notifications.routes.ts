@@ -10,6 +10,7 @@ import { STAFF_ADMIN } from '../utils/constants.js';
 
 const router = Router();
 router.use(authenticate);
+router.use((_req,res,next)=>{res.set('Cache-Control','private, no-store');res.vary('Authorization');next();});
 
 router.get('/channels',authorize(...STAFF_ADMIN),(_req,res)=>res.json(channelStatus()));
 const deviceSchema=z.object({token:z.string().min(20).max(4096),platform:z.enum(['ANDROID','IOS','WEB'])});
@@ -89,20 +90,13 @@ router.patch(
       where: { ...visibleTo(req.user!.schoolId, me), reads: { none: { userId: me } } },
       select: { id: true },
     });
-    if (unread.length) {
-      // SQLite's createMany has no skipDuplicates; the none-filter above makes
-      // rows unique by construction, and the one race (same user clicking
-      // twice concurrently) trips the @@unique constraint — harmless, so it's
-      // swallowed rather than surfaced as a failure to mark things read.
-      try {
-        await prisma.notificationRead.createMany({
-          data: unread.map((n) => ({ notificationId: n.id, userId: me })),
-        });
-      } catch (err) {
-        if ((err as { code?: string }).code !== 'P2002') throw err;
-      }
-    }
-    res.json({ ok: true, marked: unread.length });
+    const marked = unread.length ? await prisma.notificationRead.createMany({
+      data: unread.map((n) => ({ notificationId: n.id, userId: me })),
+      // Native PostgreSQL makes concurrent mark-all calls idempotent without
+      // abandoning other unread receipts when one row was already inserted.
+      skipDuplicates: true,
+    }) : {count:0};
+    res.json({ ok: true, marked: marked.count });
   }),
 );
 

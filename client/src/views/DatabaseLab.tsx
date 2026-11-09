@@ -111,7 +111,7 @@ export default function DatabaseLab() {
 
     {tab === 'playground' ? <>
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-brand-200 bg-brand-50 px-5 py-4">
-        <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500 text-white"><Database size={20} /></span><div><div className="font-semibold text-brand-700">Your private demo database</div><p className="mt-0.5 text-xs leading-5 text-brand-700">Meridian schema · fictional records · PostgreSQL via PGlite + pgvector</p></div></div>
+        <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-brand-500 text-white"><Database size={20} /></span><div><div className="font-semibold text-brand-700">Your private demo database</div><p className="mt-0.5 text-xs leading-5 text-brand-700">Meridian schema · fictional records · Native PostgreSQL + pgvector</p></div></div>
         <span className="rounded-full border border-brand-200 bg-white px-3 py-1.5 text-xs font-semibold text-brand-600">Website records stay untouched</span>
       </div>
       <div className="grid min-w-0 gap-5 xl:grid-cols-[260px_minmax(0,1fr)]">

@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma.js';
 import { fromJson } from '../lib/json.js';
 import { env } from '../config/env.js';
+import { AppError, badRequest } from '../lib/errors.js';
 
 // Presence · Face Recognition — the matching engine.
 //
@@ -33,6 +34,13 @@ export interface EmbedResult {
   embedding?: number[];
   detScore?: number;
   model?: string;
+  qualityOk?: boolean;
+  guidance?: string;
+  faceCount?: number;
+  elapsedMs?: number;
+  bbox?: [number, number, number, number];
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 /**
@@ -43,22 +51,37 @@ export interface EmbedResult {
  * to degrade (the engine renders an explicit "face service offline", never a
  * fabricated match).
  */
-export async function embedImage(imageBase64: string): Promise<EmbedResult> {
+export async function embedImage(imageBase64: string, enrollment = false): Promise<EmbedResult> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 20_000);
+  const timer = setTimeout(() => controller.abort(), 30_000);
   try {
     const res = await fetch(`${env.faceServiceUrl}/embed`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ image: imageBase64 }),
+      body: JSON.stringify({ image: imageBase64, purpose: enrollment ? 'enroll' : 'recognize' }),
       signal: controller.signal,
     });
-    if (!res.ok) throw new Error(`face service responded ${res.status}`);
-    const data = (await res.json()) as { ok: boolean; found?: boolean; embedding?: number[]; detScore?: number; model?: string; error?: string };
-    if (!data.ok) throw new Error(data.error ?? 'face service error');
-    return { found: !!data.found, embedding: data.embedding, detScore: data.detScore, model: data.model };
+    if (!res.ok) throw new AppError(502, 'The face engine could not process this frame. Please retry.');
+    const data = (await res.json()) as EmbedResult & { ok: boolean; error?: string };
+    if (!data.ok) throw badRequest(data.error ?? 'The camera frame could not be read. Please retake it.');
+    if (data.found && (!enrollment || data.qualityOk !== false) && (!Array.isArray(data.embedding) || data.embedding.length !== EMBED_DIM || data.embedding.some(n => !Number.isFinite(n)) || !data.embedding.some(n => n !== 0) || data.model !== EMBED_MODEL)) {
+      throw new AppError(502, 'The face engine returned an invalid template. Please retry.');
+    }
+    return data;
+  } catch (error) {
+    if (error instanceof AppError) throw error;
+    if (controller.signal.aborted) throw new AppError(504, 'Face processing timed out. The engine may be busy; wait a moment and retake the frame.');
+    throw new AppError(503, 'The face engine is unavailable. Start the local services, then retry.');
   } finally {
     clearTimeout(timer);
+  }
+}
+
+export function checkEnrollmentFrames(embeddings: { vector: number[] }[]) {
+  for (let i = 1; i < embeddings.length; i++) {
+    if (cosine(embeddings[0].vector, embeddings[i].vector) < MATCH_THRESHOLD) {
+      throw badRequest('The captured frames do not show a consistent face. Retake all frames with only the same person in view.');
+    }
   }
 }
 

@@ -28,6 +28,7 @@ __pycache__/
 .pytest_cache/
 *.py[cod]
 .venv/
+.local/
 venv/
 intelligence/models/*.joblib
 
