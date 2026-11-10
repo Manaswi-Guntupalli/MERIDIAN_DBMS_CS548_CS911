@@ -1,6 +1,8 @@
 # Current database schema and data dictionary
 
-Read from PostgreSQL system catalogues on 2026-11-10T08:18:32.010Z. **43 application tables**; Prisma migration bookkeeping is excluded. This is schema metadata, not an export of student records, passwords or biometric values.
+[Saved Chen ER and relational-schema images](diagrams/README.md) | [Detailed ER-to-relational mapping](diagrams/RELATIONAL_MAPPING.md)
+
+Read from PostgreSQL system catalogues on 2026-11-10T09:10:12.440Z. **43 application tables**; Prisma migration bookkeeping is excluded. This is schema metadata, not an export of student records, passwords or biometric values.
 
 The primary/foreign keys below are database constraints. Prisma implements several composite uniqueness rules with UNIQUE indexes, which are listed separately. A column belonging to a composite unique index is not necessarily unique on its own. PostgreSQL quoting is required for names such as `"Student"` and `"schoolId"`.
 
@@ -393,7 +395,7 @@ Indexes (including UNIQUE indexes):
 
 | Column | PostgreSQL type | Nullable | Default | Key membership |
 | --- | --- | --- | --- | --- |
-| id | text | NO | - | FK, PK |
+| id | text | NO | - | PK |
 | incidentId | text | NO | - | FK |
 | userId | text | NO | - | - |
 | userName | text | NO | - | - |
@@ -420,7 +422,7 @@ Indexes (including UNIQUE indexes):
 
 | Column | PostgreSQL type | Nullable | Default | Key membership |
 | --- | --- | --- | --- | --- |
-| id | text | NO | - | FK, PK |
+| id | text | NO | - | PK |
 | incidentId | text | NO | - | FK |
 | type | text | NO | - | - |
 | message | text | NO | - | - |

@@ -1,0 +1,267 @@
+digraph Chen {
+graph [rankdir=LR, newrank=true, compound=true, splines=polyline, nodesep=0.18, ranksep=0.8, pad=0.4, bgcolor="transparent", outputorder=edgesfirst, fontname="Arial"];
+node [fontname="Arial",fontsize=13,fontcolor="#152A38"];
+edge [fontname="Arial",fontsize=13,fontcolor="#D73232",color="#4A5966",penwidth=0.8,arrowsize=0.6,dir=none];
+subgraph "cluster_attributes_Attendance" { style=invis; margin=12; label="";
+"ent_Attendance" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Attendance"];
+{rank=same;
+"attr_Attendance.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Attendance.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+"attr_Attendance.confidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="confidence"];
+"attr_Attendance.timestamp" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="timestamp"];
+}
+"attr_Attendance.id" -> "ent_Attendance" [color="#929EA7",weight=3];
+"attr_Attendance.status" -> "ent_Attendance" [color="#929EA7",weight=3];
+"attr_Attendance.confidence" -> "ent_Attendance" [color="#929EA7",weight=3];
+"attr_Attendance.timestamp" -> "ent_Attendance" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Attendance.date" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="date"];
+"attr_Attendance.source" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="source"];
+"attr_Attendance.markedById" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="markedById"];
+}
+"ent_Attendance" -> "attr_Attendance.date" [color="#929EA7",weight=3];
+"ent_Attendance" -> "attr_Attendance.source" [color="#929EA7",weight=3];
+"ent_Attendance" -> "attr_Attendance.markedById" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_AttendanceSession" { style=invis; margin=12; label="";
+"ent_AttendanceSession" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="AttendanceSession"];
+{rank=same;
+"attr_AttendanceSession.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_AttendanceSession.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+"attr_AttendanceSession.expiryTime" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="expiryTime"];
+"attr_AttendanceSession.sessionToken" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="sessionToken"];
+"attr_AttendanceSession.verificationMode" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="verificationMode"];
+}
+"attr_AttendanceSession.id" -> "ent_AttendanceSession" [color="#929EA7",weight=3];
+"attr_AttendanceSession.status" -> "ent_AttendanceSession" [color="#929EA7",weight=3];
+"attr_AttendanceSession.expiryTime" -> "ent_AttendanceSession" [color="#929EA7",weight=3];
+"attr_AttendanceSession.sessionToken" -> "ent_AttendanceSession" [color="#929EA7",weight=3];
+"attr_AttendanceSession.verificationMode" -> "ent_AttendanceSession" [color="#929EA7",weight=3];
+{rank=same;
+"attr_AttendanceSession.date" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="date"];
+"attr_AttendanceSession.startTime" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="startTime"];
+"attr_AttendanceSession.closedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="closedAt"];
+"attr_AttendanceSession.createdBy" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdBy"];
+}
+"ent_AttendanceSession" -> "attr_AttendanceSession.date" [color="#929EA7",weight=3];
+"ent_AttendanceSession" -> "attr_AttendanceSession.startTime" [color="#929EA7",weight=3];
+"ent_AttendanceSession" -> "attr_AttendanceSession.closedAt" [color="#929EA7",weight=3];
+"ent_AttendanceSession" -> "attr_AttendanceSession.createdBy" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_AttendanceVerification" { style=invis; margin=12; label="";
+"ent_AttendanceVerification" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="AttendanceVerification"];
+{rank=same;
+"attr_AttendanceVerification.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_AttendanceVerification.qrVerifiedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="qrVerifiedAt"];
+"attr_AttendanceVerification.faceConfidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceConfidence"];
+"attr_AttendanceVerification.threshold" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="threshold"];
+"attr_AttendanceVerification.proxyClaimedStudentId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="proxyClaimedStudentId"];
+"attr_AttendanceVerification.reason" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reason"];
+"attr_AttendanceVerification.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_AttendanceVerification.id" -> "ent_AttendanceVerification" [color="#929EA7",weight=3];
+"attr_AttendanceVerification.qrVerifiedAt" -> "ent_AttendanceVerification" [color="#929EA7",weight=3];
+"attr_AttendanceVerification.faceConfidence" -> "ent_AttendanceVerification" [color="#929EA7",weight=3];
+"attr_AttendanceVerification.threshold" -> "ent_AttendanceVerification" [color="#929EA7",weight=3];
+"attr_AttendanceVerification.proxyClaimedStudentId" -> "ent_AttendanceVerification" [color="#929EA7",weight=3];
+"attr_AttendanceVerification.reason" -> "ent_AttendanceVerification" [color="#929EA7",weight=3];
+"attr_AttendanceVerification.createdAt" -> "ent_AttendanceVerification" [color="#929EA7",weight=3];
+{rank=same;
+"attr_AttendanceVerification.state" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="state"];
+"attr_AttendanceVerification.faceVerifiedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceVerifiedAt"];
+"attr_AttendanceVerification.faceDistance" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceDistance"];
+"attr_AttendanceVerification.markedPresentAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="markedPresentAt"];
+"attr_AttendanceVerification.proxyMatchedName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="proxyMatchedName"];
+"attr_AttendanceVerification.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"ent_AttendanceVerification" -> "attr_AttendanceVerification.state" [color="#929EA7",weight=3];
+"ent_AttendanceVerification" -> "attr_AttendanceVerification.faceVerifiedAt" [color="#929EA7",weight=3];
+"ent_AttendanceVerification" -> "attr_AttendanceVerification.faceDistance" [color="#929EA7",weight=3];
+"ent_AttendanceVerification" -> "attr_AttendanceVerification.markedPresentAt" [color="#929EA7",weight=3];
+"ent_AttendanceVerification" -> "attr_AttendanceVerification.proxyMatchedName" [color="#929EA7",weight=3];
+"ent_AttendanceVerification" -> "attr_AttendanceVerification.updatedAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_AttendanceEvent" { style=invis; margin=12; label="";
+"ent_AttendanceEvent" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="AttendanceEvent"];
+{rank=same;
+"attr_AttendanceEvent.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_AttendanceEvent.source" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="source"];
+"attr_AttendanceEvent.direction" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="direction"];
+"attr_AttendanceEvent.faceConfidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceConfidence"];
+"attr_AttendanceEvent.late" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="late"];
+"attr_AttendanceEvent.createdBy" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdBy"];
+}
+"attr_AttendanceEvent.id" -> "ent_AttendanceEvent" [color="#929EA7",weight=3];
+"attr_AttendanceEvent.source" -> "ent_AttendanceEvent" [color="#929EA7",weight=3];
+"attr_AttendanceEvent.direction" -> "ent_AttendanceEvent" [color="#929EA7",weight=3];
+"attr_AttendanceEvent.faceConfidence" -> "ent_AttendanceEvent" [color="#929EA7",weight=3];
+"attr_AttendanceEvent.late" -> "ent_AttendanceEvent" [color="#929EA7",weight=3];
+"attr_AttendanceEvent.createdBy" -> "ent_AttendanceEvent" [color="#929EA7",weight=3];
+{rank=same;
+"attr_AttendanceEvent.verificationId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="verificationId"];
+"attr_AttendanceEvent.timestamp" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="timestamp"];
+"attr_AttendanceEvent.verificationStatus" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="verificationStatus"];
+"attr_AttendanceEvent.faceDistance" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceDistance"];
+"attr_AttendanceEvent.lateMinutes" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="lateMinutes"];
+"attr_AttendanceEvent.notes" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="notes"];
+}
+"ent_AttendanceEvent" -> "attr_AttendanceEvent.verificationId" [color="#929EA7",weight=3];
+"ent_AttendanceEvent" -> "attr_AttendanceEvent.timestamp" [color="#929EA7",weight=3];
+"ent_AttendanceEvent" -> "attr_AttendanceEvent.verificationStatus" [color="#929EA7",weight=3];
+"ent_AttendanceEvent" -> "attr_AttendanceEvent.faceDistance" [color="#929EA7",weight=3];
+"ent_AttendanceEvent" -> "attr_AttendanceEvent.lateMinutes" [color="#929EA7",weight=3];
+"ent_AttendanceEvent" -> "attr_AttendanceEvent.notes" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_FaceEnrollment" { style=invis; margin=12; label="";
+"ent_FaceEnrollment" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="FaceEnrollment"];
+{rank=same;
+"attr_FaceEnrollment.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_FaceEnrollment.subjectId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="subjectId"];
+"attr_FaceEnrollment.model" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="model"];
+"attr_FaceEnrollment.consentBy" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="consentBy"];
+"attr_FaceEnrollment.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"attr_FaceEnrollment.id" -> "ent_FaceEnrollment" [color="#929EA7",weight=3];
+"attr_FaceEnrollment.subjectId" -> "ent_FaceEnrollment" [color="#929EA7",weight=3];
+"attr_FaceEnrollment.model" -> "ent_FaceEnrollment" [color="#929EA7",weight=3];
+"attr_FaceEnrollment.consentBy" -> "ent_FaceEnrollment" [color="#929EA7",weight=3];
+"attr_FaceEnrollment.updatedAt" -> "ent_FaceEnrollment" [color="#929EA7",weight=3];
+{rank=same;
+"attr_FaceEnrollment.subjectType" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="subjectType"];
+"attr_FaceEnrollment.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_FaceEnrollment.consentAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="consentAt"];
+"attr_FaceEnrollment.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_FaceEnrollment" -> "attr_FaceEnrollment.subjectType" [color="#929EA7",weight=3];
+"ent_FaceEnrollment" -> "attr_FaceEnrollment.name" [color="#929EA7",weight=3];
+"ent_FaceEnrollment" -> "attr_FaceEnrollment.consentAt" [color="#929EA7",weight=3];
+"ent_FaceEnrollment" -> "attr_FaceEnrollment.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_FaceEvent" { style=invis; margin=12; label="";
+"ent_FaceEvent" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="FaceEvent"];
+{rank=same;
+"attr_FaceEvent.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_FaceEvent.kind" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="kind"];
+"attr_FaceEvent.cameraId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="cameraId"];
+"attr_FaceEvent.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_FaceEvent.id" -> "ent_FaceEvent" [color="#929EA7",weight=3];
+"attr_FaceEvent.kind" -> "ent_FaceEvent" [color="#929EA7",weight=3];
+"attr_FaceEvent.cameraId" -> "ent_FaceEvent" [color="#929EA7",weight=3];
+"attr_FaceEvent.createdAt" -> "ent_FaceEvent" [color="#929EA7",weight=3];
+{rank=same;
+"attr_FaceEvent.schoolId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="schoolId"];
+"attr_FaceEvent.confidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="confidence"];
+"attr_FaceEvent.note" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="note"];
+}
+"ent_FaceEvent" -> "attr_FaceEvent.schoolId" [color="#929EA7",weight=3];
+"ent_FaceEvent" -> "attr_FaceEvent.confidence" [color="#929EA7",weight=3];
+"ent_FaceEvent" -> "attr_FaceEvent.note" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_FaceEmbedding" { style=invis; margin=12; label="";
+"ent_FaceEmbedding" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="FaceEmbedding"];
+{rank=same;
+"attr_FaceEmbedding.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_FaceEmbedding.subjectType" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="subjectType"];
+"attr_FaceEmbedding.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_FaceEmbedding.model" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="model"];
+"attr_FaceEmbedding.label" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="label"];
+"attr_FaceEmbedding.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_FaceEmbedding.id" -> "ent_FaceEmbedding" [color="#929EA7",weight=3];
+"attr_FaceEmbedding.subjectType" -> "ent_FaceEmbedding" [color="#929EA7",weight=3];
+"attr_FaceEmbedding.name" -> "ent_FaceEmbedding" [color="#929EA7",weight=3];
+"attr_FaceEmbedding.model" -> "ent_FaceEmbedding" [color="#929EA7",weight=3];
+"attr_FaceEmbedding.label" -> "ent_FaceEmbedding" [color="#929EA7",weight=3];
+"attr_FaceEmbedding.createdAt" -> "ent_FaceEmbedding" [color="#929EA7",weight=3];
+{rank=same;
+"attr_FaceEmbedding.schoolId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="schoolId"];
+"attr_FaceEmbedding.subjectId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="subjectId"];
+"attr_FaceEmbedding.vectorString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="vectorString"];
+"attr_FaceEmbedding.dim" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="dim"];
+"attr_FaceEmbedding.quality" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="quality"];
+}
+"ent_FaceEmbedding" -> "attr_FaceEmbedding.schoolId" [color="#929EA7",weight=3];
+"ent_FaceEmbedding" -> "attr_FaceEmbedding.subjectId" [color="#929EA7",weight=3];
+"ent_FaceEmbedding" -> "attr_FaceEmbedding.vectorString" [color="#929EA7",weight=3];
+"ent_FaceEmbedding" -> "attr_FaceEmbedding.dim" [color="#929EA7",weight=3];
+"ent_FaceEmbedding" -> "attr_FaceEmbedding.quality" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Class" { style=invis; margin=12; label="";
+"ent_Class" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="Class [external]"];
+{rank=same;
+"attr_Class.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_Class.id" -> "ent_Class" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_School" { style=invis; margin=12; label="";
+"ent_School" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="School [external]"];
+{rank=same;
+"attr_School.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_School.id" -> "ent_School" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Student" { style=invis; margin=12; label="";
+"ent_Student" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="Student [external]"];
+{rank=same;
+"attr_Student.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_Student.id" -> "ent_Student" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Subject" { style=invis; margin=12; label="";
+"ent_Subject" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="Subject [external]"];
+{rank=same;
+"attr_Subject.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_Subject.id" -> "ent_Subject" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Teacher" { style=invis; margin=12; label="";
+"ent_Teacher" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="Teacher [external]"];
+{rank=same;
+"attr_Teacher.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_Teacher.id" -> "ent_Teacher" [color="#929EA7",weight=3];
+}
+"rel_AttendanceEvent_sessionId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="In session\n[sessionId]"];
+"ent_AttendanceSession" -> "rel_AttendanceEvent_sessionId_fkey" [id="AttendanceEvent_sessionId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceEvent_sessionId_fkey" -> "ent_AttendanceEvent" [id="AttendanceEvent_sessionId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_AttendanceVerification_sessionId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="In session\n[sessionId]"];
+"ent_AttendanceSession" -> "rel_AttendanceVerification_sessionId_fkey" [id="AttendanceVerification_sessionId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceVerification_sessionId_fkey" -> "ent_AttendanceVerification" [id="AttendanceVerification_sessionId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Attendance_classId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned to class\n[classId]"];
+"ent_Class" -> "rel_Attendance_classId_fkey" [id="Attendance_classId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Attendance_classId_fkey" -> "ent_Attendance" [id="Attendance_classId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_AttendanceSession_classId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned to class\n[classId]"];
+"ent_Class" -> "rel_AttendanceSession_classId_fkey" [id="AttendanceSession_classId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceSession_classId_fkey" -> "ent_AttendanceSession" [id="AttendanceSession_classId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_FaceEmbedding_enrollmentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="From enrolment\n[enrollmentId]"];
+"ent_FaceEnrollment" -> "rel_FaceEmbedding_enrollmentId_fkey" [id="FaceEmbedding_enrollmentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_FaceEmbedding_enrollmentId_fkey" -> "ent_FaceEmbedding" [id="FaceEmbedding_enrollmentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_Attendance_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Attendance_schoolId_fkey" [id="Attendance_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Attendance_schoolId_fkey" -> "ent_Attendance" [id="Attendance_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_AttendanceEvent_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_AttendanceEvent_schoolId_fkey" [id="AttendanceEvent_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceEvent_schoolId_fkey" -> "ent_AttendanceEvent" [id="AttendanceEvent_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_AttendanceSession_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_AttendanceSession_schoolId_fkey" [id="AttendanceSession_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceSession_schoolId_fkey" -> "ent_AttendanceSession" [id="AttendanceSession_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_FaceEnrollment_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_FaceEnrollment_schoolId_fkey" [id="FaceEnrollment_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_FaceEnrollment_schoolId_fkey" -> "ent_FaceEnrollment" [id="FaceEnrollment_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Attendance_studentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="For student\n[studentId]"];
+"ent_Student" -> "rel_Attendance_studentId_fkey" [id="Attendance_studentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Attendance_studentId_fkey" -> "ent_Attendance" [id="Attendance_studentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_AttendanceEvent_studentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="For student\n[studentId]"];
+"ent_Student" -> "rel_AttendanceEvent_studentId_fkey" [id="AttendanceEvent_studentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceEvent_studentId_fkey" -> "ent_AttendanceEvent" [id="AttendanceEvent_studentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_AttendanceVerification_studentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="For student\n[studentId]"];
+"ent_Student" -> "rel_AttendanceVerification_studentId_fkey" [id="AttendanceVerification_studentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceVerification_studentId_fkey" -> "ent_AttendanceVerification" [id="AttendanceVerification_studentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_AttendanceSession_subjectId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Covers subject\n[subjectId]"];
+"ent_Subject" -> "rel_AttendanceSession_subjectId_fkey" [id="AttendanceSession_subjectId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceSession_subjectId_fkey" -> "ent_AttendanceSession" [id="AttendanceSession_subjectId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_AttendanceSession_teacherId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned teacher\n[teacherId]"];
+"ent_Teacher" -> "rel_AttendanceSession_teacherId_fkey" [id="AttendanceSession_teacherId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AttendanceSession_teacherId_fkey" -> "ent_AttendanceSession" [id="AttendanceSession_teacherId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+}

@@ -1,5 +1,7 @@
 # ER diagrams from the actual PostgreSQL catalogue
 
+[Saved Chen ER and horizontal relational-schema images](diagrams/README.md) | [Detailed ER-to-relational mapping](diagrams/RELATIONAL_MAPPING.md)
+
 The focused diagram shows the principal demonstration entities. The complete diagram includes every application table and foreign key; [SCHEMA.md](SCHEMA.md) contains all column types, constraints and indexes. Attributes named `schoolId` express tenant ownership. Polymorphic identifiers without a declared FK are validated by the installed tenant triggers and are not invented as foreign keys here.
 
 ## Core demonstration entities
@@ -288,7 +290,7 @@ erDiagram
     text wordsString
   }
   EmergencyAck {
-    text id FK,PK
+    text id PK
     text incidentId FK
     text userId
     text userName
@@ -301,7 +303,7 @@ erDiagram
     timestamp updatedAt
   }
   EmergencyEvent {
-    text id FK,PK
+    text id PK
     text incidentId FK
     text type
     text message
@@ -676,7 +678,7 @@ erDiagram
   School ||--o{ Student : "schoolId"
   School ||--o{ Subject : "schoolId"
   School ||--o{ Teacher : "schoolId"
-  School ||--o| Timetable : "schoolId"
+  School ||--o{ Timetable : "schoolId"
   School ||--o{ User : "schoolId"
   StaffAbsence ||--o{ Substitution : "absenceId"
   Student ||--o{ Attendance : "studentId"

@@ -1,5 +1,7 @@
 # Meridian: SQL demonstrations for the DBMS rubric
 
+**Saved diagram images:** [Chen ER and horizontal relational mapping](diagrams/README.md), with SVG/PNG exports, module images and a complete mapping guide.
+
 **48 standalone SQL files: six examples in each of eight categories.** Every SQL file has a matching `*.expected.md` containing the result tables captured from the actual website PostgreSQL database.
 
 Start with the [six-example demonstration](SIX_EXAMPLE_DEMO.md), [complete file index](INDEX.md), and [executed verification](VERIFICATION.md).

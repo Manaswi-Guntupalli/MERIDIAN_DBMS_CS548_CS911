@@ -1,0 +1,66 @@
+digraph Chen {
+graph [rankdir=LR, newrank=true, compound=true, splines=polyline, nodesep=0.18, ranksep=0.8, pad=0.4, bgcolor="transparent", outputorder=edgesfirst, fontname="Arial"];
+node [fontname="Arial",fontsize=13,fontcolor="#152A38"];
+edge [fontname="Arial",fontsize=13,fontcolor="#D73232",color="#4A5966",penwidth=0.8,arrowsize=0.6,dir=none];
+subgraph "cluster_attributes_Fee" { style=invis; margin=12; label="";
+"ent_Fee" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Fee"];
+{rank=same;
+"attr_Fee.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Fee.amount" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="amount"];
+"attr_Fee.dueDate" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="dueDate"];
+"attr_Fee.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_Fee.id" -> "ent_Fee" [color="#929EA7",weight=3];
+"attr_Fee.amount" -> "ent_Fee" [color="#929EA7",weight=3];
+"attr_Fee.dueDate" -> "ent_Fee" [color="#929EA7",weight=3];
+"attr_Fee.createdAt" -> "ent_Fee" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Fee.title" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="title"];
+"attr_Fee.paid" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="paid"];
+"attr_Fee.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+}
+"ent_Fee" -> "attr_Fee.title" [color="#929EA7",weight=3];
+"ent_Fee" -> "attr_Fee.paid" [color="#929EA7",weight=3];
+"ent_Fee" -> "attr_Fee.status" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Payment" { style=invis; margin=12; label="";
+"ent_Payment" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Payment"];
+{rank=same;
+"attr_Payment.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Payment.method" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="method"];
+"attr_Payment.paidAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="paidAt"];
+}
+"attr_Payment.id" -> "ent_Payment" [color="#929EA7",weight=3];
+"attr_Payment.method" -> "ent_Payment" [color="#929EA7",weight=3];
+"attr_Payment.paidAt" -> "ent_Payment" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Payment.amount" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="amount"];
+"attr_Payment.reference" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reference"];
+}
+"ent_Payment" -> "attr_Payment.amount" [color="#929EA7",weight=3];
+"ent_Payment" -> "attr_Payment.reference" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_School" { style=invis; margin=12; label="";
+"ent_School" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="School [external]"];
+{rank=same;
+"attr_School.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_School.id" -> "ent_School" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Student" { style=invis; margin=12; label="";
+"ent_Student" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="Student [external]"];
+{rank=same;
+"attr_Student.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_Student.id" -> "ent_Student" [color="#929EA7",weight=3];
+}
+"rel_Payment_feeId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Pays fee\n[feeId]"];
+"ent_Fee" -> "rel_Payment_feeId_fkey" [id="Payment_feeId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Payment_feeId_fkey" -> "ent_Payment" [id="Payment_feeId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Fee_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Fee_schoolId_fkey" [id="Fee_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Fee_schoolId_fkey" -> "ent_Fee" [id="Fee_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Fee_studentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="For student\n[studentId]"];
+"ent_Student" -> "rel_Fee_studentId_fkey" [id="Fee_studentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Fee_studentId_fkey" -> "ent_Fee" [id="Fee_studentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+}

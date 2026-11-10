@@ -1,0 +1,313 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1320" height="1020" viewBox="0 0 1320 1020">
+<rect width="1320" height="1020" fill="#FFFFFF"/>
+<rect x="0" y="0" width="1320" height="8" fill="#0B756A"/>
+<text x="48" y="47" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" fill="#0B756A">MERIDIAN / DATABASE DESIGN</text>
+<text x="48" y="100" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#142B3A">Identity &amp; enrolment / ER diagram</text>
+<text x="48" y="135" font-family="Arial,sans-serif" font-size="16" fill="#566B78">7 entities in this module; primary keys and selected descriptive attributes. All 12 declared relationships in scope are shown.</text>
+<g transform="translate(178.5,167)">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(25.2 685.2)">
+<title>Meridian</title>
+<g id="clust1" class="cluster">
+<title>cluster_01_identity</title>
+<path fill="#f6f9fa" stroke="#d5dfe4" d="M20,-98C20,-98 892.79,-98 892.79,-98 898.79,-98 904.79,-104 904.79,-110 904.79,-110 904.79,-640 904.79,-640 904.79,-646 898.79,-652 892.79,-652 892.79,-652 20,-652 20,-652 14,-652 8,-646 8,-640 8,-640 8,-110 8,-110 8,-104 14,-98 20,-98"/>
+<text xml:space="preserve" text-anchor="middle" x="100.49" y="-630.9" font-family="Arial" font-size="19.00" fill="#0b756a">Identity &amp; enrolment</text>
+</g>
+<!-- School&#45;&gt;User -->
+<g id="User_schoolId_fkey" class="edge">
+<title>School&#45;&gt;User</title>
+<g id="a_User_schoolId_fkey"><a xlink:title="User.schoolId &#45;&gt; School.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M119.83,-361C159.8,-361 217.08,-361 256.46,-361"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="113.21,-364.75 113.21,-357.25 114.71,-357.25 114.71,-364.75 113.21,-364.75"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="112.46,-361 116.21,-361"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="116.96,-364.75 116.96,-357.25 118.46,-357.25 118.46,-364.75 116.96,-364.75"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="116.21,-361 119.96,-361"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="263.49,-361 270.99,-364.38 267.62,-361 270.6,-361 270.6,-361 270.6,-361 267.62,-361 270.99,-357.63 263.49,-361"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="258.51" cy="-361" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="178.29" y="-364" font-family="Arial" font-size="10.00" fill="#445f75">schoolId</text>
+<text xml:space="preserve" text-anchor="middle" x="253.1" y="-349.87" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="130.73" y="-366.13" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- School&#45;&gt;Teacher -->
+<g id="Teacher_schoolId_fkey" class="edge">
+<title>School&#45;&gt;Teacher</title>
+<g id="a_Teacher_schoolId_fkey"><a xlink:title="Teacher.schoolId &#45;&gt; School.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M118.81,-335.94C169.35,-308.09 243.92,-267 243.92,-267 243.92,-267 406.97,-258 406.97,-258 406.97,-258 438.09,-258 438.09,-258 438.09,-258 462.96,-276.5 488.62,-295.59"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="114.94,-342.36 111.32,-335.79 112.63,-335.06 116.25,-341.63 114.94,-342.36"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="112.47,-339.43 115.75,-337.62"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="118.22,-340.55 114.6,-333.98 115.91,-333.25 119.53,-339.82 118.22,-340.55"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="115.75,-337.62 119.04,-335.81"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="494.46,-299.93 498.46,-307.12 497.78,-302.4 500.17,-304.18 500.17,-304.18 500.17,-304.18 497.78,-302.4 502.49,-301.7 494.46,-299.93"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="490.47" cy="-296.96" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="301.94" y="-270" font-family="Arial" font-size="10.00" fill="#445f75">schoolId</text>
+<text xml:space="preserve" text-anchor="middle" x="490.98" y="-284.21" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="132.4" y="-334.74" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- School&#45;&gt;Student -->
+<g id="Student_schoolId_fkey" class="edge">
+<title>School&#45;&gt;Student</title>
+<g id="a_Student_schoolId_fkey"><a xlink:title="Student.schoolId &#45;&gt; School.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M118.1,-322.63C139.14,-304.6 159.67,-287 159.67,-287 159.67,-287 243.92,-242 243.92,-242 243.92,-242 397.74,-214.86 485.23,-199.42"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="115.47,-329.82 110.59,-324.13 111.73,-323.15 116.61,-328.85 115.47,-329.82"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="112.46,-327.46 115.31,-325.02"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="118.32,-327.38 113.44,-321.69 114.58,-320.71 119.46,-326.41 118.32,-327.38"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="115.31,-325.02 118.15,-322.58"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="492.2,-198.19 500.17,-200.21 496.27,-197.47 499.2,-196.95 499.2,-196.95 499.2,-196.95 496.27,-197.47 499,-193.56 492.2,-198.19"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="487.3" cy="-199.06" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="301.94" y="-245" font-family="Arial" font-size="10.00" fill="#445f75">schoolId</text>
+<text xml:space="preserve" text-anchor="middle" x="480.56" y="-188.98" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="131.63" y="-318.75" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- School&#45;&gt;Parent -->
+<g id="Parent_schoolId_fkey" class="edge">
+<title>School&#45;&gt;Parent</title>
+<g id="a_Parent_schoolId_fkey"><a xlink:title="Parent.schoolId &#45;&gt; School.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M119.12,-383.01C169.65,-407.3 243.92,-443 243.92,-443 243.92,-443 406.97,-483 406.97,-483 406.97,-483 438.09,-483 438.09,-483 438.09,-483 465.52,-476.03 492.5,-469.17"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="111.52,-383.52 114.77,-376.76 116.12,-377.41 112.87,-384.17 111.52,-383.52"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="112.47,-379.81 115.85,-381.44"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="114.9,-385.14 118.15,-378.38 119.5,-379.03 116.25,-385.79 114.9,-385.14"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="115.85,-381.44 119.23,-383.06"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="499.2,-467.46 507.3,-468.88 503.21,-466.44 506.1,-465.71 506.1,-465.71 506.1,-465.71 503.21,-466.44 505.64,-462.34 499.2,-467.46"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="494.38" cy="-468.69" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="301.94" y="-474.43" font-family="Arial" font-size="10.00" fill="#445f75">schoolId</text>
+<text xml:space="preserve" text-anchor="middle" x="487.13" y="-459.14" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="125.41" y="-392.06" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- School&#45;&gt;PushDevice -->
+<g id="PushDevice_schoolId_fkey" class="edge">
+<title>School&#45;&gt;PushDevice</title>
+<g id="a_PushDevice_schoolId_fkey"><a xlink:title="PushDevice.schoolId &#45;&gt; School.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M118.2,-394.93C168.74,-433.15 243.92,-490 243.92,-490 243.92,-490 381.73,-522.12 470.66,-542.84"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="110.81,-394.04 115.33,-388.06 116.53,-388.96 112,-394.94 110.81,-394.04"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="112.47,-390.6 115.46,-392.86"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="113.8,-396.3 118.32,-390.32 119.52,-391.22 114.99,-397.21 113.8,-396.3"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="115.46,-392.86 118.45,-395.12"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="477.62,-544.46 484.16,-549.45 481.65,-545.4 484.55,-546.08 484.55,-546.08 484.55,-546.08 481.65,-545.4 485.69,-542.88 477.62,-544.46"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="472.77" cy="-543.33" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="301.94" y="-519.9" font-family="Arial" font-size="10.00" fill="#445f75">schoolId</text>
+<text xml:space="preserve" text-anchor="middle" x="469.35" y="-531.18" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="122.14" y="-405.1" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- User&#45;&gt;Teacher -->
+<g id="Teacher_userId_fkey" class="edge">
+<title>User&#45;&gt;Teacher</title>
+<g id="a_Teacher_userId_fkey"><a xlink:title="Teacher.userId &#45;&gt; User.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M340.16,-355.28C370.02,-350.68 406.97,-345 406.97,-345 406.97,-345 451.78,-342.39 490.21,-340.15"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="334.06,-360.01 332.92,-352.59 334.41,-352.37 335.55,-359.78 334.06,-360.01"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="332.75,-356.42 336.46,-355.84"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="337.77,-359.44 336.63,-352.02 338.11,-351.8 339.25,-359.21 337.77,-359.44"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="336.46,-355.84 340.16,-355.27"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="499.87,-335.83 500.3,-343.32 498.81,-343.41 498.37,-335.92 499.87,-335.83"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="500.84,-339.53 497.09,-339.75"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="493.52" cy="-339.96" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="422.53" y="-348" font-family="Arial" font-size="10.00" fill="#445f75">userId</text>
+<text xml:space="preserve" text-anchor="middle" x="482.12" y="-329.47" font-family="Arial" font-size="10.00" fill="#445f75">0..1</text>
+<text xml:space="preserve" text-anchor="middle" x="352.05" y="-358.68" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- User&#45;&gt;Student -->
+<g id="Student_userId_fkey" class="edge">
+<title>User&#45;&gt;Student</title>
+<g id="a_Student_userId_fkey"><a xlink:title="Student.userId &#45;&gt; User.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M341.33,-333.64C381.85,-304.77 445.99,-259.05 491.3,-226.76"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="335.32,-342.53 330.97,-336.42 332.19,-335.55 336.54,-341.66 335.32,-342.53"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="332.54,-339.91 335.59,-337.73"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="338.5" cy="-335.66" rx="3" ry="3"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="497.32,-217.87 501.67,-223.97 500.45,-224.84 496.1,-218.74 497.32,-217.87"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="500.1,-220.48 497.05,-222.66"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="494.14" cy="-224.74" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="422.53" y="-288.3" font-family="Arial" font-size="10.00" fill="#445f75">userId</text>
+<text xml:space="preserve" text-anchor="middle" x="480.5" y="-221.46" font-family="Arial" font-size="10.00" fill="#445f75">0..1</text>
+<text xml:space="preserve" text-anchor="middle" x="352.14" y="-332.93" font-family="Arial" font-size="10.00" fill="#445f75">0..1</text>
+</g>
+<!-- User&#45;&gt;Parent -->
+<g id="Parent_userId_fkey" class="edge">
+<title>User&#45;&gt;Parent</title>
+<g id="a_Parent_userId_fkey"><a xlink:title="Parent.userId &#45;&gt; User.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M339.35,-374.47C379.38,-389.28 438.09,-411 438.09,-411 438.09,-411 468.64,-423.95 496.97,-435.95"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="332,-375.75 334.61,-368.72 336.01,-369.24 333.41,-376.27 332,-375.75"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="332.6,-371.97 336.12,-373.27"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="335.52,-377.05 338.12,-370.02 339.53,-370.54 336.93,-377.57 335.52,-377.05"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="336.12,-373.27 339.64,-374.58"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="507.62,-436.39 504.69,-443.29 503.31,-442.71 506.23,-435.8 507.62,-436.39"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="506.84,-440.13 503.39,-438.67"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="500.1" cy="-437.28" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="422.53" y="-414" font-family="Arial" font-size="10.00" fill="#445f75">userId</text>
+<text xml:space="preserve" text-anchor="middle" x="493.19" y="-422.52" font-family="Arial" font-size="10.00" fill="#445f75">0..1</text>
+<text xml:space="preserve" text-anchor="middle" x="346.91" y="-382.94" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- User&#45;&gt;PushDevice -->
+<g id="PushDevice_userId_fkey" class="edge">
+<title>User&#45;&gt;PushDevice</title>
+<g id="a_PushDevice_userId_fkey"><a xlink:title="PushDevice.userId &#45;&gt; User.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M338.11,-390C377.43,-422.42 441.67,-475.39 488,-513.59"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="330.73,-388.77 335.5,-382.99 336.66,-383.94 331.89,-389.73 330.73,-388.77"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="332.54,-385.4 335.43,-387.79"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="333.62,-391.16 338.39,-385.37 339.55,-386.33 334.78,-392.11 333.62,-391.16"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="335.43,-387.79 338.32,-390.17"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="493.58,-518.19 497.22,-525.57 496.77,-520.82 499.07,-522.72 499.07,-522.72 499.07,-522.72 496.77,-520.82 501.52,-520.36 493.58,-518.19"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="489.74" cy="-515.03" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="422.53" y="-475.41" font-family="Arial" font-size="10.00" fill="#445f75">userId</text>
+<text xml:space="preserve" text-anchor="middle" x="490.74" y="-502.31" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="341.46" y="-400.3" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- Student&#45;&gt;StudentParent -->
+<g id="StudentParent_studentId_fkey" class="edge">
+<title>Student&#45;&gt;StudentParent</title>
+<g id="a_StudentParent_studentId_fkey"><a xlink:title="StudentParent.studentId &#45;&gt; Student.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M597.84,-204.27C634.44,-215.1 684.36,-229.89 726.56,-242.38"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="590.32,-205.95 592.45,-198.76 593.89,-199.19 591.76,-206.38 590.32,-205.95"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="590.67,-202.14 594.27,-203.21"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="593.92,-207.02 596.05,-199.83 597.49,-200.25 595.36,-207.44 593.92,-207.02"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="594.27,-203.21 597.86,-204.27"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="733.27,-244.37 739.5,-249.73 737.24,-245.54 740.09,-246.39 740.09,-246.39 740.09,-246.39 737.24,-245.54 741.42,-243.26 733.27,-244.37"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="728.5" cy="-242.96" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="673.04" y="-233.34" font-family="Arial" font-size="10.00" fill="#445f75">studentId</text>
+<text xml:space="preserve" text-anchor="middle" x="725.62" y="-230.62" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="605.88" y="-212.13" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- Parent&#45;&gt;StudentParent -->
+<g id="StudentParent_parentId_fkey" class="edge">
+<title>Parent&#45;&gt;StudentParent</title>
+<g id="a_StudentParent_parentId_fkey"><a xlink:title="StudentParent.parentId &#45;&gt; Parent.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M589.52,-424.97C632.06,-394.46 697.48,-347.51 745.97,-312.72"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="586.26,-431.93 581.89,-425.84 583.11,-424.96 587.48,-431.06 586.26,-431.93"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="583.47,-429.32 586.51,-427.14"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="589.31,-429.75 584.94,-423.65 586.15,-422.78 590.53,-428.87 589.31,-429.75"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="586.51,-427.14 589.56,-424.95"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="751.82,-308.53 759.88,-306.9 755.18,-306.12 757.6,-304.38 757.6,-304.38 757.6,-304.38 755.18,-306.12 755.95,-301.42 751.82,-308.53"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="747.78" cy="-311.43" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="673.04" y="-381.43" font-family="Arial" font-size="10.00" fill="#445f75">parentId</text>
+<text xml:space="preserve" text-anchor="middle" x="738.64" y="-304.98" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="603.05" y="-422.28" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- Class&#45;&gt;Student -->
+<g id="Student_classId_fkey" class="edge">
+<title>Class&#45;&gt;Student</title>
+<g id="a_Student_classId_fkey"><a xlink:title="Student.classId &#45;&gt; Class.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M368.8,-78.48C405.88,-101.83 451.71,-130.7 487.24,-153.07"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="358.47,-76.4 362.46,-70.06 363.73,-70.86 359.74,-77.2 358.47,-76.4"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="359.83,-72.83 363,-74.83"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="366.03" cy="-76.73" rx="3" ry="3"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="493.16,-156.8 497.7,-163.65 496.65,-159 499.18,-160.59 499.18,-160.59 499.18,-160.59 496.65,-159 501.3,-157.94 493.16,-156.8"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="488.94" cy="-154.15" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="422.53" y="-125.1" font-family="Arial" font-size="10.00" fill="#445f75">classId</text>
+<text xml:space="preserve" text-anchor="middle" x="488.7" y="-141.38" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="370.96" y="-86.45" font-family="Arial" font-size="10.00" fill="#445f75">0..1</text>
+</g>
+<!-- School -->
+<g id="node1" class="node">
+<title>School</title>
+<polygon fill="none" stroke="#cbd6dc" points="32,-294.4 32,-427.6 112.67,-427.6 112.67,-294.4 32,-294.4"/>
+<polygon fill="#0b756a" stroke="none" points="33,-384.2 33,-426.6 111.67,-426.6 111.67,-384.2 33,-384.2"/>
+<text xml:space="preserve" text-anchor="start" x="44" y="-401.3" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">School</text>
+<polygon fill="#ffffff" stroke="none" points="33,-354.6 33,-384.2 111.67,-384.2 111.67,-354.6 33,-354.6"/>
+<text xml:space="preserve" text-anchor="start" x="40" y="-366.5" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+<polygon fill="#f4f7f9" stroke="none" points="33,-325 33,-354.6 111.67,-354.6 111.67,-325 33,-325"/>
+<text xml:space="preserve" text-anchor="start" x="40" y="-334.6" font-family="Arial" font-size="13.00" fill="#142b3a">name</text>
+<polygon fill="#ffffff" stroke="none" points="33,-295.4 33,-325 111.67,-325 111.67,-295.4 33,-295.4"/>
+<text xml:space="preserve" text-anchor="start" x="40" y="-305" font-family="Arial" font-size="13.00" fill="#142b3a">code</text>
+</g>
+<!-- User -->
+<g id="node2" class="node">
+<title>User</title>
+<polygon fill="none" stroke="#cbd6dc" points="271.04,-294.4 271.04,-427.6 332.84,-427.6 332.84,-294.4 271.04,-294.4"/>
+<polygon fill="#0b756a" stroke="none" points="272.04,-384.2 272.04,-426.6 331.84,-426.6 331.84,-384.2 272.04,-384.2"/>
+<text xml:space="preserve" text-anchor="start" x="283.04" y="-401.3" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">User</text>
+<polygon fill="#ffffff" stroke="none" points="272.04,-354.6 272.04,-384.2 331.84,-384.2 331.84,-354.6 272.04,-354.6"/>
+<text xml:space="preserve" text-anchor="start" x="279.04" y="-366.5" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+<polygon fill="#f4f7f9" stroke="none" points="272.04,-325 272.04,-354.6 331.84,-354.6 331.84,-325 272.04,-325"/>
+<text xml:space="preserve" text-anchor="start" x="279.04" y="-334.6" font-family="Arial" font-size="13.00" fill="#142b3a">name</text>
+<polygon fill="#ffffff" stroke="none" points="272.04,-295.4 272.04,-325 331.84,-325 331.84,-295.4 272.04,-295.4"/>
+<text xml:space="preserve" text-anchor="start" x="279.04" y="-305" font-family="Arial" font-size="13.00" fill="#142b3a">role</text>
+</g>
+<!-- Teacher -->
+<g id="node3" class="node">
+<title>Teacher</title>
+<polygon fill="none" stroke="#cbd6dc" points="500.68,-285.2 500.68,-388.8 589.88,-388.8 589.88,-285.2 500.68,-285.2"/>
+<polygon fill="#0b756a" stroke="none" points="501.68,-345.4 501.68,-387.8 588.88,-387.8 588.88,-345.4 501.68,-345.4"/>
+<text xml:space="preserve" text-anchor="start" x="512.68" y="-362.5" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">Teacher</text>
+<polygon fill="#ffffff" stroke="none" points="501.68,-315.8 501.68,-345.4 588.88,-345.4 588.88,-315.8 501.68,-315.8"/>
+<text xml:space="preserve" text-anchor="start" x="508.68" y="-327.7" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+<polygon fill="#f4f7f9" stroke="none" points="501.68,-286.2 501.68,-315.8 588.88,-315.8 588.88,-286.2 501.68,-286.2"/>
+<text xml:space="preserve" text-anchor="start" x="508.68" y="-295.8" font-family="Arial" font-size="13.00" fill="#142b3a">employeeId</text>
+</g>
+<!-- Student -->
+<g id="node4" class="node">
+<title>Student</title>
+<polygon fill="none" stroke="#cbd6dc" points="499.71,-122.4 499.71,-255.6 590.85,-255.6 590.85,-122.4 499.71,-122.4"/>
+<polygon fill="#0b756a" stroke="none" points="500.71,-212.2 500.71,-254.6 589.85,-254.6 589.85,-212.2 500.71,-212.2"/>
+<text xml:space="preserve" text-anchor="start" x="511.71" y="-229.3" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">Student</text>
+<polygon fill="#ffffff" stroke="none" points="500.71,-182.6 500.71,-212.2 589.85,-212.2 589.85,-182.6 500.71,-182.6"/>
+<text xml:space="preserve" text-anchor="start" x="507.71" y="-194.5" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+<polygon fill="#f4f7f9" stroke="none" points="500.71,-153 500.71,-182.6 589.85,-182.6 589.85,-153 500.71,-153"/>
+<text xml:space="preserve" text-anchor="start" x="507.71" y="-162.6" font-family="Arial" font-size="13.00" fill="#142b3a">admissionNo</text>
+<polygon fill="#ffffff" stroke="none" points="500.71,-123.4 500.71,-153 589.85,-153 589.85,-123.4 500.71,-123.4"/>
+<text xml:space="preserve" text-anchor="start" x="507.71" y="-133" font-family="Arial" font-size="13.00" fill="#142b3a">name</text>
+</g>
+<!-- Parent -->
+<g id="node5" class="node">
+<title>Parent</title>
+<polygon fill="none" stroke="#cbd6dc" points="506.83,-419 506.83,-493 583.74,-493 583.74,-419 506.83,-419"/>
+<polygon fill="#0b756a" stroke="none" points="507.83,-449.6 507.83,-492 582.74,-492 582.74,-449.6 507.83,-449.6"/>
+<text xml:space="preserve" text-anchor="start" x="518.83" y="-466.7" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">Parent</text>
+<polygon fill="#ffffff" stroke="none" points="507.83,-420 507.83,-449.6 582.74,-449.6 582.74,-420 507.83,-420"/>
+<text xml:space="preserve" text-anchor="start" x="514.83" y="-431.9" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+</g>
+<!-- StudentParent -->
+<g id="node6" class="node">
+<title>StudentParent</title>
+<polygon fill="none" stroke="#cbd6dc" points="740.61,-230 740.61,-304 880.79,-304 880.79,-230 740.61,-230"/>
+<polygon fill="#0b756a" stroke="none" points="741.61,-260.6 741.61,-303 879.79,-303 879.79,-260.6 741.61,-260.6"/>
+<text xml:space="preserve" text-anchor="start" x="752.61" y="-277.7" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">StudentParent</text>
+<polygon fill="#ffffff" stroke="none" points="741.61,-231 741.61,-260.6 879.79,-260.6 879.79,-231 741.61,-231"/>
+<text xml:space="preserve" text-anchor="start" x="748.61" y="-242.9" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+</g>
+<!-- PushDevice -->
+<g id="node7" class="node">
+<title>PushDevice</title>
+<polygon fill="none" stroke="#cbd6dc" points="485.09,-523 485.09,-597 605.47,-597 605.47,-523 485.09,-523"/>
+<polygon fill="#0b756a" stroke="none" points="486.09,-553.6 486.09,-596 604.47,-596 604.47,-553.6 486.09,-553.6"/>
+<text xml:space="preserve" text-anchor="start" x="497.09" y="-570.7" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">PushDevice</text>
+<polygon fill="#ffffff" stroke="none" points="486.09,-524 486.09,-553.6 604.47,-553.6 604.47,-524 486.09,-524"/>
+<text xml:space="preserve" text-anchor="start" x="493.09" y="-535.9" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+</g>
+<!-- Class -->
+<g id="node8" class="node">
+<title>Class</title>
+<polygon fill="none" stroke="#b9c5cd" points="243.92,0 243.92,-74 359.97,-74 359.97,0 243.92,0"/>
+<polygon fill="#71818d" stroke="none" points="244.92,-30.6 244.92,-73 358.97,-73 358.97,-30.6 244.92,-30.6"/>
+<text xml:space="preserve" text-anchor="start" x="255.92" y="-47.7" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">Class</text>
+<text xml:space="preserve" text-anchor="start" x="301.28" y="-47.7" font-family="Arial" font-size="10.00" fill="white"> &#160;[external]</text>
+<polygon fill="#ffffff" stroke="none" points="244.92,-1 244.92,-30.6 358.97,-30.6 358.97,-1 244.92,-1"/>
+<text xml:space="preserve" text-anchor="start" x="251.92" y="-12.9" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+</g>
+</g>
+</g>
+<line x1="48" y1="901" x2="1272" y2="901" stroke="#CFD9DF"/>
+<text x="48" y="933" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#142B3A">1 = exactly one    0..1 = optional one    0..N = zero or many    PK = primary key    FK = foreign key    UQ = unique key</text>
+<text x="48" y="962" font-family="Arial,sans-serif" font-size="13" fill="#566B78">Grey boxes are external parent references. Cardinalities describe constraints, not today's row counts.</text>
+<text x="48" y="991" font-family="Arial,sans-serif" font-size="13" fill="#566B78">Source: website database meridian:5432 | 43 application tables | 67 declared FKs | PostgreSQL 16.15 + pgvector 0.8.7</text>
+</svg>

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1320" height="647" viewBox="0 0 1320 647">
+<rect width="1320" height="647" fill="#FFFFFF"/>
+<rect x="0" y="0" width="1320" height="8" fill="#0B756A"/>
+<text x="48" y="47" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" fill="#0B756A">MERIDIAN / DATABASE DESIGN</text>
+<text x="48" y="100" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#142B3A">Fees &amp; payments / ER diagram</text>
+<text x="48" y="135" font-family="Arial,sans-serif" font-size="16" fill="#566B78">2 entities in this module; primary keys and selected descriptive attributes. All 3 declared relationships in scope are shown.</text>
+<g transform="translate(349,167)">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(25.2 312.2)">
+<title>Meridian</title>
+<g id="clust1" class="cluster">
+<title>cluster_05_fees</title>
+<path fill="#f6f9fa" stroke="#d5dfe4" d="M257.1,-8C257.1,-8 551.57,-8 551.57,-8 557.57,-8 563.57,-14 563.57,-20 563.57,-20 563.57,-267 563.57,-267 563.57,-273 557.57,-279 551.57,-279 551.57,-279 257.1,-279 257.1,-279 251.1,-279 245.1,-273 245.1,-267 245.1,-267 245.1,-20 245.1,-20 245.1,-14 251.1,-8 257.1,-8"/>
+<text xml:space="preserve" text-anchor="middle" x="327.02" y="-257.9" font-family="Arial" font-size="19.00" fill="#327d4c">Fees &amp; payments</text>
+</g>
+<!-- Fee&#45;&gt;Payment -->
+<g id="Payment_feeId_fkey" class="edge">
+<title>Fee&#45;&gt;Payment</title>
+<g id="a_Payment_feeId_fkey"><a xlink:title="Payment.feeId &#45;&gt; Fee.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M335.57,-128C362.1,-128 398.89,-128 430.04,-128"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="329.18,-131.75 329.18,-124.25 330.68,-124.25 330.68,-131.75 329.18,-131.75"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="328.43,-128 332.18,-128"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="332.93,-131.75 332.93,-124.25 334.43,-124.25 334.43,-131.75 332.93,-131.75"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="332.18,-128 335.93,-128"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="436.92,-128 444.42,-131.38 441.05,-128 444.03,-128 444.03,-128 444.03,-128 441.05,-128 444.42,-124.63 436.92,-128"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="431.94" cy="-128" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="386.58" y="-131" font-family="Arial" font-size="10.00" fill="#445f75">feeId</text>
+<text xml:space="preserve" text-anchor="middle" x="426.53" y="-116.87" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="346.7" y="-133.13" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- School&#45;&gt;Fee -->
+<g id="Fee_schoolId_fkey" class="edge">
+<title>School&#45;&gt;Fee</title>
+<g id="a_Fee_schoolId_fkey"><a xlink:title="Fee.schoolId &#45;&gt; School.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M137.73,-164.22C175.78,-155.61 221.69,-145.22 254.57,-137.78"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="132.03,-169.35 130.37,-162.04 131.84,-161.71 133.49,-169.02 132.03,-169.35"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="130.47,-165.86 134.13,-165.03"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="135.69,-168.52 134.03,-161.21 135.49,-160.88 137.15,-168.19 135.69,-168.52"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="134.13,-165.03 137.78,-164.2"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="261.43,-136.23 269.49,-137.86 265.46,-135.31 268.37,-134.65 268.37,-134.65 268.37,-134.65 265.46,-135.31 268,-131.28 261.43,-136.23"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="256.58" cy="-137.32" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="201.53" y="-157" font-family="Arial" font-size="10.00" fill="#445f75">schoolId</text>
+<text xml:space="preserve" text-anchor="middle" x="249.51" y="-127.58" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="150.09" y="-166.76" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- Student&#45;&gt;Fee -->
+<g id="Fee_studentId_fkey" class="edge">
+<title>Student&#45;&gt;Fee</title>
+<g id="a_Fee_studentId_fkey"><a xlink:title="Fee.studentId &#45;&gt; Student.id">
+<path fill="none" stroke="#7b8d9d" stroke-width="1.15" d="M141.02,-92.53C178.49,-101.01 222.83,-111.04 254.77,-118.27"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="133.73,-94.72 135.39,-87.41 136.85,-87.74 135.2,-95.06 133.73,-94.72"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="133.83,-90.9 137.49,-91.73"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="137.39,-95.55 139.05,-88.24 140.51,-88.57 138.86,-95.88 137.39,-95.55"/>
+<polyline fill="none" stroke="#7b8d9d" stroke-width="1.15" points="137.49,-91.73 141.15,-92.56"/>
+<polygon fill="#7b8d9d" stroke="#7b8d9d" stroke-width="1.15" points="261.69,-119.83 268.26,-124.78 265.72,-120.75 268.63,-121.4 268.63,-121.4 268.63,-121.4 265.72,-120.75 269.75,-118.2 261.69,-119.83"/>
+<ellipse fill="none" stroke="#7b8d9d" stroke-width="1.15" cx="256.83" cy="-118.73" rx="3" ry="3"/>
+</a>
+</g>
+<text xml:space="preserve" text-anchor="middle" x="201.53" y="-112.7" font-family="Arial" font-size="10.00" fill="#445f75">studentId</text>
+<text xml:space="preserve" text-anchor="middle" x="253.35" y="-106.61" font-family="Arial" font-size="10.00" fill="#445f75">0..N</text>
+<text xml:space="preserve" text-anchor="middle" x="149.86" y="-99.87" font-family="Arial" font-size="10.00" fill="#445f75">1</text>
+</g>
+<!-- Fee -->
+<g id="node1" class="node">
+<title>Fee</title>
+<polygon fill="none" stroke="#cbd6dc" points="269.1,-31.8 269.1,-224.2 328.46,-224.2 328.46,-31.8 269.1,-31.8"/>
+<polygon fill="#327d4c" stroke="none" points="270.1,-180.8 270.1,-223.2 327.46,-223.2 327.46,-180.8 270.1,-180.8"/>
+<text xml:space="preserve" text-anchor="start" x="281.1" y="-197.9" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">Fee</text>
+<polygon fill="#ffffff" stroke="none" points="270.1,-151.2 270.1,-180.8 327.46,-180.8 327.46,-151.2 270.1,-151.2"/>
+<text xml:space="preserve" text-anchor="start" x="277.1" y="-163.1" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+<polygon fill="#f4f7f9" stroke="none" points="270.1,-121.6 270.1,-151.2 327.46,-151.2 327.46,-121.6 270.1,-121.6"/>
+<text xml:space="preserve" text-anchor="start" x="277.1" y="-131.2" font-family="Arial" font-size="13.00" fill="#142b3a">title</text>
+<polygon fill="#ffffff" stroke="none" points="270.1,-92 270.1,-121.6 327.46,-121.6 327.46,-92 270.1,-92"/>
+<text xml:space="preserve" text-anchor="start" x="277.1" y="-101.6" font-family="Arial" font-size="13.00" fill="#142b3a">amount</text>
+<polygon fill="#f4f7f9" stroke="none" points="270.1,-62.4 270.1,-92 327.46,-92 327.46,-62.4 270.1,-62.4"/>
+<text xml:space="preserve" text-anchor="start" x="277.1" y="-72" font-family="Arial" font-size="13.00" fill="#142b3a">paid</text>
+<polygon fill="#ffffff" stroke="none" points="270.1,-32.8 270.1,-62.4 327.46,-62.4 327.46,-32.8 270.1,-32.8"/>
+<text xml:space="preserve" text-anchor="start" x="277.1" y="-42.4" font-family="Arial" font-size="13.00" fill="#142b3a">status</text>
+</g>
+<!-- Payment -->
+<g id="node2" class="node">
+<title>Payment</title>
+<polygon fill="none" stroke="#cbd6dc" points="444.7,-76.2 444.7,-179.8 539.57,-179.8 539.57,-76.2 444.7,-76.2"/>
+<polygon fill="#327d4c" stroke="none" points="445.7,-136.4 445.7,-178.8 538.57,-178.8 538.57,-136.4 445.7,-136.4"/>
+<text xml:space="preserve" text-anchor="start" x="456.7" y="-153.5" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">Payment</text>
+<polygon fill="#ffffff" stroke="none" points="445.7,-106.8 445.7,-136.4 538.57,-136.4 538.57,-106.8 445.7,-106.8"/>
+<text xml:space="preserve" text-anchor="start" x="452.7" y="-118.7" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+<polygon fill="#f4f7f9" stroke="none" points="445.7,-77.2 445.7,-106.8 538.57,-106.8 538.57,-77.2 445.7,-77.2"/>
+<text xml:space="preserve" text-anchor="start" x="452.7" y="-86.8" font-family="Arial" font-size="13.00" fill="#142b3a">amount</text>
+</g>
+<!-- School -->
+<g id="node3" class="node">
+<title>School</title>
+<polygon fill="none" stroke="#b9c5cd" points="3.3,-143 3.3,-217 130.66,-217 130.66,-143 3.3,-143"/>
+<polygon fill="#71818d" stroke="none" points="4.3,-173.6 4.3,-216 129.66,-216 129.66,-173.6 4.3,-173.6"/>
+<text xml:space="preserve" text-anchor="start" x="15.3" y="-190.7" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">School</text>
+<text xml:space="preserve" text-anchor="start" x="71.97" y="-190.7" font-family="Arial" font-size="10.00" fill="white"> &#160;[external]</text>
+<polygon fill="#ffffff" stroke="none" points="4.3,-144 4.3,-173.6 129.66,-173.6 129.66,-144 4.3,-144"/>
+<text xml:space="preserve" text-anchor="start" x="11.3" y="-155.9" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+</g>
+<!-- Student -->
+<g id="node4" class="node">
+<title>Student</title>
+<polygon fill="none" stroke="#b9c5cd" points="0,-39 0,-113 133.96,-113 133.96,-39 0,-39"/>
+<polygon fill="#71818d" stroke="none" points="1,-69.6 1,-112 132.96,-112 132.96,-69.6 1,-69.6"/>
+<text xml:space="preserve" text-anchor="start" x="12" y="-86.7" font-family="Arial" font-weight="bold" font-size="17.00" fill="white">Student</text>
+<text xml:space="preserve" text-anchor="start" x="75.27" y="-86.7" font-family="Arial" font-size="10.00" fill="white"> &#160;[external]</text>
+<polygon fill="#ffffff" stroke="none" points="1,-40 1,-69.6 132.96,-69.6 132.96,-40 1,-40"/>
+<text xml:space="preserve" text-anchor="start" x="8" y="-51.9" font-family="Arial" font-weight="bold" font-size="13.00" fill="#9e6715">PK &#160;id</text>
+</g>
+</g>
+</g>
+<line x1="48" y1="528" x2="1272" y2="528" stroke="#CFD9DF"/>
+<text x="48" y="560" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#142B3A">1 = exactly one    0..1 = optional one    0..N = zero or many    PK = primary key    FK = foreign key    UQ = unique key</text>
+<text x="48" y="589" font-family="Arial,sans-serif" font-size="13" fill="#566B78">Grey boxes are external parent references. Cardinalities describe constraints, not today's row counts.</text>
+<text x="48" y="618" font-family="Arial,sans-serif" font-size="13" fill="#566B78">Source: website database meridian:5432 | 43 application tables | 67 declared FKs | PostgreSQL 16.15 + pgvector 0.8.7</text>
+</svg>

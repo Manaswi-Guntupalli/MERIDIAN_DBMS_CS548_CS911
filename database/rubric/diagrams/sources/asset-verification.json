@@ -1,0 +1,167 @@
+{
+  "verifiedAt": "2026-11-10T10:13:24.497403+00:00",
+  "passed": 32,
+  "failed": 0,
+  "checks": [
+    {
+      "image": "chen/01_complete_chen_er",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/01_complete_relational_mapping",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "chen/modules/01_identity",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/modules/01_identity",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "chen/modules/02_academics",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/modules/02_academics",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "chen/modules/03_attendance",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/modules/03_attendance",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "chen/modules/04_documents",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/modules/04_documents",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "chen/modules/05_fees",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/modules/05_fees",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "chen/modules/06_community",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/modules/06_community",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "chen/modules/07_knowledge",
+      "passed": true,
+      "checked": "entity rectangles, attribute ovals, PK underlining, relationship diamonds, cardinality labels, required/optional participation lines, PNG validity"
+    },
+    {
+      "image": "relational/modules/07_knowledge",
+      "passed": true,
+      "checked": "exact cell labels, actual PK underlining, FK styling and endpoints, text fit, arrow paths outside attribute cells, PNG validity"
+    },
+    {
+      "image": "01_complete_er_diagram",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "02_complete_relational_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/01_identity_er",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/01_identity_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/02_academics_er",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/02_academics_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/03_attendance_er",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/03_attendance_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/04_documents_er",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/04_documents_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/05_fees_er",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/05_fees_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/06_community_er",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/06_community_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/07_knowledge_er",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    },
+    {
+      "image": "modules/07_knowledge_schema",
+      "passed": true,
+      "checked": "current crow-foot/table-box entities, actual FK endpoints and cardinalities, DOT markers, schema attribute labels and PNG validity"
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+digraph Chen {
+graph [rankdir=LR, newrank=true, compound=true, splines=polyline, nodesep=0.18, ranksep=0.8, pad=0.4, bgcolor="transparent", outputorder=edgesfirst, fontname="Arial"];
+node [fontname="Arial",fontsize=13,fontcolor="#152A38"];
+edge [fontname="Arial",fontsize=13,fontcolor="#D73232",color="#4A5966",penwidth=0.8,arrowsize=0.6,dir=none];
+subgraph "cluster_attributes_School" { style=invis; margin=12; label="";
+"ent_School" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="School"];
+{rank=same;
+"attr_School.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_School.code" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="code"];
+"attr_School.phone" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="phone"];
+"attr_School.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_School.id" -> "ent_School" [color="#929EA7",weight=3];
+"attr_School.code" -> "ent_School" [color="#929EA7",weight=3];
+"attr_School.phone" -> "ent_School" [color="#929EA7",weight=3];
+"attr_School.createdAt" -> "ent_School" [color="#929EA7",weight=3];
+{rank=same;
+"attr_School.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_School.address" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="address"];
+"attr_School.logoUrl" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="logoUrl"];
+"attr_School.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"ent_School" -> "attr_School.name" [color="#929EA7",weight=3];
+"ent_School" -> "attr_School.address" [color="#929EA7",weight=3];
+"ent_School" -> "attr_School.logoUrl" [color="#929EA7",weight=3];
+"ent_School" -> "attr_School.updatedAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_User" { style=invis; margin=12; label="";
+"ent_User" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="User"];
+{rank=same;
+"attr_User.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_User.password" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="password"];
+"attr_User.role" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="role"];
+"attr_User.avatarUrl" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="avatarUrl"];
+"attr_User.mustChangePassword" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="mustChangePassword"];
+"attr_User.failedLogins" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="failedLogins"];
+"attr_User.lastLoginIp" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="lastLoginIp"];
+"attr_User.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_User.id" -> "ent_User" [color="#929EA7",weight=3];
+"attr_User.password" -> "ent_User" [color="#929EA7",weight=3];
+"attr_User.role" -> "ent_User" [color="#929EA7",weight=3];
+"attr_User.avatarUrl" -> "ent_User" [color="#929EA7",weight=3];
+"attr_User.mustChangePassword" -> "ent_User" [color="#929EA7",weight=3];
+"attr_User.failedLogins" -> "ent_User" [color="#929EA7",weight=3];
+"attr_User.lastLoginIp" -> "ent_User" [color="#929EA7",weight=3];
+"attr_User.createdAt" -> "ent_User" [color="#929EA7",weight=3];
+{rank=same;
+"attr_User.email" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="email"];
+"attr_User.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_User.phone" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="phone"];
+"attr_User.active" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="active"];
+"attr_User.tokenVersion" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="tokenVersion"];
+"attr_User.lockedUntil" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="lockedUntil"];
+"attr_User.lastLogin" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="lastLogin"];
+"attr_User.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"ent_User" -> "attr_User.email" [color="#929EA7",weight=3];
+"ent_User" -> "attr_User.name" [color="#929EA7",weight=3];
+"ent_User" -> "attr_User.phone" [color="#929EA7",weight=3];
+"ent_User" -> "attr_User.active" [color="#929EA7",weight=3];
+"ent_User" -> "attr_User.tokenVersion" [color="#929EA7",weight=3];
+"ent_User" -> "attr_User.lockedUntil" [color="#929EA7",weight=3];
+"ent_User" -> "attr_User.lastLogin" [color="#929EA7",weight=3];
+"ent_User" -> "attr_User.updatedAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Teacher" { style=invis; margin=12; label="";
+"ent_Teacher" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Teacher"];
+{rank=same;
+"attr_Teacher.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Teacher.department" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="department"];
+"attr_Teacher.maxHours" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="maxHours"];
+"attr_Teacher.subjectsString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="subjectsString"];
+"attr_Teacher.maxConsecutive" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="maxConsecutive"];
+"attr_Teacher.unavailableString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="unavailableString"];
+"attr_Teacher.faceEnrolled" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceEnrolled"];
+"attr_Teacher.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_Teacher.id" -> "ent_Teacher" [color="#929EA7",weight=3];
+"attr_Teacher.department" -> "ent_Teacher" [color="#929EA7",weight=3];
+"attr_Teacher.maxHours" -> "ent_Teacher" [color="#929EA7",weight=3];
+"attr_Teacher.subjectsString" -> "ent_Teacher" [color="#929EA7",weight=3];
+"attr_Teacher.maxConsecutive" -> "ent_Teacher" [color="#929EA7",weight=3];
+"attr_Teacher.unavailableString" -> "ent_Teacher" [color="#929EA7",weight=3];
+"attr_Teacher.faceEnrolled" -> "ent_Teacher" [color="#929EA7",weight=3];
+"attr_Teacher.createdAt" -> "ent_Teacher" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Teacher.employeeId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="employeeId"];
+"attr_Teacher.qualification" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="qualification"];
+"attr_Teacher.weeklyHours" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="weeklyHours"];
+"attr_Teacher.maxDailyPeriods" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="maxDailyPeriods"];
+"attr_Teacher.partTime" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="partTime"];
+"attr_Teacher.preferredFreeString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="preferredFreeString"];
+"attr_Teacher.faceCount" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceCount"];
+"attr_Teacher.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"ent_Teacher" -> "attr_Teacher.employeeId" [color="#929EA7",weight=3];
+"ent_Teacher" -> "attr_Teacher.qualification" [color="#929EA7",weight=3];
+"ent_Teacher" -> "attr_Teacher.weeklyHours" [color="#929EA7",weight=3];
+"ent_Teacher" -> "attr_Teacher.maxDailyPeriods" [color="#929EA7",weight=3];
+"ent_Teacher" -> "attr_Teacher.partTime" [color="#929EA7",weight=3];
+"ent_Teacher" -> "attr_Teacher.preferredFreeString" [color="#929EA7",weight=3];
+"ent_Teacher" -> "attr_Teacher.faceCount" [color="#929EA7",weight=3];
+"ent_Teacher" -> "attr_Teacher.updatedAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Student" { style=invis; margin=12; label="";
+"ent_Student" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Student"];
+{rank=same;
+"attr_Student.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Student.rollNo" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="rollNo"];
+"attr_Student.gender" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="gender"];
+"attr_Student.bloodGroup" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="bloodGroup"];
+"attr_Student.email" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="email"];
+"attr_Student.address" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="address"];
+"attr_Student.guardianName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="guardianName"];
+"attr_Student.motherName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="motherName"];
+"attr_Student.active" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="active"];
+"attr_Student.faceCount" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceCount"];
+"attr_Student.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"attr_Student.id" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.rollNo" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.gender" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.bloodGroup" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.email" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.address" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.guardianName" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.motherName" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.active" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.faceCount" -> "ent_Student" [color="#929EA7",weight=3];
+"attr_Student.updatedAt" -> "ent_Student" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Student.admissionNo" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="admissionNo"];
+"attr_Student.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_Student.dob" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="dob"];
+"attr_Student.photoUrl" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="photoUrl"];
+"attr_Student.phone" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="phone"];
+"attr_Student.pincode" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="pincode"];
+"attr_Student.fatherName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="fatherName"];
+"attr_Student.emergencyContact" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="emergencyContact"];
+"attr_Student.faceEnrolled" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="faceEnrolled"];
+"attr_Student.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_Student" -> "attr_Student.admissionNo" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.name" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.dob" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.photoUrl" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.phone" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.pincode" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.fatherName" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.emergencyContact" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.faceEnrolled" [color="#929EA7",weight=3];
+"ent_Student" -> "attr_Student.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Parent" { style=invis; margin=12; label="";
+"ent_Parent" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Parent"];
+{rank=same;
+"attr_Parent.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Parent.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_Parent.id" -> "ent_Parent" [color="#929EA7",weight=3];
+"attr_Parent.createdAt" -> "ent_Parent" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Parent.relation" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="relation"];
+}
+"ent_Parent" -> "attr_Parent.relation" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_StudentParent" { style=invis; margin=12; label="";
+"ent_StudentParent" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="StudentParent\n[associative entity]"];
+{rank=same;
+"attr_StudentParent.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_StudentParent.id" -> "ent_StudentParent" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_PushDevice" { style=invis; margin=12; label="";
+"ent_PushDevice" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="PushDevice"];
+{rank=same;
+"attr_PushDevice.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_PushDevice.platform" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="platform"];
+"attr_PushDevice.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"attr_PushDevice.id" -> "ent_PushDevice" [color="#929EA7",weight=3];
+"attr_PushDevice.platform" -> "ent_PushDevice" [color="#929EA7",weight=3];
+"attr_PushDevice.updatedAt" -> "ent_PushDevice" [color="#929EA7",weight=3];
+{rank=same;
+"attr_PushDevice.token" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="token"];
+"attr_PushDevice.tokenVersion" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="tokenVersion"];
+"attr_PushDevice.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_PushDevice" -> "attr_PushDevice.token" [color="#929EA7",weight=3];
+"ent_PushDevice" -> "attr_PushDevice.tokenVersion" [color="#929EA7",weight=3];
+"ent_PushDevice" -> "attr_PushDevice.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Class" { style=invis; margin=12; label="";
+"ent_Class" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="Class [external]"];
+{rank=same;
+"attr_Class.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_Class.id" -> "ent_Class" [color="#929EA7",weight=3];
+}
+"rel_Student_classId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned to class\n[classId]"];
+"ent_Class" -> "rel_Student_classId_fkey" [id="Student_classId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Student_classId_fkey" -> "ent_Student" [id="Student_classId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_StudentParent_parentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Links guardian\n[parentId]"];
+"ent_Parent" -> "rel_StudentParent_parentId_fkey" [id="StudentParent_parentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_StudentParent_parentId_fkey" -> "ent_StudentParent" [id="StudentParent_parentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Parent_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Parent_schoolId_fkey" [id="Parent_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Parent_schoolId_fkey" -> "ent_Parent" [id="Parent_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_PushDevice_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_PushDevice_schoolId_fkey" [id="PushDevice_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_PushDevice_schoolId_fkey" -> "ent_PushDevice" [id="PushDevice_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Student_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Student_schoolId_fkey" [id="Student_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Student_schoolId_fkey" -> "ent_Student" [id="Student_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Teacher_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Teacher_schoolId_fkey" [id="Teacher_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Teacher_schoolId_fkey" -> "ent_Teacher" [id="Teacher_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_User_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_User_schoolId_fkey" [id="User_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_User_schoolId_fkey" -> "ent_User" [id="User_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_StudentParent_studentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="For student\n[studentId]"];
+"ent_Student" -> "rel_StudentParent_studentId_fkey" [id="StudentParent_studentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_StudentParent_studentId_fkey" -> "ent_StudentParent" [id="StudentParent_studentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Parent_userId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Has login account\n[userId]"];
+"ent_User" -> "rel_Parent_userId_fkey" [id="Parent_userId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Parent_userId_fkey" -> "ent_Parent" [id="Parent_userId_fkey_child",label="1",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_PushDevice_userId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Has login account\n[userId]"];
+"ent_User" -> "rel_PushDevice_userId_fkey" [id="PushDevice_userId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_PushDevice_userId_fkey" -> "ent_PushDevice" [id="PushDevice_userId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Student_userId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Has login account\n[userId]"];
+"ent_User" -> "rel_Student_userId_fkey" [id="Student_userId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Student_userId_fkey" -> "ent_Student" [id="Student_userId_fkey_child",label="1",minlen=1,weight=2,color="#4A5966"];
+"rel_Teacher_userId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Has login account\n[userId]"];
+"ent_User" -> "rel_Teacher_userId_fkey" [id="Teacher_userId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Teacher_userId_fkey" -> "ent_Teacher" [id="Teacher_userId_fkey_child",label="1",minlen=1,weight=2,color="#4A5966:#4A5966"];
+}

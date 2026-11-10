@@ -1,0 +1,1296 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3395" height="2841" viewBox="0 0 3395 2841"><rect width="3395" height="2841" fill="#FCFBF8"/><text x="50" y="42" font-family="Arial,sans-serif" font-size="18" fill="#172734" font-weight="700" letter-spacing="2">MERIDIAN  /  DBMS DESIGN</text><text x="50" y="96" font-family="Arial,sans-serif" font-size="34" fill="#172734" font-weight="700">Chen ER / Academics, spaces and scheduling</text><text x="50" y="130" font-family="Arial,sans-serif" font-size="16" fill="#172734" >10 entities; 18 relationship diamonds. Ovals show non-FK attributes; FK columns are represented by relationships.</text><g transform="translate(50,166)">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(28.8 2481.8)">
+<title>Chen</title>
+<g id="clust1" class="cluster">
+<title>cluster_attributes_AcademicConfig</title>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_attributes_Class</title>
+</g>
+<g id="clust7" class="cluster">
+<title>cluster_attributes_Subject</title>
+</g>
+<g id="clust10" class="cluster">
+<title>cluster_attributes_Building</title>
+</g>
+<g id="clust13" class="cluster">
+<title>cluster_attributes_Room</title>
+</g>
+<g id="clust16" class="cluster">
+<title>cluster_attributes_ClassSubjectPlan</title>
+</g>
+<g id="clust19" class="cluster">
+<title>cluster_attributes_Timetable</title>
+</g>
+<g id="clust22" class="cluster">
+<title>cluster_attributes_TimetableSlot</title>
+</g>
+<g id="clust25" class="cluster">
+<title>cluster_attributes_StaffAbsence</title>
+</g>
+<g id="clust28" class="cluster">
+<title>cluster_attributes_Substitution</title>
+</g>
+<g id="clust31" class="cluster">
+<title>cluster_attributes_School</title>
+</g>
+<g id="clust33" class="cluster">
+<title>cluster_attributes_Teacher</title>
+</g>
+<!-- ent_AcademicConfig&#45;&gt;attr_AcademicConfig.academicYear -->
+<g id="edge7" class="edge">
+<title>ent_AcademicConfig&#45;&gt;attr_AcademicConfig.academicYear</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.31,-2286.31C942.22,-2291.12 955.02,-2295 955.02,-2295 955.02,-2295 1135.33,-2334.11 1228.29,-2354.28"/>
+</g>
+<!-- ent_AcademicConfig&#45;&gt;attr_AcademicConfig.workingDays -->
+<g id="edge8" class="edge">
+<title>ent_AcademicConfig&#45;&gt;attr_AcademicConfig.workingDays</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M899.29,-2288.26C924.6,-2303.58 955.02,-2322 955.02,-2322 955.02,-2322 1188.6,-2391 1188.6,-2391 1188.6,-2391 1211.31,-2396.81 1234.37,-2402.72"/>
+</g>
+<!-- ent_AcademicConfig&#45;&gt;attr_AcademicConfig.periodMinutes -->
+<g id="edge9" class="edge">
+<title>ent_AcademicConfig&#45;&gt;attr_AcademicConfig.periodMinutes</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M913.56,-2247.67C934.77,-2238.63 955.02,-2230 955.02,-2230 955.02,-2230 1131.55,-2197.64 1225.33,-2180.45"/>
+</g>
+<!-- ent_AcademicConfig&#45;&gt;attr_AcademicConfig.breaksString -->
+<g id="edge10" class="edge">
+<title>ent_AcademicConfig&#45;&gt;attr_AcademicConfig.breaksString</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-2260.87C1006.04,-2251.51 1145.06,-2235.15 1223.72,-2225.9"/>
+</g>
+<!-- ent_AcademicConfig&#45;&gt;attr_AcademicConfig.holidaysString -->
+<g id="edge11" class="edge">
+<title>ent_AcademicConfig&#45;&gt;attr_AcademicConfig.holidaysString</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-2268C1002.54,-2268 1132.96,-2268 1213.02,-2268"/>
+</g>
+<!-- ent_AcademicConfig&#45;&gt;attr_AcademicConfig.updatedAt -->
+<g id="edge12" class="edge">
+<title>ent_AcademicConfig&#45;&gt;attr_AcademicConfig.updatedAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-2275.13C1008.86,-2284.83 1154.98,-2302.02 1231.85,-2311.06"/>
+</g>
+<!-- attr_AcademicConfig.id&#45;&gt;ent_AcademicConfig -->
+<g id="edge1" class="edge">
+<title>attr_AcademicConfig.id&#45;&gt;ent_AcademicConfig</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M453.09,-2360.76C532.89,-2344.2 774.62,-2294 774.62,-2294 774.62,-2294 787.43,-2290.27 803.34,-2285.63"/>
+</g>
+<!-- attr_AcademicConfig.termsString&#45;&gt;ent_AcademicConfig -->
+<g id="edge2" class="edge">
+<title>attr_AcademicConfig.termsString&#45;&gt;ent_AcademicConfig</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M475.27,-2404.19C503.2,-2397.82 533.13,-2391 533.13,-2391 533.13,-2391 774.62,-2319 774.62,-2319 774.62,-2319 803.44,-2302.53 828.31,-2288.3"/>
+</g>
+<!-- attr_AcademicConfig.dayStart&#45;&gt;ent_AcademicConfig -->
+<g id="edge3" class="edge">
+<title>attr_AcademicConfig.dayStart&#45;&gt;ent_AcademicConfig</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M469.7,-2177.48C561.93,-2193.97 774.62,-2232 774.62,-2232 774.62,-2232 793.26,-2239.52 813.49,-2247.69"/>
+</g>
+<!-- attr_AcademicConfig.periodsPerDay&#45;&gt;ent_AcademicConfig -->
+<g id="edge4" class="edge">
+<title>attr_AcademicConfig.periodsPerDay&#45;&gt;ent_AcademicConfig</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M494.09,-2226.44C578.17,-2235.89 722.06,-2252.07 803.33,-2261.2"/>
+</g>
+<!-- attr_AcademicConfig.blockedString&#45;&gt;ent_AcademicConfig -->
+<g id="edge5" class="edge">
+<title>attr_AcademicConfig.blockedString&#45;&gt;ent_AcademicConfig</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M495.04,-2268C579.23,-2268 722.3,-2268 803.27,-2268"/>
+</g>
+<!-- attr_AcademicConfig.examWeeksString&#45;&gt;ent_AcademicConfig -->
+<g id="edge6" class="edge">
+<title>attr_AcademicConfig.examWeeksString&#45;&gt;ent_AcademicConfig</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M504.06,-2308.44C589.12,-2298.88 725.07,-2283.6 803.22,-2274.81"/>
+</g>
+<!-- ent_Class&#45;&gt;attr_Class.grade -->
+<g id="edge16" class="edge">
+<title>ent_Class&#45;&gt;attr_Class.grade</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2419.22,-1536.83C2495.33,-1536.62 2623.54,-1536.27 2685.01,-1536.1"/>
+</g>
+<!-- ent_Class&#45;&gt;attr_Class.name -->
+<g id="edge17" class="edge">
+<title>ent_Class&#45;&gt;attr_Class.name</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2419.22,-1545.03C2495.93,-1555.23 2625.57,-1572.46 2686.46,-1580.55"/>
+</g>
+<!-- ent_Class&#45;&gt;rel_ClassSubjectPlan_classId_fkey -->
+<g id="ClassSubjectPlan_classId_fkey_parent" class="edge">
+<title>ent_Class&#45;&gt;rel_ClassSubjectPlan_classId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2393.2,-1516.66C2463.3,-1475.24 2616.03,-1385 2616.03,-1385 2616.03,-1385 2645.79,-1372.11 2673.45,-1360.13"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-1487.4" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Class&#45;&gt;rel_TimetableSlot_classId_fkey -->
+<g id="TimetableSlot_classId_fkey_parent" class="edge">
+<title>ent_Class&#45;&gt;rel_TimetableSlot_classId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2370.61,-1516.87C2394.88,-1475.63 2447.97,-1385.4 2447.97,-1385.4 2447.97,-1385.4 2587.03,-1353 2587.03,-1353 2587.03,-1353 2616.03,-1298 2616.03,-1298 2616.03,-1298 2644.93,-1286.04 2672.24,-1274.74"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-1389.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Class.id&#45;&gt;ent_Class -->
+<g id="edge13" class="edge">
+<title>attr_Class.id&#45;&gt;ent_Class</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1945.24,-1535.12C2013.94,-1535.43 2199.6,-1536.28 2296.33,-1536.72"/>
+</g>
+<!-- attr_Class.section&#45;&gt;ent_Class -->
+<g id="edge14" class="edge">
+<title>attr_Class.section&#45;&gt;ent_Class</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1958.47,-1579.75C2035.32,-1571.5 2205.02,-1553.29 2296.13,-1543.51"/>
+</g>
+<!-- attr_Class.createdAt&#45;&gt;ent_Class -->
+<g id="edge15" class="edge">
+<title>attr_Class.createdAt&#45;&gt;ent_Class</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1963,-1624.01C2056.84,-1604.9 2267.57,-1562 2267.57,-1562 2267.57,-1562 2280.37,-1558.41 2296.28,-1553.95"/>
+</g>
+<!-- ent_Subject&#45;&gt;attr_Subject.code -->
+<g id="edge22" class="edge">
+<title>ent_Subject&#45;&gt;attr_Subject.code</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2419.22,-1037C2496.93,-1037 2628.97,-1037 2688.81,-1037"/>
+</g>
+<!-- ent_Subject&#45;&gt;attr_Subject.color -->
+<g id="edge23" class="edge">
+<title>ent_Subject&#45;&gt;attr_Subject.color</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2419.22,-1045.2C2497.13,-1055.77 2629.65,-1073.75 2689.27,-1081.84"/>
+</g>
+<!-- ent_Subject&#45;&gt;attr_Subject.requiresLab -->
+<g id="edge24" class="edge">
+<title>ent_Subject&#45;&gt;attr_Subject.requiresLab</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2419.22,-1028.8C2487.8,-1019.49 2598.67,-1004.45 2664.92,-995.46"/>
+</g>
+<!-- ent_Subject&#45;&gt;rel_ClassSubjectPlan_subjectId_fkey -->
+<g id="ClassSubjectPlan_subjectId_fkey_parent" class="edge">
+<title>ent_Subject&#45;&gt;rel_ClassSubjectPlan_subjectId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2396.08,-1016.67C2420.52,-1003.35 2447.97,-988.4 2447.97,-988.4 2447.97,-988.4 2588.08,-948.01 2667.17,-925.21"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-992.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Subject&#45;&gt;rel_TimetableSlot_subjectId_fkey -->
+<g id="TimetableSlot_subjectId_fkey_parent" class="edge">
+<title>ent_Subject&#45;&gt;rel_TimetableSlot_subjectId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2374.28,-1016.74C2429.9,-944.09 2616.03,-701 2616.03,-701 2616.03,-701 2648,-687.15 2676.47,-674.82"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-922.63" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Subject.id&#45;&gt;ent_Subject -->
+<g id="edge18" class="edge">
+<title>attr_Subject.id&#45;&gt;ent_Subject</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1944.91,-990.92C2013.32,-998.57 2199.29,-1019.38 2296.2,-1030.22"/>
+</g>
+<!-- attr_Subject.name&#45;&gt;ent_Subject -->
+<g id="edge19" class="edge">
+<title>attr_Subject.name&#45;&gt;ent_Subject</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1953.19,-1037C2027.3,-1037 2202.94,-1037 2296.18,-1037"/>
+</g>
+<!-- attr_Subject.weeklyLoad&#45;&gt;ent_Subject -->
+<g id="edge20" class="edge">
+<title>attr_Subject.weeklyLoad&#45;&gt;ent_Subject</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1975.19,-1079.69C2057.77,-1070.45 2211.07,-1053.3 2296.06,-1043.79"/>
+</g>
+<!-- attr_Subject.cognitiveLoad&#45;&gt;ent_Subject -->
+<g id="edge21" class="edge">
+<title>attr_Subject.cognitiveLoad&#45;&gt;ent_Subject</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1972.94,-1123.83C2070.89,-1103.61 2267.57,-1063 2267.57,-1063 2267.57,-1063 2280.37,-1059.27 2296.28,-1054.63"/>
+</g>
+<!-- ent_Building&#45;&gt;attr_Building.name -->
+<g id="edge28" class="edge">
+<title>ent_Building&#45;&gt;attr_Building.name</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-1917.85C1015.06,-1917.64 1177.33,-1917.25 1247.97,-1917.08"/>
+</g>
+<!-- ent_Building&#45;&gt;attr_Building.x -->
+<g id="edge29" class="edge">
+<title>ent_Building&#45;&gt;attr_Building.x</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-1924.98C1018.9,-1935.64 1191.5,-1955.53 1256.6,-1963.03"/>
+</g>
+<!-- ent_Building&#45;&gt;rel_Room_buildingId_fkey -->
+<g id="Room_buildingId_fkey_parent" class="edge">
+<title>ent_Building&#45;&gt;rel_Room_buildingId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M891.96,-1897.75C968.81,-1838.24 1188.6,-1668 1188.6,-1668 1188.6,-1668 1219.93,-1652.96 1246.37,-1640.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1061.27" y="-1848.03" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Building.id&#45;&gt;ent_Building -->
+<g id="edge25" class="edge">
+<title>attr_Building.id&#45;&gt;ent_Building</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M453.84,-1962.2C521.85,-1954.87 706.56,-1934.95 803.14,-1924.54"/>
+</g>
+<!-- attr_Building.floors&#45;&gt;ent_Building -->
+<g id="edge26" class="edge">
+<title>attr_Building.floors&#45;&gt;ent_Building</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M459.57,-2007.51C545.17,-1989.98 774.62,-1943 774.62,-1943 774.62,-1943 787.43,-1939.41 803.34,-1934.95"/>
+</g>
+<!-- attr_Building.y&#45;&gt;ent_Building -->
+<g id="edge27" class="edge">
+<title>attr_Building.y&#45;&gt;ent_Building</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M454.17,-1916.12C522.46,-1916.43 706.88,-1917.28 803.27,-1917.72"/>
+</g>
+<!-- ent_Room&#45;&gt;attr_Room.name -->
+<g id="edge34" class="edge">
+<title>ent_Room&#45;&gt;attr_Room.name</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1748.83,-1737C1792.5,-1727.64 1849.67,-1715.39 1884.79,-1707.87"/>
+</g>
+<!-- ent_Room&#45;&gt;attr_Room.capacity -->
+<g id="edge35" class="edge">
+<title>ent_Room&#45;&gt;attr_Room.capacity</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1748.83,-1750C1787.34,-1750 1836.34,-1750 1871.47,-1750"/>
+</g>
+<!-- ent_Room&#45;&gt;attr_Room.hasProjector -->
+<g id="edge36" class="edge">
+<title>ent_Room&#45;&gt;attr_Room.hasProjector</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1748.83,-1763C1785.35,-1770.83 1831.32,-1780.68 1865.93,-1788.09"/>
+</g>
+<!-- ent_Room&#45;&gt;rel_Class_roomId_fkey -->
+<g id="Class_roomId_fkey_parent" class="edge">
+<title>ent_Room&#45;&gt;rel_Class_roomId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1698.42,-1729.71C1728.38,-1670.48 1813.58,-1502 1813.58,-1502 1813.58,-1502 1849.5,-1486.34 1878.97,-1473.5"/>
+<text xml:space="preserve" text-anchor="middle" x="1780.97" y="-1572.41" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Room&#45;&gt;rel_TimetableSlot_roomId_fkey -->
+<g id="TimetableSlot_roomId_fkey_parent" class="edge">
+<title>ent_Room&#45;&gt;rel_TimetableSlot_roomId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1695.44,-1729.63C1722.21,-1654.81 1813.58,-1399.4 1813.58,-1399.4 1813.58,-1399.4 2267.57,-1352 2267.57,-1352 2267.57,-1352 2390.98,-1331.18 2464.01,-1318.86"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1403.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Room.id&#45;&gt;ent_Room -->
+<g id="edge30" class="edge">
+<title>attr_Room.id&#45;&gt;ent_Room</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1310.09,-1795.86C1373.05,-1788.18 1536.17,-1768.29 1625.49,-1757.4"/>
+</g>
+<!-- attr_Room.type&#45;&gt;ent_Room -->
+<g id="edge31" class="edge">
+<title>attr_Room.type&#45;&gt;ent_Room</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1311.54,-1841.82C1387.59,-1824.55 1596.95,-1777 1596.95,-1777 1596.95,-1777 1609.76,-1773.12 1625.67,-1768.31"/>
+</g>
+<!-- attr_Room.floor&#45;&gt;ent_Room -->
+<g id="edge32" class="edge">
+<title>attr_Room.floor&#45;&gt;ent_Room</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1313.24,-1704.52C1378.38,-1712.47 1537.83,-1731.91 1625.66,-1742.62"/>
+</g>
+<!-- attr_Room.unavailableString&#45;&gt;ent_Room -->
+<g id="edge33" class="edge">
+<title>attr_Room.unavailableString&#45;&gt;ent_Room</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1366.14,-1750C1443.01,-1750 1556.29,-1750 1625.42,-1750"/>
+</g>
+<!-- ent_ClassSubjectPlan&#45;&gt;attr_ClassSubjectPlan.weeklyPeriods -->
+<g id="edge39" class="edge">
+<title>ent_ClassSubjectPlan&#45;&gt;attr_ClassSubjectPlan.weeklyPeriods</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M3015.96,-1419.36C3034.61,-1419.17 3055.31,-1418.95 3074.57,-1418.74"/>
+</g>
+<!-- ent_ClassSubjectPlan&#45;&gt;attr_ClassSubjectPlan.elective -->
+<g id="edge40" class="edge">
+<title>ent_ClassSubjectPlan&#45;&gt;attr_ClassSubjectPlan.elective</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M3015.96,-1435C3046.32,-1442.52 3082.1,-1451.39 3108.29,-1457.88"/>
+</g>
+<!-- attr_ClassSubjectPlan.id&#45;&gt;ent_ClassSubjectPlan -->
+<g id="edge37" class="edge">
+<title>attr_ClassSubjectPlan.id&#45;&gt;ent_ClassSubjectPlan</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2748.04,-1418.23C2782.92,-1418.53 2845.79,-1419.07 2892.81,-1419.48"/>
+</g>
+<!-- attr_ClassSubjectPlan.requiresLab&#45;&gt;ent_ClassSubjectPlan -->
+<g id="edge38" class="edge">
+<title>attr_ClassSubjectPlan.requiresLab&#45;&gt;ent_ClassSubjectPlan</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2771.88,-1456.86C2807.37,-1449.65 2855.21,-1439.94 2892.88,-1432.29"/>
+</g>
+<!-- ent_Timetable&#45;&gt;attr_Timetable.name -->
+<g id="edge49" class="edge">
+<title>ent_Timetable&#45;&gt;attr_Timetable.name</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-293.13C1015.4,-303.6 1178.57,-322.79 1248.77,-331.05"/>
+</g>
+<!-- ent_Timetable&#45;&gt;attr_Timetable.version -->
+<g id="edge50" class="edge">
+<title>ent_Timetable&#45;&gt;attr_Timetable.version</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.31,-304.31C942.22,-309.12 955.02,-313 955.02,-313 955.02,-313 1159.83,-357.43 1245.43,-375.99"/>
+</g>
+<!-- ent_Timetable&#45;&gt;attr_Timetable.solveMs -->
+<g id="edge51" class="edge">
+<title>ent_Timetable&#45;&gt;attr_Timetable.solveMs</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M899.29,-306.26C924.6,-321.58 955.02,-340 955.02,-340 955.02,-340 1188.6,-409 1188.6,-409 1188.6,-409 1218.26,-416.59 1244.21,-423.24"/>
+</g>
+<!-- ent_Timetable&#45;&gt;attr_Timetable.healthString -->
+<g id="edge52" class="edge">
+<title>ent_Timetable&#45;&gt;attr_Timetable.healthString</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M888.33,-265.81C914.76,-242.11 955.02,-206 955.02,-206 955.02,-206 1140.58,-168.02 1232.27,-149.25"/>
+</g>
+<!-- ent_Timetable&#45;&gt;attr_Timetable.approvedByName -->
+<g id="edge53" class="edge">
+<title>ent_Timetable&#45;&gt;attr_Timetable.approvedByName</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M913.56,-265.67C934.77,-256.63 955.02,-248 955.02,-248 955.02,-248 1121.83,-217.42 1217.28,-199.93"/>
+</g>
+<!-- ent_Timetable&#45;&gt;attr_Timetable.publishedByName -->
+<g id="edge54" class="edge">
+<title>ent_Timetable&#45;&gt;attr_Timetable.publishedByName</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-278.87C1000.62,-270.14 1126.43,-255.34 1206.88,-245.88"/>
+</g>
+<!-- ent_Timetable&#45;&gt;attr_Timetable.createdAt -->
+<g id="edge55" class="edge">
+<title>ent_Timetable&#45;&gt;attr_Timetable.createdAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M926.39,-286C1008.74,-286 1154.58,-286 1231.53,-286"/>
+</g>
+<!-- ent_Timetable&#45;&gt;rel_TimetableSlot_timetableId_fkey -->
+<g id="TimetableSlot_timetableId_fkey_parent" class="edge">
+<title>ent_Timetable&#45;&gt;rel_TimetableSlot_timetableId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M886.06,-306.2C912.38,-332.45 955.02,-375 955.02,-375 955.02,-375 1188.6,-562 1188.6,-562 1188.6,-562 1335.23,-583.39 1426.29,-596.68"/>
+<text xml:space="preserve" text-anchor="middle" x="1061.27" y="-548.95" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Timetable.id&#45;&gt;ent_Timetable -->
+<g id="edge41" class="edge">
+<title>attr_Timetable.id&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M454.17,-308.55C522.46,-304.79 706.88,-294.64 803.27,-289.33"/>
+</g>
+<!-- attr_Timetable.status&#45;&gt;ent_Timetable -->
+<g id="edge42" class="edge">
+<title>attr_Timetable.status&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M462.07,-353.28C549.55,-338.65 774.62,-301 774.62,-301 774.62,-301 787.43,-298.85 803.34,-296.17"/>
+</g>
+<!-- attr_Timetable.active&#45;&gt;ent_Timetable -->
+<g id="edge43" class="edge">
+<title>attr_Timetable.active&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M460.32,-400.6C491.24,-393.55 533.13,-384 533.13,-384 533.13,-384 774.62,-322 774.62,-322 774.62,-322 793.26,-314.48 813.49,-306.31"/>
+</g>
+<!-- attr_Timetable.score&#45;&gt;ent_Timetable -->
+<g id="edge44" class="edge">
+<title>attr_Timetable.score&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M459.17,-449.86C490.2,-442.79 533.13,-433 533.13,-433 533.13,-433 774.62,-353 774.62,-353 774.62,-353 810.79,-325.84 837.06,-306.1"/>
+</g>
+<!-- attr_Timetable.generatedByName&#45;&gt;ent_Timetable -->
+<g id="edge45" class="edge">
+<title>attr_Timetable.generatedByName&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M489.47,-127.14C589.11,-148.41 774.62,-188 774.62,-188 774.62,-188 819.21,-236.99 845.34,-265.69"/>
+</g>
+<!-- attr_Timetable.approvedAt&#45;&gt;ent_Timetable -->
+<g id="edge46" class="edge">
+<title>attr_Timetable.approvedAt&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M477.56,-172.74C573.44,-191.55 774.62,-231 774.62,-231 774.62,-231 805.45,-250.01 830.86,-265.68"/>
+</g>
+<!-- attr_Timetable.publishedAt&#45;&gt;ent_Timetable -->
+<g id="edge47" class="edge">
+<title>attr_Timetable.publishedAt&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M480.92,-220.26C578.05,-235.39 774.62,-266 774.62,-266 774.62,-266 787.43,-268.87 803.34,-272.44"/>
+</g>
+<!-- attr_Timetable.updatedAt&#45;&gt;ent_Timetable -->
+<g id="edge48" class="edge">
+<title>attr_Timetable.updatedAt&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M480.46,-264.02C561.76,-268.68 717.53,-277.61 803.36,-282.53"/>
+</g>
+<!-- ent_TimetableSlot&#45;&gt;attr_TimetableSlot.day -->
+<g id="edge59" class="edge">
+<title>ent_TimetableSlot&#45;&gt;attr_TimetableSlot.day</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M3015.96,-774.06C3050.88,-768.91 3092.95,-762.7 3119.38,-758.8"/>
+</g>
+<!-- ent_TimetableSlot&#45;&gt;attr_TimetableSlot.locked -->
+<g id="edge60" class="edge">
+<title>ent_TimetableSlot&#45;&gt;attr_TimetableSlot.locked</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M3015.96,-789.7C3046.21,-793.05 3081.84,-797 3108.01,-799.89"/>
+</g>
+<!-- attr_TimetableSlot.id&#45;&gt;ent_TimetableSlot -->
+<g id="edge56" class="edge">
+<title>attr_TimetableSlot.id&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2748.04,-783C2782.92,-783 2845.79,-783 2892.81,-783"/>
+</g>
+<!-- attr_TimetableSlot.period&#45;&gt;ent_TimetableSlot -->
+<g id="edge57" class="edge">
+<title>attr_TimetableSlot.period&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2756.09,-824.77C2792.06,-817.16 2849.42,-805.02 2893.05,-795.78"/>
+</g>
+<!-- attr_TimetableSlot.explainString&#45;&gt;ent_TimetableSlot -->
+<g id="edge58" class="edge">
+<title>attr_TimetableSlot.explainString&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2773.89,-745C2809.08,-752.45 2855.71,-762.32 2892.63,-770.13"/>
+</g>
+<!-- ent_StaffAbsence&#45;&gt;attr_StaffAbsence.date -->
+<g id="edge63" class="edge">
+<title>ent_StaffAbsence&#45;&gt;attr_StaffAbsence.date</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2419.22,-420.67C2497.74,-420.23 2631.71,-419.49 2690.64,-419.16"/>
+</g>
+<!-- ent_StaffAbsence&#45;&gt;attr_StaffAbsence.createdAt -->
+<g id="edge64" class="edge">
+<title>ent_StaffAbsence&#45;&gt;attr_StaffAbsence.createdAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2419.22,-428.87C2490.31,-438.12 2606.85,-453.28 2672.01,-461.76"/>
+</g>
+<!-- ent_StaffAbsence&#45;&gt;rel_Substitution_absenceId_fkey -->
+<g id="Substitution_absenceId_fkey_parent" class="edge">
+<title>ent_StaffAbsence&#45;&gt;rel_Substitution_absenceId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2376.05,-400.92C2433.73,-333.88 2616.03,-122 2616.03,-122 2616.03,-122 2646.67,-108.73 2674.66,-96.61"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-319.65" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_StaffAbsence.id&#45;&gt;ent_StaffAbsence -->
+<g id="edge61" class="edge">
+<title>attr_StaffAbsence.id&#45;&gt;ent_StaffAbsence</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1945.24,-419.12C2013.94,-419.43 2199.6,-420.28 2296.33,-420.72"/>
+</g>
+<!-- attr_StaffAbsence.reason&#45;&gt;ent_StaffAbsence -->
+<g id="edge62" class="edge">
+<title>attr_StaffAbsence.reason&#45;&gt;ent_StaffAbsence</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1957.31,-463.87C2033.6,-455.68 2204.53,-437.34 2296.11,-427.51"/>
+</g>
+<!-- ent_Substitution&#45;&gt;attr_Substitution.day -->
+<g id="edge70" class="edge">
+<title>ent_Substitution&#45;&gt;attr_Substitution.day</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M3015.96,-188.36C3051.31,-179.23 3094,-168.2 3120.35,-161.39"/>
+</g>
+<!-- ent_Substitution&#45;&gt;attr_Substitution.classId -->
+<g id="edge71" class="edge">
+<title>ent_Substitution&#45;&gt;attr_Substitution.classId</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M3015.96,-204C3045.02,-204 3079.04,-204 3104.87,-204"/>
+</g>
+<!-- ent_Substitution&#45;&gt;attr_Substitution.reasonString -->
+<g id="edge72" class="edge">
+<title>ent_Substitution&#45;&gt;attr_Substitution.reasonString</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M3015.96,-219.64C3042.42,-226.47 3072.99,-234.37 3097.74,-240.76"/>
+</g>
+<!-- ent_Substitution&#45;&gt;attr_Substitution.accepted -->
+<g id="edge73" class="edge">
+<title>ent_Substitution&#45;&gt;attr_Substitution.accepted</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2988,-224.22C3023.29,-246.13 3074.62,-278 3074.62,-278 3074.62,-278 3091.7,-283.81 3109.04,-289.72"/>
+</g>
+<!-- attr_Substitution.id&#45;&gt;ent_Substitution -->
+<g id="edge65" class="edge">
+<title>attr_Substitution.id&#45;&gt;ent_Substitution</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2747.15,-247.66C2781.83,-240.32 2845.36,-226.87 2892.78,-216.84"/>
+</g>
+<!-- attr_Substitution.period&#45;&gt;ent_Substitution -->
+<g id="edge66" class="edge">
+<title>attr_Substitution.period&#45;&gt;ent_Substitution</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2755.38,-294.27C2785.76,-287.26 2825.84,-278 2825.84,-278 2825.84,-278 2880.78,-246.13 2918.56,-224.22"/>
+</g>
+<!-- attr_Substitution.subjectId&#45;&gt;ent_Substitution -->
+<g id="edge67" class="edge">
+<title>attr_Substitution.subjectId&#45;&gt;ent_Substitution</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2763.3,-341.45C2792.27,-334.75 2825.84,-327 2825.84,-327 2825.84,-327 2896.12,-259.25 2932.36,-224.31"/>
+</g>
+<!-- attr_Substitution.confidence&#45;&gt;ent_Substitution -->
+<g id="edge68" class="edge">
+<title>attr_Substitution.confidence&#45;&gt;ent_Substitution</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2769.06,-164.97C2804.75,-172.53 2854.07,-182.97 2892.72,-191.15"/>
+</g>
+<!-- attr_Substitution.createdAt&#45;&gt;ent_Substitution -->
+<g id="edge69" class="edge">
+<title>attr_Substitution.createdAt&#45;&gt;ent_Substitution</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M2772.74,-204C2808.14,-204 2855.53,-204 2892.89,-204"/>
+</g>
+<!-- ent_School&#45;&gt;rel_AcademicConfig_schoolId_fkey -->
+<g id="AcademicConfig_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_AcademicConfig_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M198.89,-1379.22C219.6,-1492.86 320.63,-2047 320.63,-2047 320.63,-2047 350.77,-2059.89 378.8,-2071.87"/>
+<text xml:space="preserve" text-anchor="middle" x="288.01" y="-1884.64" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_School&#45;&gt;rel_Building_schoolId_fkey -->
+<g id="Building_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_Building_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M221.66,-1379.19C264.03,-1411.51 346.99,-1474.81 393.07,-1509.96"/>
+<text xml:space="preserve" text-anchor="middle" x="288.01" y="-1435.14" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_School&#45;&gt;rel_Class_schoolId_fkey -->
+<g id="Class_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_Class_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M255.96,-1359C332.8,-1359 466.41,-1359 560.48,-1359"/>
+<text xml:space="preserve" text-anchor="middle" x="288.01" y="-1362.9" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_School&#45;&gt;rel_Subject_schoolId_fkey -->
+<g id="Subject_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_Subject_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M255.71,-1350.03C287.79,-1345.27 320.63,-1340.4 320.63,-1340.4 320.63,-1340.4 790.89,-1284.2 981.47,-1261.42"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-1344.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_School&#45;&gt;rel_Timetable_schoolId_fkey -->
+<g id="Timetable_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_Timetable_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M197.2,-1338.67C213.24,-1175.18 320.63,-81 320.63,-81 320.63,-81 350.77,-68.11 378.8,-56.13"/>
+<text xml:space="preserve" text-anchor="middle" x="288.01" y="-427.65" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_School.id&#45;&gt;ent_School -->
+<g id="edge74" class="edge">
+<title>attr_School.id&#45;&gt;ent_School</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M74.29,-1359C90.56,-1359 112.14,-1359 132.45,-1359"/>
+</g>
+<!-- ent_Teacher&#45;&gt;rel_Class_classTeacherId_fkey -->
+<g id="Class_classTeacherId_fkey_parent" class="edge">
+<title>ent_Teacher&#45;&gt;rel_Class_classTeacherId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1692.12,-547.24C1713.44,-656.2 1813.58,-1168 1813.58,-1168 1813.58,-1168 1862.11,-1222.99 1892.62,-1257.57"/>
+<text xml:space="preserve" text-anchor="middle" x="1780.97" y="-1016.99" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Teacher&#45;&gt;rel_StaffAbsence_teacherId_fkey -->
+<g id="StaffAbsence_teacherId_fkey_parent" class="edge">
+<title>ent_Teacher&#45;&gt;rel_StaffAbsence_teacherId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1706.13,-506.8C1740.81,-467.81 1813.58,-386 1813.58,-386 1813.58,-386 1843.15,-373.11 1870.64,-361.13"/>
+<text xml:space="preserve" text-anchor="middle" x="1780.97" y="-427.72" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Teacher&#45;&gt;rel_Substitution_subTeacherId_fkey -->
+<g id="Substitution_subTeacherId_fkey_parent" class="edge">
+<title>ent_Teacher&#45;&gt;rel_Substitution_subTeacherId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1699.29,-506.77C1729.98,-450.97 1813.58,-299 1813.58,-299 1813.58,-299 2030.35,-165.69 2120.11,-110.5"/>
+<text xml:space="preserve" text-anchor="middle" x="1780.97" y="-364.93" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Teacher&#45;&gt;rel_TimetableSlot_teacherId_fkey -->
+<g id="TimetableSlot_teacherId_fkey_parent" class="edge">
+<title>ent_Teacher&#45;&gt;rel_TimetableSlot_teacherId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1748.66,-529.45C1828.77,-532.68 1970.84,-538.42 2064.81,-542.22"/>
+<text xml:space="preserve" text-anchor="middle" x="1780.97" y="-534.67" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Teacher.id&#45;&gt;ent_Teacher -->
+<g id="edge75" class="edge">
+<title>attr_Teacher.id&#45;&gt;ent_Teacher</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1310.71,-527C1374.08,-527 1536.32,-527 1625.37,-527"/>
+</g>
+<!-- rel_Room_buildingId_fkey&#45;&gt;ent_Room -->
+<g id="Room_buildingId_fkey_child" class="edge">
+<title>rel_Room_buildingId_fkey&#45;&gt;ent_Room</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1332.39,-1633.25C1419.96,-1653.82 1597.18,-1695.43 1596.95,-1696.4 1597.47,-1695.54 1627.69,-1713.7 1652.95,-1728.88"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1331.93,-1635.2C1419.51,-1655.76 1596.73,-1697.37 1596.95,-1696.4 1596.44,-1697.26 1626.66,-1715.41 1651.92,-1730.59"/>
+<text xml:space="preserve" text-anchor="middle" x="1498.06" y="-1700.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_ClassSubjectPlan_classId_fkey&#45;&gt;ent_ClassSubjectPlan -->
+<g id="ClassSubjectPlan_classId_fkey_child" class="edge">
+<title>rel_ClassSubjectPlan_classId_fkey&#45;&gt;ent_ClassSubjectPlan</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2774.79,-1357.21C2810.54,-1369.56 2857.9,-1385.93 2894.92,-1398.72"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2774.14,-1359.1C2809.89,-1371.45 2857.24,-1387.82 2894.26,-1400.61"/>
+<text xml:space="preserve" text-anchor="middle" x="2859.53" y="-1391.07" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_TimetableSlot_classId_fkey&#45;&gt;ent_TimetableSlot -->
+<g id="TimetableSlot_classId_fkey_child" class="edge">
+<title>rel_TimetableSlot_classId_fkey&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2796.69,-1243.48C2830.97,-1238.66 2864.08,-1234.01 2864.22,-1235 2863.24,-1234.81 2931.08,-891.06 2948.44,-803.11"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2796.97,-1245.46C2831.25,-1240.64 2864.36,-1235.99 2864.22,-1235 2865.21,-1235.19 2933.04,-891.44 2950.4,-803.49"/>
+<text xml:space="preserve" text-anchor="middle" x="2859.53" y="-1239.97" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Class_roomId_fkey&#45;&gt;ent_Class -->
+<g id="Class_roomId_fkey_child" class="edge">
+<title>rel_Class_roomId_fkey&#45;&gt;ent_Class</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1971.04,-1466.04C2068.32,-1482.89 2267.57,-1517.4 2267.57,-1517.4 2267.57,-1517.4 2280.37,-1520.21 2296.28,-1523.71"/>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-1521.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_TimetableSlot_roomId_fkey&#45;&gt;ent_TimetableSlot -->
+<g id="TimetableSlot_roomId_fkey_child" class="edge">
+<title>rel_TimetableSlot_roomId_fkey&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2539.9,-1285.29C2568.62,-1252.14 2616.03,-1197.4 2616.03,-1197.4 2616.03,-1197.4 2825.84,-1168 2825.84,-1168 2825.84,-1168 2920.49,-882.37 2946.74,-803.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1201.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AcademicConfig_schoolId_fkey&#45;&gt;ent_AcademicConfig -->
+<g id="AcademicConfig_schoolId_fkey_child" class="edge">
+<title>rel_AcademicConfig_schoolId_fkey&#45;&gt;ent_AcademicConfig</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M490.11,-2106.12C589.84,-2130.39 774.86,-2175.43 774.62,-2176.4 775.34,-2175.7 818.47,-2219.99 844.74,-2246.97"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M489.63,-2108.06C589.37,-2132.34 774.39,-2177.37 774.62,-2176.4 773.91,-2177.1 817.03,-2221.38 843.31,-2248.37"/>
+<text xml:space="preserve" text-anchor="middle" x="668.38" y="-2180.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- rel_Building_schoolId_fkey&#45;&gt;ent_Building -->
+<g id="Building_schoolId_fkey_child" class="edge">
+<title>rel_Building_schoolId_fkey&#45;&gt;ent_Building</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M458.16,-1560.27C539.99,-1632.16 767.94,-1832.43 841.37,-1896.94"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M456.84,-1561.78C538.67,-1633.67 766.62,-1833.93 840.05,-1898.45"/>
+<text xml:space="preserve" text-anchor="middle" x="668.38" y="-1839.17" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Class_schoolId_fkey&#45;&gt;ent_Class -->
+<g id="Class_schoolId_fkey_child" class="edge">
+<title>rel_Class_schoolId_fkey&#45;&gt;ent_Class</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M776.19,-1358C891.93,-1358 1060.27,-1358 1060.27,-1359 1060.27,-1358 1060.27,-1358 1918.83,-1358 1918.98,-1358.01 2022.23,-1374.01 2022.07,-1375 2022.46,-1374.08 2267.95,-1476.08 2267.57,-1477 2268.12,-1476.17 2301.25,-1498.45 2327.13,-1515.86"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M776.19,-1360C891.93,-1360 1060.27,-1360 1060.27,-1359 1060.27,-1360 1060.27,-1360 1918.83,-1360 1918.68,-1359.99 2021.92,-1375.99 2022.07,-1375 2021.69,-1375.92 2267.18,-1477.92 2267.57,-1477 2267.01,-1477.83 2300.13,-1500.11 2326.01,-1517.52"/>
+<text xml:space="preserve" text-anchor="middle" x="1498.06" y="-1362.9" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Subject_schoolId_fkey&#45;&gt;ent_Subject -->
+<g id="Subject_schoolId_fkey_child" class="edge">
+<title>rel_Subject_schoolId_fkey&#45;&gt;ent_Subject</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1137.87,-1240.56C1262.44,-1223.37 1496.92,-1191.01 1497.06,-1192 1497.06,-1191 1497.06,-1191 1918.83,-1191 1918.55,-1191.04 2267.28,-1088.04 2267.57,-1089 2267.06,-1088.14 2296.47,-1070.99 2321.52,-1056.39"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1138.14,-1242.54C1262.71,-1225.35 1497.2,-1192.99 1497.06,-1192 1497.06,-1193 1497.06,-1193 1918.83,-1193 1919.11,-1192.96 2267.85,-1089.96 2267.57,-1089 2268.07,-1089.86 2297.48,-1072.72 2322.53,-1058.12"/>
+<text xml:space="preserve" text-anchor="middle" x="1687.15" y="-1195.9" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Timetable_schoolId_fkey&#45;&gt;ent_Timetable -->
+<g id="Timetable_schoolId_fkey_child" class="edge">
+<title>rel_Timetable_schoolId_fkey&#45;&gt;ent_Timetable</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M488.53,-50.6C587.87,-76.22 774.87,-124.43 774.62,-125.4 775.5,-124.91 829.4,-221.96 853.4,-265.17"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M488.03,-52.54C587.37,-78.15 774.37,-126.37 774.62,-125.4 773.75,-125.89 827.65,-222.93 851.65,-266.15"/>
+<text xml:space="preserve" text-anchor="middle" x="668.38" y="-129.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Substitution_absenceId_fkey&#45;&gt;ent_Substitution -->
+<g id="Substitution_absenceId_fkey_child" class="edge">
+<title>rel_Substitution_absenceId_fkey&#45;&gt;ent_Substitution</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2767.6,-95.69C2795.6,-107.82 2826.23,-121.08 2825.84,-122 2826.38,-121.16 2884.64,-158.61 2922.43,-182.89"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2766.81,-97.52C2794.81,-109.65 2825.44,-122.92 2825.84,-122 2825.3,-122.84 2883.56,-160.29 2921.34,-184.57"/>
+<text xml:space="preserve" text-anchor="middle" x="2859.53" y="-150.13" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_ClassSubjectPlan_subjectId_fkey&#45;&gt;ent_ClassSubjectPlan -->
+<g id="ClassSubjectPlan_subjectId_fkey_child" class="edge">
+<title>rel_ClassSubjectPlan_subjectId_fkey&#45;&gt;ent_ClassSubjectPlan</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2765.79,-927.91C2794.27,-940.24 2826.23,-954.08 2825.84,-955 2826.8,-954.74 2924.27,-1309.96 2948.82,-1399.46"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2765,-929.74C2793.47,-942.07 2825.44,-955.92 2825.84,-955 2824.87,-955.26 2922.34,-1310.49 2946.9,-1399.99"/>
+<text xml:space="preserve" text-anchor="middle" x="2859.53" y="-1096.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_TimetableSlot_subjectId_fkey&#45;&gt;ent_TimetableSlot -->
+<g id="TimetableSlot_subjectId_fkey_child" class="edge">
+<title>rel_TimetableSlot_subjectId_fkey&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2765.79,-673.91C2794.27,-686.24 2826.23,-700.08 2825.84,-701 2826.38,-700.16 2884.64,-737.61 2922.43,-761.89"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2765,-675.74C2793.47,-688.07 2825.44,-701.92 2825.84,-701 2825.3,-701.84 2883.56,-739.29 2921.34,-763.57"/>
+<text xml:space="preserve" text-anchor="middle" x="2859.53" y="-729.13" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Class_classTeacherId_fkey&#45;&gt;ent_Class -->
+<g id="Class_classTeacherId_fkey_child" class="edge">
+<title>rel_Class_classTeacherId_fkey&#45;&gt;ent_Class</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1991.09,-1295.03C2093.24,-1309.21 2267.57,-1333.4 2267.57,-1333.4 2267.57,-1333.4 2325.33,-1465.24 2347.89,-1516.73"/>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-1337.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_StaffAbsence_teacherId_fkey&#45;&gt;ent_StaffAbsence -->
+<g id="StaffAbsence_teacherId_fkey_child" class="edge">
+<title>rel_StaffAbsence_teacherId_fkey&#45;&gt;ent_StaffAbsence</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1988.73,-352.09C2090.5,-369.72 2267.74,-400.41 2267.57,-401.4 2267.78,-400.42 2280.59,-403.24 2296.5,-406.73"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1988.39,-354.06C2090.16,-371.69 2267.4,-402.39 2267.57,-401.4 2267.35,-402.38 2280.16,-405.19 2296.07,-408.69"/>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-405.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Substitution_subTeacherId_fkey&#45;&gt;ent_Substitution -->
+<g id="Substitution_subTeacherId_fkey_child" class="edge">
+<title>rel_Substitution_subTeacherId_fkey&#45;&gt;ent_Substitution</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2240.89,-76.62C2371.78,-61.4 2615.92,-33.01 2616.03,-34 2616.03,-33 2825.84,-33 2825.84,-34 2826.64,-33.4 2905.29,-138.2 2939.09,-183.23"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2241.12,-78.61C2372.01,-63.39 2616.15,-34.99 2616.03,-34 2616.03,-35 2825.84,-35 2825.84,-34 2825.04,-34.6 2903.69,-139.4 2937.49,-184.43"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-57.25" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_TimetableSlot_teacherId_fkey&#45;&gt;ent_TimetableSlot -->
+<g id="TimetableSlot_teacherId_fkey_child" class="edge">
+<title>rel_TimetableSlot_teacherId_fkey&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2249.18,-550.55C2438.41,-562.38 2864.29,-589 2864.22,-590 2865.13,-589.58 2922.05,-712.74 2944.95,-762.29"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M2249.05,-552.55C2438.28,-564.38 2864.16,-591 2864.22,-590 2863.32,-590.42 2920.24,-713.58 2943.14,-763.13"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-576.08" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_TimetableSlot_timetableId_fkey&#45;&gt;ent_TimetableSlot -->
+<g id="TimetableSlot_timetableId_fkey_child" class="edge">
+<title>rel_TimetableSlot_timetableId_fkey&#45;&gt;ent_TimetableSlot</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1591.79,-603.69C1673.62,-601.65 1779.94,-599 1779.97,-600 1779.97,-599 1779.97,-599 2721.93,-599 2722.07,-599.01 2825.97,-613.01 2825.84,-614 2826.63,-613.4 2904.9,-717.06 2938.83,-762.01"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1591.84,-605.69C1673.67,-603.65 1779.99,-601 1779.97,-600 1779.97,-601 1779.97,-601 2721.93,-601 2721.8,-600.99 2825.7,-614.99 2825.84,-614 2825.04,-614.6 2903.3,-718.27 2937.24,-763.22"/>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-603.9" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- ent_AcademicConfig -->
+<g id="node1" class="node">
+<title>ent_AcademicConfig</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="926.02,-2287.8 803.62,-2287.8 803.62,-2248.2 926.02,-2248.2 926.02,-2287.8"/>
+<text xml:space="preserve" text-anchor="middle" x="864.82" y="-2264.1" font-family="Arial" font-size="13.00" fill="#152a38">AcademicConfig</text>
+</g>
+<!-- attr_AcademicConfig.id -->
+<g id="node2" class="node">
+<title>attr_AcademicConfig.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-2366" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="421.82" y="-2363.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_AcademicConfig.termsString -->
+<g id="node3" class="node">
+<title>attr_AcademicConfig.termsString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-2415" rx="59.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2411.1" font-family="Arial" font-size="13.00" fill="#152a38">termsString</text>
+</g>
+<!-- attr_AcademicConfig.dayStart -->
+<g id="node4" class="node">
+<title>attr_AcademicConfig.dayStart</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-2170" rx="46.45" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2166.1" font-family="Arial" font-size="13.00" fill="#152a38">dayStart</text>
+</g>
+<!-- attr_AcademicConfig.periodsPerDay -->
+<g id="node5" class="node">
+<title>attr_AcademicConfig.periodsPerDay</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-2219" rx="73.02" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2215.1" font-family="Arial" font-size="13.00" fill="#152a38">periodsPerDay</text>
+</g>
+<!-- attr_AcademicConfig.blockedString -->
+<g id="node6" class="node">
+<title>attr_AcademicConfig.blockedString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-2268" rx="67.92" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2264.1" font-family="Arial" font-size="13.00" fill="#152a38">blockedString</text>
+</g>
+<!-- attr_AcademicConfig.examWeeksString -->
+<g id="node7" class="node">
+<title>attr_AcademicConfig.examWeeksString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-2317" rx="86.8" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2313.1" font-family="Arial" font-size="13.00" fill="#152a38">examWeeksString</text>
+</g>
+<!-- attr_AcademicConfig.academicYear -->
+<g id="node8" class="node">
+<title>attr_AcademicConfig.academicYear</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-2366" rx="70.98" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-2362.1" font-family="Arial" font-size="13.00" fill="#152a38">academicYear</text>
+</g>
+<!-- attr_AcademicConfig.workingDays -->
+<g id="node9" class="node">
+<title>attr_AcademicConfig.workingDays</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-2415" rx="64.84" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-2411.1" font-family="Arial" font-size="13.00" fill="#152a38">workingDays</text>
+</g>
+<!-- attr_AcademicConfig.periodMinutes -->
+<g id="node10" class="node">
+<title>attr_AcademicConfig.periodMinutes</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-2170" rx="69.96" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-2166.1" font-family="Arial" font-size="13.00" fill="#152a38">periodMinutes</text>
+</g>
+<!-- attr_AcademicConfig.breaksString -->
+<g id="node11" class="node">
+<title>attr_AcademicConfig.breaksString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-2219" rx="63.82" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-2215.1" font-family="Arial" font-size="13.00" fill="#152a38">breaksString</text>
+</g>
+<!-- attr_AcademicConfig.holidaysString -->
+<g id="node12" class="node">
+<title>attr_AcademicConfig.holidaysString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-2268" rx="69.96" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-2264.1" font-family="Arial" font-size="13.00" fill="#152a38">holidaysString</text>
+</g>
+<!-- attr_AcademicConfig.updatedAt -->
+<g id="node13" class="node">
+<title>attr_AcademicConfig.updatedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-2317" rx="54.13" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-2313.1" font-family="Arial" font-size="13.00" fill="#152a38">updatedAt</text>
+</g>
+<!-- ent_Class -->
+<g id="node14" class="node">
+<title>ent_Class</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="2418.97,-1556.8 2296.57,-1556.8 2296.57,-1517.2 2418.97,-1517.2 2418.97,-1556.8"/>
+<text xml:space="preserve" text-anchor="middle" x="2357.77" y="-1533.1" font-family="Arial" font-size="13.00" fill="#152a38">Class</text>
+</g>
+<!-- attr_Class.id -->
+<g id="node15" class="node">
+<title>attr_Class.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1535" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1912.77" y="-1532.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Class.section -->
+<g id="node16" class="node">
+<title>attr_Class.section</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1584" rx="41.34" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1580.1" font-family="Arial" font-size="13.00" fill="#152a38">section</text>
+</g>
+<!-- attr_Class.createdAt -->
+<g id="node17" class="node">
+<title>attr_Class.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1633" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1629.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- attr_Class.grade -->
+<g id="node18" class="node">
+<title>attr_Class.grade</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-1536" rx="35.73" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1532.1" font-family="Arial" font-size="13.00" fill="#152a38">grade</text>
+</g>
+<!-- attr_Class.name -->
+<g id="node19" class="node">
+<title>attr_Class.name</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-1585" rx="35.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1581.1" font-family="Arial" font-size="13.00" fill="#152a38">name</text>
+</g>
+<!-- ent_Subject -->
+<g id="node20" class="node">
+<title>ent_Subject</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="2418.97,-1056.8 2296.57,-1056.8 2296.57,-1017.2 2418.97,-1017.2 2418.97,-1056.8"/>
+<text xml:space="preserve" text-anchor="middle" x="2357.77" y="-1033.1" font-family="Arial" font-size="13.00" fill="#152a38">Subject</text>
+</g>
+<!-- attr_Subject.id -->
+<g id="node21" class="node">
+<title>attr_Subject.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-988" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1912.77" y="-985.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Subject.name -->
+<g id="node22" class="node">
+<title>attr_Subject.name</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1037" rx="35.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1033.1" font-family="Arial" font-size="13.00" fill="#152a38">name</text>
+</g>
+<!-- attr_Subject.weeklyLoad -->
+<g id="node23" class="node">
+<title>attr_Subject.weeklyLoad</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1086" rx="60.77" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1082.1" font-family="Arial" font-size="13.00" fill="#152a38">weeklyLoad</text>
+</g>
+<!-- attr_Subject.cognitiveLoad -->
+<g id="node24" class="node">
+<title>attr_Subject.cognitiveLoad</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1135" rx="68.95" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1131.1" font-family="Arial" font-size="13.00" fill="#152a38">cognitiveLoad</text>
+</g>
+<!-- attr_Subject.code -->
+<g id="node25" class="node">
+<title>attr_Subject.code</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-1037" rx="32.15" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1033.1" font-family="Arial" font-size="13.00" fill="#152a38">code</text>
+</g>
+<!-- attr_Subject.color -->
+<g id="node26" class="node">
+<title>attr_Subject.color</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-1086" rx="32.14" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1082.1" font-family="Arial" font-size="13.00" fill="#152a38">color</text>
+</g>
+<!-- attr_Subject.requiresLab -->
+<g id="node27" class="node">
+<title>attr_Subject.requiresLab</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-988" rx="60.77" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-984.1" font-family="Arial" font-size="13.00" fill="#152a38">requiresLab</text>
+</g>
+<!-- ent_Building -->
+<g id="node28" class="node">
+<title>ent_Building</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="926.02,-1937.8 803.62,-1937.8 803.62,-1898.2 926.02,-1898.2 926.02,-1937.8"/>
+<text xml:space="preserve" text-anchor="middle" x="864.82" y="-1914.1" font-family="Arial" font-size="13.00" fill="#152a38">Building</text>
+</g>
+<!-- attr_Building.id -->
+<g id="node29" class="node">
+<title>attr_Building.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-1965" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="421.82" y="-1962.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Building.floors -->
+<g id="node30" class="node">
+<title>attr_Building.floors</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-2014" rx="34.7" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2010.1" font-family="Arial" font-size="13.00" fill="#152a38">floors</text>
+</g>
+<!-- attr_Building.y -->
+<g id="node31" class="node">
+<title>attr_Building.y</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-1916" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-1912.1" font-family="Arial" font-size="13.00" fill="#152a38">y</text>
+</g>
+<!-- attr_Building.name -->
+<g id="node32" class="node">
+<title>attr_Building.name</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-1917" rx="35.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-1913.1" font-family="Arial" font-size="13.00" fill="#152a38">name</text>
+</g>
+<!-- attr_Building.x -->
+<g id="node33" class="node">
+<title>attr_Building.x</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-1966" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-1962.1" font-family="Arial" font-size="13.00" fill="#152a38">x</text>
+</g>
+<!-- ent_Room -->
+<g id="node34" class="node">
+<title>ent_Room</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="1748.35,-1769.8 1625.95,-1769.8 1625.95,-1730.2 1748.35,-1730.2 1748.35,-1769.8"/>
+<text xml:space="preserve" text-anchor="middle" x="1687.15" y="-1746.1" font-family="Arial" font-size="13.00" fill="#152a38">Room</text>
+</g>
+<!-- attr_Room.id -->
+<g id="node35" class="node">
+<title>attr_Room.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-1799" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1278.28" y="-1796.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Room.type -->
+<g id="node36" class="node">
+<title>attr_Room.type</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-1848" rx="29.59" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-1844.1" font-family="Arial" font-size="13.00" fill="#152a38">type</text>
+</g>
+<!-- attr_Room.floor -->
+<g id="node37" class="node">
+<title>attr_Room.floor</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-1701" rx="30.1" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-1697.1" font-family="Arial" font-size="13.00" fill="#152a38">floor</text>
+</g>
+<!-- attr_Room.unavailableString -->
+<g id="node38" class="node">
+<title>attr_Room.unavailableString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-1750" rx="82.74" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-1746.1" font-family="Arial" font-size="13.00" fill="#152a38">unavailableString</text>
+</g>
+<!-- attr_Room.name -->
+<g id="node39" class="node">
+<title>attr_Room.name</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1701" rx="35.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1697.1" font-family="Arial" font-size="13.00" fill="#152a38">name</text>
+</g>
+<!-- attr_Room.capacity -->
+<g id="node40" class="node">
+<title>attr_Room.capacity</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1750" rx="45.94" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1746.1" font-family="Arial" font-size="13.00" fill="#152a38">capacity</text>
+</g>
+<!-- attr_Room.hasProjector -->
+<g id="node41" class="node">
+<title>attr_Room.hasProjector</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-1799" rx="63.82" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1795.1" font-family="Arial" font-size="13.00" fill="#152a38">hasProjector</text>
+</g>
+<!-- ent_ClassSubjectPlan -->
+<g id="node42" class="node">
+<title>ent_ClassSubjectPlan</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="3015.62,-1439.8 2893.22,-1439.8 2893.22,-1400.2 3015.62,-1400.2 3015.62,-1439.8"/>
+<text xml:space="preserve" text-anchor="middle" x="2954.42" y="-1423.9" font-family="Arial" font-size="13.00" fill="#152a38">ClassSubjectPlan</text>
+<text xml:space="preserve" text-anchor="middle" x="2954.42" y="-1408.3" font-family="Arial" font-size="13.00" fill="#152a38">[associative entity]</text>
+</g>
+<!-- attr_ClassSubjectPlan.id -->
+<g id="node43" class="node">
+<title>attr_ClassSubjectPlan.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-1418" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="2715.88" y="-1415.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_ClassSubjectPlan.requiresLab -->
+<g id="node44" class="node">
+<title>attr_ClassSubjectPlan.requiresLab</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-1467" rx="60.77" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1463.1" font-family="Arial" font-size="13.00" fill="#152a38">requiresLab</text>
+</g>
+<!-- attr_ClassSubjectPlan.weeklyPeriods -->
+<g id="node45" class="node">
+<title>attr_ClassSubjectPlan.weeklyPeriods</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-1418" rx="71.48" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-1414.1" font-family="Arial" font-size="13.00" fill="#152a38">weeklyPeriods</text>
+</g>
+<!-- attr_ClassSubjectPlan.elective -->
+<g id="node46" class="node">
+<title>attr_ClassSubjectPlan.elective</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-1467" rx="43.39" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-1463.1" font-family="Arial" font-size="13.00" fill="#152a38">elective</text>
+</g>
+<!-- ent_Timetable -->
+<g id="node47" class="node">
+<title>ent_Timetable</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="926.02,-305.8 803.62,-305.8 803.62,-266.2 926.02,-266.2 926.02,-305.8"/>
+<text xml:space="preserve" text-anchor="middle" x="864.82" y="-282.1" font-family="Arial" font-size="13.00" fill="#152a38">Timetable</text>
+</g>
+<!-- attr_Timetable.id -->
+<g id="node48" class="node">
+<title>attr_Timetable.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-310" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="421.82" y="-307.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Timetable.status -->
+<g id="node49" class="node">
+<title>attr_Timetable.status</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-359" rx="36.74" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-355.1" font-family="Arial" font-size="13.00" fill="#152a38">status</text>
+</g>
+<!-- attr_Timetable.active -->
+<g id="node50" class="node">
+<title>attr_Timetable.active</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-408" rx="36.23" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-404.1" font-family="Arial" font-size="13.00" fill="#152a38">active</text>
+</g>
+<!-- attr_Timetable.score -->
+<g id="node51" class="node">
+<title>attr_Timetable.score</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-457" rx="34.7" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-453.1" font-family="Arial" font-size="13.00" fill="#152a38">score</text>
+</g>
+<!-- attr_Timetable.generatedByName -->
+<g id="node52" class="node">
+<title>attr_Timetable.generatedByName</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-114" rx="88.87" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-110.1" font-family="Arial" font-size="13.00" fill="#152a38">generatedByName</text>
+</g>
+<!-- attr_Timetable.approvedAt -->
+<g id="node53" class="node">
+<title>attr_Timetable.approvedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-163" rx="59.24" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-159.1" font-family="Arial" font-size="13.00" fill="#152a38">approvedAt</text>
+</g>
+<!-- attr_Timetable.publishedAt -->
+<g id="node54" class="node">
+<title>attr_Timetable.publishedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-212" rx="60.26" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-208.1" font-family="Arial" font-size="13.00" fill="#152a38">publishedAt</text>
+</g>
+<!-- attr_Timetable.updatedAt -->
+<g id="node55" class="node">
+<title>attr_Timetable.updatedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-261" rx="54.13" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-257.1" font-family="Arial" font-size="13.00" fill="#152a38">updatedAt</text>
+</g>
+<!-- attr_Timetable.name -->
+<g id="node56" class="node">
+<title>attr_Timetable.name</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-335" rx="35.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-331.1" font-family="Arial" font-size="13.00" fill="#152a38">name</text>
+</g>
+<!-- attr_Timetable.version -->
+<g id="node57" class="node">
+<title>attr_Timetable.version</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-384" rx="41.85" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-380.1" font-family="Arial" font-size="13.00" fill="#152a38">version</text>
+</g>
+<!-- attr_Timetable.solveMs -->
+<g id="node58" class="node">
+<title>attr_Timetable.solveMs</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-433" rx="45.93" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-429.1" font-family="Arial" font-size="13.00" fill="#152a38">solveMs</text>
+</g>
+<!-- attr_Timetable.healthString -->
+<g id="node59" class="node">
+<title>attr_Timetable.healthString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-139" rx="61.28" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-135.1" font-family="Arial" font-size="13.00" fill="#152a38">healthString</text>
+</g>
+<!-- attr_Timetable.approvedByName -->
+<g id="node60" class="node">
+<title>attr_Timetable.approvedByName</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-188" rx="85.8" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-184.1" font-family="Arial" font-size="13.00" fill="#152a38">approvedByName</text>
+</g>
+<!-- attr_Timetable.publishedByName -->
+<g id="node61" class="node">
+<title>attr_Timetable.publishedByName</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-237" rx="86.82" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-233.1" font-family="Arial" font-size="13.00" fill="#152a38">publishedByName</text>
+</g>
+<!-- attr_Timetable.createdAt -->
+<g id="node62" class="node">
+<title>attr_Timetable.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-286" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-282.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- ent_TimetableSlot -->
+<g id="node63" class="node">
+<title>ent_TimetableSlot</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="3015.62,-802.8 2893.22,-802.8 2893.22,-763.2 3015.62,-763.2 3015.62,-802.8"/>
+<text xml:space="preserve" text-anchor="middle" x="2954.42" y="-779.1" font-family="Arial" font-size="13.00" fill="#152a38">TimetableSlot</text>
+</g>
+<!-- attr_TimetableSlot.id -->
+<g id="node64" class="node">
+<title>attr_TimetableSlot.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-783" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="2715.88" y="-780.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_TimetableSlot.period -->
+<g id="node65" class="node">
+<title>attr_TimetableSlot.period</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-832" rx="37.77" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-828.1" font-family="Arial" font-size="13.00" fill="#152a38">period</text>
+</g>
+<!-- attr_TimetableSlot.explainString -->
+<g id="node66" class="node">
+<title>attr_TimetableSlot.explainString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-734" rx="65.36" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-730.1" font-family="Arial" font-size="13.00" fill="#152a38">explainString</text>
+</g>
+<!-- attr_TimetableSlot.day -->
+<g id="node67" class="node">
+<title>attr_TimetableSlot.day</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-755" rx="27.04" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-751.1" font-family="Arial" font-size="13.00" fill="#152a38">day</text>
+</g>
+<!-- attr_TimetableSlot.locked -->
+<g id="node68" class="node">
+<title>attr_TimetableSlot.locked</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-804" rx="38.79" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-800.1" font-family="Arial" font-size="13.00" fill="#152a38">locked</text>
+</g>
+<!-- ent_StaffAbsence -->
+<g id="node69" class="node">
+<title>ent_StaffAbsence</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="2418.97,-440.8 2296.57,-440.8 2296.57,-401.2 2418.97,-401.2 2418.97,-440.8"/>
+<text xml:space="preserve" text-anchor="middle" x="2357.77" y="-417.1" font-family="Arial" font-size="13.00" fill="#152a38">StaffAbsence</text>
+</g>
+<!-- attr_StaffAbsence.id -->
+<g id="node70" class="node">
+<title>attr_StaffAbsence.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-419" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1912.77" y="-416.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_StaffAbsence.reason -->
+<g id="node71" class="node">
+<title>attr_StaffAbsence.reason</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1917.83" cy="-468" rx="40.33" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-464.1" font-family="Arial" font-size="13.00" fill="#152a38">reason</text>
+</g>
+<!-- attr_StaffAbsence.date -->
+<g id="node72" class="node">
+<title>attr_StaffAbsence.date</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-419" rx="30.11" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-415.1" font-family="Arial" font-size="13.00" fill="#152a38">date</text>
+</g>
+<!-- attr_StaffAbsence.createdAt -->
+<g id="node73" class="node">
+<title>attr_StaffAbsence.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-468" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-464.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- ent_Substitution -->
+<g id="node74" class="node">
+<title>ent_Substitution</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="3015.62,-223.8 2893.22,-223.8 2893.22,-184.2 3015.62,-184.2 3015.62,-223.8"/>
+<text xml:space="preserve" text-anchor="middle" x="2954.42" y="-200.1" font-family="Arial" font-size="13.00" fill="#152a38">Substitution</text>
+</g>
+<!-- attr_Substitution.id -->
+<g id="node75" class="node">
+<title>attr_Substitution.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-253" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="2715.88" y="-250.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Substitution.period -->
+<g id="node76" class="node">
+<title>attr_Substitution.period</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-302" rx="37.77" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-298.1" font-family="Arial" font-size="13.00" fill="#152a38">period</text>
+</g>
+<!-- attr_Substitution.subjectId -->
+<g id="node77" class="node">
+<title>attr_Substitution.subjectId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-351" rx="49.01" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-347.1" font-family="Arial" font-size="13.00" fill="#152a38">subjectId</text>
+</g>
+<!-- attr_Substitution.confidence -->
+<g id="node78" class="node">
+<title>attr_Substitution.confidence</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-155" rx="56.68" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-151.1" font-family="Arial" font-size="13.00" fill="#152a38">confidence</text>
+</g>
+<!-- attr_Substitution.createdAt -->
+<g id="node79" class="node">
+<title>attr_Substitution.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="2720.93" cy="-204" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-200.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- attr_Substitution.day -->
+<g id="node80" class="node">
+<title>attr_Substitution.day</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-155" rx="27.04" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-151.1" font-family="Arial" font-size="13.00" fill="#152a38">day</text>
+</g>
+<!-- attr_Substitution.classId -->
+<g id="node81" class="node">
+<title>attr_Substitution.classId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-204" rx="40.83" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-200.1" font-family="Arial" font-size="13.00" fill="#152a38">classId</text>
+</g>
+<!-- attr_Substitution.reasonString -->
+<g id="node82" class="node">
+<title>attr_Substitution.reasonString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-253" rx="64.34" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-249.1" font-family="Arial" font-size="13.00" fill="#152a38">reasonString</text>
+</g>
+<!-- attr_Substitution.accepted -->
+<g id="node83" class="node">
+<title>attr_Substitution.accepted</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="3146.11" cy="-302" rx="49.53" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="3146.11" y="-298.1" font-family="Arial" font-size="13.00" fill="#152a38">accepted</text>
+</g>
+<!-- ent_School -->
+<g id="node84" class="node">
+<title>ent_School</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="255.4,-1378.8 133,-1378.8 133,-1339.2 255.4,-1339.2 255.4,-1378.8"/>
+<text xml:space="preserve" text-anchor="middle" x="194.2" y="-1355.1" font-family="Arial" font-size="13.00" fill="#152a38">School [external]</text>
+</g>
+<!-- attr_School.id -->
+<g id="node85" class="node">
+<title>attr_School.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="47" cy="-1359" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="41.94" y="-1356.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- ent_Teacher -->
+<g id="node86" class="node">
+<title>ent_Teacher</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="1748.35,-546.8 1625.95,-546.8 1625.95,-507.2 1748.35,-507.2 1748.35,-546.8"/>
+<text xml:space="preserve" text-anchor="middle" x="1687.15" y="-523.1" font-family="Arial" font-size="13.00" fill="#152a38">Teacher [external]</text>
+</g>
+<!-- attr_Teacher.id -->
+<g id="node87" class="node">
+<title>attr_Teacher.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1283.34" cy="-527" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1278.28" y="-524.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- rel_Room_buildingId_fkey -->
+<g id="node88" class="node">
+<title>rel_Room_buildingId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1283.34,-1659 1213.78,-1623 1283.34,-1587 1352.91,-1623 1283.34,-1659"/>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-1626.6" font-family="Arial" font-size="12.00" fill="#152a38">Located in</text>
+<text xml:space="preserve" text-anchor="middle" x="1283.34" y="-1612.2" font-family="Arial" font-size="12.00" fill="#152a38">[buildingId]</text>
+</g>
+<!-- rel_ClassSubjectPlan_classId_fkey -->
+<g id="node89" class="node">
+<title>rel_ClassSubjectPlan_classId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2720.93,-1376 2616.03,-1340 2720.93,-1304 2825.84,-1340 2720.93,-1376"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1343.6" font-family="Arial" font-size="12.00" fill="#152a38">Assigned to class</text>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1329.2" font-family="Arial" font-size="12.00" fill="#152a38">[classId]</text>
+</g>
+<!-- rel_TimetableSlot_classId_fkey -->
+<g id="node90" class="node">
+<title>rel_TimetableSlot_classId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2720.93,-1291 2616.03,-1255 2720.93,-1219 2825.84,-1255 2720.93,-1291"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1258.6" font-family="Arial" font-size="12.00" fill="#152a38">Assigned to class</text>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-1244.2" font-family="Arial" font-size="12.00" fill="#152a38">[classId]</text>
+</g>
+<!-- rel_Class_roomId_fkey -->
+<g id="node91" class="node">
+<title>rel_Class_roomId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1917.83,-1493 1848.3,-1457 1917.83,-1421 1987.36,-1457 1917.83,-1493"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1460.6" font-family="Arial" font-size="12.00" fill="#152a38">Uses room</text>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1446.2" font-family="Arial" font-size="12.00" fill="#152a38">[roomId]</text>
+</g>
+<!-- rel_TimetableSlot_roomId_fkey -->
+<g id="node92" class="node">
+<title>rel_TimetableSlot_roomId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2517.5,-1346 2447.97,-1310 2517.5,-1274 2587.03,-1310 2517.5,-1346"/>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-1313.6" font-family="Arial" font-size="12.00" fill="#152a38">Uses room</text>
+<text xml:space="preserve" text-anchor="middle" x="2517.5" y="-1299.2" font-family="Arial" font-size="12.00" fill="#152a38">[roomId]</text>
+</g>
+<!-- rel_AcademicConfig_schoolId_fkey -->
+<g id="node93" class="node">
+<title>rel_AcademicConfig_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="426.88,-2128 320.63,-2092 426.88,-2056 533.13,-2092 426.88,-2128"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2095.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-2081.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_Building_schoolId_fkey -->
+<g id="node94" class="node">
+<title>rel_Building_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="426.88,-1571 320.63,-1535 426.88,-1499 533.13,-1535 426.88,-1571"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-1538.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-1524.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_Class_schoolId_fkey -->
+<g id="node95" class="node">
+<title>rel_Class_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="668.38,-1395 562.13,-1359 668.38,-1323 774.62,-1359 668.38,-1395"/>
+<text xml:space="preserve" text-anchor="middle" x="668.38" y="-1362.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="668.38" y="-1348.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_Subject_schoolId_fkey -->
+<g id="node96" class="node">
+<title>rel_Subject_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1061.27,-1288 955.02,-1252 1061.27,-1216 1167.52,-1252 1061.27,-1288"/>
+<text xml:space="preserve" text-anchor="middle" x="1061.27" y="-1255.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="1061.27" y="-1241.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_Timetable_schoolId_fkey -->
+<g id="node97" class="node">
+<title>rel_Timetable_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="426.88,-72 320.63,-36 426.88,0 533.13,-36 426.88,-72"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-39.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-25.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_Substitution_absenceId_fkey -->
+<g id="node98" class="node">
+<title>rel_Substitution_absenceId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2720.93,-113 2622.7,-77 2720.93,-41 2819.17,-77 2720.93,-113"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-80.6" font-family="Arial" font-size="12.00" fill="#152a38">Covers absence</text>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-66.2" font-family="Arial" font-size="12.00" fill="#152a38">[absenceId]</text>
+</g>
+<!-- rel_ClassSubjectPlan_subjectId_fkey -->
+<g id="node99" class="node">
+<title>rel_ClassSubjectPlan_subjectId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2720.93,-946 2630.05,-910 2720.93,-874 2811.82,-910 2720.93,-946"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-913.6" font-family="Arial" font-size="12.00" fill="#152a38">Covers subject</text>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-899.2" font-family="Arial" font-size="12.00" fill="#152a38">[subjectId]</text>
+</g>
+<!-- rel_TimetableSlot_subjectId_fkey -->
+<g id="node100" class="node">
+<title>rel_TimetableSlot_subjectId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2720.93,-692 2630.05,-656 2720.93,-620 2811.82,-656 2720.93,-692"/>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-659.6" font-family="Arial" font-size="12.00" fill="#152a38">Covers subject</text>
+<text xml:space="preserve" text-anchor="middle" x="2720.93" y="-645.2" font-family="Arial" font-size="12.00" fill="#152a38">[subjectId]</text>
+</g>
+<!-- rel_Class_classTeacherId_fkey -->
+<g id="node101" class="node">
+<title>rel_Class_classTeacherId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1917.83,-1321 1818.27,-1285 1917.83,-1249 2017.39,-1285 1917.83,-1321"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1288.6" font-family="Arial" font-size="12.00" fill="#152a38">Class teacher</text>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-1274.2" font-family="Arial" font-size="12.00" fill="#152a38">[classTeacherId]</text>
+</g>
+<!-- rel_StaffAbsence_teacherId_fkey -->
+<g id="node102" class="node">
+<title>rel_StaffAbsence_teacherId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1917.83,-377 1813.58,-341 1917.83,-305 2022.07,-341 1917.83,-377"/>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-344.6" font-family="Arial" font-size="12.00" fill="#152a38">Assigned teacher</text>
+<text xml:space="preserve" text-anchor="middle" x="1917.83" y="-330.2" font-family="Arial" font-size="12.00" fill="#152a38">[teacherId]</text>
+</g>
+<!-- rel_Substitution_subTeacherId_fkey -->
+<g id="node103" class="node">
+<title>rel_Substitution_subTeacherId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2159.32,-123 2051.07,-87 2159.32,-51 2267.57,-87 2159.32,-123"/>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-90.6" font-family="Arial" font-size="12.00" fill="#152a38">Substitute teacher</text>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-76.2" font-family="Arial" font-size="12.00" fill="#152a38">[subTeacherId]</text>
+</g>
+<!-- rel_TimetableSlot_teacherId_fkey -->
+<g id="node104" class="node">
+<title>rel_TimetableSlot_teacherId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="2159.32,-582 2055.08,-546 2159.32,-510 2263.56,-546 2159.32,-582"/>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-549.6" font-family="Arial" font-size="12.00" fill="#152a38">Assigned teacher</text>
+<text xml:space="preserve" text-anchor="middle" x="2159.32" y="-535.2" font-family="Arial" font-size="12.00" fill="#152a38">[teacherId]</text>
+</g>
+<!-- rel_TimetableSlot_timetableId_fkey -->
+<g id="node105" class="node">
+<title>rel_TimetableSlot_timetableId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1498.06,-643 1399.16,-607 1498.06,-571 1596.95,-607 1498.06,-643"/>
+<text xml:space="preserve" text-anchor="middle" x="1498.06" y="-610.6" font-family="Arial" font-size="12.00" fill="#152a38">Part of timetable</text>
+<text xml:space="preserve" text-anchor="middle" x="1498.06" y="-596.2" font-family="Arial" font-size="12.00" fill="#152a38">[timetableId]</text>
+</g>
+</g>
+</g><line x1="50" y1="2712" x2="3345" y2="2712" stroke="#CED5DA"/><text x="50" y="2745" font-family="Arial,sans-serif" font-size="14" fill="#172734" >Rectangle = entity; diamond = relationship; ellipse = attribute; underlined attribute = actual primary key.</text><text x="50" y="2770" font-family="Arial,sans-serif" font-size="14" fill="#172734" >1:N / 1:1 are maximum cardinality ratios. Double line = total participation (NOT NULL FK); single line = partial participation.</text><text x="50" y="2795" font-family="Arial,sans-serif" font-size="14" fill="#172734" >Associative entities retain their actual surrogate id PK. Grey entities reference another module; no weak or multivalued symbols are invented.</text><text x="50" y="2818" font-family="Arial,sans-serif" font-size="13" fill="#172734" >Live catalogue: meridian:5432 | 43 application tables | 441 columns | 67 declared FKs</text></svg>

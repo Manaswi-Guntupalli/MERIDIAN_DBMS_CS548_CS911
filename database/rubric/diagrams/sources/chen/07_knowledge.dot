@@ -1,0 +1,171 @@
+digraph Chen {
+graph [rankdir=LR, newrank=true, compound=true, splines=polyline, nodesep=0.18, ranksep=0.8, pad=0.4, bgcolor="transparent", outputorder=edgesfirst, fontname="Arial"];
+node [fontname="Arial",fontsize=13,fontcolor="#152A38"];
+edge [fontname="Arial",fontsize=13,fontcolor="#D73232",color="#4A5966",penwidth=0.8,arrowsize=0.6,dir=none];
+subgraph "cluster_attributes_KnowledgeItem" { style=invis; margin=12; label="";
+"ent_KnowledgeItem" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="KnowledgeItem"];
+{rank=same;
+"attr_KnowledgeItem.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_KnowledgeItem.content" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="content"];
+"attr_KnowledgeItem.sourceId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="sourceId"];
+"attr_KnowledgeItem.embedding" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="embedding"];
+"attr_KnowledgeItem.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_KnowledgeItem.id" -> "ent_KnowledgeItem" [color="#929EA7",weight=3];
+"attr_KnowledgeItem.content" -> "ent_KnowledgeItem" [color="#929EA7",weight=3];
+"attr_KnowledgeItem.sourceId" -> "ent_KnowledgeItem" [color="#929EA7",weight=3];
+"attr_KnowledgeItem.embedding" -> "ent_KnowledgeItem" [color="#929EA7",weight=3];
+"attr_KnowledgeItem.createdAt" -> "ent_KnowledgeItem" [color="#929EA7",weight=3];
+{rank=same;
+"attr_KnowledgeItem.title" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="title"];
+"attr_KnowledgeItem.category" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="category"];
+"attr_KnowledgeItem.model" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="model"];
+"attr_KnowledgeItem.revision" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="revision"];
+"attr_KnowledgeItem.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"ent_KnowledgeItem" -> "attr_KnowledgeItem.title" [color="#929EA7",weight=3];
+"ent_KnowledgeItem" -> "attr_KnowledgeItem.category" [color="#929EA7",weight=3];
+"ent_KnowledgeItem" -> "attr_KnowledgeItem.model" [color="#929EA7",weight=3];
+"ent_KnowledgeItem" -> "attr_KnowledgeItem.revision" [color="#929EA7",weight=3];
+"ent_KnowledgeItem" -> "attr_KnowledgeItem.updatedAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_KnowledgeRevision" { style=invis; margin=12; label="";
+"ent_KnowledgeRevision" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="KnowledgeRevision"];
+{rank=same;
+"attr_KnowledgeRevision.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_KnowledgeRevision.schoolId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="schoolId"];
+"attr_KnowledgeRevision.actorId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="actorId"];
+"attr_KnowledgeRevision.changedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="changedAt"];
+}
+"attr_KnowledgeRevision.id" -> "ent_KnowledgeRevision" [color="#929EA7",weight=3];
+"attr_KnowledgeRevision.schoolId" -> "ent_KnowledgeRevision" [color="#929EA7",weight=3];
+"attr_KnowledgeRevision.actorId" -> "ent_KnowledgeRevision" [color="#929EA7",weight=3];
+"attr_KnowledgeRevision.changedAt" -> "ent_KnowledgeRevision" [color="#929EA7",weight=3];
+{rank=same;
+"attr_KnowledgeRevision.itemId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="itemId"];
+"attr_KnowledgeRevision.operation" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="operation"];
+"attr_KnowledgeRevision.revision" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="revision"];
+}
+"ent_KnowledgeRevision" -> "attr_KnowledgeRevision.itemId" [color="#929EA7",weight=3];
+"ent_KnowledgeRevision" -> "attr_KnowledgeRevision.operation" [color="#929EA7",weight=3];
+"ent_KnowledgeRevision" -> "attr_KnowledgeRevision.revision" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_AILog" { style=invis; margin=12; label="";
+"ent_AILog" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="AILog"];
+{rank=same;
+"attr_AILog.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_AILog.action" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="action"];
+"attr_AILog.confidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="confidence"];
+"attr_AILog.outputString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="outputString"];
+"attr_AILog.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_AILog.id" -> "ent_AILog" [color="#929EA7",weight=3];
+"attr_AILog.action" -> "ent_AILog" [color="#929EA7",weight=3];
+"attr_AILog.confidence" -> "ent_AILog" [color="#929EA7",weight=3];
+"attr_AILog.outputString" -> "ent_AILog" [color="#929EA7",weight=3];
+"attr_AILog.createdAt" -> "ent_AILog" [color="#929EA7",weight=3];
+{rank=same;
+"attr_AILog.engine" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="engine"];
+"attr_AILog.reason" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reason"];
+"attr_AILog.inputString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="inputString"];
+"attr_AILog.reversible" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reversible"];
+}
+"ent_AILog" -> "attr_AILog.engine" [color="#929EA7",weight=3];
+"ent_AILog" -> "attr_AILog.reason" [color="#929EA7",weight=3];
+"ent_AILog" -> "attr_AILog.inputString" [color="#929EA7",weight=3];
+"ent_AILog" -> "attr_AILog.reversible" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_AuditLog" { style=invis; margin=12; label="";
+"ent_AuditLog" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="AuditLog"];
+{rank=same;
+"attr_AuditLog.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_AuditLog.entity" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="entity"];
+"attr_AuditLog.metaString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="metaString"];
+}
+"attr_AuditLog.id" -> "ent_AuditLog" [color="#929EA7",weight=3];
+"attr_AuditLog.entity" -> "ent_AuditLog" [color="#929EA7",weight=3];
+"attr_AuditLog.metaString" -> "ent_AuditLog" [color="#929EA7",weight=3];
+{rank=same;
+"attr_AuditLog.action" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="action"];
+"attr_AuditLog.entityId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="entityId"];
+"attr_AuditLog.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_AuditLog" -> "attr_AuditLog.action" [color="#929EA7",weight=3];
+"ent_AuditLog" -> "attr_AuditLog.entityId" [color="#929EA7",weight=3];
+"ent_AuditLog" -> "attr_AuditLog.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Prediction" { style=invis; margin=12; label="";
+"ent_Prediction" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Prediction"];
+{rank=same;
+"attr_Prediction.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Prediction.targetDate" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="targetDate"];
+"attr_Prediction.value" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="value"];
+"attr_Prediction.driversString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="driversString"];
+}
+"attr_Prediction.id" -> "ent_Prediction" [color="#929EA7",weight=3];
+"attr_Prediction.targetDate" -> "ent_Prediction" [color="#929EA7",weight=3];
+"attr_Prediction.value" -> "ent_Prediction" [color="#929EA7",weight=3];
+"attr_Prediction.driversString" -> "ent_Prediction" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Prediction.kind" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="kind"];
+"attr_Prediction.label" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="label"];
+"attr_Prediction.confidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="confidence"];
+"attr_Prediction.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_Prediction" -> "attr_Prediction.kind" [color="#929EA7",weight=3];
+"ent_Prediction" -> "attr_Prediction.label" [color="#929EA7",weight=3];
+"ent_Prediction" -> "attr_Prediction.confidence" [color="#929EA7",weight=3];
+"ent_Prediction" -> "attr_Prediction.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Setting" { style=invis; margin=12; label="";
+"ent_Setting" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Setting"];
+{rank=same;
+"attr_Setting.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Setting.valueString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="valueString"];
+}
+"attr_Setting.id" -> "ent_Setting" [color="#929EA7",weight=3];
+"attr_Setting.valueString" -> "ent_Setting" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Setting.key" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="key"];
+}
+"ent_Setting" -> "attr_Setting.key" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_School" { style=invis; margin=12; label="";
+"ent_School" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="School [external]"];
+{rank=same;
+"attr_School.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_School.id" -> "ent_School" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_User" { style=invis; margin=12; label="";
+"ent_User" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="User [external]"];
+{rank=same;
+"attr_User.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_User.id" -> "ent_User" [color="#929EA7",weight=3];
+}
+"rel_AILog_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_AILog_schoolId_fkey" [id="AILog_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AILog_schoolId_fkey" -> "ent_AILog" [id="AILog_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_AuditLog_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_AuditLog_schoolId_fkey" [id="AuditLog_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AuditLog_schoolId_fkey" -> "ent_AuditLog" [id="AuditLog_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_KnowledgeItem_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_KnowledgeItem_schoolId_fkey" [id="KnowledgeItem_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_KnowledgeItem_schoolId_fkey" -> "ent_KnowledgeItem" [id="KnowledgeItem_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Prediction_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Prediction_schoolId_fkey" [id="Prediction_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Prediction_schoolId_fkey" -> "ent_Prediction" [id="Prediction_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Setting_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Setting_schoolId_fkey" [id="Setting_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Setting_schoolId_fkey" -> "ent_Setting" [id="Setting_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_AILog_actorId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Performed by\n[actorId]"];
+"ent_User" -> "rel_AILog_actorId_fkey" [id="AILog_actorId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AILog_actorId_fkey" -> "ent_AILog" [id="AILog_actorId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_AuditLog_actorId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Performed by\n[actorId]"];
+"ent_User" -> "rel_AuditLog_actorId_fkey" [id="AuditLog_actorId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AuditLog_actorId_fkey" -> "ent_AuditLog" [id="AuditLog_actorId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_KnowledgeItem_createdBy_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Created by\n[createdBy]"];
+"ent_User" -> "rel_KnowledgeItem_createdBy_fkey" [id="KnowledgeItem_createdBy_fkey_parent",label="1",minlen=1,weight=2];
+"rel_KnowledgeItem_createdBy_fkey" -> "ent_KnowledgeItem" [id="KnowledgeItem_createdBy_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+}

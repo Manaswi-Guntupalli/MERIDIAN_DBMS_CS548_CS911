@@ -1,0 +1,174 @@
+digraph Chen {
+graph [rankdir=LR, newrank=true, compound=true, splines=polyline, nodesep=0.18, ranksep=0.8, pad=0.4, bgcolor="transparent", outputorder=edgesfirst, fontname="Arial"];
+node [fontname="Arial",fontsize=13,fontcolor="#152A38"];
+edge [fontname="Arial",fontsize=13,fontcolor="#D73232",color="#4A5966",penwidth=0.8,arrowsize=0.6,dir=none];
+subgraph "cluster_attributes_Notification" { style=invis; margin=12; label="";
+"ent_Notification" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Notification"];
+{rank=same;
+"attr_Notification.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Notification.body" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="body"];
+"attr_Notification.category" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="category"];
+"attr_Notification.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_Notification.id" -> "ent_Notification" [color="#929EA7",weight=3];
+"attr_Notification.body" -> "ent_Notification" [color="#929EA7",weight=3];
+"attr_Notification.category" -> "ent_Notification" [color="#929EA7",weight=3];
+"attr_Notification.createdAt" -> "ent_Notification" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Notification.title" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="title"];
+"attr_Notification.severity" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="severity"];
+"attr_Notification.actionString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="actionString"];
+}
+"ent_Notification" -> "attr_Notification.title" [color="#929EA7",weight=3];
+"ent_Notification" -> "attr_Notification.severity" [color="#929EA7",weight=3];
+"ent_Notification" -> "attr_Notification.actionString" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_NotificationRead" { style=invis; margin=12; label="";
+"ent_NotificationRead" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="NotificationRead"];
+{rank=same;
+"attr_NotificationRead.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_NotificationRead.readAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="readAt"];
+}
+"attr_NotificationRead.id" -> "ent_NotificationRead" [color="#929EA7",weight=3];
+"attr_NotificationRead.readAt" -> "ent_NotificationRead" [color="#929EA7",weight=3];
+{rank=same;
+"attr_NotificationRead.userId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="userId"];
+}
+"ent_NotificationRead" -> "attr_NotificationRead.userId" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_EmergencyIncident" { style=invis; margin=12; label="";
+"ent_EmergencyIncident" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="EmergencyIncident"];
+{rank=same;
+"attr_EmergencyIncident.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_EmergencyIncident.severity" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="severity"];
+"attr_EmergencyIncident.triggeredBy" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="triggeredBy"];
+"attr_EmergencyIncident.note" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="note"];
+"attr_EmergencyIncident.resolvedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="resolvedAt"];
+"attr_EmergencyIncident.resolvedById" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="resolvedById"];
+}
+"attr_EmergencyIncident.id" -> "ent_EmergencyIncident" [color="#929EA7",weight=3];
+"attr_EmergencyIncident.severity" -> "ent_EmergencyIncident" [color="#929EA7",weight=3];
+"attr_EmergencyIncident.triggeredBy" -> "ent_EmergencyIncident" [color="#929EA7",weight=3];
+"attr_EmergencyIncident.note" -> "ent_EmergencyIncident" [color="#929EA7",weight=3];
+"attr_EmergencyIncident.resolvedAt" -> "ent_EmergencyIncident" [color="#929EA7",weight=3];
+"attr_EmergencyIncident.resolvedById" -> "ent_EmergencyIncident" [color="#929EA7",weight=3];
+{rank=same;
+"attr_EmergencyIncident.kind" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="kind"];
+"attr_EmergencyIncident.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+"attr_EmergencyIncident.triggeredById" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="triggeredById"];
+"attr_EmergencyIncident.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+"attr_EmergencyIncident.resolvedBy" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="resolvedBy"];
+}
+"ent_EmergencyIncident" -> "attr_EmergencyIncident.kind" [color="#929EA7",weight=3];
+"ent_EmergencyIncident" -> "attr_EmergencyIncident.status" [color="#929EA7",weight=3];
+"ent_EmergencyIncident" -> "attr_EmergencyIncident.triggeredById" [color="#929EA7",weight=3];
+"ent_EmergencyIncident" -> "attr_EmergencyIncident.createdAt" [color="#929EA7",weight=3];
+"ent_EmergencyIncident" -> "attr_EmergencyIncident.resolvedBy" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_EmergencyAck" { style=invis; margin=12; label="";
+"ent_EmergencyAck" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="EmergencyAck"];
+{rank=same;
+"attr_EmergencyAck.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_EmergencyAck.userName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="userName"];
+"attr_EmergencyAck.classId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="classId"];
+"attr_EmergencyAck.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+"attr_EmergencyAck.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_EmergencyAck.id" -> "ent_EmergencyAck" [color="#929EA7",weight=3];
+"attr_EmergencyAck.userName" -> "ent_EmergencyAck" [color="#929EA7",weight=3];
+"attr_EmergencyAck.classId" -> "ent_EmergencyAck" [color="#929EA7",weight=3];
+"attr_EmergencyAck.status" -> "ent_EmergencyAck" [color="#929EA7",weight=3];
+"attr_EmergencyAck.createdAt" -> "ent_EmergencyAck" [color="#929EA7",weight=3];
+{rank=same;
+"attr_EmergencyAck.userId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="userId"];
+"attr_EmergencyAck.role" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="role"];
+"attr_EmergencyAck.className" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="className"];
+"attr_EmergencyAck.note" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="note"];
+"attr_EmergencyAck.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"ent_EmergencyAck" -> "attr_EmergencyAck.userId" [color="#929EA7",weight=3];
+"ent_EmergencyAck" -> "attr_EmergencyAck.role" [color="#929EA7",weight=3];
+"ent_EmergencyAck" -> "attr_EmergencyAck.className" [color="#929EA7",weight=3];
+"ent_EmergencyAck" -> "attr_EmergencyAck.note" [color="#929EA7",weight=3];
+"ent_EmergencyAck" -> "attr_EmergencyAck.updatedAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_EmergencyEvent" { style=invis; margin=12; label="";
+"ent_EmergencyEvent" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="EmergencyEvent"];
+{rank=same;
+"attr_EmergencyEvent.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_EmergencyEvent.message" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="message"];
+"attr_EmergencyEvent.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_EmergencyEvent.id" -> "ent_EmergencyEvent" [color="#929EA7",weight=3];
+"attr_EmergencyEvent.message" -> "ent_EmergencyEvent" [color="#929EA7",weight=3];
+"attr_EmergencyEvent.createdAt" -> "ent_EmergencyEvent" [color="#929EA7",weight=3];
+{rank=same;
+"attr_EmergencyEvent.type" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="type"];
+"attr_EmergencyEvent.actorName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="actorName"];
+}
+"ent_EmergencyEvent" -> "attr_EmergencyEvent.type" [color="#929EA7",weight=3];
+"ent_EmergencyEvent" -> "attr_EmergencyEvent.actorName" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Event" { style=invis; margin=12; label="";
+"ent_Event" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Event"];
+{rank=same;
+"attr_Event.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Event.aggregate" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="aggregate"];
+"attr_Event.payloadString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="payloadString"];
+"attr_Event.actorName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="actorName"];
+"attr_Event.reverted" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reverted"];
+}
+"attr_Event.id" -> "ent_Event" [color="#929EA7",weight=3];
+"attr_Event.aggregate" -> "ent_Event" [color="#929EA7",weight=3];
+"attr_Event.payloadString" -> "ent_Event" [color="#929EA7",weight=3];
+"attr_Event.actorName" -> "ent_Event" [color="#929EA7",weight=3];
+"attr_Event.reverted" -> "ent_Event" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Event.type" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="type"];
+"attr_Event.aggregateId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="aggregateId"];
+"attr_Event.actorId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="actorId"];
+"attr_Event.reversible" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reversible"];
+"attr_Event.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_Event" -> "attr_Event.type" [color="#929EA7",weight=3];
+"ent_Event" -> "attr_Event.aggregateId" [color="#929EA7",weight=3];
+"ent_Event" -> "attr_Event.actorId" [color="#929EA7",weight=3];
+"ent_Event" -> "attr_Event.reversible" [color="#929EA7",weight=3];
+"ent_Event" -> "attr_Event.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_School" { style=invis; margin=12; label="";
+"ent_School" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="School [external]"];
+{rank=same;
+"attr_School.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_School.id" -> "ent_School" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_User" { style=invis; margin=12; label="";
+"ent_User" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="User [external]"];
+{rank=same;
+"attr_User.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_User.id" -> "ent_User" [color="#929EA7",weight=3];
+}
+"rel_EmergencyAck_incidentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="For incident\n[incidentId]"];
+"ent_EmergencyIncident" -> "rel_EmergencyAck_incidentId_fkey" [id="EmergencyAck_incidentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_EmergencyAck_incidentId_fkey" -> "ent_EmergencyAck" [id="EmergencyAck_incidentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_EmergencyEvent_incidentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="For incident\n[incidentId]"];
+"ent_EmergencyIncident" -> "rel_EmergencyEvent_incidentId_fkey" [id="EmergencyEvent_incidentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_EmergencyEvent_incidentId_fkey" -> "ent_EmergencyEvent" [id="EmergencyEvent_incidentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_NotificationRead_notificationId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Reads notice\n[notificationId]"];
+"ent_Notification" -> "rel_NotificationRead_notificationId_fkey" [id="NotificationRead_notificationId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_NotificationRead_notificationId_fkey" -> "ent_NotificationRead" [id="NotificationRead_notificationId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_EmergencyIncident_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_EmergencyIncident_schoolId_fkey" [id="EmergencyIncident_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_EmergencyIncident_schoolId_fkey" -> "ent_EmergencyIncident" [id="EmergencyIncident_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Event_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Event_schoolId_fkey" [id="Event_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Event_schoolId_fkey" -> "ent_Event" [id="Event_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Notification_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Notification_schoolId_fkey" [id="Notification_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Notification_schoolId_fkey" -> "ent_Notification" [id="Notification_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Notification_userId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Has login account\n[userId]"];
+"ent_User" -> "rel_Notification_userId_fkey" [id="Notification_userId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Notification_userId_fkey" -> "ent_Notification" [id="Notification_userId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+}

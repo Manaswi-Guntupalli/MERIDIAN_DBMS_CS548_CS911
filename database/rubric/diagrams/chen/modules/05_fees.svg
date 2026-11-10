@@ -1,0 +1,255 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="942" viewBox="0 0 1600 942"><rect width="1600" height="942" fill="#FCFBF8"/><text x="50" y="42" font-family="Arial,sans-serif" font-size="18" fill="#172734" font-weight="700" letter-spacing="2">MERIDIAN  /  DBMS DESIGN</text><text x="50" y="96" font-family="Arial,sans-serif" font-size="34" fill="#172734" font-weight="700">Chen ER / Fees and payments</text><text x="50" y="130" font-family="Arial,sans-serif" font-size="16" fill="#172734" >2 entities; 3 relationship diamonds. Ovals show non-FK attributes; FK columns are represented by relationships.</text><g transform="translate(133.5,166)">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(28.8 582.8)">
+<title>Chen</title>
+<g id="clust1" class="cluster">
+<title>cluster_attributes_Fee</title>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_attributes_Payment</title>
+</g>
+<g id="clust7" class="cluster">
+<title>cluster_attributes_School</title>
+</g>
+<g id="clust9" class="cluster">
+<title>cluster_attributes_Student</title>
+</g>
+<!-- ent_Fee&#45;&gt;attr_Fee.title -->
+<g id="edge5" class="edge">
+<title>ent_Fee&#45;&gt;attr_Fee.title</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M723.28,-235.75C756.51,-226.84 795.89,-216.27 820.75,-209.6"/>
+</g>
+<!-- ent_Fee&#45;&gt;attr_Fee.paid -->
+<g id="edge6" class="edge">
+<title>ent_Fee&#45;&gt;attr_Fee.paid</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M723.28,-252C754.64,-252 791.48,-252 816.42,-252"/>
+</g>
+<!-- ent_Fee&#45;&gt;attr_Fee.status -->
+<g id="edge7" class="edge">
+<title>ent_Fee&#45;&gt;attr_Fee.status</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M723.28,-268.25C753.39,-276.33 788.56,-285.76 813.39,-292.42"/>
+</g>
+<!-- ent_Fee&#45;&gt;rel_Payment_feeId_fkey -->
+<g id="Payment_feeId_fkey_parent" class="edge">
+<title>ent_Fee&#45;&gt;rel_Payment_feeId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M691.66,-231.88C726.36,-207.75 784.08,-167.61 818.05,-143.99"/>
+<text xml:space="preserve" text-anchor="middle" x="755.53" y="-192.4" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Fee.id&#45;&gt;ent_Fee -->
+<g id="edge1" class="edge">
+<title>attr_Fee.id&#45;&gt;ent_Fee</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M452.8,-208.24C487.64,-215.58 552.02,-229.13 599.95,-239.21"/>
+</g>
+<!-- attr_Fee.amount&#45;&gt;ent_Fee -->
+<g id="edge2" class="edge">
+<title>attr_Fee.amount&#45;&gt;ent_Fee</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M470.04,-252C506.34,-252 559.18,-252 600.03,-252"/>
+</g>
+<!-- attr_Fee.dueDate&#45;&gt;ent_Fee -->
+<g id="edge3" class="edge">
+<title>attr_Fee.dueDate&#45;&gt;ent_Fee</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M468.7,-292.41C505.09,-284.75 558.84,-273.44 600.22,-264.73"/>
+</g>
+<!-- attr_Fee.createdAt&#45;&gt;ent_Fee -->
+<g id="edge4" class="edge">
+<title>attr_Fee.createdAt&#45;&gt;ent_Fee</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M470.99,-340.17C500.06,-333.54 533.13,-326 533.13,-326 533.13,-326 588.07,-294.13 625.85,-272.22"/>
+</g>
+<!-- ent_Payment&#45;&gt;attr_Payment.amount -->
+<g id="edge11" class="edge">
+<title>ent_Payment&#45;&gt;attr_Payment.amount</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1094.79,-456.97C1117.84,-453.16 1143.47,-448.92 1164.05,-445.51"/>
+</g>
+<!-- ent_Payment&#45;&gt;attr_Payment.reference -->
+<g id="edge12" class="edge">
+<title>ent_Payment&#45;&gt;attr_Payment.reference</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1094.79,-474.52C1114.8,-477.01 1136.77,-479.73 1155.68,-482.08"/>
+</g>
+<!-- attr_Payment.id&#45;&gt;ent_Payment -->
+<g id="edge8" class="edge">
+<title>attr_Payment.id&#45;&gt;ent_Payment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M871.9,-424.51C897.23,-431.22 937.73,-441.96 971.67,-450.96"/>
+</g>
+<!-- attr_Payment.method&#45;&gt;ent_Payment -->
+<g id="edge9" class="edge">
+<title>attr_Payment.method&#45;&gt;ent_Payment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M889.29,-467C913.57,-467 944.56,-467 971.47,-467"/>
+</g>
+<!-- attr_Payment.paidAt&#45;&gt;ent_Payment -->
+<g id="edge10" class="edge">
+<title>attr_Payment.paidAt&#45;&gt;ent_Payment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M880.4,-507.24C905.63,-500.55 941.09,-491.15 971.4,-483.11"/>
+</g>
+<!-- ent_School&#45;&gt;rel_Fee_schoolId_fkey -->
+<g id="Fee_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_Fee_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M255.81,-125C275.3,-125 297.5,-125 319.29,-125"/>
+<text xml:space="preserve" text-anchor="middle" x="288.01" y="-128.9" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_School.id&#45;&gt;ent_School -->
+<g id="edge13" class="edge">
+<title>attr_School.id&#45;&gt;ent_School</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M74.29,-125C90.56,-125 112.14,-125 132.45,-125"/>
+</g>
+<!-- ent_Student&#45;&gt;rel_Fee_studentId_fkey -->
+<g id="Fee_studentId_fkey_parent" class="edge">
+<title>ent_Student&#45;&gt;rel_Fee_studentId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M255.81,-40C285.84,-40 322.32,-40 353.78,-40"/>
+<text xml:space="preserve" text-anchor="middle" x="288.01" y="-43.9" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Student.id&#45;&gt;ent_Student -->
+<g id="edge14" class="edge">
+<title>attr_Student.id&#45;&gt;ent_Student</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M74.29,-40C90.56,-40 112.14,-40 132.45,-40"/>
+</g>
+<!-- rel_Payment_feeId_fkey&#45;&gt;ent_Payment -->
+<g id="Payment_feeId_fkey_child" class="edge">
+<title>rel_Payment_feeId_fkey&#45;&gt;ent_Payment</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M873.57,-144.34C888.8,-156.33 905.19,-169.21 904.57,-170 905.49,-169.61 995.9,-380.07 1024.51,-446.66"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M872.33,-145.92C887.57,-157.9 903.95,-170.79 904.57,-170 903.65,-170.39 994.06,-380.86 1022.67,-447.45"/>
+<text xml:space="preserve" text-anchor="middle" x="938.27" y="-261.66" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Fee_schoolId_fkey&#45;&gt;ent_Fee -->
+<g id="Fee_schoolId_fkey_child" class="edge">
+<title>rel_Fee_schoolId_fkey&#45;&gt;ent_Fee</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M475.35,-144.21C503.38,-156.19 533.52,-169.08 533.13,-170 533.67,-169.16 591.93,-206.61 629.72,-230.89"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M474.57,-146.05C502.59,-158.03 532.73,-170.92 533.13,-170 532.59,-170.84 590.85,-208.29 628.64,-232.57"/>
+<text xml:space="preserve" text-anchor="middle" x="566.82" y="-198.13" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Fee_studentId_fkey&#45;&gt;ent_Fee -->
+<g id="Fee_studentId_fkey_child" class="edge">
+<title>rel_Fee_studentId_fkey&#45;&gt;ent_Fee</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M468.05,-55.33C497.85,-67.51 533.51,-82.07 533.13,-83 533.93,-82.4 612.19,-186.06 646.12,-231.01"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M467.29,-57.18C497.09,-69.36 532.75,-83.93 533.13,-83 532.33,-83.6 610.59,-187.27 644.53,-232.22"/>
+<text xml:space="preserve" text-anchor="middle" x="566.82" y="-136.84" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- ent_Fee -->
+<g id="node1" class="node">
+<title>ent_Fee</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="722.92,-271.8 600.52,-271.8 600.52,-232.2 722.92,-232.2 722.92,-271.8"/>
+<text xml:space="preserve" text-anchor="middle" x="661.72" y="-248.1" font-family="Arial" font-size="13.00" fill="#152a38">Fee</text>
+</g>
+<!-- attr_Fee.id -->
+<g id="node2" class="node">
+<title>attr_Fee.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-203" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="421.82" y="-200.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Fee.amount -->
+<g id="node3" class="node">
+<title>attr_Fee.amount</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-252" rx="42.88" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-248.1" font-family="Arial" font-size="13.00" fill="#152a38">amount</text>
+</g>
+<!-- attr_Fee.dueDate -->
+<g id="node4" class="node">
+<title>attr_Fee.dueDate</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-301" rx="46.97" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-297.1" font-family="Arial" font-size="13.00" fill="#152a38">dueDate</text>
+</g>
+<!-- attr_Fee.createdAt -->
+<g id="node5" class="node">
+<title>attr_Fee.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="426.88" cy="-350" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-346.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- attr_Fee.title -->
+<g id="node6" class="node">
+<title>attr_Fee.title</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="846.36" cy="-203" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="846.36" y="-199.1" font-family="Arial" font-size="13.00" fill="#152a38">title</text>
+</g>
+<!-- attr_Fee.paid -->
+<g id="node7" class="node">
+<title>attr_Fee.paid</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="846.36" cy="-252" rx="29.6" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="846.36" y="-248.1" font-family="Arial" font-size="13.00" fill="#152a38">paid</text>
+</g>
+<!-- attr_Fee.status -->
+<g id="node8" class="node">
+<title>attr_Fee.status</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="846.36" cy="-301" rx="36.74" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="846.36" y="-297.1" font-family="Arial" font-size="13.00" fill="#152a38">status</text>
+</g>
+<!-- ent_Payment -->
+<g id="node9" class="node">
+<title>ent_Payment</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="1094.36,-486.8 971.96,-486.8 971.96,-447.2 1094.36,-447.2 1094.36,-486.8"/>
+<text xml:space="preserve" text-anchor="middle" x="1033.16" y="-463.1" font-family="Arial" font-size="13.00" fill="#152a38">Payment</text>
+</g>
+<!-- attr_Payment.id -->
+<g id="node10" class="node">
+<title>attr_Payment.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="846.36" cy="-418" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="841.3" y="-415.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Payment.method -->
+<g id="node11" class="node">
+<title>attr_Payment.method</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="846.36" cy="-467" rx="42.88" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="846.36" y="-463.1" font-family="Arial" font-size="13.00" fill="#152a38">method</text>
+</g>
+<!-- attr_Payment.paidAt -->
+<g id="node12" class="node">
+<title>attr_Payment.paidAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="846.36" cy="-516" rx="38.28" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="846.36" y="-512.1" font-family="Arial" font-size="13.00" fill="#152a38">paidAt</text>
+</g>
+<!-- attr_Payment.amount -->
+<g id="node13" class="node">
+<title>attr_Payment.amount</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1204.41" cy="-439" rx="42.88" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1204.41" y="-435.1" font-family="Arial" font-size="13.00" fill="#152a38">amount</text>
+</g>
+<!-- attr_Payment.reference -->
+<g id="node14" class="node">
+<title>attr_Payment.reference</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1204.41" cy="-488" rx="51.05" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1204.41" y="-484.1" font-family="Arial" font-size="13.00" fill="#152a38">reference</text>
+</g>
+<!-- ent_School -->
+<g id="node15" class="node">
+<title>ent_School</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="255.4,-144.8 133,-144.8 133,-105.2 255.4,-105.2 255.4,-144.8"/>
+<text xml:space="preserve" text-anchor="middle" x="194.2" y="-121.1" font-family="Arial" font-size="13.00" fill="#152a38">School [external]</text>
+</g>
+<!-- attr_School.id -->
+<g id="node16" class="node">
+<title>attr_School.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="47" cy="-125" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="41.94" y="-122.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- ent_Student -->
+<g id="node17" class="node">
+<title>ent_Student</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="255.4,-59.8 133,-59.8 133,-20.2 255.4,-20.2 255.4,-59.8"/>
+<text xml:space="preserve" text-anchor="middle" x="194.2" y="-36.1" font-family="Arial" font-size="13.00" fill="#152a38">Student [external]</text>
+</g>
+<!-- attr_Student.id -->
+<g id="node18" class="node">
+<title>attr_Student.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="47" cy="-40" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="41.94" y="-37.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- rel_Payment_feeId_fkey -->
+<g id="node19" class="node">
+<title>rel_Payment_feeId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="846.36,-161 788.15,-125 846.36,-89 904.57,-125 846.36,-161"/>
+<text xml:space="preserve" text-anchor="middle" x="846.36" y="-128.6" font-family="Arial" font-size="12.00" fill="#152a38">Pays fee</text>
+<text xml:space="preserve" text-anchor="middle" x="846.36" y="-114.2" font-family="Arial" font-size="12.00" fill="#152a38">[feeId]</text>
+</g>
+<!-- rel_Fee_schoolId_fkey -->
+<g id="node20" class="node">
+<title>rel_Fee_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="426.88,-161 320.63,-125 426.88,-89 533.13,-125 426.88,-161"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-128.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-114.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_Fee_studentId_fkey -->
+<g id="node21" class="node">
+<title>rel_Fee_studentId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="426.88,-76 354.66,-40 426.88,-4 499.1,-40 426.88,-76"/>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-43.6" font-family="Arial" font-size="12.00" fill="#152a38">For student</text>
+<text xml:space="preserve" text-anchor="middle" x="426.88" y="-29.2" font-family="Arial" font-size="12.00" fill="#152a38">[studentId]</text>
+</g>
+</g>
+</g><line x1="50" y1="813" x2="1550" y2="813" stroke="#CED5DA"/><text x="50" y="846" font-family="Arial,sans-serif" font-size="14" fill="#172734" >Rectangle = entity; diamond = relationship; ellipse = attribute; underlined attribute = actual primary key.</text><text x="50" y="871" font-family="Arial,sans-serif" font-size="14" fill="#172734" >1:N / 1:1 are maximum cardinality ratios. Double line = total participation (NOT NULL FK); single line = partial participation.</text><text x="50" y="896" font-family="Arial,sans-serif" font-size="14" fill="#172734" >Associative entities retain their actual surrogate id PK. Grey entities reference another module; no weak or multivalued symbols are invented.</text><text x="50" y="919" font-family="Arial,sans-serif" font-size="13" fill="#172734" >Live catalogue: meridian:5432 | 43 application tables | 441 columns | 67 declared FKs</text></svg>

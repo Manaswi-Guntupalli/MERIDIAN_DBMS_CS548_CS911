@@ -1,0 +1,289 @@
+digraph Chen {
+graph [rankdir=LR, newrank=true, compound=true, splines=polyline, nodesep=0.18, ranksep=0.8, pad=0.4, bgcolor="transparent", outputorder=edgesfirst, fontname="Arial"];
+node [fontname="Arial",fontsize=13,fontcolor="#152A38"];
+edge [fontname="Arial",fontsize=13,fontcolor="#D73232",color="#4A5966",penwidth=0.8,arrowsize=0.6,dir=none];
+subgraph "cluster_attributes_AcademicConfig" { style=invis; margin=12; label="";
+"ent_AcademicConfig" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="AcademicConfig"];
+{rank=same;
+"attr_AcademicConfig.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_AcademicConfig.termsString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="termsString"];
+"attr_AcademicConfig.dayStart" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="dayStart"];
+"attr_AcademicConfig.periodsPerDay" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="periodsPerDay"];
+"attr_AcademicConfig.blockedString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="blockedString"];
+"attr_AcademicConfig.examWeeksString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="examWeeksString"];
+}
+"attr_AcademicConfig.id" -> "ent_AcademicConfig" [color="#929EA7",weight=3];
+"attr_AcademicConfig.termsString" -> "ent_AcademicConfig" [color="#929EA7",weight=3];
+"attr_AcademicConfig.dayStart" -> "ent_AcademicConfig" [color="#929EA7",weight=3];
+"attr_AcademicConfig.periodsPerDay" -> "ent_AcademicConfig" [color="#929EA7",weight=3];
+"attr_AcademicConfig.blockedString" -> "ent_AcademicConfig" [color="#929EA7",weight=3];
+"attr_AcademicConfig.examWeeksString" -> "ent_AcademicConfig" [color="#929EA7",weight=3];
+{rank=same;
+"attr_AcademicConfig.academicYear" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="academicYear"];
+"attr_AcademicConfig.workingDays" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="workingDays"];
+"attr_AcademicConfig.periodMinutes" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="periodMinutes"];
+"attr_AcademicConfig.breaksString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="breaksString"];
+"attr_AcademicConfig.holidaysString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="holidaysString"];
+"attr_AcademicConfig.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"ent_AcademicConfig" -> "attr_AcademicConfig.academicYear" [color="#929EA7",weight=3];
+"ent_AcademicConfig" -> "attr_AcademicConfig.workingDays" [color="#929EA7",weight=3];
+"ent_AcademicConfig" -> "attr_AcademicConfig.periodMinutes" [color="#929EA7",weight=3];
+"ent_AcademicConfig" -> "attr_AcademicConfig.breaksString" [color="#929EA7",weight=3];
+"ent_AcademicConfig" -> "attr_AcademicConfig.holidaysString" [color="#929EA7",weight=3];
+"ent_AcademicConfig" -> "attr_AcademicConfig.updatedAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Class" { style=invis; margin=12; label="";
+"ent_Class" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Class"];
+{rank=same;
+"attr_Class.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Class.section" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="section"];
+"attr_Class.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_Class.id" -> "ent_Class" [color="#929EA7",weight=3];
+"attr_Class.section" -> "ent_Class" [color="#929EA7",weight=3];
+"attr_Class.createdAt" -> "ent_Class" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Class.grade" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="grade"];
+"attr_Class.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+}
+"ent_Class" -> "attr_Class.grade" [color="#929EA7",weight=3];
+"ent_Class" -> "attr_Class.name" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Subject" { style=invis; margin=12; label="";
+"ent_Subject" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Subject"];
+{rank=same;
+"attr_Subject.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Subject.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_Subject.weeklyLoad" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="weeklyLoad"];
+"attr_Subject.cognitiveLoad" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="cognitiveLoad"];
+}
+"attr_Subject.id" -> "ent_Subject" [color="#929EA7",weight=3];
+"attr_Subject.name" -> "ent_Subject" [color="#929EA7",weight=3];
+"attr_Subject.weeklyLoad" -> "ent_Subject" [color="#929EA7",weight=3];
+"attr_Subject.cognitiveLoad" -> "ent_Subject" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Subject.code" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="code"];
+"attr_Subject.color" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="color"];
+"attr_Subject.requiresLab" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="requiresLab"];
+}
+"ent_Subject" -> "attr_Subject.code" [color="#929EA7",weight=3];
+"ent_Subject" -> "attr_Subject.color" [color="#929EA7",weight=3];
+"ent_Subject" -> "attr_Subject.requiresLab" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Building" { style=invis; margin=12; label="";
+"ent_Building" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Building"];
+{rank=same;
+"attr_Building.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Building.floors" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="floors"];
+"attr_Building.y" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="y"];
+}
+"attr_Building.id" -> "ent_Building" [color="#929EA7",weight=3];
+"attr_Building.floors" -> "ent_Building" [color="#929EA7",weight=3];
+"attr_Building.y" -> "ent_Building" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Building.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_Building.x" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="x"];
+}
+"ent_Building" -> "attr_Building.name" [color="#929EA7",weight=3];
+"ent_Building" -> "attr_Building.x" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Room" { style=invis; margin=12; label="";
+"ent_Room" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Room"];
+{rank=same;
+"attr_Room.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Room.type" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="type"];
+"attr_Room.floor" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="floor"];
+"attr_Room.unavailableString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="unavailableString"];
+}
+"attr_Room.id" -> "ent_Room" [color="#929EA7",weight=3];
+"attr_Room.type" -> "ent_Room" [color="#929EA7",weight=3];
+"attr_Room.floor" -> "ent_Room" [color="#929EA7",weight=3];
+"attr_Room.unavailableString" -> "ent_Room" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Room.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_Room.capacity" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="capacity"];
+"attr_Room.hasProjector" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="hasProjector"];
+}
+"ent_Room" -> "attr_Room.name" [color="#929EA7",weight=3];
+"ent_Room" -> "attr_Room.capacity" [color="#929EA7",weight=3];
+"ent_Room" -> "attr_Room.hasProjector" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_ClassSubjectPlan" { style=invis; margin=12; label="";
+"ent_ClassSubjectPlan" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="ClassSubjectPlan\n[associative entity]"];
+{rank=same;
+"attr_ClassSubjectPlan.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_ClassSubjectPlan.requiresLab" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="requiresLab"];
+}
+"attr_ClassSubjectPlan.id" -> "ent_ClassSubjectPlan" [color="#929EA7",weight=3];
+"attr_ClassSubjectPlan.requiresLab" -> "ent_ClassSubjectPlan" [color="#929EA7",weight=3];
+{rank=same;
+"attr_ClassSubjectPlan.weeklyPeriods" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="weeklyPeriods"];
+"attr_ClassSubjectPlan.elective" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="elective"];
+}
+"ent_ClassSubjectPlan" -> "attr_ClassSubjectPlan.weeklyPeriods" [color="#929EA7",weight=3];
+"ent_ClassSubjectPlan" -> "attr_ClassSubjectPlan.elective" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Timetable" { style=invis; margin=12; label="";
+"ent_Timetable" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Timetable"];
+{rank=same;
+"attr_Timetable.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Timetable.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+"attr_Timetable.active" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="active"];
+"attr_Timetable.score" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="score"];
+"attr_Timetable.generatedByName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="generatedByName"];
+"attr_Timetable.approvedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="approvedAt"];
+"attr_Timetable.publishedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="publishedAt"];
+"attr_Timetable.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"attr_Timetable.id" -> "ent_Timetable" [color="#929EA7",weight=3];
+"attr_Timetable.status" -> "ent_Timetable" [color="#929EA7",weight=3];
+"attr_Timetable.active" -> "ent_Timetable" [color="#929EA7",weight=3];
+"attr_Timetable.score" -> "ent_Timetable" [color="#929EA7",weight=3];
+"attr_Timetable.generatedByName" -> "ent_Timetable" [color="#929EA7",weight=3];
+"attr_Timetable.approvedAt" -> "ent_Timetable" [color="#929EA7",weight=3];
+"attr_Timetable.publishedAt" -> "ent_Timetable" [color="#929EA7",weight=3];
+"attr_Timetable.updatedAt" -> "ent_Timetable" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Timetable.name" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="name"];
+"attr_Timetable.version" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="version"];
+"attr_Timetable.solveMs" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="solveMs"];
+"attr_Timetable.healthString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="healthString"];
+"attr_Timetable.approvedByName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="approvedByName"];
+"attr_Timetable.publishedByName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="publishedByName"];
+"attr_Timetable.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_Timetable" -> "attr_Timetable.name" [color="#929EA7",weight=3];
+"ent_Timetable" -> "attr_Timetable.version" [color="#929EA7",weight=3];
+"ent_Timetable" -> "attr_Timetable.solveMs" [color="#929EA7",weight=3];
+"ent_Timetable" -> "attr_Timetable.healthString" [color="#929EA7",weight=3];
+"ent_Timetable" -> "attr_Timetable.approvedByName" [color="#929EA7",weight=3];
+"ent_Timetable" -> "attr_Timetable.publishedByName" [color="#929EA7",weight=3];
+"ent_Timetable" -> "attr_Timetable.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_TimetableSlot" { style=invis; margin=12; label="";
+"ent_TimetableSlot" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="TimetableSlot"];
+{rank=same;
+"attr_TimetableSlot.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_TimetableSlot.period" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="period"];
+"attr_TimetableSlot.explainString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="explainString"];
+}
+"attr_TimetableSlot.id" -> "ent_TimetableSlot" [color="#929EA7",weight=3];
+"attr_TimetableSlot.period" -> "ent_TimetableSlot" [color="#929EA7",weight=3];
+"attr_TimetableSlot.explainString" -> "ent_TimetableSlot" [color="#929EA7",weight=3];
+{rank=same;
+"attr_TimetableSlot.day" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="day"];
+"attr_TimetableSlot.locked" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="locked"];
+}
+"ent_TimetableSlot" -> "attr_TimetableSlot.day" [color="#929EA7",weight=3];
+"ent_TimetableSlot" -> "attr_TimetableSlot.locked" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_StaffAbsence" { style=invis; margin=12; label="";
+"ent_StaffAbsence" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="StaffAbsence"];
+{rank=same;
+"attr_StaffAbsence.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_StaffAbsence.reason" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reason"];
+}
+"attr_StaffAbsence.id" -> "ent_StaffAbsence" [color="#929EA7",weight=3];
+"attr_StaffAbsence.reason" -> "ent_StaffAbsence" [color="#929EA7",weight=3];
+{rank=same;
+"attr_StaffAbsence.date" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="date"];
+"attr_StaffAbsence.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_StaffAbsence" -> "attr_StaffAbsence.date" [color="#929EA7",weight=3];
+"ent_StaffAbsence" -> "attr_StaffAbsence.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Substitution" { style=invis; margin=12; label="";
+"ent_Substitution" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Substitution"];
+{rank=same;
+"attr_Substitution.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Substitution.period" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="period"];
+"attr_Substitution.subjectId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="subjectId"];
+"attr_Substitution.confidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="confidence"];
+"attr_Substitution.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"attr_Substitution.id" -> "ent_Substitution" [color="#929EA7",weight=3];
+"attr_Substitution.period" -> "ent_Substitution" [color="#929EA7",weight=3];
+"attr_Substitution.subjectId" -> "ent_Substitution" [color="#929EA7",weight=3];
+"attr_Substitution.confidence" -> "ent_Substitution" [color="#929EA7",weight=3];
+"attr_Substitution.createdAt" -> "ent_Substitution" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Substitution.day" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="day"];
+"attr_Substitution.classId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="classId"];
+"attr_Substitution.reasonString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="reasonString"];
+"attr_Substitution.accepted" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="accepted"];
+}
+"ent_Substitution" -> "attr_Substitution.day" [color="#929EA7",weight=3];
+"ent_Substitution" -> "attr_Substitution.classId" [color="#929EA7",weight=3];
+"ent_Substitution" -> "attr_Substitution.reasonString" [color="#929EA7",weight=3];
+"ent_Substitution" -> "attr_Substitution.accepted" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_School" { style=invis; margin=12; label="";
+"ent_School" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="School [external]"];
+{rank=same;
+"attr_School.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_School.id" -> "ent_School" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_Teacher" { style=invis; margin=12; label="";
+"ent_Teacher" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="Teacher [external]"];
+{rank=same;
+"attr_Teacher.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_Teacher.id" -> "ent_Teacher" [color="#929EA7",weight=3];
+}
+"rel_Room_buildingId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Located in\n[buildingId]"];
+"ent_Building" -> "rel_Room_buildingId_fkey" [id="Room_buildingId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Room_buildingId_fkey" -> "ent_Room" [id="Room_buildingId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_ClassSubjectPlan_classId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned to class\n[classId]"];
+"ent_Class" -> "rel_ClassSubjectPlan_classId_fkey" [id="ClassSubjectPlan_classId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_ClassSubjectPlan_classId_fkey" -> "ent_ClassSubjectPlan" [id="ClassSubjectPlan_classId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_TimetableSlot_classId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned to class\n[classId]"];
+"ent_Class" -> "rel_TimetableSlot_classId_fkey" [id="TimetableSlot_classId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_TimetableSlot_classId_fkey" -> "ent_TimetableSlot" [id="TimetableSlot_classId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Class_roomId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Uses room\n[roomId]"];
+"ent_Room" -> "rel_Class_roomId_fkey" [id="Class_roomId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Class_roomId_fkey" -> "ent_Class" [id="Class_roomId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_TimetableSlot_roomId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Uses room\n[roomId]"];
+"ent_Room" -> "rel_TimetableSlot_roomId_fkey" [id="TimetableSlot_roomId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_TimetableSlot_roomId_fkey" -> "ent_TimetableSlot" [id="TimetableSlot_roomId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_AcademicConfig_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_AcademicConfig_schoolId_fkey" [id="AcademicConfig_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_AcademicConfig_schoolId_fkey" -> "ent_AcademicConfig" [id="AcademicConfig_schoolId_fkey_child",label="1",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Building_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Building_schoolId_fkey" [id="Building_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Building_schoolId_fkey" -> "ent_Building" [id="Building_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Class_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Class_schoolId_fkey" [id="Class_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Class_schoolId_fkey" -> "ent_Class" [id="Class_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Subject_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Subject_schoolId_fkey" [id="Subject_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Subject_schoolId_fkey" -> "ent_Subject" [id="Subject_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Timetable_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Timetable_schoolId_fkey" [id="Timetable_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Timetable_schoolId_fkey" -> "ent_Timetable" [id="Timetable_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Substitution_absenceId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Covers absence\n[absenceId]"];
+"ent_StaffAbsence" -> "rel_Substitution_absenceId_fkey" [id="Substitution_absenceId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Substitution_absenceId_fkey" -> "ent_Substitution" [id="Substitution_absenceId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_ClassSubjectPlan_subjectId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Covers subject\n[subjectId]"];
+"ent_Subject" -> "rel_ClassSubjectPlan_subjectId_fkey" [id="ClassSubjectPlan_subjectId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_ClassSubjectPlan_subjectId_fkey" -> "ent_ClassSubjectPlan" [id="ClassSubjectPlan_subjectId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_TimetableSlot_subjectId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Covers subject\n[subjectId]"];
+"ent_Subject" -> "rel_TimetableSlot_subjectId_fkey" [id="TimetableSlot_subjectId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_TimetableSlot_subjectId_fkey" -> "ent_TimetableSlot" [id="TimetableSlot_subjectId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Class_classTeacherId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Class teacher\n[classTeacherId]"];
+"ent_Teacher" -> "rel_Class_classTeacherId_fkey" [id="Class_classTeacherId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Class_classTeacherId_fkey" -> "ent_Class" [id="Class_classTeacherId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966"];
+"rel_StaffAbsence_teacherId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned teacher\n[teacherId]"];
+"ent_Teacher" -> "rel_StaffAbsence_teacherId_fkey" [id="StaffAbsence_teacherId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_StaffAbsence_teacherId_fkey" -> "ent_StaffAbsence" [id="StaffAbsence_teacherId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Substitution_subTeacherId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Substitute teacher\n[subTeacherId]"];
+"ent_Teacher" -> "rel_Substitution_subTeacherId_fkey" [id="Substitution_subTeacherId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Substitution_subTeacherId_fkey" -> "ent_Substitution" [id="Substitution_subTeacherId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_TimetableSlot_teacherId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Assigned teacher\n[teacherId]"];
+"ent_Teacher" -> "rel_TimetableSlot_teacherId_fkey" [id="TimetableSlot_teacherId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_TimetableSlot_teacherId_fkey" -> "ent_TimetableSlot" [id="TimetableSlot_teacherId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_TimetableSlot_timetableId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Part of timetable\n[timetableId]"];
+"ent_Timetable" -> "rel_TimetableSlot_timetableId_fkey" [id="TimetableSlot_timetableId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_TimetableSlot_timetableId_fkey" -> "ent_TimetableSlot" [id="TimetableSlot_timetableId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+}

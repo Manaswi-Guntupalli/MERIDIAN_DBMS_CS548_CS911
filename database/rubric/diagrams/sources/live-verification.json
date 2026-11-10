@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-11-10T10:13:24.016Z",
+  "sourceSnapshot": "2026-11-10T08:47:28.892Z",
+  "schemaHash": "5e27ca5cc89a5327c548af2a420ffa04d822beb2a4e0579ca40a70fba18d9f66",
+  "database": "meridian",
+  "port": 5432,
+  "readOnly": true,
+  "passed": 10,
+  "checks": [
+    "Connected to the website meridian:5432 database in a READ ONLY transaction",
+    "All 43 application tables and 441 column names, types, defaults and nullable flags match the live catalogue",
+    "All primary, foreign and CHECK constraint definitions match the live database",
+    "All unique indexes and partial predicates match, including one active published timetable per school",
+    "All 67 FK endpoints, delete/update actions and cardinalities match the live catalogue",
+    "Four genuine 1:1 profile/configuration links are distinguished from the partial timetable uniqueness rule",
+    "Both M:N associative entities retain the real id PK and the actual composite unique pair",
+    "Vector storage, polymorphic/audit identifiers and undeclared logical references are represented without invented FKs",
+    "Current Mermaid timetable cardinality is correct and obsolete archived mappings are absent",
+    "Complete and module diagrams cover every real table and FK exactly once in each notation"
+  ]
+}

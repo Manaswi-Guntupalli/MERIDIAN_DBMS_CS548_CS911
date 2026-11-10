@@ -1,0 +1,184 @@
+digraph Chen {
+graph [rankdir=LR, newrank=true, compound=true, splines=polyline, nodesep=0.18, ranksep=0.8, pad=0.4, bgcolor="transparent", outputorder=edgesfirst, fontname="Arial"];
+node [fontname="Arial",fontsize=13,fontcolor="#152A38"];
+edge [fontname="Arial",fontsize=13,fontcolor="#D73232",color="#4A5966",penwidth=0.8,arrowsize=0.6,dir=none];
+subgraph "cluster_attributes_Document" { style=invis; margin=12; label="";
+"ent_Document" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="Document"];
+{rank=same;
+"attr_Document.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_Document.typeConfidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="typeConfidence"];
+"attr_Document.mimeType" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="mimeType"];
+"attr_Document.pageCount" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="pageCount"];
+"attr_Document.overallConfidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="overallConfidence"];
+"attr_Document.pipelineString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="pipelineString"];
+"attr_Document.errorMessage" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="errorMessage"];
+"attr_Document.correctionCount" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="correctionCount"];
+"attr_Document.committedKind" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="committedKind"];
+"attr_Document.uploadedById" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="uploadedById"];
+"attr_Document.updatedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="updatedAt"];
+}
+"attr_Document.id" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.typeConfidence" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.mimeType" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.pageCount" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.overallConfidence" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.pipelineString" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.errorMessage" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.correctionCount" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.committedKind" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.uploadedById" -> "ent_Document" [color="#929EA7",weight=3];
+"attr_Document.updatedAt" -> "ent_Document" [color="#929EA7",weight=3];
+{rank=same;
+"attr_Document.type" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="type"];
+"attr_Document.fileName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="fileName"];
+"attr_Document.sizeBytes" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="sizeBytes"];
+"attr_Document.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+"attr_Document.processingMs" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="processingMs"];
+"attr_Document.rawText" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="rawText"];
+"attr_Document.batchId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="batchId"];
+"attr_Document.committedAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="committedAt"];
+"attr_Document.committedRefId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="committedRefId"];
+"attr_Document.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_Document" -> "attr_Document.type" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.fileName" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.sizeBytes" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.status" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.processingMs" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.rawText" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.batchId" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.committedAt" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.committedRefId" [color="#929EA7",weight=3];
+"ent_Document" -> "attr_Document.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_DocumentPage" { style=invis; margin=12; label="";
+"ent_DocumentPage" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="DocumentPage"];
+{rank=same;
+"attr_DocumentPage.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_DocumentPage.width" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="width"];
+"attr_DocumentPage.source" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="source"];
+"attr_DocumentPage.skewDeg" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="skewDeg"];
+"attr_DocumentPage.quality" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="quality"];
+}
+"attr_DocumentPage.id" -> "ent_DocumentPage" [color="#929EA7",weight=3];
+"attr_DocumentPage.width" -> "ent_DocumentPage" [color="#929EA7",weight=3];
+"attr_DocumentPage.source" -> "ent_DocumentPage" [color="#929EA7",weight=3];
+"attr_DocumentPage.skewDeg" -> "ent_DocumentPage" [color="#929EA7",weight=3];
+"attr_DocumentPage.quality" -> "ent_DocumentPage" [color="#929EA7",weight=3];
+{rank=same;
+"attr_DocumentPage.index" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="index"];
+"attr_DocumentPage.height" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="height"];
+"attr_DocumentPage.rotation" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="rotation"];
+"attr_DocumentPage.ocrConfidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="ocrConfidence"];
+"attr_DocumentPage.wordsString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="wordsString"];
+}
+"ent_DocumentPage" -> "attr_DocumentPage.index" [color="#929EA7",weight=3];
+"ent_DocumentPage" -> "attr_DocumentPage.height" [color="#929EA7",weight=3];
+"ent_DocumentPage" -> "attr_DocumentPage.rotation" [color="#929EA7",weight=3];
+"ent_DocumentPage" -> "attr_DocumentPage.ocrConfidence" [color="#929EA7",weight=3];
+"ent_DocumentPage" -> "attr_DocumentPage.wordsString" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_ExtractedField" { style=invis; margin=12; label="";
+"ent_ExtractedField" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="ExtractedField"];
+{rank=same;
+"attr_ExtractedField.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_ExtractedField.label" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="label"];
+"attr_ExtractedField.rawValue" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="rawValue"];
+"attr_ExtractedField.ocrConfidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="ocrConfidence"];
+"attr_ExtractedField.cropX" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="cropX"];
+"attr_ExtractedField.cropW" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="cropW"];
+"attr_ExtractedField.status" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="status"];
+"attr_ExtractedField.valid" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="valid"];
+"attr_ExtractedField.corrected" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="corrected"];
+}
+"attr_ExtractedField.id" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.label" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.rawValue" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.ocrConfidence" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.cropX" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.cropW" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.status" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.valid" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+"attr_ExtractedField.corrected" -> "ent_ExtractedField" [color="#929EA7",weight=3];
+{rank=same;
+"attr_ExtractedField.key" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="key"];
+"attr_ExtractedField.value" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="value"];
+"attr_ExtractedField.confidence" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="confidence"];
+"attr_ExtractedField.page" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="page"];
+"attr_ExtractedField.cropY" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="cropY"];
+"attr_ExtractedField.cropH" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="cropH"];
+"attr_ExtractedField.source" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="source"];
+"attr_ExtractedField.validationMessage" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="validationMessage"];
+"attr_ExtractedField.required" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="required"];
+}
+"ent_ExtractedField" -> "attr_ExtractedField.key" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.value" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.confidence" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.page" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.cropY" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.cropH" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.source" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.validationMessage" [color="#929EA7",weight=3];
+"ent_ExtractedField" -> "attr_ExtractedField.required" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_DocumentInsight" { style=invis; margin=12; label="";
+"ent_DocumentInsight" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="DocumentInsight"];
+{rank=same;
+"attr_DocumentInsight.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_DocumentInsight.severity" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="severity"];
+"attr_DocumentInsight.detailString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="detailString"];
+}
+"attr_DocumentInsight.id" -> "ent_DocumentInsight" [color="#929EA7",weight=3];
+"attr_DocumentInsight.severity" -> "ent_DocumentInsight" [color="#929EA7",weight=3];
+"attr_DocumentInsight.detailString" -> "ent_DocumentInsight" [color="#929EA7",weight=3];
+{rank=same;
+"attr_DocumentInsight.kind" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="kind"];
+"attr_DocumentInsight.message" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="message"];
+"attr_DocumentInsight.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_DocumentInsight" -> "attr_DocumentInsight.kind" [color="#929EA7",weight=3];
+"ent_DocumentInsight" -> "attr_DocumentInsight.message" [color="#929EA7",weight=3];
+"ent_DocumentInsight" -> "attr_DocumentInsight.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_DocumentActivity" { style=invis; margin=12; label="";
+"ent_DocumentActivity" [shape=box,style=filled,fillcolor="#DDE9FF",color="#3B72FF",penwidth=1.2,width=1.7,height=0.55,label="DocumentActivity"];
+{rank=same;
+"attr_DocumentActivity.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+"attr_DocumentActivity.actorId" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="actorId"];
+"attr_DocumentActivity.detailString" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="detailString"];
+}
+"attr_DocumentActivity.id" -> "ent_DocumentActivity" [color="#929EA7",weight=3];
+"attr_DocumentActivity.actorId" -> "ent_DocumentActivity" [color="#929EA7",weight=3];
+"attr_DocumentActivity.detailString" -> "ent_DocumentActivity" [color="#929EA7",weight=3];
+{rank=same;
+"attr_DocumentActivity.kind" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="kind"];
+"attr_DocumentActivity.actorName" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="actorName"];
+"attr_DocumentActivity.createdAt" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label="createdAt"];
+}
+"ent_DocumentActivity" -> "attr_DocumentActivity.kind" [color="#929EA7",weight=3];
+"ent_DocumentActivity" -> "attr_DocumentActivity.actorName" [color="#929EA7",weight=3];
+"ent_DocumentActivity" -> "attr_DocumentActivity.createdAt" [color="#929EA7",weight=3];
+}
+subgraph "cluster_attributes_School" { style=invis; margin=12; label="";
+"ent_School" [shape=box,style=filled,fillcolor="#EDF0F2",color="#8C9AA7",penwidth=1.2,width=1.7,height=0.55,label="School [external]"];
+{rank=same;
+"attr_School.id" [shape=ellipse,style=filled,fillcolor="#F1FCF8",color="#0C9C7B",penwidth=0.85,margin="0.12,0.07",label=<<U>id</U>>];
+}
+"attr_School.id" -> "ent_School" [color="#929EA7",weight=3];
+}
+"rel_DocumentActivity_documentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Part of document\n[documentId]"];
+"ent_Document" -> "rel_DocumentActivity_documentId_fkey" [id="DocumentActivity_documentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_DocumentActivity_documentId_fkey" -> "ent_DocumentActivity" [id="DocumentActivity_documentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_DocumentInsight_documentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Part of document\n[documentId]"];
+"ent_Document" -> "rel_DocumentInsight_documentId_fkey" [id="DocumentInsight_documentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_DocumentInsight_documentId_fkey" -> "ent_DocumentInsight" [id="DocumentInsight_documentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_DocumentPage_documentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Part of document\n[documentId]"];
+"ent_Document" -> "rel_DocumentPage_documentId_fkey" [id="DocumentPage_documentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_DocumentPage_documentId_fkey" -> "ent_DocumentPage" [id="DocumentPage_documentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_ExtractedField_documentId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Part of document\n[documentId]"];
+"ent_Document" -> "rel_ExtractedField_documentId_fkey" [id="ExtractedField_documentId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_ExtractedField_documentId_fkey" -> "ent_ExtractedField" [id="ExtractedField_documentId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+"rel_Document_schoolId_fkey" [shape=diamond,style=filled,fillcolor="#FFF2DB",color="#F47B20",penwidth=1.1,fontsize=12,margin="0.08,0.05",label="Belongs to school\n[schoolId]"];
+"ent_School" -> "rel_Document_schoolId_fkey" [id="Document_schoolId_fkey_parent",label="1",minlen=1,weight=2];
+"rel_Document_schoolId_fkey" -> "ent_Document" [id="Document_schoolId_fkey_child",label="N",minlen=1,weight=2,color="#4A5966:#4A5966"];
+}

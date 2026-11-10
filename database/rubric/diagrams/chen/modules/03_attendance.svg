@@ -1,0 +1,1192 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2038" height="3215" viewBox="0 0 2038 3215"><rect width="2038" height="3215" fill="#FCFBF8"/><text x="50" y="42" font-family="Arial,sans-serif" font-size="18" fill="#172734" font-weight="700" letter-spacing="2">MERIDIAN  /  DBMS DESIGN</text><text x="50" y="96" font-family="Arial,sans-serif" font-size="34" fill="#172734" font-weight="700">Chen ER / Attendance and biometrics</text><text x="50" y="130" font-family="Arial,sans-serif" font-size="16" fill="#172734" >7 entities; 14 relationship diamonds. Ovals show non-FK attributes; FK columns are represented by relationships.</text><g transform="translate(50,166)">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(28.8 2855.8)">
+<title>Chen</title>
+<g id="clust1" class="cluster">
+<title>cluster_attributes_Attendance</title>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_attributes_AttendanceSession</title>
+</g>
+<g id="clust7" class="cluster">
+<title>cluster_attributes_AttendanceVerification</title>
+</g>
+<g id="clust10" class="cluster">
+<title>cluster_attributes_AttendanceEvent</title>
+</g>
+<g id="clust13" class="cluster">
+<title>cluster_attributes_FaceEnrollment</title>
+</g>
+<g id="clust16" class="cluster">
+<title>cluster_attributes_FaceEvent</title>
+</g>
+<g id="clust19" class="cluster">
+<title>cluster_attributes_FaceEmbedding</title>
+</g>
+<g id="clust22" class="cluster">
+<title>cluster_attributes_Class</title>
+</g>
+<g id="clust24" class="cluster">
+<title>cluster_attributes_School</title>
+</g>
+<g id="clust26" class="cluster">
+<title>cluster_attributes_Student</title>
+</g>
+<g id="clust28" class="cluster">
+<title>cluster_attributes_Subject</title>
+</g>
+<g id="clust30" class="cluster">
+<title>cluster_attributes_Teacher</title>
+</g>
+<!-- ent_Attendance&#45;&gt;attr_Attendance.date -->
+<g id="edge5" class="edge">
+<title>ent_Attendance&#45;&gt;attr_Attendance.date</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M910.46,-2358.76C1006.59,-2369.46 1190.11,-2389.88 1261.02,-2397.78"/>
+</g>
+<!-- ent_Attendance&#45;&gt;attr_Attendance.source -->
+<g id="edge6" class="edge">
+<title>ent_Attendance&#45;&gt;attr_Attendance.source</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M910.46,-2345.24C1002.7,-2334.97 1175.39,-2315.75 1251.86,-2307.24"/>
+</g>
+<!-- ent_Attendance&#45;&gt;attr_Attendance.markedById -->
+<g id="edge7" class="edge">
+<title>ent_Attendance&#45;&gt;attr_Attendance.markedById</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M910.46,-2352C994.56,-2352 1145.54,-2352 1229.5,-2352"/>
+</g>
+<!-- attr_Attendance.id&#45;&gt;ent_Attendance -->
+<g id="edge1" class="edge">
+<title>attr_Attendance.id&#45;&gt;ent_Attendance</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M502.78,-2397.59C561.15,-2389.88 704.75,-2370.9 787.09,-2360.01"/>
+</g>
+<!-- attr_Attendance.status&#45;&gt;ent_Attendance -->
+<g id="edge2" class="edge">
+<title>attr_Attendance.status&#45;&gt;ent_Attendance</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M509.73,-2442.54C540.63,-2435.49 582.26,-2426 582.26,-2426 582.26,-2426 755.69,-2378 755.69,-2378 755.69,-2378 769.87,-2373.99 787.1,-2369.12"/>
+</g>
+<!-- attr_Attendance.confidence&#45;&gt;ent_Attendance -->
+<g id="edge3" class="edge">
+<title>attr_Attendance.confidence&#45;&gt;ent_Attendance</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M528.94,-2309.86C596.79,-2318.83 715.37,-2334.51 787.21,-2344"/>
+</g>
+<!-- attr_Attendance.timestamp&#45;&gt;ent_Attendance -->
+<g id="edge4" class="edge">
+<title>attr_Attendance.timestamp&#45;&gt;ent_Attendance</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M530.91,-2352C598.98,-2352 715.79,-2352 786.96,-2352"/>
+</g>
+<!-- ent_AttendanceSession&#45;&gt;attr_AttendanceSession.date -->
+<g id="edge13" class="edge">
+<title>ent_AttendanceSession&#45;&gt;attr_AttendanceSession.date</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M913.25,-1712.03C1009.94,-1716.64 1190.17,-1725.24 1260.66,-1728.6"/>
+</g>
+<!-- ent_AttendanceSession&#45;&gt;attr_AttendanceSession.startTime -->
+<g id="edge14" class="edge">
+<title>ent_AttendanceSession&#45;&gt;attr_AttendanceSession.startTime</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M913.25,-1719.1C1003.15,-1733.4 1165.28,-1759.17 1244.26,-1771.73"/>
+</g>
+<!-- ent_AttendanceSession&#45;&gt;attr_AttendanceSession.closedAt -->
+<g id="edge15" class="edge">
+<title>ent_AttendanceSession&#45;&gt;attr_AttendanceSession.closedAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M913.11,-1693.84C929.04,-1690.03 941.71,-1687 941.71,-1687 941.71,-1687 1153.22,-1653.6 1246.58,-1638.85"/>
+</g>
+<!-- ent_AttendanceSession&#45;&gt;attr_AttendanceSession.createdBy -->
+<g id="edge16" class="edge">
+<title>ent_AttendanceSession&#45;&gt;attr_AttendanceSession.createdBy</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M913.25,-1704.96C1000.89,-1699.39 1157.17,-1689.45 1238.14,-1684.3"/>
+</g>
+<!-- ent_AttendanceSession&#45;&gt;rel_AttendanceEvent_sessionId_fkey -->
+<g id="AttendanceEvent_sessionId_fkey_parent" class="edge">
+<title>ent_AttendanceSession&#45;&gt;rel_AttendanceEvent_sessionId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M864.35,-1688.77C927.25,-1601.91 1171.21,-1265 1171.21,-1265 1171.21,-1265 1215.6,-1248.18 1250.1,-1235.11"/>
+<text xml:space="preserve" text-anchor="middle" x="1047.96" y="-1581.7" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_AttendanceSession&#45;&gt;rel_AttendanceVerification_sessionId_fkey -->
+<g id="AttendanceVerification_sessionId_fkey_parent" class="edge">
+<title>ent_AttendanceSession&#45;&gt;rel_AttendanceVerification_sessionId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M853.96,-1688.73C872.05,-1602.47 941.71,-1270.4 941.71,-1270.4 941.71,-1270.4 1171.21,-1178 1171.21,-1178 1171.21,-1178 1215.03,-1162.13 1249.44,-1149.68"/>
+<text xml:space="preserve" text-anchor="middle" x="1047.96" y="-1274.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_AttendanceSession.id&#45;&gt;ent_AttendanceSession -->
+<g id="edge8" class="edge">
+<title>attr_AttendanceSession.id&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M501.95,-1616.69C533.07,-1623.78 582.26,-1635 582.26,-1635 582.26,-1635 755.69,-1676 755.69,-1676 755.69,-1676 772.07,-1681.87 791,-1688.66"/>
+</g>
+<!-- attr_AttendanceSession.status&#45;&gt;ent_AttendanceSession -->
+<g id="edge9" class="edge">
+<title>attr_AttendanceSession.status&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M511.88,-1664.61C574.24,-1672.85 705.68,-1690.23 784.36,-1700.63"/>
+</g>
+<!-- attr_AttendanceSession.expiryTime&#45;&gt;ent_AttendanceSession -->
+<g id="edge10" class="edge">
+<title>attr_AttendanceSession.expiryTime&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M533.31,-1709C600.86,-1709 713.8,-1709 784.34,-1709"/>
+</g>
+<!-- attr_AttendanceSession.sessionToken&#45;&gt;ent_AttendanceSession -->
+<g id="edge11" class="edge">
+<title>attr_AttendanceSession.sessionToken&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M538.22,-1749.91C606.18,-1740.92 715.36,-1726.49 784.22,-1717.39"/>
+</g>
+<!-- attr_AttendanceSession.verificationMode&#45;&gt;ent_AttendanceSession -->
+<g id="edge12" class="edge">
+<title>attr_AttendanceSession.verificationMode&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M533.33,-1794.16C558.35,-1788.45 582.26,-1783 582.26,-1783 582.26,-1783 755.69,-1735 755.69,-1735 755.69,-1735 768.36,-1731.42 784.3,-1726.92"/>
+</g>
+<!-- ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.state -->
+<g id="edge24" class="edge">
+<title>ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.state</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1612.76,-607.16C1654.4,-598.07 1704.4,-587.16 1735.36,-580.4"/>
+</g>
+<!-- ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.faceVerifiedAt -->
+<g id="edge25" class="edge">
+<title>ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.faceVerifiedAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1612.76,-623C1639.54,-623 1669.77,-623 1696.18,-623"/>
+</g>
+<!-- ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.faceDistance -->
+<g id="edge26" class="edge">
+<title>ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.faceDistance</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1612.76,-638.84C1645.56,-646 1683.54,-654.29 1713.33,-660.79"/>
+</g>
+<!-- ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.markedPresentAt -->
+<g id="edge27" class="edge">
+<title>ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.markedPresentAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1575.99,-643.22C1614.79,-665.13 1671.22,-697 1671.22,-697 1671.22,-697 1689.92,-701.8 1710.59,-707.11"/>
+</g>
+<!-- ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.proxyMatchedName -->
+<g id="edge28" class="edge">
+<title>ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.proxyMatchedName</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1561.82,-602.69C1599.04,-567.75 1671.22,-500 1671.22,-500 1671.22,-500 1688.17,-495.65 1707.63,-490.65"/>
+</g>
+<!-- ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.updatedAt -->
+<g id="edge29" class="edge">
+<title>ent_AttendanceVerification&#45;&gt;attr_AttendanceVerification.updatedAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1575.99,-602.78C1614.79,-580.87 1671.22,-549 1671.22,-549 1671.22,-549 1697.22,-542.33 1721.79,-536.02"/>
+</g>
+<!-- attr_AttendanceVerification.id&#45;&gt;ent_AttendanceVerification -->
+<g id="edge17" class="edge">
+<title>attr_AttendanceVerification.id&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1317.01,-715.37C1348.57,-708.28 1398.75,-697 1398.75,-697 1398.75,-697 1458.8,-665.13 1500.08,-643.22"/>
+</g>
+<!-- attr_AttendanceVerification.qrVerifiedAt&#45;&gt;ent_AttendanceVerification -->
+<g id="edge18" class="edge">
+<title>attr_AttendanceVerification.qrVerifiedAt&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1340.06,-437.81C1368.4,-444.18 1398.75,-451 1398.75,-451 1398.75,-451 1485.13,-557.56 1521.91,-602.93"/>
+</g>
+<!-- attr_AttendanceVerification.faceConfidence&#45;&gt;ent_AttendanceVerification -->
+<g id="edge19" class="edge">
+<title>attr_AttendanceVerification.faceConfidence&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1347.55,-488.49C1373.5,-494.32 1398.75,-500 1398.75,-500 1398.75,-500 1475.55,-567.75 1515.16,-602.69"/>
+</g>
+<!-- attr_AttendanceVerification.threshold&#45;&gt;ent_AttendanceVerification -->
+<g id="edge20" class="edge">
+<title>attr_AttendanceVerification.threshold&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1334.18,-534.49C1364.02,-541.19 1398.75,-549 1398.75,-549 1398.75,-549 1458.8,-580.87 1500.08,-602.78"/>
+</g>
+<!-- attr_AttendanceVerification.proxyClaimedStudentId&#45;&gt;ent_AttendanceVerification -->
+<g id="edge21" class="edge">
+<title>attr_AttendanceVerification.proxyClaimedStudentId&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1362.2,-587.98C1394.61,-594.43 1433.05,-602.08 1465.72,-608.58"/>
+</g>
+<!-- attr_AttendanceVerification.reason&#45;&gt;ent_AttendanceVerification -->
+<g id="edge22" class="edge">
+<title>attr_AttendanceVerification.reason&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1331.54,-623C1367.69,-623 1422.06,-623 1465.95,-623"/>
+</g>
+<!-- attr_AttendanceVerification.createdAt&#45;&gt;ent_AttendanceVerification -->
+<g id="edge23" class="edge">
+<title>attr_AttendanceVerification.createdAt&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1336.57,-663.13C1372.59,-655.96 1424.02,-645.72 1465.92,-637.38"/>
+</g>
+<!-- ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.verificationId -->
+<g id="edge36" class="edge">
+<title>ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.verificationId</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1600.94,-1396C1632.1,-1396 1670.03,-1396 1701.54,-1396"/>
+</g>
+<!-- ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.timestamp -->
+<g id="edge37" class="edge">
+<title>ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.timestamp</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1600.94,-1409.26C1638.21,-1417.39 1685.15,-1427.64 1719.21,-1435.07"/>
+</g>
+<!-- ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.verificationStatus -->
+<g id="edge38" class="edge">
+<title>ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.verificationStatus</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1575.99,-1416.22C1614.79,-1438.13 1671.22,-1470 1671.22,-1470 1671.22,-1470 1690.08,-1474.84 1710.86,-1480.18"/>
+</g>
+<!-- ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.faceDistance -->
+<g id="edge39" class="edge">
+<title>ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.faceDistance</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1561.82,-1416.31C1599.04,-1451.25 1671.22,-1519 1671.22,-1519 1671.22,-1519 1693.69,-1524.77 1716.59,-1530.65"/>
+</g>
+<!-- ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.lateMinutes -->
+<g id="edge40" class="edge">
+<title>ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.lateMinutes</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1575.99,-1375.78C1614.79,-1353.87 1671.22,-1322 1671.22,-1322 1671.22,-1322 1695.51,-1315.76 1719.33,-1309.65"/>
+</g>
+<!-- ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.notes -->
+<g id="edge41" class="edge">
+<title>ent_AttendanceEvent&#45;&gt;attr_AttendanceEvent.notes</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1600.94,-1382.74C1643.66,-1373.42 1699.1,-1361.32 1733.26,-1353.86"/>
+</g>
+<!-- attr_AttendanceEvent.id&#45;&gt;ent_AttendanceEvent -->
+<g id="edge30" class="edge">
+<title>attr_AttendanceEvent.id&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1317.01,-1488.37C1348.57,-1481.28 1398.75,-1470 1398.75,-1470 1398.75,-1470 1458.8,-1438.13 1500.08,-1416.22"/>
+</g>
+<!-- attr_AttendanceEvent.source&#45;&gt;ent_AttendanceEvent -->
+<g id="edge31" class="edge">
+<title>attr_AttendanceEvent.source&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1327.24,-1535.07C1358.34,-1528.08 1398.75,-1519 1398.75,-1519 1398.75,-1519 1475.55,-1451.25 1515.16,-1416.31"/>
+</g>
+<!-- attr_AttendanceEvent.direction&#45;&gt;ent_AttendanceEvent -->
+<g id="edge32" class="edge">
+<title>attr_AttendanceEvent.direction&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1332.04,-1307C1362.34,-1313.82 1398.75,-1322 1398.75,-1322 1398.75,-1322 1458.8,-1353.87 1500.08,-1375.78"/>
+</g>
+<!-- attr_AttendanceEvent.faceConfidence&#45;&gt;ent_AttendanceEvent -->
+<g id="edge33" class="edge">
+<title>attr_AttendanceEvent.faceConfidence&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1350.33,-1358.61C1388.72,-1366.25 1438.86,-1376.23 1477.68,-1383.96"/>
+</g>
+<!-- attr_AttendanceEvent.late&#45;&gt;ent_AttendanceEvent -->
+<g id="edge34" class="edge">
+<title>attr_AttendanceEvent.late&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1318.33,-1396C1356.04,-1396 1426.47,-1396 1477.48,-1396"/>
+</g>
+<!-- attr_AttendanceEvent.createdBy&#45;&gt;ent_AttendanceEvent -->
+<g id="edge35" class="edge">
+<title>attr_AttendanceEvent.createdBy&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1337.71,-1435.9C1377.21,-1428.04 1434.57,-1416.62 1477.82,-1408.01"/>
+</g>
+<!-- ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.subjectType -->
+<g id="edge47" class="edge">
+<title>ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.subjectType</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M910.46,-844.76C995.62,-854.24 1149.36,-871.35 1232.64,-880.62"/>
+</g>
+<!-- ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.name -->
+<g id="edge48" class="edge">
+<title>ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.name</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M910.31,-855.12C927.53,-859.99 941.71,-864 941.71,-864 941.71,-864 1171.21,-912 1171.21,-912 1171.21,-912 1222.67,-922.4 1257.84,-929.51"/>
+</g>
+<!-- ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.consentAt -->
+<g id="edge49" class="edge">
+<title>ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.consentAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M910.46,-831.24C998.21,-821.47 1158.8,-803.6 1240.05,-794.56"/>
+</g>
+<!-- ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.createdAt -->
+<g id="edge50" class="edge">
+<title>ent_FaceEnrollment&#45;&gt;attr_FaceEnrollment.createdAt</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M910.46,-838C997.86,-838 1157.5,-838 1239.07,-838"/>
+</g>
+<!-- ent_FaceEnrollment&#45;&gt;rel_FaceEmbedding_enrollmentId_fkey -->
+<g id="FaceEmbedding_enrollmentId_fkey_parent" class="edge">
+<title>ent_FaceEnrollment&#45;&gt;rel_FaceEmbedding_enrollmentId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M858.3,-817.75C909.43,-697.37 1171.21,-81 1171.21,-81 1171.21,-81 1209.05,-66.66 1242.02,-54.17"/>
+<text xml:space="preserve" text-anchor="middle" x="1047.96" y="-618.22" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_FaceEnrollment.id&#45;&gt;ent_FaceEnrollment -->
+<g id="edge42" class="edge">
+<title>attr_FaceEnrollment.id&#45;&gt;ent_FaceEnrollment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M502.78,-792.41C561.15,-800.12 704.75,-819.1 787.09,-829.99"/>
+</g>
+<!-- attr_FaceEnrollment.subjectId&#45;&gt;ent_FaceEnrollment -->
+<g id="edge43" class="edge">
+<title>attr_FaceEnrollment.subjectId&#45;&gt;ent_FaceEnrollment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M525.09,-838C592.19,-838 713.88,-838 787.1,-838"/>
+</g>
+<!-- attr_FaceEnrollment.model&#45;&gt;ent_FaceEnrollment -->
+<g id="edge44" class="edge">
+<title>attr_FaceEnrollment.model&#45;&gt;ent_FaceEnrollment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M512.22,-882.35C575.47,-873.98 709.02,-856.33 787.19,-846"/>
+</g>
+<!-- attr_FaceEnrollment.consentBy&#45;&gt;ent_FaceEnrollment -->
+<g id="edge45" class="edge">
+<title>attr_FaceEnrollment.consentBy&#45;&gt;ent_FaceEnrollment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M521.95,-925.75C550.55,-919.23 582.26,-912 582.26,-912 582.26,-912 755.69,-864 755.69,-864 755.69,-864 769.87,-859.99 787.1,-855.12"/>
+</g>
+<!-- attr_FaceEnrollment.updatedAt&#45;&gt;ent_FaceEnrollment -->
+<g id="edge46" class="edge">
+<title>attr_FaceEnrollment.updatedAt&#45;&gt;ent_FaceEnrollment</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M521.64,-974.82C550.33,-968.28 582.26,-961 582.26,-961 582.26,-961 755.69,-888 755.69,-888 755.69,-888 784.8,-872.18 810.28,-858.34"/>
+</g>
+<!-- ent_FaceEvent&#45;&gt;attr_FaceEvent.schoolId -->
+<g id="edge55" class="edge">
+<title>ent_FaceEvent&#45;&gt;attr_FaceEvent.schoolId</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M304.94,-2727.87C345.92,-2736.58 398.9,-2747.83 434.76,-2755.45"/>
+</g>
+<!-- ent_FaceEvent&#45;&gt;attr_FaceEvent.confidence -->
+<g id="edge56" class="edge">
+<title>ent_FaceEvent&#45;&gt;attr_FaceEvent.confidence</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M304.94,-2702.13C343.38,-2693.96 392.39,-2683.55 427.91,-2676"/>
+</g>
+<!-- ent_FaceEvent&#45;&gt;attr_FaceEvent.note -->
+<g id="edge57" class="edge">
+<title>ent_FaceEvent&#45;&gt;attr_FaceEvent.note</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M304.94,-2715C350.32,-2715 410.43,-2715 445.69,-2715"/>
+</g>
+<!-- attr_FaceEvent.id&#45;&gt;ent_FaceEvent -->
+<g id="edge51" class="edge">
+<title>attr_FaceEvent.id&#45;&gt;ent_FaceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M98.35,-2736.2C120.42,-2732.95 153.09,-2728.14 181.73,-2723.92"/>
+</g>
+<!-- attr_FaceEvent.kind&#45;&gt;ent_FaceEvent -->
+<g id="edge52" class="edge">
+<title>attr_FaceEvent.kind&#45;&gt;ent_FaceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M95.81,-2778.87C121.42,-2767.7 163.27,-2749.46 195.7,-2735.33"/>
+</g>
+<!-- attr_FaceEvent.cameraId&#45;&gt;ent_FaceEvent -->
+<g id="edge53" class="edge">
+<title>attr_FaceEvent.cameraId&#45;&gt;ent_FaceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M104.9,-2655.9C130.39,-2666.87 166.31,-2682.31 195.03,-2694.66"/>
+</g>
+<!-- attr_FaceEvent.createdAt&#45;&gt;ent_FaceEvent -->
+<g id="edge54" class="edge">
+<title>attr_FaceEvent.createdAt&#45;&gt;ent_FaceEvent</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M119.85,-2697.69C138.99,-2700.39 161.31,-2703.55 181.62,-2706.42"/>
+</g>
+<!-- ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.schoolId -->
+<g id="edge64" class="edge">
+<title>ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.schoolId</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1600.94,-198.74C1640.16,-190.18 1690.08,-179.28 1724.44,-171.79"/>
+</g>
+<!-- ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.subjectId -->
+<g id="edge65" class="edge">
+<title>ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.subjectId</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1600.94,-212C1637.17,-212 1682.54,-212 1716.33,-212"/>
+</g>
+<!-- ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.vectorString -->
+<g id="edge66" class="edge">
+<title>ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.vectorString</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1600.94,-225.26C1636.91,-233.11 1681.89,-242.93 1715.6,-250.29"/>
+</g>
+<!-- ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.dim -->
+<g id="edge67" class="edge">
+<title>ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.dim</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1575.99,-232.22C1614.79,-254.13 1671.22,-286 1671.22,-286 1671.22,-286 1712.44,-296.58 1740.14,-303.69"/>
+</g>
+<!-- ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.quality -->
+<g id="edge68" class="edge">
+<title>ent_FaceEmbedding&#45;&gt;attr_FaceEmbedding.quality</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1575.99,-191.78C1614.79,-169.87 1671.22,-138 1671.22,-138 1671.22,-138 1704.39,-129.48 1731.21,-122.6"/>
+</g>
+<!-- attr_FaceEmbedding.id&#45;&gt;ent_FaceEmbedding -->
+<g id="edge58" class="edge">
+<title>attr_FaceEmbedding.id&#45;&gt;ent_FaceEmbedding</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1317.01,-304.37C1348.57,-297.28 1398.75,-286 1398.75,-286 1398.75,-286 1458.8,-254.13 1500.08,-232.22"/>
+</g>
+<!-- attr_FaceEmbedding.subjectType&#45;&gt;ent_FaceEmbedding -->
+<g id="edge59" class="edge">
+<title>attr_FaceEmbedding.subjectType&#45;&gt;ent_FaceEmbedding</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1340.99,-347.98C1369.06,-341.67 1398.75,-335 1398.75,-335 1398.75,-335 1475.55,-267.25 1515.16,-232.31"/>
+</g>
+<!-- attr_FaceEmbedding.name&#45;&gt;ent_FaceEmbedding -->
+<g id="edge60" class="edge">
+<title>attr_FaceEmbedding.name&#45;&gt;ent_FaceEmbedding</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1323.73,-121.14C1355.2,-128.21 1398.75,-138 1398.75,-138 1398.75,-138 1458.8,-169.87 1500.08,-191.78"/>
+</g>
+<!-- attr_FaceEmbedding.model&#45;&gt;ent_FaceEmbedding -->
+<g id="edge61" class="edge">
+<title>attr_FaceEmbedding.model&#45;&gt;ent_FaceEmbedding</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1325.96,-169.76C1365,-177.53 1429.83,-190.44 1477.58,-199.94"/>
+</g>
+<!-- attr_FaceEmbedding.label&#45;&gt;ent_FaceEmbedding -->
+<g id="edge62" class="edge">
+<title>attr_FaceEmbedding.label&#45;&gt;ent_FaceEmbedding</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1322.66,-212C1361.33,-212 1428.68,-212 1477.82,-212"/>
+</g>
+<!-- attr_FaceEmbedding.createdAt&#45;&gt;ent_FaceEmbedding -->
+<g id="edge63" class="edge">
+<title>attr_FaceEmbedding.createdAt&#45;&gt;ent_FaceEmbedding</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M1336.57,-252.13C1376.06,-244.27 1434.05,-232.72 1477.72,-224.03"/>
+</g>
+<!-- ent_Class&#45;&gt;rel_Attendance_classId_fkey -->
+<g id="Attendance_classId_fkey_parent" class="edge">
+<title>ent_Class&#45;&gt;rel_Attendance_classId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M305.13,-2061.97C324.38,-2065.44 340.76,-2068.4 340.76,-2068.4 340.76,-2068.4 369.76,-2183 369.76,-2183 369.76,-2183 398.81,-2194.59 426.39,-2205.6"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-2072.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Class&#45;&gt;rel_AttendanceSession_classId_fkey -->
+<g id="AttendanceSession_classId_fkey_parent" class="edge">
+<title>ent_Class&#45;&gt;rel_AttendanceSession_classId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M280.1,-2030.71C304.91,-2016.63 333.53,-2000.4 333.53,-2000.4 333.53,-2000.4 340.76,-2000.4 340.76,-2000.4 340.76,-2000.4 369.76,-2013 369.76,-2013 369.76,-2013 398.81,-2024.59 426.39,-2035.6"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-2004.3" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Class.id&#45;&gt;ent_Class -->
+<g id="edge69" class="edge">
+<title>attr_Class.id&#45;&gt;ent_Class</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M98.72,-2051C120.76,-2051 153.17,-2051 181.62,-2051"/>
+</g>
+<!-- ent_School&#45;&gt;rel_Attendance_schoolId_fkey -->
+<g id="Attendance_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_Attendance_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M246.32,-1129.19C259.48,-1262.87 333.53,-2015 333.53,-2015 333.53,-2015 369.76,-2098 369.76,-2098 369.76,-2098 398.6,-2109.51 426.08,-2120.48"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-2034.78" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_School&#45;&gt;rel_AttendanceEvent_schoolId_fkey -->
+<g id="AttendanceEvent_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_AttendanceEvent_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M304.99,-1108.09C441.76,-1106.05 775.41,-1101.06 944.76,-1098.53"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1110.96" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_School&#45;&gt;rel_AttendanceSession_schoolId_fkey -->
+<g id="AttendanceSession_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_AttendanceSession_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M269.9,-1129.06C312.24,-1162.29 396.84,-1228.67 443.06,-1264.93"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-1187.19" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_School&#45;&gt;rel_FaceEnrollment_schoolId_fkey -->
+<g id="FaceEnrollment_schoolId_fkey_parent" class="edge">
+<title>ent_School&#45;&gt;rel_FaceEnrollment_schoolId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M251.52,-1088.75C278.18,-1013.75 369.76,-756 369.76,-756 369.76,-756 399.9,-743.11 427.92,-731.13"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-854.57" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_School.id&#45;&gt;ent_School -->
+<g id="edge70" class="edge">
+<title>attr_School.id&#45;&gt;ent_School</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M98.72,-1109C120.76,-1109 153.17,-1109 181.62,-1109"/>
+</g>
+<!-- ent_Student&#45;&gt;rel_Attendance_studentId_fkey -->
+<g id="Attendance_studentId_fkey_parent" class="edge">
+<title>ent_Student&#45;&gt;rel_Attendance_studentId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M304.94,-2528C334.97,-2528 371.45,-2528 402.91,-2528"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-2531.9" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Student&#45;&gt;rel_AttendanceEvent_studentId_fkey -->
+<g id="AttendanceEvent_studentId_fkey_parent" class="edge">
+<title>ent_Student&#45;&gt;rel_AttendanceEvent_studentId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M303.74,-2548.37C336.16,-2559.48 369.76,-2571 369.76,-2571 369.76,-2571 582.26,-2571 582.26,-2571 582.26,-2571 603.73,-2567.79 626.8,-2564.33"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-2564.83" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- ent_Student&#45;&gt;rel_AttendanceVerification_studentId_fkey -->
+<g id="AttendanceVerification_studentId_fkey_parent" class="edge">
+<title>ent_Student&#45;&gt;rel_AttendanceVerification_studentId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M248.72,-2507.72C267.59,-2420.67 340.76,-2083 340.76,-2083 340.76,-2083 369.76,-1578 369.76,-1578 369.76,-1578 550.27,-1524.89 637,-1499.38"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-2116.41" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Student.id&#45;&gt;ent_Student -->
+<g id="edge71" class="edge">
+<title>attr_Student.id&#45;&gt;ent_Student</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M98.72,-2528C120.76,-2528 153.17,-2528 181.62,-2528"/>
+</g>
+<!-- ent_Subject&#45;&gt;rel_AttendanceSession_subjectId_fkey -->
+<g id="AttendanceSession_subjectId_fkey_parent" class="edge">
+<title>ent_Subject&#45;&gt;rel_AttendanceSession_subjectId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M304.94,-1965.58C330.83,-1966.25 361.52,-1967.05 389.65,-1967.78"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-1970.36" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Subject.id&#45;&gt;ent_Subject -->
+<g id="edge72" class="edge">
+<title>attr_Subject.id&#45;&gt;ent_Subject</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M98.72,-1964C120.76,-1964 153.17,-1964 181.62,-1964"/>
+</g>
+<!-- ent_Teacher&#45;&gt;rel_AttendanceSession_teacherId_fkey -->
+<g id="AttendanceSession_teacherId_fkey_parent" class="edge">
+<title>ent_Teacher&#45;&gt;rel_AttendanceSession_teacherId_fkey</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M304.94,-1885C324.96,-1885 347.85,-1885 370.2,-1885"/>
+<text xml:space="preserve" text-anchor="middle" x="337.14" y="-1888.9" font-family="Arial" font-size="13.00" fill="#d73232">1</text>
+</g>
+<!-- attr_Teacher.id&#45;&gt;ent_Teacher -->
+<g id="edge73" class="edge">
+<title>attr_Teacher.id&#45;&gt;ent_Teacher</title>
+<path fill="none" stroke="#929ea7" stroke-width="0.8" d="M98.72,-1885C120.76,-1885 153.17,-1885 181.62,-1885"/>
+</g>
+<!-- rel_AttendanceEvent_sessionId_fkey&#45;&gt;ent_AttendanceEvent -->
+<g id="AttendanceEvent_sessionId_fkey_child" class="edge">
+<title>rel_AttendanceEvent_sessionId_fkey&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1329.92,-1235.99C1360.61,-1248.93 1398.75,-1265 1398.75,-1265 1398.75,-1265 1477.59,-1339.07 1516.7,-1375.82"/>
+<text xml:space="preserve" text-anchor="middle" x="1432.44" y="-1304.03" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceVerification_sessionId_fkey&#45;&gt;ent_AttendanceVerification -->
+<g id="AttendanceVerification_sessionId_fkey_child" class="edge">
+<title>rel_AttendanceVerification_sessionId_fkey&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1329.23,-1117.86C1359.97,-1104.62 1398.35,-1088.08 1398.75,-1089 1398.01,-1088.33 1436.4,-1046.33 1437.14,-1047 1436.17,-1046.77 1512.32,-727.2 1532.4,-642.93"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1330.02,-1119.7C1360.76,-1106.46 1399.15,-1089.92 1398.75,-1089 1399.49,-1089.67 1437.88,-1047.67 1437.14,-1047 1438.11,-1047.23 1514.27,-727.66 1534.35,-643.4"/>
+<text xml:space="preserve" text-anchor="middle" x="1432.44" y="-1061.05" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Attendance_classId_fkey&#45;&gt;ent_Attendance -->
+<g id="Attendance_classId_fkey_child" class="edge">
+<title>rel_Attendance_classId_fkey&#45;&gt;ent_Attendance</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M535.02,-2240.28C616.65,-2263.25 755.96,-2302.44 755.69,-2303.4 756.16,-2302.52 784.47,-2317.47 809.68,-2330.79"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M534.48,-2242.21C616.11,-2265.17 755.42,-2304.36 755.69,-2303.4 755.22,-2304.28 783.53,-2319.24 808.75,-2332.56"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-2307.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceSession_classId_fkey&#45;&gt;ent_AttendanceSession -->
+<g id="AttendanceSession_classId_fkey_child" class="edge">
+<title>rel_AttendanceSession_classId_fkey&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M525.26,-2034.67C552.83,-2023.66 581.89,-2012.07 582.26,-2013 581.84,-2012.09 755.27,-1932.09 755.69,-1933 754.77,-1932.62 815.8,-1784.03 838.45,-1728.89"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M526,-2036.53C553.57,-2025.52 582.63,-2013.93 582.26,-2013 582.68,-2013.91 756.11,-1933.91 755.69,-1933 756.62,-1933.38 817.65,-1784.79 840.3,-1729.65"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-2003.49" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_FaceEmbedding_enrollmentId_fkey&#45;&gt;ent_FaceEmbedding -->
+<g id="FaceEmbedding_enrollmentId_fkey_child" class="edge">
+<title>rel_FaceEmbedding_enrollmentId_fkey&#45;&gt;ent_FaceEmbedding</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1337.26,-55.08C1366.36,-67.35 1398.75,-81 1398.75,-81 1398.75,-81 1477.59,-155.07 1516.7,-191.82"/>
+<text xml:space="preserve" text-anchor="middle" x="1432.44" y="-120.03" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Attendance_schoolId_fkey&#45;&gt;ent_Attendance -->
+<g id="Attendance_schoolId_fkey_child" class="edge">
+<title>rel_Attendance_schoolId_fkey&#45;&gt;ent_Attendance</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M527.83,-2158.15C608.14,-2188.53 756.04,-2244.46 755.69,-2245.4 756.45,-2244.75 804.5,-2300.42 831.15,-2331.3"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M527.12,-2160.02C607.43,-2190.4 755.34,-2246.34 755.69,-2245.4 754.93,-2246.05 802.99,-2301.72 829.64,-2332.6"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-2249.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceEvent_schoolId_fkey&#45;&gt;ent_AttendanceEvent -->
+<g id="AttendanceEvent_schoolId_fkey_child" class="edge">
+<title>rel_AttendanceEvent_schoolId_fkey&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1121.33,-1084.38C1147.65,-1080.16 1171.05,-1076.41 1171.21,-1077.4 1171.21,-1076.4 1398.75,-1076.4 1398.75,-1077.4 1398.84,-1076.4 1437.23,-1080 1437.14,-1081 1438.09,-1080.69 1510.36,-1305.99 1532.66,-1375.51"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M1121.65,-1086.36C1147.97,-1082.14 1171.37,-1078.39 1171.21,-1077.4 1171.21,-1078.4 1398.75,-1078.4 1398.75,-1077.4 1398.66,-1078.4 1437.05,-1082 1437.14,-1081 1436.19,-1081.31 1508.45,-1306.6 1530.75,-1376.12"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1081.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceSession_schoolId_fkey&#45;&gt;ent_AttendanceSession -->
+<g id="AttendanceSession_schoolId_fkey_child" class="edge">
+<title>rel_AttendanceSession_schoolId_fkey&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M520.69,-1310.58C598.97,-1349.45 756.14,-1427.5 755.69,-1428.4 756.64,-1428.09 820.94,-1624.17 842.04,-1688.51"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M519.8,-1312.37C598.08,-1351.24 755.25,-1429.3 755.69,-1428.4 754.74,-1428.71 819.04,-1624.79 840.14,-1689.13"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-1432.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_FaceEnrollment_schoolId_fkey&#45;&gt;ent_FaceEnrollment -->
+<g id="FaceEnrollment_schoolId_fkey_child" class="edge">
+<title>rel_FaceEnrollment_schoolId_fkey&#45;&gt;ent_FaceEnrollment</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M535.7,-726.47C617.42,-749.46 755.96,-788.44 755.69,-789.4 756.16,-788.52 784.47,-803.47 809.68,-816.79"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M535.16,-728.4C616.88,-751.39 755.42,-790.36 755.69,-789.4 755.22,-790.28 783.53,-805.24 808.75,-818.56"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-793.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_Attendance_studentId_fkey&#45;&gt;ent_Attendance -->
+<g id="Attendance_studentId_fkey_child" class="edge">
+<title>rel_Attendance_studentId_fkey&#45;&gt;ent_Attendance</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M515.51,-2510.45C545.49,-2497.63 581.86,-2482.08 582.26,-2483 581.83,-2482.09 755.27,-2401.09 755.69,-2402 755.21,-2401.12 784.33,-2385.3 809.8,-2371.46"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M516.29,-2512.29C546.27,-2499.47 582.65,-2483.92 582.26,-2483 582.68,-2483.91 756.11,-2402.91 755.69,-2402 756.17,-2402.88 785.28,-2387.06 810.76,-2373.22"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-2473.32" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceEvent_studentId_fkey&#45;&gt;ent_AttendanceEvent -->
+<g id="AttendanceEvent_studentId_fkey_child" class="edge">
+<title>rel_AttendanceEvent_studentId_fkey&#45;&gt;ent_AttendanceEvent</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M744.45,-2549.87C916.39,-2532.3 1398.75,-2483 1398.75,-2483 1398.75,-2483 1516.49,-1565.07 1535.58,-1416.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1047.96" y="-2533.24" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceVerification_studentId_fkey&#45;&gt;ent_AttendanceVerification -->
+<g id="AttendanceVerification_studentId_fkey_child" class="edge">
+<title>rel_AttendanceVerification_studentId_fkey&#45;&gt;ent_AttendanceVerification</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M717.92,-1466.07C736.27,-1455.76 755.2,-1445.13 755.69,-1446 754.78,-1445.58 940.81,-1038.98 941.71,-1039.4 941.67,-1038.4 1398.7,-1017 1398.75,-1018 1397.81,-1017.67 1501.72,-723.29 1530.13,-642.8"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M718.9,-1467.81C737.25,-1457.51 756.18,-1446.87 755.69,-1446 756.6,-1446.42 942.62,-1039.82 941.71,-1039.4 941.76,-1040.4 1398.8,-1019 1398.75,-1018 1399.69,-1018.33 1503.6,-723.96 1532.02,-643.46"/>
+<text xml:space="preserve" text-anchor="middle" x="1047.96" y="-1043.3" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceSession_subjectId_fkey&#45;&gt;ent_AttendanceSession -->
+<g id="AttendanceSession_subjectId_fkey_child" class="edge">
+<title>rel_AttendanceSession_subjectId_fkey&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M522.25,-1951.94C550.78,-1940.56 582.26,-1928 582.26,-1928 582.26,-1928 755.69,-1845 755.69,-1845 755.69,-1845 808.26,-1767.3 833.93,-1729.36"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-1917.99" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- rel_AttendanceSession_teacherId_fkey&#45;&gt;ent_AttendanceSession -->
+<g id="AttendanceSession_teacherId_fkey_child" class="edge">
+<title>rel_AttendanceSession_teacherId_fkey&#45;&gt;ent_AttendanceSession</title>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M523.39,-1864.08C551.5,-1852.06 581.86,-1839.08 582.26,-1840 581.83,-1839.09 755.27,-1758.09 755.69,-1759 755.21,-1758.12 784.33,-1742.3 809.8,-1728.46"/>
+<path fill="none" stroke="#4a5966" stroke-width="0.8" d="M524.18,-1865.92C552.29,-1853.9 582.65,-1840.92 582.26,-1840 582.68,-1840.91 756.11,-1759.91 755.69,-1759 756.17,-1759.88 785.28,-1744.06 810.76,-1730.22"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-1830.32" font-family="Arial" font-size="13.00" fill="#d73232">N</text>
+</g>
+<!-- ent_Attendance -->
+<g id="node1" class="node">
+<title>ent_Attendance</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="909.9,-2371.8 787.5,-2371.8 787.5,-2332.2 909.9,-2332.2 909.9,-2371.8"/>
+<text xml:space="preserve" text-anchor="middle" x="848.7" y="-2348.1" font-family="Arial" font-size="13.00" fill="#152a38">Attendance</text>
+</g>
+<!-- attr_Attendance.id -->
+<g id="node2" class="node">
+<title>attr_Attendance.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-2401" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="470.95" y="-2398.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_Attendance.status -->
+<g id="node3" class="node">
+<title>attr_Attendance.status</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-2450" rx="36.74" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2446.1" font-family="Arial" font-size="13.00" fill="#152a38">status</text>
+</g>
+<!-- attr_Attendance.confidence -->
+<g id="node4" class="node">
+<title>attr_Attendance.confidence</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-2303" rx="56.68" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2299.1" font-family="Arial" font-size="13.00" fill="#152a38">confidence</text>
+</g>
+<!-- attr_Attendance.timestamp -->
+<g id="node5" class="node">
+<title>attr_Attendance.timestamp</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-2352" rx="54.62" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2348.1" font-family="Arial" font-size="13.00" fill="#152a38">timestamp</text>
+</g>
+<!-- attr_Attendance.date -->
+<g id="node6" class="node">
+<title>attr_Attendance.date</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-2401" rx="30.11" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-2397.1" font-family="Arial" font-size="13.00" fill="#152a38">date</text>
+</g>
+<!-- attr_Attendance.source -->
+<g id="node7" class="node">
+<title>attr_Attendance.source</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-2303" rx="39.81" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-2299.1" font-family="Arial" font-size="13.00" fill="#152a38">source</text>
+</g>
+<!-- attr_Attendance.markedById -->
+<g id="node8" class="node">
+<title>attr_Attendance.markedById</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-2352" rx="61.26" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-2348.1" font-family="Arial" font-size="13.00" fill="#152a38">markedById</text>
+</g>
+<!-- ent_AttendanceSession -->
+<g id="node9" class="node">
+<title>ent_AttendanceSession</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="912.71,-1728.8 784.69,-1728.8 784.69,-1689.2 912.71,-1689.2 912.71,-1728.8"/>
+<text xml:space="preserve" text-anchor="middle" x="848.7" y="-1705.1" font-family="Arial" font-size="13.00" fill="#152a38">AttendanceSession</text>
+</g>
+<!-- attr_AttendanceSession.id -->
+<g id="node10" class="node">
+<title>attr_AttendanceSession.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-1611" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="470.95" y="-1608.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_AttendanceSession.status -->
+<g id="node11" class="node">
+<title>attr_AttendanceSession.status</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-1660" rx="36.74" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1656.1" font-family="Arial" font-size="13.00" fill="#152a38">status</text>
+</g>
+<!-- attr_AttendanceSession.expiryTime -->
+<g id="node12" class="node">
+<title>attr_AttendanceSession.expiryTime</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-1709" rx="57.17" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1705.1" font-family="Arial" font-size="13.00" fill="#152a38">expiryTime</text>
+</g>
+<!-- attr_AttendanceSession.sessionToken -->
+<g id="node13" class="node">
+<title>attr_AttendanceSession.sessionToken</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-1758" rx="68.94" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1754.1" font-family="Arial" font-size="13.00" fill="#152a38">sessionToken</text>
+</g>
+<!-- attr_AttendanceSession.verificationMode -->
+<g id="node14" class="node">
+<title>attr_AttendanceSession.verificationMode</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-1807" rx="79.15" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1803.1" font-family="Arial" font-size="13.00" fill="#152a38">verificationMode</text>
+</g>
+<!-- attr_AttendanceSession.date -->
+<g id="node15" class="node">
+<title>attr_AttendanceSession.date</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1730" rx="30.11" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1726.1" font-family="Arial" font-size="13.00" fill="#152a38">date</text>
+</g>
+<!-- attr_AttendanceSession.startTime -->
+<g id="node16" class="node">
+<title>attr_AttendanceSession.startTime</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1779" rx="50.52" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1775.1" font-family="Arial" font-size="13.00" fill="#152a38">startTime</text>
+</g>
+<!-- attr_AttendanceSession.closedAt -->
+<g id="node17" class="node">
+<title>attr_AttendanceSession.closedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1632" rx="47.48" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1628.1" font-family="Arial" font-size="13.00" fill="#152a38">closedAt</text>
+</g>
+<!-- attr_AttendanceSession.createdBy -->
+<g id="node18" class="node">
+<title>attr_AttendanceSession.createdBy</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1681" rx="53.61" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1677.1" font-family="Arial" font-size="13.00" fill="#152a38">createdBy</text>
+</g>
+<!-- ent_AttendanceVerification -->
+<g id="node19" class="node">
+<title>ent_AttendanceVerification</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="1612.22,-642.8 1466.14,-642.8 1466.14,-603.2 1612.22,-603.2 1612.22,-642.8"/>
+<text xml:space="preserve" text-anchor="middle" x="1539.18" y="-619.1" font-family="Arial" font-size="13.00" fill="#152a38">AttendanceVerification</text>
+</g>
+<!-- attr_AttendanceVerification.id -->
+<g id="node20" class="node">
+<title>attr_AttendanceVerification.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-721" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1285.92" y="-718.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_AttendanceVerification.qrVerifiedAt -->
+<g id="node21" class="node">
+<title>attr_AttendanceVerification.qrVerifiedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-427" rx="60.25" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-423.1" font-family="Arial" font-size="13.00" fill="#152a38">qrVerifiedAt</text>
+</g>
+<!-- attr_AttendanceVerification.faceConfidence -->
+<g id="node22" class="node">
+<title>attr_AttendanceVerification.faceConfidence</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-476" rx="76.1" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-472.1" font-family="Arial" font-size="13.00" fill="#152a38">faceConfidence</text>
+</g>
+<!-- attr_AttendanceVerification.threshold -->
+<g id="node23" class="node">
+<title>attr_AttendanceVerification.threshold</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-525" rx="50.03" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-521.1" font-family="Arial" font-size="13.00" fill="#152a38">threshold</text>
+</g>
+<!-- attr_AttendanceVerification.proxyClaimedStudentId -->
+<g id="node24" class="node">
+<title>attr_AttendanceVerification.proxyClaimedStudentId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-574" rx="107.77" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-570.1" font-family="Arial" font-size="13.00" fill="#152a38">proxyClaimedStudentId</text>
+</g>
+<!-- attr_AttendanceVerification.reason -->
+<g id="node25" class="node">
+<title>attr_AttendanceVerification.reason</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-623" rx="40.33" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-619.1" font-family="Arial" font-size="13.00" fill="#152a38">reason</text>
+</g>
+<!-- attr_AttendanceVerification.createdAt -->
+<g id="node26" class="node">
+<title>attr_AttendanceVerification.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-672" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-668.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- attr_AttendanceVerification.state -->
+<g id="node27" class="node">
+<title>attr_AttendanceVerification.state</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-574" rx="32.15" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-570.1" font-family="Arial" font-size="13.00" fill="#152a38">state</text>
+</g>
+<!-- attr_AttendanceVerification.faceVerifiedAt -->
+<g id="node28" class="node">
+<title>attr_AttendanceVerification.faceVerifiedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-623" rx="69.45" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-619.1" font-family="Arial" font-size="13.00" fill="#152a38">faceVerifiedAt</text>
+</g>
+<!-- attr_AttendanceVerification.faceDistance -->
+<g id="node29" class="node">
+<title>attr_AttendanceVerification.faceDistance</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-672" rx="65.36" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-668.1" font-family="Arial" font-size="13.00" fill="#152a38">faceDistance</text>
+</g>
+<!-- attr_AttendanceVerification.markedPresentAt -->
+<g id="node30" class="node">
+<title>attr_AttendanceVerification.markedPresentAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-721" rx="83.24" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-717.1" font-family="Arial" font-size="13.00" fill="#152a38">markedPresentAt</text>
+</g>
+<!-- attr_AttendanceVerification.proxyMatchedName -->
+<g id="node31" class="node">
+<title>attr_AttendanceVerification.proxyMatchedName</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-476" rx="94.47" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-472.1" font-family="Arial" font-size="13.00" fill="#152a38">proxyMatchedName</text>
+</g>
+<!-- attr_AttendanceVerification.updatedAt -->
+<g id="node32" class="node">
+<title>attr_AttendanceVerification.updatedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-525" rx="54.13" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-521.1" font-family="Arial" font-size="13.00" fill="#152a38">updatedAt</text>
+</g>
+<!-- ent_AttendanceEvent -->
+<g id="node33" class="node">
+<title>ent_AttendanceEvent</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="1600.38,-1415.8 1477.98,-1415.8 1477.98,-1376.2 1600.38,-1376.2 1600.38,-1415.8"/>
+<text xml:space="preserve" text-anchor="middle" x="1539.18" y="-1392.1" font-family="Arial" font-size="13.00" fill="#152a38">AttendanceEvent</text>
+</g>
+<!-- attr_AttendanceEvent.id -->
+<g id="node34" class="node">
+<title>attr_AttendanceEvent.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1494" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1285.92" y="-1491.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_AttendanceEvent.source -->
+<g id="node35" class="node">
+<title>attr_AttendanceEvent.source</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1543" rx="39.81" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1539.1" font-family="Arial" font-size="13.00" fill="#152a38">source</text>
+</g>
+<!-- attr_AttendanceEvent.direction -->
+<g id="node36" class="node">
+<title>attr_AttendanceEvent.direction</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1298" rx="46.96" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1294.1" font-family="Arial" font-size="13.00" fill="#152a38">direction</text>
+</g>
+<!-- attr_AttendanceEvent.faceConfidence -->
+<g id="node37" class="node">
+<title>attr_AttendanceEvent.faceConfidence</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1347" rx="76.1" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1343.1" font-family="Arial" font-size="13.00" fill="#152a38">faceConfidence</text>
+</g>
+<!-- attr_AttendanceEvent.late -->
+<g id="node38" class="node">
+<title>attr_AttendanceEvent.late</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1396" rx="27.04" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1392.1" font-family="Arial" font-size="13.00" fill="#152a38">late</text>
+</g>
+<!-- attr_AttendanceEvent.createdBy -->
+<g id="node39" class="node">
+<title>attr_AttendanceEvent.createdBy</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-1445" rx="53.61" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1441.1" font-family="Arial" font-size="13.00" fill="#152a38">createdBy</text>
+</g>
+<!-- attr_AttendanceEvent.verificationId -->
+<g id="node40" class="node">
+<title>attr_AttendanceEvent.verificationId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-1396" rx="63.82" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-1392.1" font-family="Arial" font-size="13.00" fill="#152a38">verificationId</text>
+</g>
+<!-- attr_AttendanceEvent.timestamp -->
+<g id="node41" class="node">
+<title>attr_AttendanceEvent.timestamp</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-1445" rx="54.62" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-1441.1" font-family="Arial" font-size="13.00" fill="#152a38">timestamp</text>
+</g>
+<!-- attr_AttendanceEvent.verificationStatus -->
+<g id="node42" class="node">
+<title>attr_AttendanceEvent.verificationStatus</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-1494" rx="82.22" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-1490.1" font-family="Arial" font-size="13.00" fill="#152a38">verificationStatus</text>
+</g>
+<!-- attr_AttendanceEvent.faceDistance -->
+<g id="node43" class="node">
+<title>attr_AttendanceEvent.faceDistance</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-1543" rx="65.36" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-1539.1" font-family="Arial" font-size="13.00" fill="#152a38">faceDistance</text>
+</g>
+<!-- attr_AttendanceEvent.lateMinutes -->
+<g id="node44" class="node">
+<title>attr_AttendanceEvent.lateMinutes</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-1298" rx="59.23" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-1294.1" font-family="Arial" font-size="13.00" fill="#152a38">lateMinutes</text>
+</g>
+<!-- attr_AttendanceEvent.notes -->
+<g id="node45" class="node">
+<title>attr_AttendanceEvent.notes</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-1347" rx="34.71" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-1343.1" font-family="Arial" font-size="13.00" fill="#152a38">notes</text>
+</g>
+<!-- ent_FaceEnrollment -->
+<g id="node46" class="node">
+<title>ent_FaceEnrollment</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="909.9,-857.8 787.5,-857.8 787.5,-818.2 909.9,-818.2 909.9,-857.8"/>
+<text xml:space="preserve" text-anchor="middle" x="848.7" y="-834.1" font-family="Arial" font-size="13.00" fill="#152a38">FaceEnrollment</text>
+</g>
+<!-- attr_FaceEnrollment.id -->
+<g id="node47" class="node">
+<title>attr_FaceEnrollment.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-789" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="470.95" y="-786.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_FaceEnrollment.subjectId -->
+<g id="node48" class="node">
+<title>attr_FaceEnrollment.subjectId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-838" rx="49.01" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-834.1" font-family="Arial" font-size="13.00" fill="#152a38">subjectId</text>
+</g>
+<!-- attr_FaceEnrollment.model -->
+<g id="node49" class="node">
+<title>attr_FaceEnrollment.model</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-887" rx="37.26" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-883.1" font-family="Arial" font-size="13.00" fill="#152a38">model</text>
+</g>
+<!-- attr_FaceEnrollment.consentBy -->
+<g id="node50" class="node">
+<title>attr_FaceEnrollment.consentBy</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-936" rx="55.14" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-932.1" font-family="Arial" font-size="13.00" fill="#152a38">consentBy</text>
+</g>
+<!-- attr_FaceEnrollment.updatedAt -->
+<g id="node51" class="node">
+<title>attr_FaceEnrollment.updatedAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-985" rx="54.13" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-981.1" font-family="Arial" font-size="13.00" fill="#152a38">updatedAt</text>
+</g>
+<!-- attr_FaceEnrollment.subjectType -->
+<g id="node52" class="node">
+<title>attr_FaceEnrollment.subjectType</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-887" rx="61.78" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-883.1" font-family="Arial" font-size="13.00" fill="#152a38">subjectType</text>
+</g>
+<!-- attr_FaceEnrollment.name -->
+<g id="node53" class="node">
+<title>attr_FaceEnrollment.name</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-936" rx="35.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-932.1" font-family="Arial" font-size="13.00" fill="#152a38">name</text>
+</g>
+<!-- attr_FaceEnrollment.consentAt -->
+<g id="node54" class="node">
+<title>attr_FaceEnrollment.consentAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-789" rx="53.1" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-785.1" font-family="Arial" font-size="13.00" fill="#152a38">consentAt</text>
+</g>
+<!-- attr_FaceEnrollment.createdAt -->
+<g id="node55" class="node">
+<title>attr_FaceEnrollment.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-838" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-834.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- ent_FaceEvent -->
+<g id="node56" class="node">
+<title>ent_FaceEvent</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="304.53,-2734.8 182.13,-2734.8 182.13,-2695.2 304.53,-2695.2 304.53,-2734.8"/>
+<text xml:space="preserve" text-anchor="middle" x="243.33" y="-2711.1" font-family="Arial" font-size="13.00" fill="#152a38">FaceEvent</text>
+</g>
+<!-- attr_FaceEvent.id -->
+<g id="node57" class="node">
+<title>attr_FaceEvent.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-2740" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="66.51" y="-2737.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_FaceEvent.kind -->
+<g id="node58" class="node">
+<title>attr_FaceEvent.kind</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-2789" rx="29.08" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="71.56" y="-2785.1" font-family="Arial" font-size="13.00" fill="#152a38">kind</text>
+</g>
+<!-- attr_FaceEvent.cameraId -->
+<g id="node59" class="node">
+<title>attr_FaceEvent.cameraId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-2642" rx="50.54" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="71.56" y="-2638.1" font-family="Arial" font-size="13.00" fill="#152a38">cameraId</text>
+</g>
+<!-- attr_FaceEvent.createdAt -->
+<g id="node60" class="node">
+<title>attr_FaceEvent.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-2691" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="71.56" y="-2687.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- attr_FaceEvent.schoolId -->
+<g id="node61" class="node">
+<title>attr_FaceEvent.schoolId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-2764" rx="46.46" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2760.1" font-family="Arial" font-size="13.00" fill="#152a38">schoolId</text>
+</g>
+<!-- attr_FaceEvent.confidence -->
+<g id="node62" class="node">
+<title>attr_FaceEvent.confidence</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-2666" rx="56.68" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2662.1" font-family="Arial" font-size="13.00" fill="#152a38">confidence</text>
+</g>
+<!-- attr_FaceEvent.note -->
+<g id="node63" class="node">
+<title>attr_FaceEvent.note</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="476.01" cy="-2715" rx="30.11" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2711.1" font-family="Arial" font-size="13.00" fill="#152a38">note</text>
+</g>
+<!-- ent_FaceEmbedding -->
+<g id="node64" class="node">
+<title>ent_FaceEmbedding</title>
+<polygon fill="#dde9ff" stroke="#3b72ff" stroke-width="1.2" points="1600.38,-231.8 1477.98,-231.8 1477.98,-192.2 1600.38,-192.2 1600.38,-231.8"/>
+<text xml:space="preserve" text-anchor="middle" x="1539.18" y="-208.1" font-family="Arial" font-size="13.00" fill="#152a38">FaceEmbedding</text>
+</g>
+<!-- attr_FaceEmbedding.id -->
+<g id="node65" class="node">
+<title>attr_FaceEmbedding.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-310" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="1285.92" y="-307.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- attr_FaceEmbedding.subjectType -->
+<g id="node66" class="node">
+<title>attr_FaceEmbedding.subjectType</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-359" rx="61.78" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-355.1" font-family="Arial" font-size="13.00" fill="#152a38">subjectType</text>
+</g>
+<!-- attr_FaceEmbedding.name -->
+<g id="node67" class="node">
+<title>attr_FaceEmbedding.name</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-114" rx="35.21" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-110.1" font-family="Arial" font-size="13.00" fill="#152a38">name</text>
+</g>
+<!-- attr_FaceEmbedding.model -->
+<g id="node68" class="node">
+<title>attr_FaceEmbedding.model</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-163" rx="37.26" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-159.1" font-family="Arial" font-size="13.00" fill="#152a38">model</text>
+</g>
+<!-- attr_FaceEmbedding.label -->
+<g id="node69" class="node">
+<title>attr_FaceEmbedding.label</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-212" rx="31.64" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-208.1" font-family="Arial" font-size="13.00" fill="#152a38">label</text>
+</g>
+<!-- attr_FaceEmbedding.createdAt -->
+<g id="node70" class="node">
+<title>attr_FaceEmbedding.createdAt</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1290.98" cy="-261" rx="51.56" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-257.1" font-family="Arial" font-size="13.00" fill="#152a38">createdAt</text>
+</g>
+<!-- attr_FaceEmbedding.schoolId -->
+<g id="node71" class="node">
+<title>attr_FaceEmbedding.schoolId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-163" rx="46.46" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-159.1" font-family="Arial" font-size="13.00" fill="#152a38">schoolId</text>
+</g>
+<!-- attr_FaceEmbedding.subjectId -->
+<g id="node72" class="node">
+<title>attr_FaceEmbedding.subjectId</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-212" rx="49.01" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-208.1" font-family="Arial" font-size="13.00" fill="#152a38">subjectId</text>
+</g>
+<!-- attr_FaceEmbedding.vectorString -->
+<g id="node73" class="node">
+<title>attr_FaceEmbedding.vectorString</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-261" rx="61.26" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-257.1" font-family="Arial" font-size="13.00" fill="#152a38">vectorString</text>
+</g>
+<!-- attr_FaceEmbedding.dim -->
+<g id="node74" class="node">
+<title>attr_FaceEmbedding.dim</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-310" rx="27.03" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-306.1" font-family="Arial" font-size="13.00" fill="#152a38">dim</text>
+</g>
+<!-- attr_FaceEmbedding.quality -->
+<g id="node75" class="node">
+<title>attr_FaceEmbedding.quality</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="1765.7" cy="-114" rx="38.79" ry="18.16"/>
+<text xml:space="preserve" text-anchor="middle" x="1765.7" y="-110.1" font-family="Arial" font-size="13.00" fill="#152a38">quality</text>
+</g>
+<!-- ent_Class -->
+<g id="node76" class="node">
+<title>ent_Class</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="304.53,-2070.8 182.13,-2070.8 182.13,-2031.2 304.53,-2031.2 304.53,-2070.8"/>
+<text xml:space="preserve" text-anchor="middle" x="243.33" y="-2047.1" font-family="Arial" font-size="13.00" fill="#152a38">Class [external]</text>
+</g>
+<!-- attr_Class.id -->
+<g id="node77" class="node">
+<title>attr_Class.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-2051" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="66.51" y="-2048.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- ent_School -->
+<g id="node78" class="node">
+<title>ent_School</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="304.53,-1128.8 182.13,-1128.8 182.13,-1089.2 304.53,-1089.2 304.53,-1128.8"/>
+<text xml:space="preserve" text-anchor="middle" x="243.33" y="-1105.1" font-family="Arial" font-size="13.00" fill="#152a38">School [external]</text>
+</g>
+<!-- attr_School.id -->
+<g id="node79" class="node">
+<title>attr_School.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-1109" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="66.51" y="-1106.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- ent_Student -->
+<g id="node80" class="node">
+<title>ent_Student</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="304.53,-2547.8 182.13,-2547.8 182.13,-2508.2 304.53,-2508.2 304.53,-2547.8"/>
+<text xml:space="preserve" text-anchor="middle" x="243.33" y="-2524.1" font-family="Arial" font-size="13.00" fill="#152a38">Student [external]</text>
+</g>
+<!-- attr_Student.id -->
+<g id="node81" class="node">
+<title>attr_Student.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-2528" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="66.51" y="-2525.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- ent_Subject -->
+<g id="node82" class="node">
+<title>ent_Subject</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="304.53,-1983.8 182.13,-1983.8 182.13,-1944.2 304.53,-1944.2 304.53,-1983.8"/>
+<text xml:space="preserve" text-anchor="middle" x="243.33" y="-1960.1" font-family="Arial" font-size="13.00" fill="#152a38">Subject [external]</text>
+</g>
+<!-- attr_Subject.id -->
+<g id="node83" class="node">
+<title>attr_Subject.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-1964" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="66.51" y="-1961.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- ent_Teacher -->
+<g id="node84" class="node">
+<title>ent_Teacher</title>
+<polygon fill="#edf0f2" stroke="#8c9aa7" stroke-width="1.2" points="304.53,-1904.8 182.13,-1904.8 182.13,-1865.2 304.53,-1865.2 304.53,-1904.8"/>
+<text xml:space="preserve" text-anchor="middle" x="243.33" y="-1881.1" font-family="Arial" font-size="13.00" fill="#152a38">Teacher [external]</text>
+</g>
+<!-- attr_Teacher.id -->
+<g id="node85" class="node">
+<title>attr_Teacher.id</title>
+<ellipse fill="#f1fcf8" stroke="#0c9c7b" stroke-width="0.85" cx="71.56" cy="-1885" rx="27" ry="18.16"/>
+<text xml:space="preserve" text-anchor="start" x="66.51" y="-1882.1" font-family="Arial" text-decoration="underline" font-size="13.00" fill="#152a38">id</text>
+</g>
+<!-- rel_AttendanceEvent_sessionId_fkey -->
+<g id="node86" class="node">
+<title>rel_AttendanceEvent_sessionId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1290.98,-1256 1222.1,-1220 1290.98,-1184 1359.86,-1220 1290.98,-1256"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1223.6" font-family="Arial" font-size="12.00" fill="#152a38">In session</text>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1209.2" font-family="Arial" font-size="12.00" fill="#152a38">[sessionId]</text>
+</g>
+<!-- rel_AttendanceVerification_sessionId_fkey -->
+<g id="node87" class="node">
+<title>rel_AttendanceVerification_sessionId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1290.98,-1171 1222.1,-1135 1290.98,-1099 1359.86,-1135 1290.98,-1171"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1138.6" font-family="Arial" font-size="12.00" fill="#152a38">In session</text>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-1124.2" font-family="Arial" font-size="12.00" fill="#152a38">[sessionId]</text>
+</g>
+<!-- rel_Attendance_classId_fkey -->
+<g id="node88" class="node">
+<title>rel_Attendance_classId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-2261 371.11,-2225 476.01,-2189 580.91,-2225 476.01,-2261"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2228.6" font-family="Arial" font-size="12.00" fill="#152a38">Assigned to class</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2214.2" font-family="Arial" font-size="12.00" fill="#152a38">[classId]</text>
+</g>
+<!-- rel_AttendanceSession_classId_fkey -->
+<g id="node89" class="node">
+<title>rel_AttendanceSession_classId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-2091 371.11,-2055 476.01,-2019 580.91,-2055 476.01,-2091"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2058.6" font-family="Arial" font-size="12.00" fill="#152a38">Assigned to class</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2044.2" font-family="Arial" font-size="12.00" fill="#152a38">[classId]</text>
+</g>
+<!-- rel_FaceEmbedding_enrollmentId_fkey -->
+<g id="node90" class="node">
+<title>rel_FaceEmbedding_enrollmentId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1290.98,-72 1194.77,-36 1290.98,0 1387.19,-36 1290.98,-72"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-39.6" font-family="Arial" font-size="12.00" fill="#152a38">From enrolment</text>
+<text xml:space="preserve" text-anchor="middle" x="1290.98" y="-25.2" font-family="Arial" font-size="12.00" fill="#152a38">[enrollmentId]</text>
+</g>
+<!-- rel_Attendance_schoolId_fkey -->
+<g id="node91" class="node">
+<title>rel_Attendance_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-2176 369.76,-2140 476.01,-2104 582.26,-2140 476.01,-2176"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2143.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2129.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_AttendanceEvent_schoolId_fkey -->
+<g id="node92" class="node">
+<title>rel_AttendanceEvent_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="1047.96,-1133 941.71,-1097 1047.96,-1061 1154.21,-1097 1047.96,-1133"/>
+<text xml:space="preserve" text-anchor="middle" x="1047.96" y="-1100.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="1047.96" y="-1086.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_AttendanceSession_schoolId_fkey -->
+<g id="node93" class="node">
+<title>rel_AttendanceSession_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-1326 369.76,-1290 476.01,-1254 582.26,-1290 476.01,-1326"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1293.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1279.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_FaceEnrollment_schoolId_fkey -->
+<g id="node94" class="node">
+<title>rel_FaceEnrollment_schoolId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-747 369.76,-711 476.01,-675 582.26,-711 476.01,-747"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-714.6" font-family="Arial" font-size="12.00" fill="#152a38">Belongs to school</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-700.2" font-family="Arial" font-size="12.00" fill="#152a38">[schoolId]</text>
+</g>
+<!-- rel_Attendance_studentId_fkey -->
+<g id="node95" class="node">
+<title>rel_Attendance_studentId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-2564 403.79,-2528 476.01,-2492 548.23,-2528 476.01,-2564"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2531.6" font-family="Arial" font-size="12.00" fill="#152a38">For student</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-2517.2" font-family="Arial" font-size="12.00" fill="#152a38">[studentId]</text>
+</g>
+<!-- rel_AttendanceEvent_studentId_fkey -->
+<g id="node96" class="node">
+<title>rel_AttendanceEvent_studentId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="683.47,-2592 611.26,-2556 683.47,-2520 755.69,-2556 683.47,-2592"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-2559.6" font-family="Arial" font-size="12.00" fill="#152a38">For student</text>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-2545.2" font-family="Arial" font-size="12.00" fill="#152a38">[studentId]</text>
+</g>
+<!-- rel_AttendanceVerification_studentId_fkey -->
+<g id="node97" class="node">
+<title>rel_AttendanceVerification_studentId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="683.47,-1522 611.26,-1486 683.47,-1450 755.69,-1486 683.47,-1522"/>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-1489.6" font-family="Arial" font-size="12.00" fill="#152a38">For student</text>
+<text xml:space="preserve" text-anchor="middle" x="683.47" y="-1475.2" font-family="Arial" font-size="12.00" fill="#152a38">[studentId]</text>
+</g>
+<!-- rel_AttendanceSession_subjectId_fkey -->
+<g id="node98" class="node">
+<title>rel_AttendanceSession_subjectId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-2006 385.12,-1970 476.01,-1934 566.89,-1970 476.01,-2006"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1973.6" font-family="Arial" font-size="12.00" fill="#152a38">Covers subject</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1959.2" font-family="Arial" font-size="12.00" fill="#152a38">[subjectId]</text>
+</g>
+<!-- rel_AttendanceSession_teacherId_fkey -->
+<g id="node99" class="node">
+<title>rel_AttendanceSession_teacherId_fkey</title>
+<polygon fill="#fff2db" stroke="#f47b20" stroke-width="1.1" points="476.01,-1921 371.76,-1885 476.01,-1849 580.25,-1885 476.01,-1921"/>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1888.6" font-family="Arial" font-size="12.00" fill="#152a38">Assigned teacher</text>
+<text xml:space="preserve" text-anchor="middle" x="476.01" y="-1874.2" font-family="Arial" font-size="12.00" fill="#152a38">[teacherId]</text>
+</g>
+</g>
+</g><line x1="50" y1="3086" x2="1988" y2="3086" stroke="#CED5DA"/><text x="50" y="3119" font-family="Arial,sans-serif" font-size="14" fill="#172734" >Rectangle = entity; diamond = relationship; ellipse = attribute; underlined attribute = actual primary key.</text><text x="50" y="3144" font-family="Arial,sans-serif" font-size="14" fill="#172734" >1:N / 1:1 are maximum cardinality ratios. Double line = total participation (NOT NULL FK); single line = partial participation.</text><text x="50" y="3169" font-family="Arial,sans-serif" font-size="14" fill="#172734" >Associative entities retain their actual surrogate id PK. Grey entities reference another module; no weak or multivalued symbols are invented.</text><text x="50" y="3192" font-family="Arial,sans-serif" font-size="13" fill="#172734" >Live catalogue: meridian:5432 | 43 application tables | 441 columns | 67 declared FKs</text></svg>
