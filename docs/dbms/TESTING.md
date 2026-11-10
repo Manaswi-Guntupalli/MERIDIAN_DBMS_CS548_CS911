@@ -1,5 +1,11 @@
 # Executed verification and limits
 
+## Startup/documentation verification — 10 November 2026
+
+The configured native Windows launcher was run again with the existing services healthy. `npm run check:services` passed all six components: website, API, intelligence, loaded face engine, school PostgreSQL + pgvector and the dedicated SQL Lab PostgreSQL/template. The checker now probes the school database directly in a read-only transaction, independently of the API HTTP heartbeat. An unreachable-database smoke check returned exit code 1 with an explicit school-database failure, continued checking the lab and omitted connection credentials.
+
+The current [README](../../README.md), [file lookup](../../PROJECT_LAYOUT.md), [stack inventory](../../techstack.md), [architecture](../../system-architecture.md) and [technology justification](../../TECHNOLOGY%20JUSTIFICATION.md) replace stale operational descriptions. This pass did not rerun the application, Flutter or Python test suites, rebuild APKs, install Docker or test a fresh clone. It did not seed/reset school data. Separate executed [48-query evidence](../../database/rubric/VERIFICATION.md) and [live diagram/image evidence](../../database/rubric/diagrams/VERIFICATION.md) retain their own timestamps and scopes. Historical results below are dated records, not new runs of the current revision.
+
 ## SQL playground and report follow-ups — 17 October 2026
 
 The SQL playground passed 13 dedicated backend tests and 14 browser checks, with 12 related authorization/knowledge regression tests also passing. These cover every query-shelf example, user isolation, preservation of website records, real schema and vector queries, transaction rollback, reset, errors, output limits, slow-query termination, CSV, history, keyboard selection, desktop/mobile layouts and the existing live-evidence tab. See [SQL Lab](SQL_LAB.md) for implementation, commands and deployment details.

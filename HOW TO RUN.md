@@ -1,152 +1,73 @@
 # How to run Meridian
 
-These steps are for **Windows PowerShell + Android**. For Mac/iPhone, use the [Flutter guide](flutter_app/README.md#5-ios-setup-mac-only).
+The full instructions are in [README.md](README.md). This quick guide distinguishes the already-configured native computer from a new clone.
 
-## 1. Install these first
+## Existing configured Windows computer
 
-- Git, Node.js **22**, and Python **3.11 or newer**. Add them to PATH during installation.
-- Docker Desktop. **Open it and wait until it is running.**
-- Flutter **3.38.5** and Android Studio. Install Android SDK **36**, Command-line Tools and Platform-Tools. Add Flutter's `bin` and Android's `platform-tools` to PATH.
-- For the face service, install Visual Studio Build Tools with **Desktop development with C++** if InsightFace needs compiling.
-- An Android **7.0+** phone with a USB cable, or an Android emulator.
-
-Keep an internet connection for the first installation and model downloads.
-
-## 2. Clone and install
-
-Open PowerShell where you want to keep the project:
+From PowerShell:
 
 ```powershell
-git clone https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911.git
-cd MERIDIAN_DBMS_CS548_CS911
-node scripts/configure-local.mjs
-$env:ONNXRUNTIME_NODE_INSTALL = 'skip'
-npm ci
-```
-
-The configuration command creates the local settings for you. Keep those files; do not replace their passwords or storage key later.
-
-## 3. Prepare the database — first installation only
-
-From the project folder:
-
-```powershell
-docker compose up -d --wait
-npm run db:setup
-```
-
-**Only on your new demo database**, run this to add sample students and login accounts:
-
-```powershell
-npm run seed
-```
-
-**Do not run `seed` again once you have records to keep. It deletes existing application records.**
-
-## 4. Install the Python services — first installation only
-
-Stay in the project folder:
-
-```powershell
-python -m venv intelligence/.venv
-./intelligence/.venv/Scripts/python.exe -m pip install --upgrade pip
-./intelligence/.venv/Scripts/python.exe -m pip install -r intelligence/requirements.txt
-
-python -m venv faceservice/.venv
-./faceservice/.venv/Scripts/python.exe -m pip install --upgrade pip
-./faceservice/.venv/Scripts/python.exe -m pip install -r faceservice/requirements.txt
-```
-
-## 5. Start the website and services
-
-Open **three PowerShell terminals**, all inside `MERIDIAN_DBMS_CS548_CS911`. Keep them open.
-
-**Terminal 1 — website and backend:**
-
-```powershell
-npm run dev
-```
-
-**Terminal 2 — analytics:**
-
-```powershell
-./intelligence/.venv/Scripts/python.exe -m uvicorn app.main:app --app-dir intelligence --host 127.0.0.1 --port 8010
-```
-
-**Terminal 3 — face service:**
-
-```powershell
-./faceservice/.venv/Scripts/python.exe -m uvicorn app:api --app-dir faceservice --host 127.0.0.1 --port 8020
-```
-
-The face model downloads on the first start. Wait for **Application startup complete**. Other models may download when you first use their features.
-
-## 6. Open the website
-
-In a **fourth terminal**, inside the project folder:
-
-```powershell
+Set-Location 'D:\DBMS MINI PROJECT\MERIDIAN'
+npm run start:native
 npm run check:services
+Start-Process 'http://localhost:5173'
 ```
 
-All four services should say **OK**. Open **http://localhost:5173**.
+Expect **six OK checks**: website, API, intelligence, face engine, school PostgreSQL + pgvector and SQL Lab PostgreSQL. Allow model warm-up before repeating a check.
 
-Sign in with **`principal@meridian.school`** and password **`meridian123`**.
+This uses the installed `.local` PostgreSQL clusters, existing built Node apps and **Python from PATH**. It does not install packages, build source, seed records or create missing clusters. If a dependency or build is missing, follow the full [native prerequisites](README.md#run-on-the-configured-windows-computer). Docker is not needed on this configured native installation.
 
-## 7. Run Flutter on your Android phone
+## New computer / fresh clone
 
-Keep the website/backend and both Python services running.
+Install Git, Node 22, Docker with Compose, and Python 3.11+ with the face engine's required build tools. Then follow [the complete fresh-clone instructions](README.md#run-the-website-from-a-fresh-clone):
 
-Enable **Developer options → USB debugging** on your phone. Connect it by USB and accept the phone's debugging prompt.
+1. Clone, create local configuration, and run the locked Node install.
+2. Start the two Compose PostgreSQL services.
+3. Run `npm run db:setup` and `npm run sql-lab:setup`.
+4. Seed **only** a new disposable demonstration database.
+5. Install/start the two Python engines with explicit virtual-environment interpreters.
+6. Run `npm run dev`, check all six components, and open port 5173.
 
-In the fourth terminal:
+The clone does not contain the original computer's database, private configuration, model caches or installed `.local` binaries. Do not run the native and Compose clusters together on the same ports.
 
-```powershell
-cd flutter_app
-flutter doctor -v
-flutter doctor --android-licenses
-flutter pub get
-flutter devices
-adb devices
-```
+## Sign in
 
-Resolve any Android toolchain errors shown by `flutter doctor`. Read and accept the SDK licenses when prompted.
-
-Replace `DEVICE_ID` below with your phone's ID shown above:
-
-```powershell
-adb -s DEVICE_ID reverse tcp:4000 tcp:4000
-flutter run --debug -d DEVICE_ID --dart-define=MERIDIAN_API_BASE=http://127.0.0.1:4000
-```
-
-This builds, installs and opens the app. Keep the USB cable connected. Grant camera permission when using QR/face features.
-
-**Using an emulator instead?** Start it in Android Studio, get its ID from `flutter devices`, and use this command instead of the two phone commands:
-
-```powershell
-flutter run --debug -d DEVICE_ID --dart-define=MERIDIAN_API_BASE=http://10.0.2.2:4000
-```
-
-Use the same password **`meridian123`** with any of these accounts:
+Newly seeded demonstration accounts use password `meridian123`:
 
 | Role | Email |
 | --- | --- |
 | Principal | `principal@meridian.school` |
+| Administrator | `admin@meridian.school` |
+| Super administrator | `super@meridian.school` |
 | Teacher | `teacher@meridian.school` |
 | Student | `student@meridian.school` |
 | Parent | `parent@meridian.school` |
 
-For a phone over Wi-Fi instead of USB, follow the [Wi-Fi instructions](flutter_app/README.md#physical-phone-over-wi-fi). Do not use the emulator's `10.0.2.2` address on a physical phone.
+Existing account passwords may have changed. Never reseed to repair a login or connection problem; the seed deletes existing application records.
 
-## 8. Next time you run it
+## USB Android phone
 
-1. Open Docker Desktop, then run `docker compose up -d --wait` from the project folder.
-2. Start the same three terminals from step 5.
-3. Open the website. For Flutter, repeat the USB reverse and `flutter run` commands from step 7.
-4. **Do not repeat `npm run seed`.**
+Keep all server/database components running. Enable USB debugging and approve the connection. Use your actual authorized ID in both commands:
 
-To stop, press **Ctrl+C** in the running terminals and run `docker compose stop`. Your database stays saved.
+```powershell
+adb devices
+adb -s DEVICE_ID reverse tcp:4000 tcp:4000
+cd flutter_app
+flutter pub get
+flutter run --debug -d DEVICE_ID --dart-define=MERIDIAN_API_BASE=http://127.0.0.1:4000
+```
 
-Optional OpenAI: run `npm run configure:openai`, paste a fresh key into the hidden terminal prompt, then restart the API and intelligence services. Super Admin can verify it under **Settings → OpenAI connection**. See [OpenAI setup](docs/OPENAI.md).
+The API base has no `/api` suffix. Reapply USB reverse after reconnecting. The standard Android emulator uses `http://10.0.2.2:4000` instead. Release LAN hosts require HTTPS; loopback HTTP supports the USB demo. For builds, installation and iOS, use [the mobile guide](flutter_app/README.md).
 
-SMS, email and Firebase push need separate provider credentials. For errors, see [website troubleshooting](README.md#troubleshooting) or [Flutter troubleshooting](flutter_app/README.md#verification-and-troubleshooting).
+## Attendance demonstration
+
+Use [the QR + face walkthrough](docs/QR_ATTENDANCE.md). Enroll a consenting person under the correct student, start the student's class session as authorized staff, and submit **both the valid QR and matching face in that session**. Either order works; one factor alone remains incomplete.
+
+## Tomorrow and shutdown
+
+- On the configured native computer: repeat the first startup block. **Do not reseed.**
+- On the Docker setup: start its databases and the same Node/Python terminals.
+- Foreground apps stop with Ctrl+C. Native background apps need their recorded PIDs inspected and stopped; the full [shutdown instructions](README.md#stop-the-configured-native-setup) include clean PostgreSQL stops.
+- Preserve database files/volumes, local environment keys and configured encrypted document storage. Some live document files on the configured computer are under `tmp/repaired-demo/documents`.
+
+For a demonstration, open [PROJECT_LAYOUT.md](PROJECT_LAYOUT.md) to locate any requested source, query, diagram or test file immediately.

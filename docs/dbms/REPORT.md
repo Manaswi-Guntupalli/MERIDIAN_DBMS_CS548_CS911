@@ -10,7 +10,7 @@ Schools need more than a register: timetable conflicts, attendance verification,
 - Manage students, guardians, teachers, classes, rooms, subjects, fees and payments.
 - Process school forms with OCR, field confidence, human correction, provenance and verified record creation.
 - Generate, validate, approve, publish and version timetables; recommend substitute teachers.
-- Run session-bound attendance with face verification, QR fallback, proxy checks, summaries and exports.
+- Run session-bound attendance requiring both a valid QR and matching face for the same student/session, in either order, with pending states, summaries and exports.
 - Show operational forecasts, notices, notifications, school dashboards, emergency acknowledgements and audit history.
 - Preserve the Flutter companion's existing Express API contract.
 - Create school knowledge entries, import document/notice excerpts, search by semantic relevance, edit and re-embed, and delete entries.
@@ -26,9 +26,11 @@ School policies and document text have a different retrieval need: a query such 
 
 References: [official pgvector documentation](https://github.com/pgvector/pgvector), [PostgreSQL constraints](https://www.postgresql.org/docs/16/ddl-constraints.html), [PostgreSQL row security](https://www.postgresql.org/docs/16/ddl-rowsecurity.html), [Next.js SPA migration](https://nextjs.org/docs/app/guides/single-page-applications).
 
+The [complete technology justification](../../TECHNOLOGY%20JUSTIFICATION.md) explains each implemented layer, supporting source files and trade-offs; [the stack inventory](../../techstack.md) records version sources.
+
 ## Design, ER diagram and relational schema
 
-See [complete ER diagram and data dictionary](SCHEMA.md), [executable relational DDL](../../server/prisma/migrations/202610150001_relational/migration.sql), and [advanced/vector DDL](../../database/advanced.sql). There are 40 existing relational models plus KnowledgeItem and KnowledgeRevision. Primary keys identify entities; junction tables implement many-to-many relations; composite unique constraints prevent duplicate attendance and timetable conflicts. The dictionary lists every persisted scalar field, optionality, defaults, foreign keys and composite constraints.
+See the [current live-catalogue dictionary](../../database/rubric/SCHEMA.md), [complete Chen ER SVG](../../database/rubric/diagrams/chen/01_complete_chen_er.svg), [relational mapping SVG](../../database/rubric/diagrams/relational/01_complete_relational_mapping.svg), [executable relational DDL](../../server/prisma/migrations/202610150001_relational/migration.sql), and [advanced/vector DDL](../../database/advanced.sql). There are 43 application tables, excluding Prisma's internal migration bookkeeping. Primary keys identify entities; junction tables implement many-to-many relations; composite unique constraints prevent duplicate attendance and timetable conflicts. The dictionary lists persisted columns, optionality, defaults, keys and constraints verified against the actual school database.
 
 The normalization strategy separates people, academic structure, sessions, fee obligations, payment facts and workflow versions. Existing JSON-serialized extraction and engine payloads are retained for compatibility. Fee.paid is a summary maintained with its Payment fact by a locked SQL function.
 
@@ -56,7 +58,7 @@ The normalization strategy separates people, academic structure, sessions, fee o
 8. Transactions: publishing existing timetable workflows, atomic payment recording, scoped RLS knowledge operations, and rollback-only SQL demonstrations.
 9. Vector cosine similarity, vector CRUD, model metadata, dimensionality and nonzero-vector constraints.
 
-See [demonstration SQL](../../database/demo.sql). CREATE/ALTER/DROP and INSERT/SELECT/UPDATE/DELETE use an isolated temporary table and roll back; they do not delete project data. Live application DML is also exercised through students, fees, attendance and knowledge screens.
+See the [48 separate SQL questions and expected outputs](../../database/rubric/INDEX.md), [six-example walkthrough](../../database/rubric/SIX_EXAMPLE_DEMO.md), and [database verification record](../../database/rubric/VERIFICATION.md). The earlier compact [demonstration SQL](../../database/demo.sql) is also retained. Demonstration writes and DDL run in rollback-only transactions; sequence values can still advance. Live application DML is also exercised through students, fees, attendance and knowledge screens.
 
 ## Authentication and authorization
 

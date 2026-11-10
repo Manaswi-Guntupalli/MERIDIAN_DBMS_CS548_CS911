@@ -17,6 +17,27 @@ const results = await Promise.all(checks.map(async ([name, url, json]) => {
     return { name, url, ok: true };
   } catch (error) { return { name, url, ok: false, reason: error.message }; }
 }));
+// API /health proves the HTTP process is alive; check the school DB separately.
+try {
+  const config = require('dotenv').parse(readFileSync(new URL('../server/.env', import.meta.url)));
+  const connectionString = process.env.DATABASE_URL || config.DATABASE_URL;
+  if (!connectionString) throw new Error('DATABASE_URL is not configured');
+  const client = new (require('pg').Client)({ connectionString, connectionTimeoutMillis: 5000, query_timeout: 5000 });
+  try {
+    await client.connect();
+    await client.query('BEGIN READ ONLY');
+    const schema = await client.query(`SELECT extversion,
+      to_regclass('public."School"') AS school_table,
+      to_regclass('public."KnowledgeItem"') AS knowledge_table
+      FROM pg_extension WHERE extname='vector'`);
+    if (!schema.rows[0]?.school_table || !schema.rows[0]?.knowledge_table) {
+      throw new Error('School schema or pgvector is missing; apply the database setup');
+    }
+    await client.query('ROLLBACK');
+    const address = new URL(connectionString);
+    results.push({ name: 'School PostgreSQL + pgvector', url: `${address.hostname}:${address.port || 5432}${address.pathname}`, ok: true });
+  } finally { await client.end(); }
+} catch (error) { results.push({ name: 'School PostgreSQL + pgvector', url: 'configured school database', ok: false, reason: error.message }); }
 try {
   const config = require('dotenv').parse(readFileSync(new URL('../server/.env', import.meta.url)));
   const connectionString = process.env.SQL_LAB_ADMIN_URL || config.SQL_LAB_ADMIN_URL;
