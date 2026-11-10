@@ -69,6 +69,8 @@ The standalone rubric files above target the actual school schema on 5432. Do no
 
 ## 5. Demonstrate Knowledge Library and database permissions
 
+For the preloaded presentation, use [KNOWLEDGE_DEMO.md](KNOWLEDGE_DEMO.md): ten entries are already saved on the configured computer, with eight tested questions and expected first results. You can demonstrate search immediately; creating another entry is optional.
+
 1. As an administrator/principal, create a clearly labelled demo absence-policy paragraph. First use may download MiniLM; allow it to finish.
 2. Search using different wording, such as “What should I do when my child misses class?” Explain title-plus-content embeddings, `Xenova/all-MiniLM-L6-v2`, 384 dimensions, cosine distance and the returned relevance score.
 3. Use category filtering during search, then Show all. Show all ignores the search/category controls and lists up to 100 visible school entries, most recently updated first, without semantic ranking.

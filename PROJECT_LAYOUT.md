@@ -4,6 +4,8 @@ Use this as the **file lookup during the demonstration**. In VS Code, press **Ct
 
 For startup, use [README.md](README.md). For technology reasons, open [TECHNOLOGY JUSTIFICATION.md](TECHNOLOGY%20JUSTIFICATION.md). For exact dependencies, open [techstack.md](techstack.md).
 
+For the preloaded Knowledge Library presentation, use [ready-to-search questions and expected results](docs/dbms/KNOWLEDGE_DEMO.md).
+
 ## 1. Top-level structure
 
 ```text
