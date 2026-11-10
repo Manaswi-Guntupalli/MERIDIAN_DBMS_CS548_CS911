@@ -93,8 +93,7 @@ class _AppShellState extends ConsumerState<AppShell> {
       ..showSnackBar(
         SnackBar(
           backgroundColor: AppColors.slate900,
-          duration:
-              Duration(seconds: alert.severity == 'CRITICAL' ? 8 : 4),
+          duration: Duration(seconds: alert.severity == 'CRITICAL' ? 8 : 4),
           content: Row(
             children: [
               Container(width: 3, height: 34, color: c),
@@ -104,12 +103,18 @@ class _AppShellState extends ConsumerState<AppShell> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(alert.title,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 13.5)),
+                    Text(
+                      alert.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13.5,
+                      ),
+                    ),
                     if (alert.body.isNotEmpty)
-                      Text(alert.body,
-                          style: const TextStyle(fontSize: 12, height: 1.35)),
+                      Text(
+                        alert.body,
+                        style: const TextStyle(fontSize: 12, height: 1.35),
+                      ),
                   ],
                 ),
               ),
@@ -140,6 +145,15 @@ class _AppShellState extends ConsumerState<AppShell> {
     );
   }
 
+  // A camera must not run inside an offstage IndexedStack page. Mount the
+  // scanner only while selected; leaving Scan disposes it and resets decoding.
+  Widget _destinationPage(MDestination destination) {
+    if (destination.label == 'Scan' && _selectedKey != 'Scan') {
+      return const SizedBox.shrink();
+    }
+    return destination.builder(context);
+  }
+
   // ── Phone: bottom navigation bar (+ "More" overflow) ──
   Widget _bottomLayout(List<MDestination> destinations) {
     final List<MDestination> navDests;
@@ -149,7 +163,7 @@ class _AppShellState extends ConsumerState<AppShell> {
 
     if (destinations.length <= _maxTabs) {
       navDests = destinations;
-      pages = [for (final d in destinations) d.builder(context)];
+      pages = [for (final d in destinations) _destinationPage(d)];
     } else {
       final primary = destinations.take(_maxTabs - 1).toList();
       overflow = destinations.skip(_maxTabs - 1).toList();
@@ -165,7 +179,7 @@ class _AppShellState extends ConsumerState<AppShell> {
         ),
       ];
       pages = [
-        for (final d in primary) d.builder(context),
+        for (final d in primary) _destinationPage(d),
         MoreScreen(destinations: overflow),
       ];
     }
@@ -228,7 +242,7 @@ class _AppShellState extends ConsumerState<AppShell> {
           Expanded(
             child: IndexedStack(
               index: index,
-              children: [for (final d in destinations) d.builder(context)],
+              children: [for (final d in destinations) _destinationPage(d)],
             ),
           ),
         ],
@@ -262,13 +276,20 @@ class _AppShellState extends ConsumerState<AppShell> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(user?.name ?? '',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.slate900)),
-                  Text(user?.role.label ?? '',
-                      style: const TextStyle(
-                          fontSize: 12, color: AppColors.slate500)),
+                  Text(
+                    user?.name ?? '',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.slate900,
+                    ),
+                  ),
+                  Text(
+                    user?.role.label ?? '',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.slate500,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -303,7 +324,6 @@ class _AppShellState extends ConsumerState<AppShell> {
       ],
     );
   }
-
 }
 
 // Placeholder builder for the synthetic "More" destination (its page is built

@@ -71,7 +71,7 @@ export default function Simulator() {
         <p className="mb-3 text-xs text-slate-500">{ready ? 'Each fires the real engine against the active session.' : 'Start a session above first.'}</p>
         <div className="mb-2 text-[0.7rem] font-semibold uppercase tracking-wider text-slate-400">Everyday flow</div>
         <div className="grid gap-2 sm:grid-cols-2">
-          <Scenario icon={<ScanFace className="h-4 w-4 text-mint-500" />} title="Correct face" desc="A student's face is recognised → marked present." disabled={!ready} onClick={() => run.mutate({ path: 'correct-face', label: 'Correct face' })} />
+          <Scenario icon={<ScanFace className="h-4 w-4 text-mint-500" />} title="Correct face" desc="Face verified; stays pending until this student's QR is scanned." disabled={!ready} onClick={() => run.mutate({ path: 'correct-face', label: 'Correct face' })} />
           <Scenario icon={<QrCode className="h-4 w-4 text-cyan-500" />} title="QR + face" desc="QR scanned and the face matches → present (both factors)." disabled={!ready} onClick={() => run.mutate({ path: 'qr-face', label: 'QR + face' })} />
           <Scenario icon={<QrCode className="h-4 w-4 text-amber-500" />} title="QR only" desc="QR scanned, no face yet → pending; becomes Unverified QR at expiry." disabled={!ready} onClick={() => run.mutate({ path: 'qr-only', label: 'QR only' })} />
           <Scenario icon={<CheckCircle2 className="h-4 w-4 text-brand-500" />} title="No face detected" desc="An empty frame — nothing to mark." disabled={!ready} onClick={() => run.mutate({ path: 'no-face', label: 'No face detected' })} />

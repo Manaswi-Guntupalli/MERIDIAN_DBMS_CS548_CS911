@@ -90,6 +90,8 @@ Use the web interface for administrator-wide management workflows. Newly provisi
 
 For a QR demo, open a class attendance session as an authorized teacher/admin on the website and display its QR on the computer. Sign in as a student assigned to that class on the phone and grant camera permission. Face verification additionally needs enrollment, consent and a healthy face engine; installing the APK alone does not enroll anyone. Confirm the actual attendance result in the web register. Session expiry, class assignment and anti-proxy checks still apply.
 
+Both **QR + a matching enrolled face** are mandatory in the same session, in either order. One factor stays pending; the phone automatically follows the final result when the other factor is verified. See [the classroom verification guide](../docs/QR_ATTENDANCE.md) for the matching 6A teacher/student demo accounts and exact steps.
+
 ## 4. Build and install an Android demo APK
 
 From `flutter_app/`, for a Wi-Fi phone:
@@ -101,7 +103,17 @@ adb -s YOUR_ANDROID_DEVICE_ID install -r build/app/outputs/flutter-apk/app-debug
 
 Substitute the actual LAN IP. For a USB-only demo, build with `http://127.0.0.1:4000` instead and keep the USB reverse mapping active. An APK built with `10.0.2.2` is for the standard emulator, not a standalone Wi-Fi phone. The backend computer must remain running and reachable after installation.
 
-Debug builds permit local HTTP. **Android release builds require HTTPS** under the checked-in network security policy. The current release Gradle configuration uses the debug signing key, so it is not a store-ready signing setup; configure your own signing before distribution.
+Debug builds permit local HTTP. Android release builds require HTTPS for network hosts, with a loopback-only HTTP exception for `127.0.0.1` and `localhost`. This supports USB demos using `adb reverse`; keep the phone connected and repeat the reverse command after reconnecting. The current release Gradle configuration uses the debug signing key, so it is not a store-ready signing setup; configure your own signing before distribution.
+
+For USB testing, build the other APK variants with the same API address:
+
+```powershell
+flutter build apk --profile --dart-define=MERIDIAN_API_BASE=http://127.0.0.1:4000
+flutter build apk --release --split-per-abi --dart-define=MERIDIAN_API_BASE=http://127.0.0.1:4000
+flutter build apk --release --dart-define=MERIDIAN_API_BASE=http://127.0.0.1:4000
+```
+
+APKs are written to `build/app/outputs/flutter-apk/`. Use `app-arm64-v8a-release.apk` for an ARM64 phone, or `app-release.apk` for the universal release build. These USB builds use the backend on the connected computer; reconnecting the cable requires `adb reverse tcp:4000 tcp:4000` again.
 
 ## 5. iOS setup (Mac only)
 

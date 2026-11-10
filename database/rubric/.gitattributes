@@ -1,0 +1,6 @@
+# Keep captured outputs and SQL SHA-256 evidence consistent across platforms.
+.gitattributes text eol=lf
+*.sql text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.mjs text eol=lf

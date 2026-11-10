@@ -9,7 +9,7 @@ type Severity = 'SUCCESS' | 'WARNING' | 'CRITICAL' | 'INFO';
 export const STATE_BADGE: Record<VerificationState, { label: string; severity: Severity }> = {
   PENDING: { label: 'Waiting', severity: 'INFO' },
   QR_VERIFIED: { label: 'QR · awaiting face', severity: 'WARNING' },
-  FACE_VERIFIED: { label: 'Face verified', severity: 'SUCCESS' },
+  FACE_VERIFIED: { label: 'Face · awaiting QR', severity: 'WARNING' },
   PRESENT: { label: 'Present', severity: 'SUCCESS' },
   PROXY_ATTEMPT: { label: 'Proxy blocked', severity: 'CRITICAL' },
   UNVERIFIED_QR: { label: 'Unverified QR', severity: 'CRITICAL' },

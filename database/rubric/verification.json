@@ -1,0 +1,437 @@
+{
+  "capturedAt": "2026-11-10T08:22:50.891Z",
+  "mode": "record",
+  "independentSessionPerFile": true,
+  "database": {
+    "database": "meridian",
+    "login": "meridian",
+    "postgres_version": "16.15",
+    "port": 5432,
+    "pgvector_version": "0.8.7",
+    "school_matches": 1
+  },
+  "passed": 48,
+  "failed": 0,
+  "persistentRowsAndSchemaUnchanged": true,
+  "publicTableCount": 44,
+  "examples": [
+    {
+      "file": "00_design_and_schema/01_tables.sql",
+      "passed": true,
+      "sqlSha256": "f047ec862dacfab46da1dcfde4f47328920de7a7990c90eefcabeec1b3e678dc",
+      "resultRows": [
+        43
+      ]
+    },
+    {
+      "file": "00_design_and_schema/02_columns.sql",
+      "passed": true,
+      "sqlSha256": "ed24390a6201cb9be09d4a1fa6c2589651905c8258ee7797d40cefa523950fca",
+      "resultRows": [
+        45
+      ]
+    },
+    {
+      "file": "00_design_and_schema/03_primary_and_unique_keys.sql",
+      "passed": true,
+      "sqlSha256": "2da307a967803ffbdeaa980725d75df06fada61987b054b340dd7e620f59a89f",
+      "resultRows": [
+        11
+      ]
+    },
+    {
+      "file": "00_design_and_schema/04_foreign_keys.sql",
+      "passed": true,
+      "sqlSha256": "274f262ea82c3d29fad6233c99000f3cb0c4d933c23b423ce6bbd49013ab8731",
+      "resultRows": [
+        15
+      ]
+    },
+    {
+      "file": "00_design_and_schema/05_check_constraints.sql",
+      "passed": true,
+      "sqlSha256": "c9756bf5f1211cdef7d760c1f2945da060be0e04e84de65593241a9c0ba298e3",
+      "resultRows": [
+        15
+      ]
+    },
+    {
+      "file": "00_design_and_schema/06_indexes_and_view.sql",
+      "passed": true,
+      "sqlSha256": "63529f32af6de03e04027aa520dbf1ed39425174c349901cd8eeac44eba1cfcb",
+      "resultRows": [
+        6,
+        1
+      ]
+    },
+    {
+      "file": "01_ddl/01_create_table.sql",
+      "passed": true,
+      "sqlSha256": "58b8c5488ea02bce4ee6a963f68343ca5812ce11bb67307ec15ccc3997992d2a",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "01_ddl/02_alter_table.sql",
+      "passed": true,
+      "sqlSha256": "19ca87d33de2731368f6d90bb01113ba223e7e76e3714abf3b9bda02cf0714f1",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "01_ddl/03_drop_table.sql",
+      "passed": true,
+      "sqlSha256": "c6e8a14ca6e2d422e913f09a2025d7ad99b066e5475e1a3bc570968985dbe930",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "01_ddl/04_constraints.sql",
+      "passed": true,
+      "sqlSha256": "d123a160cfb8e75f8c7ee02153112863a15c579b6c5ef95c5c3d22a93c03f89a",
+      "resultRows": [
+        4
+      ]
+    },
+    {
+      "file": "01_ddl/05_create_index.sql",
+      "passed": true,
+      "sqlSha256": "ccbda79ce4aa9ddd1f39be88a66e9374354d7a9d0156bf59823d7a7faf28be43",
+      "resultRows": [
+        3,
+        4
+      ]
+    },
+    {
+      "file": "01_ddl/06_create_view.sql",
+      "passed": true,
+      "sqlSha256": "37e2e53ecf7ce85667406697b07a20d60b9dfac43b9c0d052da8064a0195bd2f",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "02_dml/01_select.sql",
+      "passed": true,
+      "sqlSha256": "aa55d637ee8b21b07c014756777d92e8fe2e467ad4a7e28b6b106a0e76a52484",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "02_dml/02_insert.sql",
+      "passed": true,
+      "sqlSha256": "0a0de94500e3661bdff77ab22d8d59a84d86d474e3559a06d618c0f6af595d4e",
+      "resultRows": [
+        1
+      ]
+    },
+    {
+      "file": "02_dml/03_update.sql",
+      "passed": true,
+      "sqlSha256": "a452a1b91a1fe5a7e4cf4a3a9ffa9929e6041e136ae76f4bb3f7344dbdd86f1c",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "02_dml/04_delete.sql",
+      "passed": true,
+      "sqlSha256": "384d5ec422d6a3670978a68e03d20189c0ac09820a8dc3c57375b2dc99d39a2f",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "02_dml/05_upsert.sql",
+      "passed": true,
+      "sqlSha256": "6a3d67daf927e74b6b3c68712bb667d60f4d731715bd21bdc4df73a1d4d4b4fb",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "02_dml/06_insert_select.sql",
+      "passed": true,
+      "sqlSha256": "97bf312c9bc3306ae750df71c2105d0554404bd1557b6d137f8f50e2d6166b17",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "03_joins_and_aggregates/01_inner_join.sql",
+      "passed": true,
+      "sqlSha256": "8ea5ccb0430be505dfc140fcf8f2caff4852250bcf279cc3ee2410f59c8e348b",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "03_joins_and_aggregates/02_left_join.sql",
+      "passed": true,
+      "sqlSha256": "bb980301e1982ea7baa2f827b2758efa4b5269a6813ba04d092c4fb2293f1faa",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "03_joins_and_aggregates/03_timetable_join.sql",
+      "passed": true,
+      "sqlSha256": "00ee24acc819cb18d70ba59628b352420c5a10d1e312c9ac28ec28c0d637c519",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "03_joins_and_aggregates/04_group_by_having.sql",
+      "passed": true,
+      "sqlSha256": "d364531a536996750db385454047d5072081276c14b58a96ec318cd7f2271c12",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "03_joins_and_aggregates/05_aggregate_functions.sql",
+      "passed": true,
+      "sqlSha256": "2ed63ebbfe8146df330f0a818c4152672950a1e82448b3fae5a410648913800d",
+      "resultRows": [
+        2
+      ]
+    },
+    {
+      "file": "03_joins_and_aggregates/06_order_and_conditional_aggregation.sql",
+      "passed": true,
+      "sqlSha256": "b5c5c4fac85cdc4498ed18922a87b7e6a1ffe04c42dd55b41e3ed512a4d310b0",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "04_subqueries_and_ctes/01_nested_subquery.sql",
+      "passed": true,
+      "sqlSha256": "127ea3f426fae531b4a0396edbc0e8137bcbe20e9a49dfe5b65cea2c713a578b",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "04_subqueries_and_ctes/02_correlated_exists.sql",
+      "passed": true,
+      "sqlSha256": "a7cc234bbb43c4db7f790fcded1d5615f7e89a205c0a35d53b670211a22728cb",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "04_subqueries_and_ctes/03_correlated_scalar.sql",
+      "passed": true,
+      "sqlSha256": "dfd61759ae5b31573a92e0c8307f123d378ded8c62e809277064bfa0f5e26eda",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "04_subqueries_and_ctes/04_not_exists.sql",
+      "passed": true,
+      "sqlSha256": "e28b9c7fa906ce90fa922086707cec5a26d31b2f452629b3975653e0599db251",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "04_subqueries_and_ctes/05_cte.sql",
+      "passed": true,
+      "sqlSha256": "198bb8c4f230e4fdc2afcc5e5ef08e2b1e7c27f5b9bced876e0ddfd388d46867",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "04_subqueries_and_ctes/06_recursive_cte.sql",
+      "passed": true,
+      "sqlSha256": "25f73cc045adfe36676264d6670fec0604ac22fcef2eca8c66596b9cf4618e3f",
+      "resultRows": [
+        7
+      ]
+    },
+    {
+      "file": "05_advanced_sql/01_stored_payment_function.sql",
+      "passed": true,
+      "sqlSha256": "0fd0990fcf3e549368e6e781cd4258a211b1bab5bdfb004d5d5e59e8502df72b",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "05_advanced_sql/02_stored_procedure.sql",
+      "passed": true,
+      "sqlSha256": "ce9e3a51708ca4eeb3e9a0ce84f6ffbd258cfa4bb3ac061094e024850ead5f34",
+      "resultRows": [
+        1
+      ]
+    },
+    {
+      "file": "05_advanced_sql/03_trigger_audit.sql",
+      "passed": true,
+      "sqlSha256": "53c2e8095636e677d94604e5562c2df6646629e6372bdb321b286f49a883531f",
+      "resultRows": [
+        3,
+        1
+      ]
+    },
+    {
+      "file": "05_advanced_sql/04_transaction_rollback.sql",
+      "passed": true,
+      "sqlSha256": "2a164da513fa002861de904ea471b291e9d9916aa32fff6269e34bf8ada65f5b",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "05_advanced_sql/05_validation_and_failed_payment.sql",
+      "passed": true,
+      "sqlSha256": "df4e446d0f56742ca0b6418e50b466282e89ef0c8dedf03f9deb464d3b336ce1",
+      "resultRows": [
+        3,
+        1,
+        1
+      ]
+    },
+    {
+      "file": "05_advanced_sql/06_full_text_search.sql",
+      "passed": true,
+      "sqlSha256": "f3d24fa91969e54d35ee6824af573f81660b52e51d6153631b575665368bf6f7",
+      "resultRows": [
+        1
+      ]
+    },
+    {
+      "file": "06_pgvector/01_vector_creation.sql",
+      "passed": true,
+      "sqlSha256": "f48acecd3bfff6ed507630ff5becbd0fb0ff55501cff525fe80afa5253649553",
+      "resultRows": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "file": "06_pgvector/02_vector_insert.sql",
+      "passed": true,
+      "sqlSha256": "79197c39129f20dfdd90c50610fa5cc93737453f8cff1be786e8f397349cd4ee",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "06_pgvector/03_vector_similarity_search.sql",
+      "passed": true,
+      "sqlSha256": "b63be84f7ae25f14f454107198262affde63ab19f51cd055f11eeb1d569eb841",
+      "resultRows": [
+        6
+      ]
+    },
+    {
+      "file": "06_pgvector/04_vector_update.sql",
+      "passed": true,
+      "sqlSha256": "5eecc62adc198d888e477f99dbd68152b93e1405619b89c088db777a274f288c",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "06_pgvector/05_vector_delete.sql",
+      "passed": true,
+      "sqlSha256": "a96fc32c0025a5ba5bb567f88c43cda1a7e84361ffffc77d2fcad3ddc3a15473",
+      "resultRows": [
+        1,
+        1,
+        2
+      ]
+    },
+    {
+      "file": "06_pgvector/06_filtered_vector_read.sql",
+      "passed": true,
+      "sqlSha256": "16bb31ece7ed21f026d8f705199f6a72f0450900a74784d4b3fbea7145207c39",
+      "resultRows": [
+        3,
+        3
+      ]
+    },
+    {
+      "file": "07_permissions_and_integrity/01_roles_grants_policies.sql",
+      "passed": true,
+      "sqlSha256": "94e77a6abe3d39ec42f50878b080263333e206230ca05cbbe742265f7a0055f0",
+      "resultRows": [
+        2,
+        4,
+        4,
+        6,
+        1,
+        1
+      ]
+    },
+    {
+      "file": "07_permissions_and_integrity/02_admin_allowed.sql",
+      "passed": true,
+      "sqlSha256": "fc85b0a04b44f3a4a24681557c2e3c9cd7cff18187c4326b14fe46487981db66",
+      "resultRows": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "file": "07_permissions_and_integrity/03_teacher_read_only.sql",
+      "passed": true,
+      "sqlSha256": "530f0c220eedb9ac409f63a61d43eb2beec9fb3570375fcc96a87719297407e8",
+      "resultRows": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "file": "07_permissions_and_integrity/04_student_cannot_read.sql",
+      "passed": true,
+      "sqlSha256": "ecc66f9dba3536735b06d5b7a695b56db74001aeecc8f86ab2a1381b8039f4ff",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "07_permissions_and_integrity/05_wrong_school_context.sql",
+      "passed": true,
+      "sqlSha256": "7d4dcbfd586a0fa1912c80796827fd978a420eca3e3929ae1d301fc84676ce41",
+      "resultRows": [
+        1,
+        1
+      ]
+    },
+    {
+      "file": "07_permissions_and_integrity/06_database_validation.sql",
+      "passed": true,
+      "sqlSha256": "9d94b15af90d55c35c102f87128fb8ef684461b1930497312c7fe04d0fa8adf0",
+      "resultRows": [
+        6
+      ]
+    }
+  ],
+  "failures": []
+}

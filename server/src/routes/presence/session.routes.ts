@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { prisma } from '../../lib/prisma.js';
 import { authenticate, authorize } from '../../middleware/auth.js';
 import { validateBody } from '../../utils/validate.js';
-import { asyncHandler, badRequest, notFound } from '../../lib/errors.js';
+import { asyncHandler, badRequest, notFound, forbidden } from '../../lib/errors.js';
 import { STAFF, STAFF_ADMIN } from '../../utils/constants.js';
 import { startSession, closeSession, loadActiveSession, qrPayload, expireIfDue } from '../../services/presence/session.js';
 import { buildSessionSummary, renderSessionPdf, renderSessionExcel, reportFileName } from '../../services/presence/report.js';
@@ -38,6 +38,7 @@ async function sessionView(schoolId: string, sessionId: string, includeToken: bo
   return {
     id: s.id,
     status: s.status,
+    verificationMode: s.verificationMode,
     className: s.class.name,
     classId: s.class.id,
     subject: s.subject?.name ?? null,
@@ -48,7 +49,7 @@ async function sessionView(schoolId: string, sessionId: string, includeToken: bo
     secondsLeft: Math.max(0, Math.round((s.expiryTime.getTime() - Date.now()) / 1000)),
     counts: {
       present: counts.PRESENT ?? 0,
-      pending: (counts.PENDING ?? 0) + (counts.QR_VERIFIED ?? 0),
+      pending: (counts.PENDING ?? 0) + (counts.QR_VERIFIED ?? 0) + (counts.FACE_VERIFIED ?? 0),
       proxy: counts.PROXY_ATTEMPT ?? 0,
       unverifiedQr: counts.UNVERIFIED_QR ?? 0,
       total: s.verifications.length,
@@ -68,13 +69,13 @@ async function sessionView(schoolId: string, sessionId: string, includeToken: bo
 }
 
 // ── Start / close ──
-const startSchema = z.object({ classId: z.string(), subjectId: z.string().optional() });
+const startSchema = z.object({ classId: z.string(), subjectId: z.string().optional(), verificationMode: z.literal('QR_FACE').optional() });
 router.post(
   '/start',
   authorize(...STAFF),
   validateBody(startSchema),
   asyncHandler(async (req, res) => {
-    const { classId, subjectId } = req.body as z.infer<typeof startSchema>;
+    const { classId, subjectId, verificationMode } = req.body as z.infer<typeof startSchema>;
     // A teacher may only open attendance for a class they teach.
     if (req.user!.role === 'TEACHER') {
       const cls = await prisma.class.findFirst({ where: { id: classId, schoolId: req.user!.schoolId } });
@@ -86,6 +87,7 @@ router.post(
       classId,
       teacherId: teacher?.id ?? (await resolveAnyTeacher(req.user!.schoolId, classId)),
       subjectId,
+      verificationMode,
       createdBy: req.user!.sub,
       actorName: req.user!.name,
     });
@@ -123,6 +125,23 @@ router.get(
     res.json({ session: await sessionView(user.schoolId, session.id, isStaff(user.role), owned?.map(s=>s.id)) });
   }),
 );
+
+// A student can follow only their own verification, including after close/expiry.
+// Never return the projected token, another student's row, or the live roster.
+router.get('/:id/mine', authorize('STUDENT'), asyncHandler(async (req, res) => {
+  const user = req.user!;
+  const student = await prisma.student.findFirst({ where: { userId: user.sub, schoolId: user.schoolId, active: true } });
+  if (!student) throw forbidden('No active student record for this account.');
+  const session = await prisma.attendanceSession.findFirst({ where: { id: req.params.id, schoolId: user.schoolId } });
+  if (!session) throw notFound('Attendance session not found');
+  if (session.classId !== student.classId) throw forbidden('This session belongs to a different class.');
+  const status = await expireIfDue(session.id);
+  const verification = await prisma.attendanceVerification.findUnique({ where: { sessionId_studentId: { sessionId: session.id, studentId: student.id } } });
+  if (!verification) throw notFound('Student is not on this session register.');
+  res.setHeader('Cache-Control', 'private, no-store');
+  res.json({ state: verification.state, studentId: student.id, studentName: student.name, sessionId: session.id, sessionStatus: status,
+    reason: verification.reason, qrVerifiedAt: verification.qrVerifiedAt, faceVerifiedAt: verification.faceVerifiedAt, markedPresentAt: verification.markedPresentAt });
+}));
 
 router.get(
   '/:id',

@@ -383,6 +383,7 @@ export interface SessionStudentRow {
 export interface AttendanceSessionView {
   id: string;
   status: SessionStatus;
+  verificationMode: 'QR_FACE' | 'QR_ONLY' | 'FACE_REQUIRED'; // old values are historical only
   className: string;
   classId: string;
   subject: string | null;
@@ -423,7 +424,7 @@ export interface AttendanceSessionSummary {
   endTime: string | null;
   durationSeconds: number | null;
   counts: { present: number; absent: number; unverifiedQr: number; proxy: number; total: number };
-  methods: { faceOnly: number; qrAndFace: number; manual: number; avgFaceConfidence: number | null };
+  methods: { faceOnly: number; qrAndFace: number; qrOnly: number; manual: number; avgFaceConfidence: number | null };
   integrity: { attendanceVerified: boolean; auditLogged: boolean; eventStored: boolean; trustCoreUpdated: boolean };
   students: SessionSummaryStudent[];
 }

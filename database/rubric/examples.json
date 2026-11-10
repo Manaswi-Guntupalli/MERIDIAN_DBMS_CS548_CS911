@@ -1,0 +1,293 @@
+{
+  "schoolCode": "MERIDIAN",
+  "examples": [
+    {
+      "file": "00_design_and_schema/01_tables.sql",
+      "title": "List all actual application tables",
+      "concepts": "Relational schema; entities",
+      "data": "Existing schema"
+    },
+    {
+      "file": "00_design_and_schema/02_columns.sql",
+      "title": "Inspect important table columns",
+      "concepts": "Attributes; types; nullability; vector dimensions",
+      "data": "Existing schema"
+    },
+    {
+      "file": "00_design_and_schema/03_primary_and_unique_keys.sql",
+      "title": "Show installed primary and unique keys",
+      "concepts": "PRIMARY KEY; UNIQUE; composite keys",
+      "data": "Existing schema"
+    },
+    {
+      "file": "00_design_and_schema/04_foreign_keys.sql",
+      "title": "Show actual table relationships",
+      "concepts": "FOREIGN KEY; referential integrity",
+      "data": "Existing schema"
+    },
+    {
+      "file": "00_design_and_schema/05_check_constraints.sql",
+      "title": "Show actual validation rules",
+      "concepts": "CHECK; monetary integrity; mandatory QR and face",
+      "data": "Existing schema"
+    },
+    {
+      "file": "00_design_and_schema/06_indexes_and_view.sql",
+      "title": "Inspect the installed indexes and fee view",
+      "concepts": "B-tree; GIN; HNSW; partial unique index; view",
+      "data": "Existing schema"
+    },
+    {
+      "file": "01_ddl/01_create_table.sql",
+      "title": "Create a roster with real student and school references",
+      "concepts": "CREATE TABLE; PK; FK; UNIQUE; NOT NULL; CHECK",
+      "data": "New rollback-only table populated from existing Student rows"
+    },
+    {
+      "file": "01_ddl/02_alter_table.sql",
+      "title": "Add a validated column to the demonstration roster",
+      "concepts": "ALTER TABLE; DEFAULT; CHECK",
+      "data": "New rollback-only roster populated from existing Student rows"
+    },
+    {
+      "file": "01_ddl/03_drop_table.sql",
+      "title": "Drop only the demonstration roster",
+      "concepts": "DROP TABLE; object lifecycle",
+      "data": "New demonstration table only; existing school tables remain intact"
+    },
+    {
+      "file": "01_ddl/04_constraints.sql",
+      "title": "Execute failing PK, FK, CHECK and NOT NULL cases",
+      "concepts": "Database validation; expected SQLSTATE errors",
+      "data": "New rollback-only table with FKs to real Student and School"
+    },
+    {
+      "file": "01_ddl/05_create_index.sql",
+      "title": "Create and inspect a B-tree index",
+      "concepts": "CREATE INDEX; index metadata",
+      "data": "Rollback-only roster index; also inspect installed live indexes"
+    },
+    {
+      "file": "01_ddl/06_create_view.sql",
+      "title": "Create a class-enrolment view over actual tables",
+      "concepts": "CREATE VIEW; LEFT JOIN; GROUP BY",
+      "data": "Temporary view over existing Class and Student tables"
+    },
+    {
+      "file": "02_dml/01_select.sql",
+      "title": "Read six real students and their classes",
+      "concepts": "SELECT; WHERE; ORDER BY; LIMIT",
+      "data": "Existing Student and Class rows"
+    },
+    {
+      "file": "02_dml/02_insert.sql",
+      "title": "Insert a demonstration student into the actual table",
+      "concepts": "INSERT; SELECT; RETURNING",
+      "data": "One demo Student row in the existing school and class"
+    },
+    {
+      "file": "02_dml/03_update.sql",
+      "title": "Update only the demonstration student",
+      "concepts": "UPDATE; WHERE; RETURNING",
+      "data": "One demo Student row; existing student records untouched"
+    },
+    {
+      "file": "02_dml/04_delete.sql",
+      "title": "Delete only the demonstration student",
+      "concepts": "DELETE; RETURNING; count",
+      "data": "One demo Student row; existing student records untouched"
+    },
+    {
+      "file": "02_dml/05_upsert.sql",
+      "title": "Upsert a demonstration subject using the installed unique key",
+      "concepts": "INSERT ON CONFLICT DO UPDATE; composite UNIQUE",
+      "data": "One demo Subject row; rolled back"
+    },
+    {
+      "file": "02_dml/06_insert_select.sql",
+      "title": "Create six demo fees for existing students",
+      "concepts": "INSERT SELECT; JOIN; ORDER BY",
+      "data": "Six demo Fee rows related to real students; rolled back"
+    },
+    {
+      "file": "03_joins_and_aggregates/01_inner_join.sql",
+      "title": "Join actual students to their class teachers",
+      "concepts": "INNER JOIN; multiple relationships",
+      "data": "Existing Student, Class, Teacher and User rows"
+    },
+    {
+      "file": "03_joins_and_aggregates/02_left_join.sql",
+      "title": "Keep every class when counting active students",
+      "concepts": "LEFT JOIN; COUNT; GROUP BY",
+      "data": "Existing Class and Student rows"
+    },
+    {
+      "file": "03_joins_and_aggregates/03_timetable_join.sql",
+      "title": "Read the published 7A timetable with teachers and rooms",
+      "concepts": "Six-table JOIN; LEFT JOIN; ORDER BY",
+      "data": "Existing published timetable; first six slots for class 7A"
+    },
+    {
+      "file": "03_joins_and_aggregates/04_group_by_having.sql",
+      "title": "Find classes with outstanding fees",
+      "concepts": "JOIN; GROUP BY; HAVING; SUM; COUNT DISTINCT",
+      "data": "Existing Student, Class and Fee rows; unpaid totals per class"
+    },
+    {
+      "file": "03_joins_and_aggregates/05_aggregate_functions.sql",
+      "title": "Compare existing fee categories",
+      "concepts": "COUNT; SUM; AVG; MIN; MAX; GROUP BY",
+      "data": "Existing Fee rows; money kept as exact numeric"
+    },
+    {
+      "file": "03_joins_and_aggregates/06_order_and_conditional_aggregation.sql",
+      "title": "Rank students by recorded attendance",
+      "concepts": "FILTER; conditional aggregation; NULLIF; ORDER BY",
+      "data": "Existing daily Attendance records; PRESENT and LATE count as attended"
+    },
+    {
+      "file": "04_subqueries_and_ctes/01_nested_subquery.sql",
+      "title": "Find fee accounts above the school average",
+      "concepts": "Nested scalar subquery; AVG",
+      "data": "Existing Fee and Student rows"
+    },
+    {
+      "file": "04_subqueries_and_ctes/02_correlated_exists.sql",
+      "title": "Find students with at least one unpaid fee",
+      "concepts": "Correlated EXISTS",
+      "data": "Existing Student and Fee rows"
+    },
+    {
+      "file": "04_subqueries_and_ctes/03_correlated_scalar.sql",
+      "title": "Calculate the balance for each of six students",
+      "concepts": "Correlated scalar subquery; COALESCE; SUM",
+      "data": "Existing Student and Fee rows"
+    },
+    {
+      "file": "04_subqueries_and_ctes/04_not_exists.sql",
+      "title": "Find students with no unpaid fee accounts",
+      "concepts": "NOT EXISTS; anti-join",
+      "data": "Existing students; includes students with no fee accounts, if any"
+    },
+    {
+      "file": "04_subqueries_and_ctes/05_cte.sql",
+      "title": "Build attendance summaries before joining students",
+      "concepts": "WITH CTE; aggregation; LEFT JOIN",
+      "data": "Existing Attendance and Student rows"
+    },
+    {
+      "file": "04_subqueries_and_ctes/06_recursive_cte.sql",
+      "title": "Fill the final seven recorded attendance dates",
+      "concepts": "WITH RECURSIVE; date series; LEFT JOIN",
+      "data": "Existing attendance; anchored to last recorded date rather than the clock"
+    },
+    {
+      "file": "05_advanced_sql/01_stored_payment_function.sql",
+      "title": "Call the actual atomic fee-payment function",
+      "concepts": "Stored PL/pgSQL function; row locking; atomic payment",
+      "data": "One demo Fee and Payment linked to an existing student"
+    },
+    {
+      "file": "05_advanced_sql/02_stored_procedure.sql",
+      "title": "Create and call a transaction-local payment procedure",
+      "concepts": "CREATE PROCEDURE; CALL; reuse installed payment function",
+      "data": "Temporary procedure calls real function on one demo Fee"
+    },
+    {
+      "file": "05_advanced_sql/03_trigger_audit.sql",
+      "title": "Exercise the actual knowledge audit trigger",
+      "concepts": "BEFORE trigger; revision counter; INSERT UPDATE DELETE audit",
+      "data": "Six genuine-vector demo entries in actual KnowledgeItem; all rolled back"
+    },
+    {
+      "file": "05_advanced_sql/04_transaction_rollback.sql",
+      "title": "Roll back a payment with a savepoint",
+      "concepts": "BEGIN; SAVEPOINT; ROLLBACK TO; atomicity",
+      "data": "One demo fee; payment and balance both reversed"
+    },
+    {
+      "file": "05_advanced_sql/05_validation_and_failed_payment.sql",
+      "title": "Verify function validation and reject overpayment",
+      "concepts": "Stored functions; SQLSTATE; failed statement atomicity",
+      "data": "One demo Fee; real calendar validator and payment function"
+    },
+    {
+      "file": "05_advanced_sql/06_full_text_search.sql",
+      "title": "Search policy text using PostgreSQL full-text search",
+      "concepts": "to_tsvector; plainto_tsquery; ts_rank; GIN-compatible expression",
+      "data": "Genuine-vector demo entries in actual KnowledgeItem"
+    },
+    {
+      "file": "06_pgvector/01_vector_creation.sql",
+      "title": "Verify pgvector creation and native storage",
+      "concepts": "CREATE EXTENSION; vector(384); HNSW; model metadata",
+      "data": "Installed extension/table plus a temporary vector table"
+    },
+    {
+      "file": "06_pgvector/02_vector_insert.sql",
+      "title": "Insert six genuine sentence embeddings",
+      "concepts": "Vector create; real MiniLM model; dimensions; norm",
+      "data": "Six demo KnowledgeItem rows; actual school/admin; rolled back"
+    },
+    {
+      "file": "06_pgvector/03_vector_similarity_search.sql",
+      "title": "Retrieve policy text by meaning",
+      "concepts": "Cosine distance <=>; similarity 1-distance; ORDER BY; LIMIT",
+      "data": "Genuine query embedding and six genuine stored text embeddings"
+    },
+    {
+      "file": "06_pgvector/04_vector_update.sql",
+      "title": "Update policy text with a newly computed embedding",
+      "concepts": "Vector UPDATE; re-embedding; trigger revision",
+      "data": "One demo entry updated with a genuine embedding for the revised text"
+    },
+    {
+      "file": "06_pgvector/05_vector_delete.sql",
+      "title": "Delete a vector entry and retain audit history",
+      "concepts": "Vector DELETE; RETURNING; audit persistence",
+      "data": "One demo entry deleted; all demo operations rolled back"
+    },
+    {
+      "file": "06_pgvector/06_filtered_vector_read.sql",
+      "title": "Filter semantic results by category and school",
+      "concepts": "Vector READ; metadata filter; GROUP BY; model provenance",
+      "data": "Genuine demo entries; POLICY-only cosine ranking"
+    },
+    {
+      "file": "07_permissions_and_integrity/01_roles_grants_policies.sql",
+      "title": "Inspect database roles, grants and policies",
+      "concepts": "Roles; GRANT; REVOKE; RLS policy catalogue; minimum two application roles",
+      "data": "Existing roles/policies plus GRANT/REVOKE on a temporary roster view"
+    },
+    {
+      "file": "07_permissions_and_integrity/02_admin_allowed.sql",
+      "title": "Prove the database allows administrator CRUD",
+      "concepts": "SET LOCAL ROLE; RLS; administrator permission",
+      "data": "Demo knowledge entry; actual admin identity read from User"
+    },
+    {
+      "file": "07_permissions_and_integrity/03_teacher_read_only.sql",
+      "title": "Prove a teacher can read but cannot modify the library",
+      "concepts": "Database RLS; teacher SELECT; UPDATE/DELETE zero rows; rejected INSERT",
+      "data": "Demo knowledge rows; actual teacher identity"
+    },
+    {
+      "file": "07_permissions_and_integrity/04_student_cannot_read.sql",
+      "title": "Prove students cannot read the staff library",
+      "concepts": "Database RLS; student denied visibility",
+      "data": "Demo knowledge rows; actual active student identity"
+    },
+    {
+      "file": "07_permissions_and_integrity/05_wrong_school_context.sql",
+      "title": "Prove mismatched school context cannot read entries",
+      "concepts": "Tenant isolation; trusted identity context; RLS",
+      "data": "Demo entries remain in MERIDIAN; authenticated user school is deliberately mismatched"
+    },
+    {
+      "file": "07_permissions_and_integrity/06_database_validation.sql",
+      "title": "Test actual database-level monetary, calendar, role and attendance rules",
+      "concepts": "CHECK constraints; immutable tenant; QR+face requirement; SQLSTATE",
+      "data": "Demo fee/student/session/verification rows only; real constraints remain installed"
+    }
+  ]
+}

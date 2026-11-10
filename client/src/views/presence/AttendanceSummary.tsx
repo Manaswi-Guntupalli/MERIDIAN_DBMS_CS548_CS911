@@ -138,6 +138,7 @@ export default function AttendanceSummary() {
           <div className="mt-3 space-y-3">
             <MethodRow icon={<UserCheck className="h-4 w-4 text-mint-500" />} label="Face only" value={s.methods.faceOnly} />
             <MethodRow icon={<QrCode className="h-4 w-4 text-brand-500" />} label="QR + Face" value={s.methods.qrAndFace} />
+            <MethodRow icon={<QrCode className="h-4 w-4 text-brand-500" />} label="QR only" value={s.methods.qrOnly ?? 0} />
             {s.methods.manual > 0 && (
               <MethodRow icon={<ClipboardList className="h-4 w-4 text-slate-400" />} label="Manual override" value={s.methods.manual} />
             )}

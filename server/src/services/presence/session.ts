@@ -13,8 +13,8 @@ type Tx = Prisma.TransactionClient;
 const dateStr = (d: Date) => d.toISOString().slice(0, 10);
 
 /**
- * Lazily expire a session whose window has passed. Any PENDING/QR_VERIFIED
- * verification becomes UNVERIFIED_QR — QR alone is never PRESENT. Idempotent:
+ * Lazily expire a session. A QR without a face becomes UNVERIFIED_QR;
+ * a face without a QR (or neither check) becomes ABSENT. Idempotent:
  * calling it on an already-closed/expired session is a no-op. This is the only
  * place a session leaves ACTIVE by time, so "no attendance outside an active
  * session" holds without a background job.
@@ -28,9 +28,10 @@ export async function expireIfDue(sessionId: string): Promise<'EXPIRED' | 'ACTIV
   await prisma.$transaction(async (tx) => {
     await tx.attendanceSession.update({ where: { id: s.id }, data: { status: 'EXPIRED', closedAt: new Date() } });
     await tx.attendanceVerification.updateMany({
-      where: { sessionId: s.id, state: { in: ['PENDING', 'QR_VERIFIED'] } },
-      data: { state: 'UNVERIFIED_QR', reason: 'Session expired before the face was verified' },
+      where: { sessionId: s.id, state: { in: ['PENDING', 'FACE_VERIFIED'] } },
+      data: { state: 'ABSENT', reason: 'Session expired before both QR and face checks were complete' },
     });
+    await tx.attendanceVerification.updateMany({ where: { sessionId: s.id, state: 'QR_VERIFIED' }, data: { state: 'UNVERIFIED_QR', reason: 'QR scanned; session expired before the face was verified' } });
     await recordEvent(
       { schoolId: s.schoolId, type: 'ATTENDANCE_SESSION_EXPIRED', aggregate: 'AttendanceSession', aggregateId: s.id, payload: { sessionId: s.id }, reversible: false },
       tx,
@@ -57,6 +58,7 @@ export interface StartSessionInput {
   subjectId?: string;
   createdBy?: string;
   actorName?: string;
+  verificationMode?: 'QR_FACE';
 }
 
 /**
@@ -88,6 +90,7 @@ export async function startSession(input: StartSessionInput) {
         subjectId: input.subjectId,
         date: dateStr(now),
         status: 'ACTIVE',
+        verificationMode: 'QR_FACE',
         startTime: now,
         expiryTime: new Date(now.getTime() + settings.sessionDurationMinutes * 60_000),
         sessionToken: token,
@@ -105,7 +108,7 @@ export async function startSession(input: StartSessionInput) {
         type: 'ATTENDANCE_SESSION_STARTED',
         aggregate: 'AttendanceSession',
         aggregateId: s.id,
-        payload: { sessionId: s.id, classId: input.classId, className: cls.name, roster: cls.students.length },
+        payload: { sessionId: s.id, classId: input.classId, className: cls.name, roster: cls.students.length, verificationMode: s.verificationMode },
         actorId: input.createdBy,
         actorName: input.actorName,
         reversible: false,
@@ -132,9 +135,10 @@ export async function closeSession(schoolId: string, sessionId: string, actor?: 
   const closed = await prisma.$transaction(async (tx) => {
     const updated = await tx.attendanceSession.update({ where: { id: s.id }, data: { status: 'CLOSED', closedAt: new Date() } });
     await tx.attendanceVerification.updateMany({
-      where: { sessionId: s.id, state: { in: ['PENDING', 'QR_VERIFIED'] } },
-      data: { state: 'UNVERIFIED_QR', reason: 'Session closed before the face was verified' },
+      where: { sessionId: s.id, state: { in: ['PENDING', 'FACE_VERIFIED'] } },
+      data: { state: 'ABSENT', reason: 'Session closed before both QR and face checks were complete' },
     });
+    await tx.attendanceVerification.updateMany({ where: { sessionId: s.id, state: 'QR_VERIFIED' }, data: { state: 'UNVERIFIED_QR', reason: 'QR scanned; session closed before the face was verified' } });
     await recordEvent(
       { schoolId, type: 'ATTENDANCE_SESSION_CLOSED', aggregate: 'AttendanceSession', aggregateId: s.id, payload: { sessionId: s.id }, actorId: actor?.id, actorName: actor?.name, reversible: false },
       tx,
@@ -155,11 +159,19 @@ export function qrPayload(session: { id: string; sessionToken: string }): Sessio
  * Throws on any failure — expired, wrong token, wrong session — so a
  * photographed or replayed QR can never mark attendance.
  */
-export async function assertValidQr(tx: Tx, schoolId: string, payload: { sessionId: string; token: string }) {
-  const s = await tx.attendanceSession.findFirst({ where: { id: payload.sessionId, schoolId } });
+export async function lockActiveSession(tx: Tx, schoolId: string, sessionId: string) {
+  // Close/expiry update this same row. All marking paths serialize here to
+  // prevent duplicate attendance and marks racing a session close.
+  await tx.$queryRaw`SELECT "id" FROM "AttendanceSession" WHERE "id"=${sessionId} AND "schoolId"=${schoolId} FOR UPDATE`;
+  const s = await tx.attendanceSession.findFirst({ where: { id: sessionId, schoolId } });
   if (!s) throw badRequest('This QR does not match any attendance session.');
   if (s.status !== 'ACTIVE') throw badRequest('This attendance session is no longer active.');
   if (s.expiryTime.getTime() <= Date.now()) throw badRequest('This QR has expired.');
+  return s;
+}
+
+export async function assertValidQr(tx: Tx, schoolId: string, payload: { sessionId: string; token: string }) {
+  const s = await lockActiveSession(tx, schoolId, payload.sessionId);
   if (s.sessionToken !== payload.token) throw badRequest('Invalid or replayed QR token.');
   return s;
 }

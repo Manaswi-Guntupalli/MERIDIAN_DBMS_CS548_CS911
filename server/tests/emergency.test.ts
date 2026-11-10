@@ -61,12 +61,12 @@ describe('Emergency Coordination', () => {
     expect(state2.body.teachers.safe).toBe(0);
     expect(state2.body.teachers.needAssistance).toBe(1);
 
-    // Resolve → unlocks attendance
+    // Resolve → unlocks attendance corrections (Present still needs both proofs).
     const res = await request(app).post(`/api/emergency/resolve/${incidentId}`).set(authHeader(fx.principal.token));
     expect(res.status).toBe(200);
     expect((await prisma.emergencyIncident.findUnique({ where: { id: incidentId } }))!.status).toBe('RESOLVED');
 
-    const mark = await request(app).post('/api/attendance/mark').set(authHeader(fx.teacher.token)).send({ studentId: fx.student.id, classId: fx.class.id, status: 'PRESENT' });
+    const mark = await request(app).post('/api/attendance/mark').set(authHeader(fx.teacher.token)).send({ studentId: fx.student.id, classId: fx.class.id, status: 'ABSENT' });
     expect(mark.status).toBe(200);
   });
 

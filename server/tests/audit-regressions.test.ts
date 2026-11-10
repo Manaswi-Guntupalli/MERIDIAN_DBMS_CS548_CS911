@@ -4,10 +4,10 @@ import { createServer } from 'node:http';
 import { io as connect, type Socket } from 'socket.io-client';
 import { createApp } from '../src/app.js';
 import { prisma } from '../src/lib/prisma.js';
-import { createFixture, authHeader, type Fixture } from './helpers.js';
+import { createFixture, authHeader, type Fixture, enrollTestFace, unitVector } from './helpers.js';
 import { initSocket, emitToSchool } from '../src/lib/socket.js';
 import { startSession } from '../src/services/presence/session.js';
-import { markManual } from '../src/services/presence/engine.js';
+import { markQr } from '../src/services/presence/engine.js';
 import { undoEvent } from '../src/services/eventStore.js';
 import { signToken } from '../src/lib/auth.js';
 import { saveKnowledge, knowledgeContext } from '../src/services/knowledge.js';
@@ -45,14 +45,15 @@ describe('Audit fixes: privacy and authorization',()=>{
     expect(res.body.session.students.map((s:any)=>s.studentId)).toEqual([f.student.id]);
     expect(res.body.session.counts.total).toBe(1);
   });
-  it('F05 wrong-class teacher cannot mark, close, read or export a session; owner can mark',async()=>{
+  it('F05 wrong-class teacher cannot access a session; its owner still needs both proofs to mark',async()=>{
     const f=await createFixture(); const session=await start(f,true);
     for (const path of ['', '/summary','/report.pdf','/report.xlsx']) {
       expect((await request(app).get('/api/presence/session/'+session.id+path).set(authHeader(f.teacher.token))).status).toBe(403);
     }
     expect((await request(app).post(`/api/presence/session/${session.id}/manual`).set(authHeader(f.teacher.token)).send({studentId:f.studentInOtherClass.id})).status).toBe(403);
     expect((await request(app).post(`/api/presence/session/${session.id}/close`).set(authHeader(f.teacher.token))).status).toBe(403);
-    expect((await request(app).post(`/api/presence/session/${session.id}/manual`).set(authHeader(f.otherTeacher.token)).send({studentId:f.studentInOtherClass.id})).status).toBe(200);
+    expect((await request(app).get(`/api/presence/session/${session.id}`).set(authHeader(f.otherTeacher.token))).status).toBe(200);
+    expect((await request(app).post(`/api/presence/session/${session.id}/manual`).set(authHeader(f.otherTeacher.token)).send({studentId:f.studentInOtherClass.id})).status).toBe(400);
   });
   it('F06 every simulator scenario rejects another school before mutation',async()=>{
     const session=await start(b);
@@ -94,7 +95,9 @@ describe('Audit fixes: data preservation and correctness',()=>{
     const f=await createFixture(); const date=new Date().toISOString().slice(0,10);
     await prisma.attendance.create({data:{schoolId:f.school.id,studentId:f.student.id,classId:f.class.id,date,status:'LEAVE',source:'MANUAL',confidence:0.7,markedById:f.admin.user.id}});
     const session=await start(f);
-    await markManual({schoolId:f.school.id,sessionId:session.id,studentId:f.student.id,actorId:f.teacher.user.id});
+    const vector=unitVector(801);
+    await enrollTestFace(f.school.id,'STUDENT',f.student.id,f.student.name,vector);
+    await markQr({schoolId:f.school.id,sessionId:session.id,studentId:f.student.id,token:session.sessionToken,embedding:vector,actorId:f.student.userId!});
     const event=await prisma.event.findFirstOrThrow({where:{schoolId:f.school.id,type:'ATTENDANCE_MARKED'}});
     await undoEvent(f.school.id,event.id,{id:f.admin.user.id,name:'Admin'});
     expect(await prisma.attendance.findUnique({where:{studentId_date:{studentId:f.student.id,date}}})).toMatchObject({status:'LEAVE',source:'MANUAL',confidence:0.7,markedById:f.admin.user.id});

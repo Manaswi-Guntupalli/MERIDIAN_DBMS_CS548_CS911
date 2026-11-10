@@ -56,6 +56,7 @@ export interface SessionSummary {
   methods: {
     faceOnly: number;
     qrAndFace: number;
+    qrOnly: number;
     manual: number;
     avgFaceConfidence: number | null; // 0..1 across matched faces
   };
@@ -93,7 +94,7 @@ type VRow = {
  * timestamp; we do not re-derive it.
  */
 function statusOf(v: VRow): ReportStatus {
-  if (v.state === 'PRESENT' || v.state === 'FACE_VERIFIED') return 'Present';
+  if (v.state === 'PRESENT') return 'Present';
   if (v.state === 'PROXY_ATTEMPT') return 'Proxy Attempt';
   if (v.state === 'UNVERIFIED_QR') return v.qrVerifiedAt ? 'Unverified QR' : 'Absent';
   // PENDING / QR_VERIFIED can only survive on a still-active session; ABSENT is
@@ -106,6 +107,7 @@ function methodOf(v: VRow, status: ReportStatus): ReportMethod {
   if (status === 'Present') {
     if (v.faceVerifiedAt && v.qrVerifiedAt) return 'QR + Face';
     if (v.faceVerifiedAt) return 'Face Only';
+    if (v.qrVerifiedAt) return 'QR only';
     return 'Manual'; // present with neither timestamp = staff override
   }
   if (status === 'Proxy Attempt') return 'Blocked (proxy)';
@@ -170,13 +172,15 @@ export async function buildSessionSummary(schoolId: string, sessionId: string): 
   // Verification-method breakdown across the present students.
   let faceOnly = 0;
   let qrAndFace = 0;
+  let qrOnly = 0;
   let manual = 0;
   const confs: number[] = [];
   for (const v of s.verifications) {
     if (v.faceConfidence != null) confs.push(v.faceConfidence);
-    if (v.state === 'PRESENT' || v.state === 'FACE_VERIFIED') {
+    if (v.state === 'PRESENT') {
       if (v.faceVerifiedAt && v.qrVerifiedAt) qrAndFace++;
       else if (v.faceVerifiedAt) faceOnly++;
+      else if (v.qrVerifiedAt) qrOnly++;
       else manual++;
     }
   }
@@ -204,7 +208,7 @@ export async function buildSessionSummary(schoolId: string, sessionId: string): 
     endTime: s.closedAt?.toISOString() ?? null,
     durationSeconds: s.closedAt ? Math.max(0, Math.round((s.closedAt.getTime() - s.startTime.getTime()) / 1000)) : null,
     counts,
-    methods: { faceOnly, qrAndFace, manual, avgFaceConfidence },
+    methods: { faceOnly, qrAndFace, qrOnly, manual, avgFaceConfidence },
     integrity: {
       attendanceVerified: counts.total > 0,
       auditLogged: auditCount > 0,
@@ -308,6 +312,7 @@ export function renderSessionPdf(sm: SessionSummary): Promise<Buffer> {
     const methodLine = [
       `Face only: ${sm.methods.faceOnly}`,
       `QR + Face: ${sm.methods.qrAndFace}`,
+      `QR only: ${sm.methods.qrOnly}`,
       ...(sm.methods.manual ? [`Manual: ${sm.methods.manual}`] : []),
       `Average face confidence: ${fmtConfidence(sm.methods.avgFaceConfidence)}`,
     ].join('      ');
@@ -498,6 +503,7 @@ export async function renderSessionExcel(sm: SessionSummary): Promise<Buffer> {
     ['Proxy Attempts', sm.counts.proxy],
     ['Face Only', sm.methods.faceOnly],
     ['QR + Face', sm.methods.qrAndFace],
+    ['QR only', sm.methods.qrOnly],
     ['Average Face Confidence', fmtConfidence(sm.methods.avgFaceConfidence)],
     ['Generated', new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })],
   ];

@@ -5,6 +5,7 @@ import 'package:meridian_app/core/theme/app_theme.dart';
 import 'package:meridian_app/features/auth/domain/app_user.dart';
 import 'package:meridian_app/features/auth/presentation/auth_controller.dart';
 import 'package:meridian_app/features/shell/presentation/app_shell.dart';
+import 'package:meridian_app/features/student/presentation/scan_screen.dart';
 
 /// The shell presents two different destination lists — a five-slot bottom bar
 /// on phones and a full rail on tablets. Selection must survive the switch by
@@ -25,14 +26,18 @@ const _principal = AppUser(
 const Size phone = Size(400, 900);
 const Size tablet = Size(1000, 800);
 
-Future<void> _pumpShell(WidgetTester tester, {required Size size}) async {
+Future<void> _pumpShell(
+  WidgetTester tester, {
+  required Size size,
+  AppUser user = _principal,
+}) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1.0;
   addTearDown(tester.view.reset);
 
   await tester.pumpWidget(
     ProviderScope(
-      overrides: [currentUserProvider.overrideWithValue(_principal)],
+      overrides: [currentUserProvider.overrideWithValue(user)],
       child: MaterialApp(theme: AppTheme.light, home: const AppShell()),
     ),
   );
@@ -66,8 +71,29 @@ String _selectedRailLabel(WidgetTester tester) {
 }
 
 void main() {
+  testWidgets(
+    'student camera is not mounted on Home, Fees or the tablet home',
+    (tester) async {
+      const student = AppUser(
+        id: 's1',
+        name: 'Student',
+        email: 'student@test.school',
+        role: UserRole.student,
+        schoolId: 'school1',
+      );
+      await _pumpShell(tester, size: phone, user: student);
+      expect(find.byType(ScanScreen), findsNothing);
+      await tester.tap(find.text('Fees'));
+      await _settle(tester);
+      expect(find.byType(ScanScreen), findsNothing);
+      await _resize(tester, tablet);
+      expect(find.byType(ScanScreen), findsNothing);
+    },
+  );
   group('AppShell selection survives a layout switch', () {
-    testWidgets('phone shows a bottom bar, tablet shows a rail', (tester) async {
+    testWidgets('phone shows a bottom bar, tablet shows a rail', (
+      tester,
+    ) async {
       await _pumpShell(tester, size: phone);
       expect(find.byType(NavigationBar), findsOneWidget);
       expect(find.byType(NavigationRail), findsNothing);
@@ -77,8 +103,9 @@ void main() {
       expect(find.byType(NavigationBar), findsNothing);
     });
 
-    testWidgets('a shared destination keeps its selection across rotation',
-        (tester) async {
+    testWidgets('a shared destination keeps its selection across rotation', (
+      tester,
+    ) async {
       await _pumpShell(tester, size: phone);
 
       // Timetable is a real destination in BOTH layouts (index 2 either way).
@@ -90,8 +117,9 @@ void main() {
       expect(_selectedRailLabel(tester), 'Timetable');
     });
 
-    testWidgets('"More" does not become the rail destination at its index',
-        (tester) async {
+    testWidgets('"More" does not become the rail destination at its index', (
+      tester,
+    ) async {
       // The regression: portrait "More" is index 4; the rail's index 4 is
       // Students, so rotating silently opened Students.
       await _pumpShell(tester, size: phone);
@@ -106,8 +134,9 @@ void main() {
       expect(_selectedRailLabel(tester), 'Dashboard');
     });
 
-    testWidgets('an overflow destination returns to More on the phone',
-        (tester) async {
+    testWidgets('an overflow destination returns to More on the phone', (
+      tester,
+    ) async {
       // Students exists only in the rail; on a phone it lives inside More, so
       // that is where the selection should land — one tap away, not Dashboard.
       await _pumpShell(tester, size: tablet);
@@ -130,8 +159,9 @@ void main() {
       expect(_selectedBottomLabel(tester), 'Copilot');
     });
 
-    testWidgets('defaults to the first destination before any tap',
-        (tester) async {
+    testWidgets('defaults to the first destination before any tap', (
+      tester,
+    ) async {
       await _pumpShell(tester, size: phone);
       expect(_selectedBottomLabel(tester), 'Dashboard');
 

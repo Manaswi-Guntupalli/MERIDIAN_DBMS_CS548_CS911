@@ -20,8 +20,7 @@ class WeeklyTimetableScreen extends ConsumerStatefulWidget {
       _WeeklyTimetableScreenState();
 }
 
-class _WeeklyTimetableScreenState
-    extends ConsumerState<WeeklyTimetableScreen> {
+class _WeeklyTimetableScreenState extends ConsumerState<WeeklyTimetableScreen> {
   /// Defaults to today when it's a working day, else Monday.
   late int _day = () {
     final weekday = DateTime.now().weekday - 1; // Mon = 0
@@ -38,9 +37,8 @@ class _WeeklyTimetableScreenState
     // Only a family account may read /dashboard/me, so a teacher must not
     // watch it at all — doing so fetched a 403 under their token and cached it
     // for whoever signed in next.
-    final className = isTeacher
-        ? null
-        : ref.watch(familyCardsProvider).value?.firstOrNull?.className;
+    final family = isTeacher ? null : ref.watch(familyCardsProvider);
+    final className = family?.value?.firstOrNull?.className;
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -70,6 +68,17 @@ class _WeeklyTimetableScreenState
                 );
               }
 
+              if (family != null && family.isLoading) {
+                return const MLoading(label: 'Loading your class...');
+              }
+              if (family != null && family.hasError) {
+                return MAsyncView<List<FamilyCard>>(
+                  value: family,
+                  onRetry: () => ref.invalidate(familyCardsProvider),
+                  builder: (_) => const SizedBox.shrink(),
+                );
+              }
+
               bool mine(TimetableSlot s) => isTeacher
                   ? s.teacher == user?.name
                   : className != null && s.className == className;
@@ -93,16 +102,17 @@ class _WeeklyTimetableScreenState
                           onTap: () => setState(() => _day = i),
                           child: Container(
                             alignment: Alignment.center,
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             decoration: BoxDecoration(
-                              color:
-                                  active ? AppColors.brand : AppColors.surface,
+                              color: active
+                                  ? AppColors.brand
+                                  : AppColors.surface,
                               borderRadius: BorderRadius.circular(999),
                               border: Border.all(
-                                  color: active
-                                      ? AppColors.brand
-                                      : AppColors.line),
+                                color: active
+                                    ? AppColors.brand
+                                    : AppColors.line,
+                              ),
                             ),
                             child: Text(
                               i < t.days.length ? t.days[i] : 'Day ${i + 1}',
@@ -127,7 +137,12 @@ class _WeeklyTimetableScreenState
                       hint: 'No periods on this day.',
                     )
                   else
-                    for (final s in rows) _SlotRow(slot: s, showTeacher: !isTeacher),
+                    for (final s in rows)
+                      _SlotRow(
+                        slot: s,
+                        showTeacher: !isTeacher,
+                        periodLabel: t.periodLabel(s.period),
+                      ),
                 ],
               );
             },
@@ -139,9 +154,14 @@ class _WeeklyTimetableScreenState
 }
 
 class _SlotRow extends StatelessWidget {
-  const _SlotRow({required this.slot, required this.showTeacher});
+  const _SlotRow({
+    required this.slot,
+    required this.showTeacher,
+    required this.periodLabel,
+  });
   final TimetableSlot slot;
   final bool showTeacher;
+  final String periodLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -166,26 +186,36 @@ class _SlotRow extends StatelessWidget {
                 color: c,
                 borderRadius: BorderRadius.circular(9),
               ),
-              child: Text('P${slot.period + 1}',
-                  style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white)),
+              child: Text(
+                periodLabel,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(slot.subject,
-                      style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.slate900)),
+                  Text(
+                    slot.subject,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.slate900,
+                    ),
+                  ),
                   if (sub.isNotEmpty)
-                    Text(sub,
-                        style: const TextStyle(
-                            fontSize: 12, color: AppColors.slate500)),
+                    Text(
+                      sub,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.slate500,
+                      ),
+                    ),
                 ],
               ),
             ),

@@ -31,16 +31,16 @@ class TimetableSlot {
   final String? room;
 
   factory TimetableSlot.fromJson(Map<String, dynamic> j) => TimetableSlot(
-        day: (j['day'] ?? 0) as int,
-        period: (j['period'] ?? 0) as int,
-        className: j['className'] as String? ?? '',
-        classId: j['classId'] as String? ?? '',
-        subject: j['subject'] as String? ?? '',
-        colorHex: j['subjectColor'] as String? ?? '#0E7C6B',
-        teacher: j['teacher'] as String? ?? '',
-        teacherId: j['teacherId'] as String? ?? '',
-        room: j['room'] as String?,
-      );
+    day: (j['day'] ?? 0) as int,
+    period: (j['period'] ?? 0) as int,
+    className: j['className'] as String? ?? '',
+    classId: j['classId'] as String? ?? '',
+    subject: j['subject'] as String? ?? '',
+    colorHex: j['subjectColor'] as String? ?? '#0E7C6B',
+    teacher: j['teacher'] as String? ?? '',
+    teacherId: j['teacherId'] as String? ?? '',
+    room: j['room'] as String?,
+  );
 }
 
 class LiveTimetable {
@@ -55,27 +55,33 @@ class LiveTimetable {
 
   /// Day labels as the solver published them ("Mon", "Tue", …).
   final List<String> days;
-  final int periods;
+
+  /// Published period labels (e.g. P1, P2), matching the website API.
+  final List<String> periods;
   final List<TimetableSlot> slots;
 
   factory LiveTimetable.fromJson(Map<String, dynamic> j) => LiveTimetable(
-        name: j['name'] as String? ?? '',
-        days: ((j['days'] as List?) ?? const [])
-            .map((d) => d.toString())
-            .toList(),
-        periods: (j['periods'] ?? 0) as int,
-        slots: ((j['slots'] as List?) ?? const [])
-            .cast<Map<String, dynamic>>()
-            .map(TimetableSlot.fromJson)
-            .toList(),
-      );
+    name: j['name'] as String? ?? '',
+    days: ((j['days'] as List?) ?? const []).map((d) => d.toString()).toList(),
+    periods: ((j['periods'] as List?) ?? const [])
+        .map((period) => period.toString())
+        .toList(),
+    slots: ((j['slots'] as List?) ?? const [])
+        .cast<Map<String, dynamic>>()
+        .map(TimetableSlot.fromJson)
+        .toList(),
+  );
+
+  /// Keep the published label; fall back only for missing legacy metadata.
+  String periodLabel(int period) => period >= 0 && period < periods.length
+      ? periods[period]
+      : 'P${period + 1}';
 
   /// Slots for one weekday, in period order.
   List<TimetableSlot> forDay(int day, {bool Function(TimetableSlot)? where}) {
-    final rows = slots
-        .where((s) => s.day == day && (where == null || where(s)))
-        .toList()
-      ..sort((a, b) => a.period.compareTo(b.period));
+    final rows =
+        slots.where((s) => s.day == day && (where == null || where(s))).toList()
+          ..sort((a, b) => a.period.compareTo(b.period));
     return rows;
   }
 }

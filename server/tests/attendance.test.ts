@@ -29,14 +29,17 @@ describe('Attendance sessions — the state machine', () => {
     expect(await prisma.event.count({ where: { schoolId: fx.school.id, type: 'ATTENDANCE_SESSION_STARTED' } })).toBe(1);
   });
 
-  it('face is sufficient: a matching face → PRESENT, materialised + reversible', async () => {
+  it('face first remains pending; the same student QR completes materialised, reversible attendance', async () => {
     const fx = await createFixture();
     const v = unitVector(1);
     await enrollTestFace(fx.school.id, 'STUDENT', fx.student.id, fx.student.name, v);
     const session = await startSession({ schoolId: fx.school.id, classId: fx.class.id, teacherId: fx.teacher.teacher.id });
 
     const beforeAI = await prisma.aILog.count({ where: { schoolId: fx.school.id, engine: 'PRESENCE' } });
-    const result = await markFace({ schoolId: fx.school.id, sessionId: session.id, embedding: recapture(v) });
+    const first = await markFace({ schoolId: fx.school.id, sessionId: session.id, embedding: recapture(v) });
+    expect(first.state).toBe('FACE_VERIFIED');
+    expect(await prisma.attendance.count({where:{studentId:fx.student.id}})).toBe(0);
+    const result = await markQr({ schoolId: fx.school.id, sessionId: session.id, studentId: fx.student.id, token: session.sessionToken });
     expect(result.state).toBe('PRESENT');
     expect(result.studentId).toBe(fx.student.id);
 
@@ -44,7 +47,7 @@ describe('Attendance sessions — the state machine', () => {
     // school start + grace — both mean the student is marked in).
     const att = await prisma.attendance.findFirst({ where: { studentId: fx.student.id } });
     expect(['PRESENT', 'LATE']).toContain(att?.status);
-    expect(att?.source).toBe('FACE');
+    expect(att?.source).toBe('QR');
     // A reversible ATTENDANCE_MARKED event + an AILog with the real confidence.
     const marked = await prisma.event.findFirst({ where: { schoolId: fx.school.id, type: 'ATTENDANCE_MARKED' } });
     expect(marked?.reversible).toBe(true);
@@ -132,11 +135,10 @@ describe('Attendance sessions — the state machine', () => {
     await expect(startSession({ schoolId: fx.school.id, classId: fx.class.id, teacherId: fx.teacher.teacher.id })).rejects.toThrow(/already has an active/i);
   });
 
-  it('manual override marks present and is auditable', async () => {
+  it('manual session marking cannot bypass the two required proofs', async () => {
     const fx = await createFixture();
     const session = await startSession({ schoolId: fx.school.id, classId: fx.class.id, teacherId: fx.teacher.teacher.id });
-    const result = await markManual({ schoolId: fx.school.id, sessionId: session.id, studentId: fx.student.id, actorId: fx.teacher.user.id });
-    expect(result.state).toBe('PRESENT');
-    expect((await prisma.attendance.findFirst({ where: { studentId: fx.student.id } }))?.source).toBe('MANUAL');
+    await expect(markManual({ schoolId: fx.school.id, sessionId: session.id, studentId: fx.student.id, actorId: fx.teacher.user.id })).rejects.toThrow(/both.*QR.*face/i);
+    expect(await prisma.attendance.count({where:{studentId:fx.student.id}})).toBe(0);
   });
 });

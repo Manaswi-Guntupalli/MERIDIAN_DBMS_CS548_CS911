@@ -68,11 +68,11 @@ router.patch(
     });
     if (!notification) throw notFound('Notification not found');
 
-    // Upsert on the (notification, user) unique key — marking twice is a no-op.
-    await prisma.notificationRead.upsert({
-      where: { notificationId_userId: { notificationId: notification.id, userId: me } },
-      create: { notificationId: notification.id, userId: me },
-      update: {},
+    // PostgreSQL ON CONFLICT makes simultaneous single-read requests a no-op.
+    // An ORM read-then-create upsert can race on the compound unique key.
+    await prisma.notificationRead.createMany({
+      data: [{ notificationId: notification.id, userId: me }],
+      skipDuplicates: true,
     });
     res.json({ ok: true });
   }),

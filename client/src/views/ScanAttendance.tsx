@@ -13,8 +13,8 @@ import type { AttendanceSessionView, MarkResultView } from '@/types';
 // so a student's phone camera opens THIS page directly. The student signs in
 // (identity comes entirely from their JWT — the QR never carries who they are),
 // then taps once to mark. Marking reuses the existing POST /presence/session/:id/qr
-// endpoint verbatim: QR alone → QR_VERIFIED, and the classroom face camera or
-// session expiry take it from there. No attendance logic lives here.
+// endpoint: both the QR and a matching face are mandatory in either order.
+// One check stays pending; no attendance decision lives here.
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
@@ -64,6 +64,12 @@ export default function ScanAttendance() {
   const mark = useMutation({
     mutationFn: async () => (await api.post(`/presence/session/${sessionId}/qr`, { token })).data as MarkResultView,
   });
+  const verification = useQuery({
+    queryKey: ['my-session-verification', sessionId, user?.id],
+    queryFn: async () => (await api.get(`/presence/session/${sessionId}/mine`)).data as MarkResultView,
+    enabled: !!user && user.role === 'STUDENT' && !!sessionId && mark.data?.sessionId === sessionId,
+    refetchInterval: query => ['PRESENT', 'PROXY_ATTEMPT', 'UNVERIFIED_QR', 'ABSENT'].includes(query.state.data?.state ?? '') ? false : 2000,
+  });
 
   // ── Gates (all hooks above, so order is stable) ──
   if (authLoading) {
@@ -83,7 +89,7 @@ export default function ScanAttendance() {
   }
 
   const matched = session.data && session.data.id === sessionId ? session.data : null;
-  const result = mark.data;
+  const result = verification.data ?? (mark.data?.sessionId === sessionId ? mark.data : undefined);
 
   return (
     <Shell>
@@ -140,12 +146,16 @@ function ResultCard({ result }: { result: MarkResultView }) {
   // The engine's states, shown honestly to the student.
   if (result.state === 'QR_VERIFIED') {
     return (
-      <Success title="Attendance recorded"
-        body="Now show your face to the classroom camera to complete it. If you don't, it will show as Unverified QR when the session ends." />
+      <div role="status" className="rounded-xl border border-amber-400/50 bg-amber-50 p-5 text-center">
+        <Clock className="mx-auto mb-2 h-9 w-9 text-amber-600" />
+        <div className="font-bold text-slate-900">QR verified — awaiting face</div>
+        <p className="mt-1 text-sm text-slate-600">Show your enrolled face to the classroom kiosk for this session. You are not present yet. This page updates when both checks pass.</p>
+      </div>
     );
   }
+  if (result.state === 'FACE_VERIFIED') return <div role="status" className="rounded-xl border border-amber-400/50 bg-amber-50 p-5 text-center">Face verified — scan your session QR to complete attendance.</div>;
   if (result.state === 'PRESENT') {
-    return <Success title="You're marked present" body={result.reason ?? 'Both factors confirmed — you\'re all set.'} />;
+    return <Success title="You're marked present" body={result.reason ?? 'Your attendance is confirmed.'} />;
   }
   if (result.state === 'PROXY_ATTEMPT') {
     return (

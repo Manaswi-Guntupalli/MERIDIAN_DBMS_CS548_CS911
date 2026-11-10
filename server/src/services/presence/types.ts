@@ -1,16 +1,15 @@
 // Presence · Attendance Sessions — the type surface.
 //
-// Face recognition is the PRIMARY identity method; the session QR is the
-// verification / fallback. Every attendance action flows through one engine
+// QR + face are mandatory in either order. Every attendance action uses one engine
 // (engine.ts) and advances one AttendanceVerification state machine, exactly
 // the way every other Meridian engine funnels through a single write path.
 
 export type AttendanceSource = 'FACE' | 'QR' | 'MANUAL';
 
 // The per-(session, student) state machine.
-//   PENDING → FACE_VERIFIED → PRESENT              (face is sufficient)
+//   PENDING → FACE_VERIFIED → PRESENT              (then the student's QR)
 //   PENDING → QR_VERIFIED → FACE_VERIFIED → PRESENT
-//   QR_VERIFIED at expiry → UNVERIFIED_QR          (QR alone never = present)
+//   Either check alone stays incomplete; proofs are scoped to this student/session.
 //   QR claims A but face is B → PROXY_ATTEMPT      (no attendance, alert)
 export type VerificationState =
   | 'PENDING'

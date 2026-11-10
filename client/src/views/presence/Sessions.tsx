@@ -43,11 +43,12 @@ export default function Sessions() {
       <Card className="lg:col-span-1">
         <div className="mb-1 text-sm font-semibold text-slate-900">Take attendance for a class</div>
         <p className="mb-3 text-[0.72rem] leading-relaxed text-slate-500">
-          Opens a dedicated session screen (large QR + live countdown + register) — project it for the class. Face marks a student present instantly; the QR is the verification fallback.
+          Both checks are required: each student scans this session's QR on their phone and verifies their enrolled face at the classroom kiosk. Either order works; one check alone stays pending.
         </p>
-        <select value={classId} onChange={(e) => setClassId(e.target.value)} className="input mb-3 w-full">
+        <select aria-label="Attendance class" value={classId} onChange={(e) => setClassId(e.target.value)} className="input mb-3 w-full">
           {classes.data?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>
+        <p className="mb-3 text-xs font-semibold text-brand-700">QR + matching face required</p>
         <button onClick={() => start.mutate()} disabled={start.isPending || !classId} className="btn-primary w-full">
           {start.isPending ? <Spinner /> : <Play className="h-4 w-4" />} Start attendance
         </button>

@@ -270,8 +270,7 @@ model Attendance {
 }
 
 // ─────────────────────  PRESENCE · ATTENDANCE SESSIONS  ─────────────
-// A teacher opens attendance for a class period. Face recognition is the
-// PRIMARY identity method; the session QR is the verification / fallback.
+// Both QR and a matching face are required, in either order, in one session.
 // No attendance can be marked outside an ACTIVE, unexpired session — this is
 // the anti-replay boundary. status ∈ ACTIVE | CLOSED | EXPIRED
 model AttendanceSession {
@@ -286,6 +285,7 @@ model AttendanceSession {
   subject     Subject?  @relation(fields: [subjectId], references: [id])
   date        String                              // YYYY-MM-DD (local)
   status      String    @default("ACTIVE")
+  verificationMode String @default("QR_FACE") // legacy mode values remain only in history
   startTime   DateTime  @default(now())
   expiryTime  DateTime                            // auto-expires after this instant
   closedAt    DateTime?
@@ -303,9 +303,9 @@ model AttendanceSession {
 }
 
 // One row per (session, student): the attendance STATE MACHINE.
-//   PENDING → FACE_VERIFIED → PRESENT              (face is sufficient)
+//   PENDING → FACE_VERIFIED → PRESENT              (then the same student's QR)
 //   PENDING → QR_VERIFIED  → FACE_VERIFIED → PRESENT
-//   QR_VERIFIED at expiry → UNVERIFIED_QR          (QR alone is NOT present)
+//   Either factor alone remains incomplete; both must belong to this row.
 //   QR says A but face matches B → PROXY_ATTEMPT   (no attendance, alert)
 // state ∈ PENDING | QR_VERIFIED | FACE_VERIFIED | PRESENT | PROXY_ATTEMPT | UNVERIFIED_QR | ABSENT
 model AttendanceVerification {

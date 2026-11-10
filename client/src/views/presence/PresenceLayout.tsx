@@ -28,7 +28,7 @@ export default function PresenceLayout() {
       <PageHeader
         overline="Engine 05 · Presence"
         title="Presence"
-        subtitle="Face-recognition attendance with a session QR fallback. Every mark flows through one engine — explainable, auditable and reversible like the rest of Meridian."
+        subtitle="Classroom QR attendance and face verification. Every mark flows through one engine — explainable, auditable and reversible like the rest of Meridian."
       />
 
       {/* Live attendance is time-bound — when school is out of session, say so

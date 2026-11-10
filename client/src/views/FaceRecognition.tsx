@@ -106,6 +106,8 @@ export function LiveKiosk() {
         if (announcedRef.current.has('proxy:' + result.studentId)) return;
         announcedRef.current.add('proxy:' + result.studentId);
         setLog((l) => [{ name: result.studentName, state: 'PROXY_ATTEMPT', confidence: result.face?.confidence ?? 0, at: new Date().toISOString(), reason: result.reason }, ...l].slice(0, 15));
+      } else if (result.state === 'FACE_VERIFIED') {
+        setRecognitionError(`${result.studentName}: face verified. Scan the session QR to complete attendance.`);
       }
       // ABSENT (no confident match / not on register) is quiet — expected while scanning.
     } catch (err) { setRecognitionError(apiError(err, 'Face recognition could not finish. Please retry.')); } finally {
@@ -145,7 +147,7 @@ export function LiveKiosk() {
               {classes.data?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
             {s && <Badge severity={s.status === 'ACTIVE' ? 'SUCCESS' : 'INFO'}>{s.status === 'ACTIVE' ? `${s.counts.present}/${s.counts.total} present` : s.status}</Badge>}
-            <span className="text-[0.7rem] text-slate-500">Face marks the student present the instant they’re recognised.</span>
+            <span className="text-[0.7rem] text-slate-500">Present requires this student's QR and matching face, in either order.</span>
           </div>
           <div className="relative overflow-hidden rounded-xl bg-slate-900" style={{ aspectRatio: `${dims.w}/${dims.h}` }}>
             <video ref={videoRef} className="absolute inset-0 h-full w-full object-cover" muted playsInline />

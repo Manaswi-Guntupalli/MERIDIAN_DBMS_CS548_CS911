@@ -15,6 +15,11 @@ router.use(authenticate);
 router.use(authorize(...STAFF));
 
 const todayStr = () => new Date().toISOString().slice(0, 10);
+function assertManualCorrection(status: string) {
+  if (status === 'PRESENT' || status === 'LATE') {
+    throw badRequest('Present and Late require both QR and face verification. Use the active attendance session.');
+  }
+}
 
 // Roster + today's attendance for a class.
 router.get(
@@ -72,6 +77,7 @@ router.post(
     if (!student) throw notFound('Student not found in your school');
     if (student.classId !== body.classId) throw badRequest('Student is not enrolled in that class');
     await assertOwnClass(req.user!, student.class?.classTeacherId);
+    assertManualCorrection(body.status);
 
     // Manual daily marking is a direct administrative write to the materialized
     // Attendance table (no live face/QR session involved), recorded as a
@@ -131,6 +137,7 @@ router.post(
     const owned = await prisma.class.findFirst({ where: { id: classId, schoolId } });
     if (!owned) throw notFound('Class not found in your school');
     await assertOwnClass(req.user!, owned.classTeacherId);
+    assertManualCorrection(status);
 
     const students = await prisma.student.findMany({ where: { schoolId, classId, active: true } });
     const recorded = await prisma.$transaction(async tx => {

@@ -18,7 +18,7 @@ import type { AttendanceSessionView, VerificationState } from '@/types';
 // green = present · yellow = pending/qr · red = proxy/unverified · grey = absent
 const TILE: Record<VerificationState, { ring: string; dot: string; label: string }> = {
   PRESENT: { ring: 'border-mint-400/60 bg-mint-400/[0.12]', dot: 'bg-mint-500', label: 'Present' },
-  FACE_VERIFIED: { ring: 'border-mint-400/60 bg-mint-400/[0.12]', dot: 'bg-mint-500', label: 'Present' },
+  FACE_VERIFIED: { ring: 'border-amber-400/60 bg-amber-400/[0.12]', dot: 'bg-amber-500', label: 'Awaiting QR' },
   QR_VERIFIED: { ring: 'border-amber-400/60 bg-amber-400/[0.12]', dot: 'bg-amber-500', label: 'Awaiting face' },
   PENDING: { ring: 'border-line bg-ink-800/40', dot: 'bg-slate-500', label: 'Waiting' },
   PROXY_ATTEMPT: { ring: 'border-rose-400/60 bg-rose-400/[0.12]', dot: 'bg-rose-500', label: 'Proxy blocked' },
@@ -103,7 +103,7 @@ export default function AttendanceSessionLive() {
           <div className="text-2xl font-extrabold tracking-tight text-slate-900">
             {s.subject ?? 'Attendance'} <span className="text-slate-400">•</span> {s.className}
           </div>
-          <div className="mt-0.5 text-sm text-slate-500">{s.teacherName} · {s.date}</div>
+          <div className="mt-0.5 text-sm text-slate-500">{s.teacherName} · {s.date} · QR + matching face required</div>
         </div>
         <span className={cn('inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-bold', active ? 'bg-mint-400/15 text-mint-600' : 'bg-ink-800 text-slate-500')}>
           <span className={cn('h-2 w-2 rounded-full', active ? 'animate-pulseGlow bg-mint-500' : 'bg-slate-400')} />
@@ -197,11 +197,10 @@ function QrBlock({ qr }: { qr: { sessionId: string; token: string } }) {
   return (
     <div className="rounded-2xl border border-line bg-white p-4 text-center">
       <canvas ref={canvasRef} className="mx-auto" />
-      <div className="mt-2 text-xs font-medium text-slate-500">Scan with your phone camera to mark attendance</div>
+      <div className="mt-2 text-xs font-medium text-slate-500">Sign in as a student in the Meridian app, then open Scan and point it at this QR.</div>
       {isLocal ? (
         <div className="mt-2 rounded-lg border border-amber-400/40 bg-amber-400/[0.08] px-2.5 py-1.5 text-left text-[0.68rem] leading-snug text-amber-700">
-          Phones can't reach <b>localhost</b>. Open this projector page using your computer's <b>Network</b> address
-          (the <code>http://192.168.x.x:5173</code> URL that <code>npm run dev</code> prints) so the QR points somewhere phones can reach.
+          The Meridian app reads this QR directly. For USB, keep <code>adb reverse tcp:4000 tcp:4000</code> active. To use a normal phone camera and browser instead, open this projector page through the computer's Network address or forward port 5173 too.
         </div>
       ) : (
         <div className="mt-2 text-[0.66rem] text-slate-400">Serving from {host} · phones on the same Wi-Fi can scan this</div>

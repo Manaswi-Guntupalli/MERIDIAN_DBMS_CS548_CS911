@@ -9,7 +9,7 @@ import { emitToSchool } from '../../lib/socket.js';
 import { getPresenceSettings, minutesOfDay } from './settings.js';
 import { matchFace, verifyFaceAgainst, MATCH_THRESHOLD } from '../face.js';
 import { assertSessionActor } from './authz.js';
-import { loadActiveSession } from './session.js';
+import { loadActiveSession, lockActiveSession, assertValidQr } from './session.js';
 import type { FaceEvidence, MarkResult, VerificationState } from './types.js';
 
 type Tx = Prisma.TransactionClient;
@@ -22,8 +22,8 @@ const dateStr = (d: Date) => d.toISOString().slice(0, 10);
 // AttendanceEvent + materialised daily Attendance + a reversible ATTENDANCE_
 // MARKED event, all in one transaction, then fires notifications post-commit.
 //
-// Face is sufficient (FACE → PRESENT). QR alone is not (QR → PENDING, then
-// UNVERIFIED_QR at expiry). QR claiming A while the face is B → PROXY_ATTEMPT:
+// QR and face can arrive in either order, but BOTH must verify this same
+// student in this same active session. A mismatch is latched as PROXY_ATTEMPT:
 // no attendance, a security alert, and a FaceEvent for the review queue.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -32,16 +32,32 @@ interface Deferred {
   post: () => Promise<void>;
 }
 
+type SessionWindow = { id: string; schoolId: string; classId: string; startTime: Date; expiryTime: Date };
+type Proofs = { qrVerifiedAt: Date | null; faceVerifiedAt: Date | null; faceConfidence: number | null; threshold: number | null };
+function bothVerified(proofs: Proofs, session: SessionWindow): boolean {
+  const inWindow = (at: Date | null) => !!at && at >= session.startTime && at < session.expiryTime;
+  return inWindow(proofs.qrVerifiedAt) && inWindow(proofs.faceVerifiedAt)
+    && proofs.faceConfidence != null && Number.isFinite(proofs.faceConfidence)
+    && proofs.threshold != null && proofs.threshold > 0 && proofs.threshold <= 1
+    && proofs.faceConfidence >= proofs.threshold && proofs.faceConfidence <= 1;
+}
+
 async function finalizePresent(
   tx: Tx,
-  session: { id: string; schoolId: string; classId: string },
+  session: SessionWindow,
   verificationId: string,
   student: { id: string; name: string; rollNo: number; classId: string | null },
   source: 'FACE' | 'QR' | 'MANUAL',
   now: Date,
-  face: FaceEvidence | null,
   actorId?: string,
 ): Promise<{ result: MarkResult; deferred: Deferred }> {
+  // This is the only session attendance writer. Even an internal/manual caller
+  // must present two stored proofs, not a frontend flag or a claimed identity.
+  const proofs = await tx.attendanceVerification.findFirst({ where: { id: verificationId, sessionId: session.id, studentId: student.id } });
+  if (!proofs || proofs.state === 'PROXY_ATTEMPT' || !bothVerified(proofs, session) || now >= session.expiryTime) {
+    throw badRequest('Both a valid QR scan and a matching face are required for this student in this session.');
+  }
+  const face: FaceEvidence = { confidence: proofs.faceConfidence!, distance: proofs.faceDistance ?? 1 - proofs.faceConfidence!, threshold: proofs.threshold!, matchedSubjectId: student.id, matchedName: student.name };
   const current = await tx.student.findFirst({where:{id:student.id,schoolId:session.schoolId,active:true,classId:session.classId},select:{id:true}});
   if (!current) throw badRequest('This student is no longer active in the session class.');
   const settings = await getPresenceSettings(session.schoolId, tx);
@@ -56,12 +72,11 @@ async function finalizePresent(
     data: {
       state: 'PRESENT',
       markedPresentAt: now,
-      ...(face ? { faceVerifiedAt: now, faceConfidence: face.confidence, faceDistance: face.distance, threshold: face.threshold } : {}),
-      reason: face ? `Face verified ${(face.confidence * 100).toFixed(0)}%` : source === 'MANUAL' ? 'Marked present by staff' : undefined,
+      reason: `${late ? `Present (late, ${lateMinutes} min)` : 'Present'} — QR + face verified ${(face.confidence * 100).toFixed(0)}%`,
     },
   });
 
-  const proof = face ? `face verified ${(face.confidence * 100).toFixed(0)}%${face.samples ? ` (${face.samples} template${face.samples === 1 ? '' : 's'})` : ''}` : source === 'MANUAL' ? 'manual mark' : null;
+  const proof = face ? `face verified ${(face.confidence * 100).toFixed(0)}%${face.samples ? ` (${face.samples} template${face.samples === 1 ? '' : 's'})` : ''}` : source === 'MANUAL' ? 'manual mark' : 'authenticated student QR scan';
   const event = await tx.attendanceEvent.create({
     data: {
       schoolId: session.schoolId,
@@ -186,10 +201,8 @@ export interface FaceMarkInput {
 }
 
 /**
- * Kiosk face path (PRIMARY). 1:N recognise the descriptor, confirm the person
- * is on THIS session's register, and mark them present. Face is the identity,
- * so this path can't be a proxy — but a face not on the register is reported,
- * not marked.
+ * Recognise an enrolled face and store evidence on that student's own row.
+ * Without their QR this stays FACE_VERIFIED; it never credits another row's QR.
  */
 export async function markFace(input: FaceMarkInput): Promise<MarkResult> {
   if (!Array.isArray(input.embedding) || !input.embedding.length) throw badRequest('markFace requires a face embedding');
@@ -205,20 +218,33 @@ export async function markFace(input: FaceMarkInput): Promise<MarkResult> {
 
   const face: FaceEvidence = { confidence: match.confidence, distance: Math.round((1 - match.confidence) * 1000) / 1000, threshold: MATCH_THRESHOLD, matchedName: match.name, matchedSubjectId: match.subjectId };
   const outcome = await prisma.$transaction(async (tx) => {
+    await lockActiveSession(tx, input.schoolId, session.id);
     const verification = await tx.attendanceVerification.findUnique({ where: { sessionId_studentId: { sessionId: session.id, studentId: match.subjectId! } }, include: { student: true } });
     if (!verification) {
       // Recognised, but not a student on this class's register.
       return { skip: true as const, name: match.name };
     }
-    if (verification.state === 'PRESENT') {
+    if (verification.state === 'PRESENT' && bothVerified(verification, session)) {
       return { already: true as const, name: verification.student.name };
     }
-    const { result, deferred } = await finalizePresent(tx, session, verification.id, verification.student, 'FACE', new Date(), face, input.actorId);
+    if (verification.state === 'PROXY_ATTEMPT') return { blocked: true as const, student: verification.student, reason: verification.reason };
+    await tx.attendanceVerification.update({ where: { id: verification.id }, data: { faceVerifiedAt: verification.faceVerifiedAt ?? new Date(), faceConfidence: face.confidence, faceDistance: face.distance, threshold: face.threshold } });
+    if (!verification.qrVerifiedAt) {
+      await tx.attendanceVerification.update({ where: { id: verification.id }, data: { state: 'FACE_VERIFIED', reason: 'Face verified — awaiting this student’s QR scan' } });
+      if (verification.state !== 'FACE_VERIFIED') await recordEvent({ schoolId: session.schoolId, type: 'FACE_VERIFIED', aggregate: 'AttendanceVerification', aggregateId: verification.id, payload: { sessionId: session.id, studentId: verification.studentId }, actorId: input.actorId, reversible: false }, tx);
+      return { pending: true as const, student: verification.student };
+    }
+    const { result, deferred } = await finalizePresent(tx, session, verification.id, verification.student, 'FACE', new Date(), input.actorId);
     return { result, deferred };
   });
 
   if ('skip' in outcome) return { state: 'ABSENT', studentId: match.subjectId ?? "", studentName: match.name ?? 'Unknown', sessionId: session.id, reason: `${match.name} is recognised but not on this class's register` };
   if ('already' in outcome) return { state: 'PRESENT', studentId: match.subjectId ?? "", studentName: outcome.name ?? "Student", sessionId: session.id, reason: 'Already marked present' };
+  if ('blocked' in outcome && outcome.blocked) return { state: 'PROXY_ATTEMPT', studentId: outcome.student.id, studentName: outcome.student.name, sessionId: session.id, reason: outcome.reason ?? 'A face mismatch was recorded. Ask your teacher to review this session.' };
+  if ('pending' in outcome && outcome.pending) {
+    emitToSchool(session.schoolId, 'attendance:verification', { sessionId: session.id, studentId: outcome.student.id, state: 'FACE_VERIFIED' });
+    return { state: 'FACE_VERIFIED', studentId: outcome.student.id, studentName: outcome.student.name, sessionId: session.id, reason: 'Face verified — scan your session QR to complete attendance', face };
+  }
   outcome.deferred.emit();
   await outcome.deferred.post();
   return outcome.result;
@@ -238,8 +264,8 @@ export interface QrMarkInput {
  * claiming student is on the register, and:
  *   · face provided & verifies (1:1) → PRESENT (both factors)
  *   · face provided & fails         → PROXY_ATTEMPT (claimed A, face is B)
- *   · no face                       → QR_VERIFIED (PENDING until expiry, then
- *                                     UNVERIFIED_QR — QR alone is never present)
+ *   · an earlier verified face on the SAME student's row → PRESENT
+ *   · no verified face              → QR_VERIFIED, never Present
  */
 export async function markQr(input: QrMarkInput): Promise<MarkResult> {
   await assertSessionActor(input.schoolId, input.sessionId, input.actorId, 'QR', input.studentId);
@@ -264,10 +290,14 @@ export async function markQr(input: QrMarkInput): Promise<MarkResult> {
   }
 
   const outcome = await prisma.$transaction(async (tx) => {
+    await assertValidQr(tx, input.schoolId, { sessionId: session.id, token: input.token });
     const verification = await tx.attendanceVerification.findUnique({ where: { sessionId_studentId: { sessionId: session.id, studentId: input.studentId } }, include: { student: true } });
     if (!verification) throw badRequest('You are not on this class\'s attendance register.');
     const student = verification.student;
-    if (verification.state === 'PRESENT') return { already: true as const, name: student.name };
+    if (verification.state === 'PRESENT' && bothVerified(verification, session)) return { already: true as const, name: student.name };
+    if (verification.state === 'PROXY_ATTEMPT') return { blocked: true as const, name: student.name, reason: verification.reason };
+
+    await tx.attendanceVerification.update({ where: { id: verification.id }, data: { qrVerifiedAt: verification.qrVerifiedAt ?? new Date() } });
 
     // Face present but does NOT match the claiming student → proxy.
     if (face && face.confidence < face.threshold) {
@@ -275,11 +305,14 @@ export async function markQr(input: QrMarkInput): Promise<MarkResult> {
     }
     // Face present and verifies → both factors → present.
     if (face && face.confidence >= face.threshold) {
-      return await finalizePresent(tx, session, verification.id, student, 'QR', new Date(), face, input.actorId);
+      await tx.attendanceVerification.update({ where: { id: verification.id }, data: { faceVerifiedAt: new Date(), faceConfidence: face.confidence, faceDistance: face.distance, threshold: face.threshold } });
+      return await finalizePresent(tx, session, verification.id, student, 'QR', new Date(), input.actorId);
     }
-    // QR only → verified but pending the face.
-    await tx.attendanceVerification.update({ where: { id: verification.id }, data: { state: 'QR_VERIFIED', qrVerifiedAt: new Date(), reason: 'QR verified — awaiting face' } });
-    await recordEvent({ schoolId: session.schoolId, type: 'QR_VERIFIED', aggregate: 'AttendanceVerification', aggregateId: verification.id, payload: { verificationId: verification.id, studentId: student.id }, actorId: input.actorId, reversible: false }, tx);
+    if (bothVerified({ ...verification, qrVerifiedAt: verification.qrVerifiedAt ?? new Date() }, session)) {
+      return await finalizePresent(tx, session, verification.id, student, 'QR', new Date(), input.actorId);
+    }
+    await tx.attendanceVerification.update({ where: { id: verification.id }, data: { state: 'QR_VERIFIED', reason: 'QR verified — awaiting face' } });
+    if (verification.state !== 'QR_VERIFIED') await recordEvent({ schoolId: session.schoolId, type: 'QR_VERIFIED', aggregate: 'AttendanceVerification', aggregateId: verification.id, payload: { verificationId: verification.id, studentId: student.id }, actorId: input.actorId, reversible: false }, tx);
     return {
       pending: true as const,
       result: { state: 'QR_VERIFIED' as VerificationState, studentId: student.id, studentName: student.name, sessionId: session.id, reason: 'QR verified — show your face to complete attendance' },
@@ -287,6 +320,7 @@ export async function markQr(input: QrMarkInput): Promise<MarkResult> {
   });
 
   if ('already' in outcome) return { state: 'PRESENT', studentId: input.studentId, studentName: outcome.name ?? "Student", sessionId: session.id, reason: 'Already marked present' };
+  if ('blocked' in outcome && outcome.blocked) return { state: 'PROXY_ATTEMPT', studentId: input.studentId, studentName: outcome.name, sessionId: session.id, reason: outcome.reason ?? 'A face mismatch was recorded. Ask your teacher to review this session.' };
   if ('pending' in outcome) {
     emitToSchool(session.schoolId, 'attendance:verification', { sessionId: session.id, studentId: input.studentId, state: 'QR_VERIFIED' });
     return outcome.result;
@@ -303,16 +337,17 @@ export interface ManualMarkInput {
   actorId?: string;
 }
 
-/** Staff override — a teacher marks a student present by hand (audited). */
+/** Session manual calls cannot bypass either proof. Daily corrections are separate. */
 export async function markManual(input: ManualMarkInput): Promise<MarkResult> {
   await assertSessionActor(input.schoolId, input.sessionId, input.actorId, 'MARK');
   const session = await loadActiveSession(input.schoolId, input.sessionId);
   if (session.status !== 'ACTIVE') throw badRequest('This attendance session is no longer active.');
   const outcome = await prisma.$transaction(async (tx) => {
+    await lockActiveSession(tx, input.schoolId, session.id);
     const verification = await tx.attendanceVerification.findUnique({ where: { sessionId_studentId: { sessionId: session.id, studentId: input.studentId } }, include: { student: true } });
     if (!verification) throw badRequest('That student is not on this class\'s register.');
-    if (verification.state === 'PRESENT') return { already: true as const, name: verification.student.name };
-    return await finalizePresent(tx, session, verification.id, verification.student, 'MANUAL', new Date(), null, input.actorId);
+    if (verification.state === 'PRESENT' && bothVerified(verification, session)) return { already: true as const, name: verification.student.name };
+    return await finalizePresent(tx, session, verification.id, verification.student, 'MANUAL', new Date(), input.actorId);
   });
   if ('already' in outcome) return { state: 'PRESENT', studentId: input.studentId, studentName: outcome.name ?? "Student", sessionId: session.id, reason: 'Already marked present' };
   outcome.deferred.emit();
