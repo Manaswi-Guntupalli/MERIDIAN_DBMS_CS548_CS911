@@ -1,5 +1,12 @@
 # Meridian: Trust-first School Operations and Semantic Knowledge Retrieval
 
+| Team member | SRN |
+| --- | --- |
+| GUNTUPALLI MANASWI | PES1UG24CS548 |
+| KOTRA SAI SOUMYA SRI | PES1UG24CS911 |
+
+Current submission entry points: [responsibilities](CONTRIBUTIONS.md), [evaluation walkthrough](DEMO.md), [requirements/rubric coverage](RUBRIC.md), [schema and diagrams](SCHEMA.md), [November testing evidence](TESTING.md).
+
 ## Objectives and problem
 
 Schools need more than a register: timetable conflicts, attendance verification, fee consistency, document processing and finding the correct policy cross several workflows. Meridian joins these operations with traceable decisions and database-enforced integrity. This submission extends the author's existing Meridian application; it does not claim that the prior code was newly written for this course.
@@ -91,13 +98,13 @@ The Python intelligence loader also uses PostgreSQL through psycopg, with quoted
 
 ## Screenshots and testing
 
-Existing application screenshots are in [the screenshot catalogue](../screenshots/README.md). They document the original product and must not be presented as new verification of migrated screens. See [testing evidence](TESTING.md) for executed checks and limits; follow [demo instructions](DEMO.md) to capture the new Knowledge Library and Database Lab during evaluation.
+Application screenshots are indexed in [the screenshot catalogue](../screenshots/README.md), with dated audit captures under [docs/audit/screenshots](../audit/screenshots). Earlier images remain historical evidence. November phone/browser screenshots and raw logs remain under ignored `tmp`; the portable [November verification summary](verification/2026-11-10-summary.json) records the extracted test results and their provenance. See [testing evidence](TESTING.md) for 216 backend tests, 53 Flutter tests, browser/device checks, 48 SQL examples and live diagram verification, each with its own scope. Follow [demo instructions](DEMO.md) for the remaining hands-on checks and fresh demonstration screenshots.
 
 ## Originality and contributions
 
 The starting repository is the author's existing Meridian project. Course-specific extensions are the Next.js migration, PostgreSQL relational migration, native SQL features, vector knowledge library, RLS and database verification/documentation. Attribution to the base project remains in the repository. Course acceptance of reuse must be established with the instructor; the repository alone cannot establish that approval.
 
-Two-member assignments are pending the team's decision. [Contribution record](CONTRIBUTIONS.md) provides an honest template. Do not fabricate a second author, backdate commits or claim automated work as a teammate's individual contribution. Each member must personally contribute to database and application development and be prepared to explain/modify their work in the viva.
+The course team is GUNTUPALLI MANASWI (PES1UG24CS548) and KOTRA SAI SOUMYA SRI (PES1UG24CS911). [The responsibility allocation](CONTRIBUTIONS.md) gives both members database, application, testing, documentation and cross-review scope. It identifies work to own and demonstrate rather than asserting unverified historical authorship. Separate commit-level attribution has not been established for both members; the real Git history remains unchanged. Each member must explain and modify personally understood work during the viva.
 
 ## Conclusion
 

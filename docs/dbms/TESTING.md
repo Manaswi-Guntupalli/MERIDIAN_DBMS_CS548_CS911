@@ -1,5 +1,31 @@
 # Executed verification and limits
 
+## November verification overview — 10 November 2026
+
+The latest results are below. They were extracted from existing local execution logs/results and checked against the versioned SQL/diagram evidence; the documentation update does not claim a fresh rerun of these suites. A portable [November evidence summary](verification/2026-11-10-summary.json) preserves counts, browser/device check descriptions and SHA-256 provenance for the otherwise ignored raw artifacts.
+
+| Check | Recorded result | Evidence and scope |
+| --- | --- | --- |
+| Full backend regression | **216 tests passed across 29 files** | `tmp/dual-full-server-tests.log`; covers authentication, integrity, attendance and related application regressions. |
+| Flutter regression after timetable repair | **53 tests passed** | `tmp/timetable-flutter-tests.log`; includes six timetable regressions in addition to the earlier 47-test run. |
+| Website dual-proof attendance | **11 checks passed** | Actual rendered QR decoding, both verification orders, pending/Present states, realtime updates, duplicate prevention and closed-session rejection. |
+| Real face engine/browser flow | **9 checks passed** | Public sample video, three accepted frames, consent, no blink gate, face-only pending and QR completion. This does not test the user's own physical face. |
+| Physical phone scanner lifecycle | **4 checks passed** | Rear-camera start, stop/dispose and restart on the connected phone. The evidence explicitly records **no physical optical QR scan** in that check. |
+| Physical phone timetable/API | **8 checks passed** | Correct period-label parsing, preserved login, five weekday views and no runtime errors during the check. |
+| Android builds after timetable repair | **6 APK artifacts built** | Universal debug/profile/release and split ARMv7/ARM64/x86-64 release; updated ARM64 release was checked on the connected phone. |
+| Actual school database SQL examples | **48/48 passed** | [SQL verification](../../database/rubric/VERIFICATION.md), [file hashes/results](../../database/rubric/verification.json). Fresh connection per file; persistent rows/schema unchanged; rollback does not restore sequence counters. |
+| Live schema and diagram coverage | **10/10 passed** | [Database/diagram verification](../../database/rubric/diagrams/VERIFICATION.md), read-only catalogue comparison: 43 application tables, 441 columns, 67 FKs. |
+| Exported diagram image structure | **32/32 passed** | [Image results](../../database/rubric/diagrams/sources/asset-verification.json); actual SVG/PNG labels, shapes, keys, participation, arrows and validity in both notations. |
+| Core service readiness | **6/6 passed** | `npm run check:services`: four HTTP processes, the school DB/pgvector/schema and the dedicated lab cluster/template. This is readiness, not a camera/provider test. |
+
+These are separate runs with different scopes; they should not be summed into a single newly executed test count. [QR + face walkthrough](../QR_ATTENDANCE.md), [face-service evidence](../FACE_RECOGNITION.md), [native PostgreSQL record](../NATIVE_POSTGRES.md) and [notification isolation](../NOTIFICATIONS.md) explain the feature changes. Full raw logs, device XML/screenshots and APKs remain local/generated files; the portable summary is intentionally limited to non-secret result metadata.
+
+### Reproduce and interpret results
+
+Use the root [check/test commands](../../README.md#run-checks-and-tests), the [native startup guide](../../README.md#run-on-the-configured-windows-computer), and [demo walkthrough](DEMO.md). Backend regression tests require a separate `_test` database and do not use school records as fixtures. SQL demonstrations intentionally use the school database with rollback-only writes; running them can advance audit sequences. Live application data changes can legitimately change the saved SQL output snapshot.
+
+The final Flutter analyzer rerun was not executed. Physical optical scanning and the intended enrolled person's accuracy under demo lighting remain hands-on checks. Provider delivery/background push, iOS builds, production load and a fresh Docker installation have their own environment requirements and are not established by this summary. Historical results below remain dated records of earlier revisions.
+
 ## Startup/documentation verification — 10 November 2026
 
 The configured native Windows launcher was run again with the existing services healthy. `npm run check:services` passed all six components: website, API, intelligence, loaded face engine, school PostgreSQL + pgvector and the dedicated SQL Lab PostgreSQL/template. The checker now probes the school database directly in a read-only transaction, independently of the API HTTP heartbeat. An unreachable-database smoke check returned exit code 1 with an explicit school-database failure, continued checking the lab and omitted connection credentials.
@@ -12,11 +38,11 @@ The SQL playground passed 13 dedicated backend tests and 14 browser checks, with
 
 Report regeneration passed three API tests and nine browser checks. Print export passed A4 portrait, Letter portrait, A4 landscape and a four-page stress report, with all narrative, recommendation and forecast text present inside page bounds and rendered pages visually checked. Both production builds passed. The commands are `node scripts/verify-report-regeneration.mjs`, `node scripts/verify-report-print.mjs`, and `node scripts/verify-sql-lab.mjs` (set `BROWSER_EXECUTABLE` for a local browser if required). These follow-up checks do not claim a new run of the entire intelligence, Flutter or native-PostgreSQL CI suites below.
 
-## Latest repair verification — 17 October 2026
+## Historical repair verification — 17 October 2026
 
 **147 server + 181 intelligence + 36 Flutter tests passed (364 total)**. Direct database verification passed 29 assertions with rollback-only fixtures. The final headless-browser run passed 40 checks, including authenticated realtime through Next.js, vector CRUD, manual notice drafting, student withdrawal/reactivation/deletion and fee recording. All 16 live service/query checks passed. Production builds, Flutter analysis and the Android debug APK passed.
 
-See [repair-results.json](../audit/repair-results.json), [browser results](../audit/browser-results.json), [fresh screenshots](../audit/screenshots/), [full remediation record and limits](../audit/REMEDIATION.md), and [provider activation](../NOTIFICATIONS.md). Current dependency evidence reports two moderate production findings and five high/four moderate findings when build tools are included. Actual camera/QR/background-push device testing and provider credentials remain pending. Native PostgreSQL CI status is recorded in the repair evidence.
+See [repair-results.json](../audit/repair-results.json), [browser results](../audit/browser-results.json), [screenshots from that run](../audit/screenshots/), [full remediation record and limits](../audit/REMEDIATION.md), and [provider activation](../NOTIFICATIONS.md). That run's dependency evidence reported two moderate production findings and five high/four moderate findings when build tools were included. Its camera/QR/background-push limitations describe the October scope; the November table above records subsequent checks. Native PostgreSQL CI status is recorded in the repair evidence.
 
 Native PostgreSQL 16/pgvector verification [passed in run 39048777354](https://github.com/Manaswi-Guntupalli/MERIDIAN_DBMS_CS548_CS911/actions/runs/39048777354), including clean install, build, all 147 server tests, 29 SQL assertions and real embeddings. Tested application source: commit `6e0223e`.
 
@@ -42,7 +68,7 @@ Date: 15 October 2026. Host: Windows, Node 22.21.0. Native Docker and PostgreSQL
 
 The first test attempts exposed transaction-scoped code that read settings through a separate client, exhausting a one-connection pool. Presence settings now use the current transaction; substitute configuration is loaded before its transaction. Expected uniqueness errors also required a clean connection in the isolated test protocol. The final full suite passed after these fixes. No failed runs are represented as successful verification.
 
-## Database assertions
+## Earlier database assertion scope
 
 `npm run db:verify` creates isolated fixtures inside one transaction and always rolls back on success:
 
@@ -85,4 +111,4 @@ PGlite's socket multiplexing differs from a native server. Native CI verified th
 
 ## Remaining evaluation actions
 
-Capture fresh UI screenshots and run camera/device workflows in the intended demo environment. Fill actual team identities and contributions, obtain any instructor approval needed for reusing the author's prior project, and prepare each member for modification/viva. These cannot be established by automated tests.
+Run the physical optical QR and personal enrolled-face checks in the intended demo environment and capture dated screenshots. Team identities and a responsibility allocation are now in [CONTRIBUTIONS.md](CONTRIBUTIONS.md); each member's actual work/commit attribution, modification/viva performance and any instructor approval needed for base-project reuse remain human evaluation evidence.

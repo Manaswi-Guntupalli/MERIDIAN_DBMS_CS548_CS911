@@ -205,4 +205,4 @@ The standalone rubric examples run against the actual school database inside rol
 | Configured `LUMEN_STORAGE_DIR` | Encrypted document files; keep the corresponding storage key and database together |
 | `tmp/` | Ignored tooling/evidence **and, on this workstation, live document storage**; never blanket-delete it |
 
-Current canonical database diagrams and dictionary are under `database/rubric/`. The older `docs/dbms/SCHEMA.md` is a previous Prisma-oriented write-up; use the live-catalogue dictionary and verified exports linked above for the final schema demonstration.
+Current canonical database diagrams and dictionary are under `database/rubric/`. [docs/dbms/SCHEMA.md](docs/dbms/SCHEMA.md) now redirects older documentation links to that maintained dictionary, both diagram notations and the mapping guide. The [course demo](docs/dbms/DEMO.md), [rubric map](docs/dbms/RUBRIC.md), [November tests](docs/dbms/TESTING.md) and [team responsibilities](docs/dbms/CONTRIBUTIONS.md) provide the submission walkthrough.

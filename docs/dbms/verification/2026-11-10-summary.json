@@ -1,0 +1,160 @@
+{
+  "recordType": "Summary extracted from existing local execution artifacts; not a new test run",
+  "assembledAtUtc": "2026-11-10T11:15:12.057327+00:00",
+  "executionDateLocal": "2026-11-10",
+  "checks": [
+    {
+      "name": "Backend regression suite",
+      "passed": 216,
+      "testFiles": 29,
+      "source": {
+        "path": "tmp/dual-full-server-tests.log",
+        "sha256": "4a8a62ad45829b8d5656c014ac9efac7c6ed8ff73b13ae252d1db57fc03e6570",
+        "modifiedAtUtc": "2026-11-10T07:16:55.709790+00:00"
+      }
+    },
+    {
+      "name": "Flutter regression suite including timetable fixes",
+      "passed": 53,
+      "source": {
+        "path": "tmp/timetable-flutter-tests.log",
+        "sha256": "df6619d9550094c7898b1f9b1b86b5cf532a7bedcf5c610482699b268494f736",
+        "modifiedAtUtc": "2026-11-10T07:44:09.618695+00:00"
+      }
+    },
+    {
+      "name": "Website mandatory QR and face checks",
+      "passed": 11,
+      "checks": [
+        "Teacher launches mandatory dual verification with no single-factor mode",
+        "The actual projected QR decodes to the correct session URL",
+        "QR alone remains pending on the student page and teacher register",
+        "The same student face completes QR-first attendance and the student page updates automatically",
+        "Teacher live register updates automatically to Present",
+        "Rescanning returns Already marked present without duplicating the event",
+        "Teacher ends the session and the summary reports both verification methods",
+        "The old projected QR is rejected after the teacher closes the session",
+        "Face-first evidence stays pending and appears as Awaiting QR",
+        "The same student QR completes face-first attendance without borrowing old-session proofs",
+        "No uncaught browser errors"
+      ],
+      "source": {
+        "path": "tmp/qr-verification/browser-results.json",
+        "sha256": "c09b0d85e5e52981daa5b5336fb383263c343f571c43c6e75b267d39acf5df18",
+        "modifiedAtUtc": "2026-11-10T07:05:57.660102+00:00"
+      },
+      "browserErrors": []
+    },
+    {
+      "name": "Real face engine and sample-video browser checks",
+      "passed": 9,
+      "checks": [
+        "Camera starts with the sample video",
+        "Bad capture receives guidance without being accepted",
+        "Three frames validated by the real face engine",
+        "Explicit consent required before enrollment",
+        "Enrollment succeeds and stored-template status refreshes",
+        "Real face engine verifies the sample face but cannot mark attendance without QR",
+        "Student QR plus the real verified face marks Present without blinking",
+        "Continuous recognition does not duplicate attendance",
+        "No uncaught browser errors"
+      ],
+      "source": {
+        "path": "tmp/face-verification/browser-results.json",
+        "sha256": "6711690e3004f6214aa46b87fd30c8acf8ddb4392154ca11104edffd30294daa",
+        "modifiedAtUtc": "2026-11-10T06:57:49.873092+00:00"
+      },
+      "browserErrors": []
+    },
+    {
+      "name": "Physical phone scanner lifecycle",
+      "passed": 4,
+      "checks": [
+        "Updated release restores Rohan student login with camera off on Home",
+        "Opening Scan starts the physical rear camera without errors",
+        "Leaving Scan stops the camera and disposes the scanner",
+        "Reopening Scan restarts the camera for a fresh QR scan"
+      ],
+      "source": {
+        "path": "tmp/qr-verification/phone-scanner-results.json",
+        "sha256": "624e79ac879482e03531e03c0b7c4d46d9415e6206a813ca7fb1a31de2095730",
+        "modifiedAtUtc": "2026-11-10T07:09:13.218947+00:00"
+      },
+      "opticalQrScanPerformed": false
+    },
+    {
+      "name": "Physical phone timetable and live API",
+      "passed": 8,
+      "checks": [
+        "Live API returns period labels and published 7A slots for the affected student",
+        "Updated release preserves the student account login",
+        "Mon renders the affected student class timetable without an error",
+        "Tue renders the affected student class timetable without an error",
+        "Wed renders the affected student class timetable without an error",
+        "Thu renders the affected student class timetable without an error",
+        "Fri renders the affected student class timetable without an error",
+        "No Flutter or Android runtime errors in the updated app process"
+      ],
+      "source": {
+        "path": "tmp/timetable-verification/phone-results.json",
+        "sha256": "388a81680d8da1d4a399a8c1b98740bd72e4d53af7018a272b530ad148f1febd",
+        "modifiedAtUtc": "2026-11-10T07:50:59.619582+00:00"
+      }
+    }
+  ],
+  "androidBuilds": [
+    {
+      "artifacts": [
+        "app-debug.apk"
+      ],
+      "source": {
+        "path": "tmp/timetable-debug-build.log",
+        "sha256": "5670e27b6f5f8ce68ff8e7d041d316ac8b972478ceb3f34f5e084f332d264e0e",
+        "modifiedAtUtc": "2026-11-10T07:48:20.536417+00:00"
+      }
+    },
+    {
+      "artifacts": [
+        "app-profile.apk"
+      ],
+      "source": {
+        "path": "tmp/timetable-profile-build.log",
+        "sha256": "f4933365bd81fdeb3363f8ef8ef6950a07bb5112fea730222be80a22fda798f9",
+        "modifiedAtUtc": "2026-11-10T07:49:32.487997+00:00"
+      }
+    },
+    {
+      "artifacts": [
+        "app-armeabi-v7a-release.apk",
+        "app-arm64-v8a-release.apk",
+        "app-x86_64-release.apk"
+      ],
+      "source": {
+        "path": "tmp/timetable-release-split-build.log",
+        "sha256": "3068866b3698e2f9056b01f462c09a41d2de1210114cb22b86887fc6450b8932",
+        "modifiedAtUtc": "2026-11-10T07:47:46.448489+00:00"
+      }
+    },
+    {
+      "artifacts": [
+        "app-release.apk"
+      ],
+      "source": {
+        "path": "tmp/timetable-release-build.log",
+        "sha256": "7031057d139df6cb0da9e97c72db2ff5357fc88754479973fa3c86c2fb90508f",
+        "modifiedAtUtc": "2026-11-10T07:51:16.410892+00:00"
+      }
+    }
+  ],
+  "scopeLimits": [
+    "Physical optical QR scan was not performed in the scanner-lifecycle check.",
+    "Real face integration used a public sample video; personal physical-camera accuracy is separate.",
+    "The final Flutter analyzer rerun was not executed.",
+    "Original raw logs and phone/browser evidence are under ignored tmp; this file preserves summaries and their SHA-256 provenance."
+  ],
+  "otherVersionedEvidence": [
+    "database/rubric/verification.json",
+    "database/rubric/diagrams/sources/live-verification.json",
+    "database/rubric/diagrams/sources/asset-verification.json"
+  ]
+}

@@ -2,7 +2,7 @@
 
 School operations with a **Next.js website, Express API, PostgreSQL + pgvector, Python analytics and face services, and a Flutter mobile app**. Website and mobile use the same school records and authenticated API.
 
-Project author: Manaswi Guntupalli. Actual team responsibilities and contributions belong in [CONTRIBUTIONS.md](docs/dbms/CONTRIBUTIONS.md).
+Base Meridian author: Manaswi Guntupalli. Course team: **GUNTUPALLI MANASWI (PES1UG24CS548)** and **KOTRA SAI SOUMYA SRI (PES1UG24CS911)**. [CONTRIBUTIONS.md](docs/dbms/CONTRIBUTIONS.md) records the responsibility allocation and distinguishes it from verified Git authorship.
 
 **Start here:** [run this configured computer](#run-on-the-configured-windows-computer) · [fresh-clone setup](#run-the-website-from-a-fresh-clone) · [find files for evaluation](#find-files-for-evaluation) · [project layout](PROJECT_LAYOUT.md) · [tech stack](techstack.md) · [technology justification](TECHNOLOGY%20JUSTIFICATION.md).
 
